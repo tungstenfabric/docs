@@ -3,4 +3,5 @@
 *.log
 *.gz
 *.swp
+.tox
 .DS_Store

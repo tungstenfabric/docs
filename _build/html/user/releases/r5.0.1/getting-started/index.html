@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Getting Started with Tungsten Fabric 5.0.1 &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Release Notes: Tungsten Fabric 5.0.1" href="../release-notes/index.html" />
+    <link rel="prev" title="Tungsten Fabric 5.0.1 Release" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html"><span><img src="../../../../_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributor/index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../administration/index.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../governance/index.html">Tungsten Fabric Governance</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Getting Started with Tungsten Fabric 5.0.1</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#hardware-and-software-requirements">Hardware and Software Requirements</a></li>
+<li><a class="reference internal" href="#steps-on-all-target-nodes">Steps on All Target Nodes</a></li>
+<li><a class="reference internal" href="#steps-on-the-deploy-node">Steps on the Deploy Node</a></li>
+<li><a class="reference internal" href="#run-tungsten-fabric">Run Tungsten Fabric</a></li>
+<li><a class="reference internal" href="#external-references">External References</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="../index.html" title="Previous Chapter: Tungsten Fabric 5.0.1 Release"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tungsten Fabr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../release-notes/index.html" title="Next Chapter: Release Notes: Tungsten Fabric 5.0.1"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Release Notes... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Getting Started with Tungsten Fabric 5.0.1</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#hardware-and-software-requirements">Hardware and Software Requirements</a></li>
+<li><a class="reference internal" href="#steps-on-all-target-nodes">Steps on All Target Nodes</a></li>
+<li><a class="reference internal" href="#steps-on-the-deploy-node">Steps on the Deploy Node</a></li>
+<li><a class="reference internal" href="#run-tungsten-fabric">Run Tungsten Fabric</a></li>
+<li><a class="reference internal" href="#external-references">External References</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="../index.html" title="Previous Chapter: Tungsten Fabric 5.0.1 Release"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tungsten Fabr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="../release-notes/index.html" title="Next Chapter: Release Notes: Tungsten Fabric 5.0.1"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Release Notes... &raquo;</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="getting-started-with-tungsten-fabric-5-0-1">
+<h1>Getting Started with Tungsten Fabric 5.0.1<a class="headerlink" href="#getting-started-with-tungsten-fabric-5-0-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Deployment instructions presented in this document install and configure Tungsten Fabric SDN solution in a 3 node environment (1 OpenStack/Tungsten Fabric Controller, 2 OpenStack/Tungsten Fabric Computes) using OpenStack Ocata as orchestrator. We will further refer to these 3 nodes as ‘Target nodes’.
+A node can be either a virtual machine or a bare-metal server; either way, user experience is seamless.</p>
+<p>Tungsten Fabric solution is provisioned via <cite>Ansible</cite> automation tool. In order to deploy Tungsten Fabric solution, besides the 3 nodes mentioned earlier, we also need another node, from which we will run <cite>Ansible</cite> commands. Similarly, this node can be either a virtual machine or a bare-metal server. We will refer to this node as ‘Deploy node’.</p>
+<p>Supported Operating Systems for the Target nodes and the Deploy node are <cite>RedHat7.5</cite> or greater and <cite>CentOS7.5</cite> or greater.</p>
+</div>
+<div class="section" id="hardware-and-software-requirements">
+<h2>Hardware and Software Requirements<a class="headerlink" href="#hardware-and-software-requirements" title="Permalink to this headline">¶</a></h2>
+<p>1st thing that needs to be established before deploying Tungsten Fabric solution is the hardware on which we will deploy it. Below are specified the minimum hardware and software requirements that need to be met for a smooth Tungsten Fabric experience.</p>
+<p>Hardware:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>Target Nodes:</dt>
+<dd><ul class="first last">
+<li>At least 4 CPU cores</li>
+<li>At least 64 GB RAM</li>
+<li>At least 300 GB storage</li>
+<li>At least one Ethernet port</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Deploy Node:</dt>
+<dd><ul class="first last">
+<li>At least 2 CPU cores</li>
+<li>At least 4 GB RAM</li>
+<li>At least 50 GB storage</li>
+<li>At least one Ethernet port</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Software:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>RedHat 7.5</cite> or greater/<cite>CentOS 7.5</cite> or greater</li>
+<li>valid <cite>RedHat 7.5</cite> subscription, in case <cite>RedHat 7.5</cite> is used as OS (Operating System)</li>
+<li><cite>Kernel release 3.10.0.862*</cite> or greater</li>
+<li><cite>Ansible 2.6.4</cite> or greater</li>
+<li><cite>Docker 18.06.1-ce</cite> or greater</li>
+<li><cite>OpenStack Newton/Ocata/Pike/Queens</cite></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="steps-on-all-target-nodes">
+<h2>Steps on All Target Nodes<a class="headerlink" href="#steps-on-all-target-nodes" title="Permalink to this headline">¶</a></h2>
+<p>Please note that all commands, on all Target nodes, have been run as <strong>root</strong>.</p>
+<ol class="arabic">
+<li><p class="first">Update all installed packages and reboot:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">yum</span> <span class="pre">update</span> <span class="pre">-y</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">reboot</span></code></p>
+</li>
+<li><p class="first">Generate SSH public key:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">rsa</span></code></p>
+</li>
+<li><p class="first">Copy SSH public key (from each Target node) to the Deploy node:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-copy-id</span> <span class="pre">root&#64;&lt;Deploy_Node_IP_Address&gt;</span></code></p>
+</li>
+</ol>
+</div>
+<div class="section" id="steps-on-the-deploy-node">
+<h2>Steps on the Deploy Node<a class="headerlink" href="#steps-on-the-deploy-node" title="Permalink to this headline">¶</a></h2>
+<p>Please note that all commands, on the Deploy node, have been run as <strong>root</strong>.</p>
+<ol class="arabic">
+<li><p class="first">Install prerequisites:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">yum-plugin-priorities</span> <span class="pre">yum-utils</span> <span class="pre">vim</span> <span class="pre">net-tools</span> <span class="pre">git</span> <span class="pre">ansible</span></code></p>
+</li>
+<li><p class="first">Generate SSH public key:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">rsa</span></code></p>
+</li>
+<li><p class="first">Copy SSH public key from the Deploy node to the 3 Target nodes:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-copy-id</span> <span class="pre">root&#64;&lt;Target_Node_IP_Address&gt;</span></code></p>
+</li>
+<li><p class="first">Clone the <cite>contrail-ansible-deployer</cite> repo, <cite>R5.0</cite> branch:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Juniper/contrail-ansible-deployer.git</span> <span class="pre">-b</span> <span class="pre">R5.0</span></code></p>
+</li>
+<li><p class="first">Replace the content of <cite>contrail-ansible-deployer/config/instances.yaml</cite> with the following and fill in placeholders - marked as <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> - with info from your setup:</p>
+<p>Worth mentioning that it is recommended for each Target node to have at least 2 Ethernet ports.
+1st Ethernet port should be used for management/provisioning and control plane traffic. 2nd Ethernet port should be used for dataplane traffic. Info regarding the dataplane traffic is set in the following lines in <code class="docutils literal notranslate"><span class="pre">instances.yaml</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">PHYSICAL_INTERFACE:</span> <span class="pre">&lt;Iface_Name_That_vhost0_Will_Use&gt;</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">VROUTER_GATEWAY:</span> <span class="pre">&lt;Gateway_IP_Address_for_Dataplane_Network&gt;</span></code></p>
+<p>Therefore, if we have a 2nd Ethernet port for the dataplane traffic, we will fill in the placeholders from the lines above with info associated to the 2nd Ethernet port.
+Otherwise, if only 1 Ethernet port is used, we will fill in all the placeholders with info associated to this Ethernet port.</p>
+</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">global_configuration</span><span class="p">:</span>
+  <span class="n">CONTAINER_REGISTRY</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">CONTAINER_REGISTRY</span> <span class="n">tungstenfabric</span>
+  <span class="n">REGISTRY_PRIVATE_INSECURE</span><span class="p">:</span> <span class="kc">True</span>
+<span class="n">provider_config</span><span class="p">:</span>
+  <span class="n">bms</span><span class="p">:</span>
+    <span class="n">ssh_pwd</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">ssh_root_password</span><span class="o">&gt;</span>
+    <span class="n">ssh_user</span><span class="p">:</span> <span class="n">root</span>
+    <span class="n">ntpserver</span><span class="p">:</span> <span class="n">pool</span><span class="o">.</span><span class="n">ntp</span><span class="o">.</span><span class="n">org</span>
+    <span class="n">domainsuffix</span><span class="p">:</span> <span class="n">local</span>
+<span class="n">instances</span><span class="p">:</span>
+  <span class="n">bms1</span><span class="p">:</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="n">bms</span>
+    <span class="n">ip</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">tungsten_fabric_ip_address</span> <span class="o">&lt;</span><span class="n">Tungsten_Fabric_Controller_Mgmt_IP_Address</span><span class="o">&gt;</span>
+    <span class="n">roles</span><span class="p">:</span>
+        <span class="n">config_database</span><span class="p">:</span>
+        <span class="n">config</span><span class="p">:</span>
+        <span class="n">control</span><span class="p">:</span>
+        <span class="n">analytics_database</span><span class="p">:</span>
+        <span class="n">analytics</span><span class="p">:</span>
+        <span class="n">webui</span><span class="p">:</span>
+        <span class="n">openstack</span><span class="p">:</span>
+  <span class="n">bms2</span><span class="p">:</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="n">bms</span>
+    <span class="n">ip</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Tungsten_Fabric_Compute1_Mgmt_IP_Address</span><span class="o">&gt;</span>
+    <span class="n">roles</span><span class="p">:</span>
+        <span class="n">vrouter</span><span class="p">:</span>
+        <span class="n">openstack_compute</span><span class="p">:</span>
+  <span class="n">bms3</span><span class="p">:</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="n">bms</span>
+    <span class="n">ip</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Tungsten_Fabric_Compute2_Mgmt_IP_Address</span><span class="o">&gt;</span>
+    <span class="n">roles</span><span class="p">:</span>
+        <span class="n">vrouter</span><span class="p">:</span>
+        <span class="n">openstack_compute</span><span class="p">:</span>
+<span class="n">contrail_configuration</span><span class="p">:</span>
+  <span class="n">CONTAINER_REGISTRY</span><span class="p">:</span> <span class="o">*</span><span class="n">CONTAINER_REGISTRY</span>
+  <span class="n">CONTRAIL_VERSION</span><span class="p">:</span> <span class="n">r5</span><span class="o">.</span><span class="mf">0.1</span>
+  <span class="n">CLOUD_ORCHESTRATOR</span><span class="p">:</span> <span class="n">openstack</span>
+  <span class="n">RABBITMQ_NODE_PORT</span><span class="p">:</span> <span class="mi">5673</span>
+  <span class="n">VROUTER_GATEWAY</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Gateway_IP_Address_for_Dataplane_Network</span><span class="o">&gt;</span>
+  <span class="n">PHYSICAL_INTERFACE</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Iface_Name_That_vhost0_Will_Use</span><span class="o">&gt;</span>
+  <span class="n">AUTH_MODE</span><span class="p">:</span> <span class="n">keystone</span>
+  <span class="n">KEYSTONE_AUTH_HOST</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">KEYSTONE_AUTH_URL_VERSION</span><span class="p">:</span> <span class="o">/</span><span class="n">v3</span>
+  <span class="n">KEYSTONE_AUTH_ADMIN_USER</span><span class="p">:</span> <span class="n">admin</span>
+  <span class="n">KEYSTONE_AUTH_ADMIN_PASSWORD</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">keystone_passwd</span> <span class="o">&lt;</span><span class="n">KeyStone_Admin_Password</span><span class="o">&gt;</span>
+  <span class="n">imageManager_ip</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">computeManager_ip</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">ANALYTICSDB_NODES</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">CONTROLLER_NODES</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">WEBUI_NODES</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">ANALYTICS_NODES</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">CONTROL_NODES</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+  <span class="n">CONFIGDB_NODES</span><span class="p">:</span> <span class="o">*</span><span class="n">tungsten_fabric_ip_address</span>
+<span class="n">kolla_config</span><span class="p">:</span>
+  <span class="n">kolla_globals</span><span class="p">:</span>
+    <span class="n">enable_haproxy</span><span class="p">:</span> <span class="n">no</span>
+    <span class="n">enable_ironic</span><span class="p">:</span> <span class="n">no</span>
+    <span class="n">enable_swift</span><span class="p">:</span> <span class="n">no</span>
+  <span class="n">kolla_passwords</span><span class="p">:</span>
+    <span class="n">keystone_admin_password</span><span class="p">:</span> <span class="o">*</span><span class="n">keystone_passwd</span>
+</pre></div>
+</div>
+<ol class="arabic" start="6">
+<li><p class="first">Go to <cite>contrail-ansible-deployer</cite> folder and run the following <cite>ansible</cite> commands:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">cd</span> <span class="pre">contrail-ansible-deployer</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">inventory/</span> <span class="pre">-e</span> <span class="pre">orchestrator=openstack</span> <span class="pre">playbooks/configure_instances.yml</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">inventory/</span> <span class="pre">playbooks/install_openstack.yml</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">inventory/</span> <span class="pre">-e</span> <span class="pre">orchestrator=openstack</span> <span class="pre">playbooks/install_contrail.yml</span></code></p>
+</li>
+<li><p class="first">After the Tungsten Fabric deployment, we can run <code class="docutils literal notranslate"><span class="pre">contrail-status</span></code> command on both Tungsten Fabric Controller node and Tungsten Fabric Compute Node(s) to check whether Tungsten Fabric Docker containers are up and running. A successful installation should display all Tungsten Fabric containers as <cite>active</cite>.</p>
+<p>Below it is displayed the output of <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">contrail-status</span></code> command run on Tungsten Fabric Controller node and on Tungsten Fabric Compute node, respectively:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">contrail-status</span></code></p>
+</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">==</span> <span class="n">Contrail</span> <span class="n">control</span> <span class="o">==</span>
+<span class="n">control</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">nodemgr</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">named</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">dns</span><span class="p">:</span> <span class="n">active</span>
+
+<span class="o">==</span> <span class="n">Contrail</span> <span class="n">config</span><span class="o">-</span><span class="n">database</span> <span class="o">==</span>
+<span class="n">nodemgr</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">zookeeper</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">rabbitmq</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">cassandra</span><span class="p">:</span> <span class="n">active</span>
+
+<span class="o">==</span> <span class="n">Contrail</span> <span class="n">database</span> <span class="o">==</span>
+<span class="n">kafka</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">nodemgr</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">zookeeper</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">cassandra</span><span class="p">:</span> <span class="n">active</span>
+
+<span class="o">==</span> <span class="n">Contrail</span> <span class="n">analytics</span> <span class="o">==</span>
+<span class="n">snmp</span><span class="o">-</span><span class="n">collector</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">query</span><span class="o">-</span><span class="n">engine</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">api</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">alarm</span><span class="o">-</span><span class="n">gen</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">nodemgr</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">collector</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">topology</span><span class="p">:</span> <span class="n">active</span>
+
+<span class="o">==</span> <span class="n">Contrail</span> <span class="n">webui</span> <span class="o">==</span>
+<span class="n">web</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">job</span><span class="p">:</span> <span class="n">active</span>
+
+<span class="o">==</span> <span class="n">Contrail</span> <span class="n">config</span> <span class="o">==</span>
+<span class="n">api</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">zookeeper</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">svc</span><span class="o">-</span><span class="n">monitor</span><span class="p">:</span> <span class="n">backup</span>
+<span class="n">nodemgr</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">device</span><span class="o">-</span><span class="n">manager</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">cassandra</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">rabbitmq</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">schema</span><span class="p">:</span> <span class="n">active</span>
+
+<span class="c1"># contrail-status</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vrouter</span> <span class="n">kernel</span> <span class="n">module</span> <span class="ow">is</span> <span class="n">PRESENT</span>
+<span class="o">==</span> <span class="n">Contrail</span> <span class="n">vrouter</span> <span class="o">==</span>
+<span class="n">nodemgr</span><span class="p">:</span> <span class="n">active</span>
+<span class="n">agent</span><span class="p">:</span> <span class="n">active</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-tungsten-fabric">
+<h2>Run Tungsten Fabric<a class="headerlink" href="#run-tungsten-fabric" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Sometimes, the <cite>neutron-server</cite> Docker container is continuously restarting.</p>
+<p><strong>Workaround</strong> Comment out <cite>service_plugins</cite> line from <cite>/etc/kolla/neutron-server/neutron.conf</cite> located on the Tungsten Fabric Controller node and then restart <cite>neutron_server</cite> docker container so that the change is taken into consideration:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">sed</span> <span class="pre">-i</span> <span class="pre">'s/^service_plugins</span> <span class="pre">=</span> <span class="pre">neutron_plugin_contrail.plugins.opencontrail.loadbalancer.v2.plugin.LoadBalancerPluginV2/#service_plugins</span> <span class="pre">=</span> <span class="pre">neutron_plugin_contrail.plugins.opencontrail.loadbalancer.v2.plugin.LoadBalancerPluginV2/g'</span> <span class="pre">/etc/kolla/neutron-server/neutron.conf</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">restart</span> <span class="pre">neutron_server</span></code></p>
+</div></blockquote>
+<p>Next, the user can login via Tungsten Fabric Web UI, by accessing:</p>
+<p><code class="docutils literal notranslate"><span class="pre">https://&lt;Tungsten_Fabric_Controller_Mgmt_IP_Address&gt;:8143</span></code></p>
+<p>with the following credentials:</p>
+<p>Username: <code class="docutils literal notranslate"><span class="pre">admin</span></code></p>
+<p>Password: <code class="docutils literal notranslate"><span class="pre">&lt;KeyStone_Admin_Password&gt;</span></code></p>
+<p>After successful login, the following page is displayed:</p>
+<p>&lt;missing image&gt;</p>
+<p>Happy Hacking!</p>
+</div></blockquote>
+</div>
+<div class="section" id="external-references">
+<h2>External References<a class="headerlink" href="#external-references" title="Permalink to this headline">¶</a></h2>
+<p>Below are reference links related to further details of features and use cases.</p>
+<ul class="simple">
+<li>OpenStack: <a class="reference external" href="https://www.openstack.org/">https://www.openstack.org/</a></li>
+<li>DPDK: <a class="reference external" href="https://www.dpdk.org/">https://www.dpdk.org/</a></li>
+<li>Kubernetes: <a class="reference external" href="https://kubernetes.io/">https://kubernetes.io/</a></li>
+<li>Red Hat: <a class="reference external" href="https://www.redhat.com/">https://www.redhat.com/</a></li>
+<li>Ubuntu: <a class="reference external" href="https://www.ubuntu.com/">https://www.ubuntu.com/</a></li>
+<li>Contrail Feature Guide: <a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html">https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html</a></li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/user/releases/r5.0.1/getting-started/index.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

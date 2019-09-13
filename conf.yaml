@@ -1,0 +1,32 @@
+---
+project: TungstenFabric
+release: master
+version: master
+author: Tungsten Fabric Project
+copyright: 2019, Tungsten Fabric Project
+
+needs_sphinx: '1.6.5'
+extensions:
+  - sphinx.ext.autodoc
+  - sphinx.ext.doctest
+  - sphinx.ext.intersphinx
+  - sphinx.ext.graphviz
+  - sphinx.ext.todo
+  - sphinx.ext.coverage
+  - sphinx.ext.viewcode
+exclude_patterns:
+  - .DS_Store
+  - _build
+  - Thumbs.db
+  - .tox
+todo_include_todos: false
+
+html_favicon: _static/favicon.ico
+html_logo: _static/logo.png
+html_static_path:
+  - _static
+html_theme: bootstrap
+html_theme_options:
+  bootswatch_theme: united
+  navbar_sidebarrel: true
+  source_link_position: footer

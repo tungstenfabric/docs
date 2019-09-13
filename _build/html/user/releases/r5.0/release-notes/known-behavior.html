@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Known Behavior &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Resolved Issues" href="resolved-issues.html" />
+    <link rel="prev" title="Supported Platforms Tungsten Fabric 5.0" href="supported-platforms-50-vnc.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html"><span><img src="../../../../_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributor/index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../administration/index.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../governance/index.html">Tungsten Fabric Governance</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Known Behavior</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="supported-platforms-50-vnc.html" title="Previous Chapter: Supported Platforms Tungsten Fabric 5.0"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Supported Pla...</span>
+    </a>
+  </li>
+  <li>
+    <a href="resolved-issues.html" title="Next Chapter: Resolved Issues"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Resolved Issues &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Known Behavior</a></li>
+</ul>
+
+  <li>
+    <a href="supported-platforms-50-vnc.html" title="Previous Chapter: Supported Platforms Tungsten Fabric 5.0"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Supported Pla...</span>
+    </a>
+  </li>
+  <li>
+    <a href="resolved-issues.html" title="Next Chapter: Resolved Issues"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Resolved Issues &raquo;</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="known-behavior">
+<h1>Known Behavior<a class="headerlink" href="#known-behavior" title="Permalink to this headline">¶</a></h1>
+<p>This section lists known limitations with this release. Bug numbers are listed and can be researched in <a class="reference external" href="https://launchpad.net">Launchpad.net</a>  .</p>
+<ul class="simple">
+<li>1694343 In DPDK vRouter use cases such as SNAT and LBaas that require netns, you cannot set jumbo MTU size. Maximum MTU allowed: &lt;=1500 .</li>
+</ul>
+<p>There is no workaround at present.</p>
+<ul class="simple">
+<li>1716308 When the vRouter receives the head fragment of an ICMPv6 packet, the head fragment is immediately enqueued to the assembler. The flow is created as hold flow and then trapped to the agent. If fragments corresponding to this head fragment are already in the assembler or if new fragments arrive immediately after the head fragment, the assembler releases them to flow module. Fragments get enqueued in the hold queue if agent does not write flow action by the time the assembler releases fragments to the flow module. A maximum of three fragments are enqueued in the hold queue at a time. The remaining fragments are dropped from the assembler to the flow module.</li>
+</ul>
+<p>As a workaround, the head fragment is enqueued to assembler only after flow action is written by agent. If the flow is already present in non-hold state, it is immediately enqueued to assembler.</p>
+<ul class="simple">
+<li>1730021 In Tungsten Fabric Security, non-admin users cannot access global scope objects when  global_accessis set to  0.</li>
+</ul>
+<p>As a workaround, for non-admin users to access global scope objects, set  global_accessto  5.</p>
+<ul class="simple">
+<li>1733027 In a multi-node analytics cluster, when one of analytics nodes shuts down or is rebooted, the contrail-status on the other analytics nodes displays the status of contrail-analytics-api and contrail-alarm-gen as initializing with the error message:  Redis-UVE:&lt;ip-address of analytics node that was shutdown/rebooted&gt;:6381[None] connection down. This does not impact the functioning of the analytics cluster.</li>
+<li>1735590 In Kubernetes and OpenShift based deployments when we crate SNAT router and extend cluster-network to that SNAT router host is losing all connectivity.</li>
+</ul>
+<p>As a workaround, if you want to use the SNAT feature in Tungsten Fabric, disassociate the ip-fabric-cluster-network-default policy and delete it.</p>
+<ul class="simple">
+<li>1749614 In a Helm-based provisioned cluster, VM launch fails if MariaDB replication is set to &gt;1.</li>
+<li>1754742 When you receive an error message during Kolla provisioning, rerunning the code will not work. In order for the provisioning to work, restart provisioning from scratch.</li>
+<li>1755997 Kubernetes IP fabric feature is supported only on the pods and not the services.</li>
+<li>1759576 Metadata SSL works only in HA deployment mode.</li>
+<li>1759695 After deleting a vRouter chart with DPDK, the NICS do not rebind to the host in Helm.</li>
+<li>1761137 High Availability provisioning of Kubernetes master is not supported.</li>
+<li>1764739 Docker restart hangs indefinitely and Docker daemon stops running post the hang.</li>
+<li>1764925 RabbitMQ clustering fails on certain nodes in a setup. As a workaround, restart the container that is not in the cluster.</li>
+<li>1765277 When a snapshot of an active VM fails, shutdown the VM before generating the snapshot.</li>
+<li>1765281 On a DPDK compute  vif list –ratecore-dumps with traffic.</li>
+<li>1765487 A false alarm for config service is generated when  configand  configdbservices are installed on different nodes. Ignore the false alarm.</li>
+<li>1766035 On a Kubernetes cluster, a controller node reboot fails to re-establish the BGP XMPP connection with compute nodes. As a workaround, flush the iptables on the Kubernetes master.</li>
+<li>1766315 After provisioning Tungsten Fabric by using a Helm-based provisioned cluster, restart nova-compute container.</li>
+<li>1766371 OpenShift use cases work in non-HA environments only.</li>
+<li>1767094 Kube DNS fails to come online come up in a multi-interface setup.</li>
+<li>1767466 In Tungsten Fabric 5.0 release, with Tungsten Fabric Helm charts, Kubernetes ingress Web UI URL does not work when Web UI is started with secure (TLS) option.</li>
+<li>1767470 SR-IOV installation is not supported with contrail-helm-deployer.</li>
+<li>1767472 SR-IOV with DPDK co-existence deployment is not supported using contrail-helm-deployer.</li>
+<li>1759428 Cannot provision an external MX series router by running the  provision_mx.pyscript that contains the list of external routers.</li>
+</ul>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/user/releases/r5.0/release-notes/known-behavior.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

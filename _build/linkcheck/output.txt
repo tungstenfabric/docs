@@ -1,0 +1,126 @@
+administration/index.rst:6: [local] /User
+contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:59: [redirected permanently] https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account to https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account
+contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:34: [redirected with Found] https://gerrit.tungsten.io to https://gerrit.tungsten.io/r/
+contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:24: [redirected permanently] http://identity.linuxfoundation.org to https://identity.linuxfoundation.org/
+governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3457 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3457
+governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3936 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3936
+governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3457 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3457
+governance/index.rst:28: [local] tungsten-fabric-project-technical-charter.rst
+governance/index.rst:29: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:35: [local] architecture-review-board/arb-members.rst
+governance/index.rst:36: [local] community-committee/cc-members.rst
+governance/index.rst:37: [local] technical-committee/tc-members.rst
+governance/index.rst:38: [local] acc-members.rst
+governance/index.rst:39: [local] tsc-atc-members.rst
+governance/index.rst:53: [local] tsc-voters-and-candidates/tsc-voters-and-candidates-diagram.png
+governance/index.rst:64: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:67: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:72: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:80: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:85: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:90: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:94: [local] tungsten-fabric-project-technical-charter.rst
+governance/index.rst:94: [local] tungsten-fabric-community-governance.rst
+governance/index.rst:106: [local] tungsten-fabric-community-governance.rst
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
+governance/tungsten-fabric-community-governance.rst:456: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
+governance/tungsten-fabric-community-governance.rst:565: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
+governance/tungsten-fabric-community-governance.rst:728: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
+governance/tungsten-fabric-community-governance.rst:463: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
+governance/tungsten-fabric-community-governance.rst:463: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
+governance/tungsten-fabric-community-governance.rst:456: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
+governance/tungsten-fabric-community-governance.rst:728: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
+governance/tungsten-fabric-project-technical-charter.rst:274: [redirected permanently] http://developercertificate.org to https://developercertificate.org/
+governance/tungsten-fabric-project-technical-charter.rst:285: [redirected permanently] http://creativecommons.org/licenses/by/4.0/ to https://creativecommons.org/licenses/by/4.0/
+index.rst:44: [redirected with Found] https://gerrit.tungsten.io to https://gerrit.tungsten.io/r/
+index.rst:43: [redirected with Found] https://lists.tungsten.io to https://lists.tungsten.io/g/announce
+user/releases/r5.0.1/getting-started/index.rst:268: [redirected permanently] https://www.redhat.com/ to https://www.redhat.com/en
+user/releases/r5.0.1/getting-started/index.rst:269: [redirected permanently] https://www.ubuntu.com/ to https://ubuntu.com/
+user/releases/r5.0.1/release-notes/index.rst:8: [local] tungsten-release-notes-5.0.1-title.html
+user/releases/r5.0.1/release-notes/index.rst:10: [local] introduction.html
+user/releases/r5.0.1/release-notes/index.rst:12: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/index.rst:14: [local] supported-platforms-50-vnc.html
+user/releases/r5.0.1/release-notes/index.rst:16: [local] known-behavior.html
+user/releases/r5.0.1/release-notes/index.rst:18: [local] resolved-issues.html
+user/releases/r5.0.1/release-notes/index.rst:20: [local] deprecated-items.html
+user/releases/r5.0.1/release-notes/index.rst:22: [local] request-support.html
+user/releases/r5.0.1/release-notes/index.rst:24: [local] request-support.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:19: [local] introduction.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:22: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:24: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:27: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:30: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:33: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:36: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:39: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:42: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:45: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:48: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:51: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:54: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:57: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:60: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:63: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:66: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:69: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:72: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:75: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:78: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:81: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:84: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:87: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:90: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:93: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:96: [local] new-and-changed-features.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:99: [local] known-behavior.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:102: [local] resolved-issues.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:105: [local] deprecated-items.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:108: [local] request-support.html
+user/releases/r5.0.1/release-notes/tungsten-release-notes-5.0.1-title.rst:111: [local] request-support.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:17: [local] intro.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:20: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:22: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:25: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:28: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:31: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:34: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:37: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:40: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:43: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:46: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:49: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:52: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:55: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:58: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:61: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:64: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:67: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:70: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:73: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:76: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:79: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:82: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:86: [local] supported-platforms-50-vnc.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:89: [local] known-behavior.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:92: [local] resolved-issues.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:95: [local] deprecated-items.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:98: [local] request-support.html
+user/releases/r5.0/release-notes/contrail-release-notes-5.0-title.rst:101: [local] request-support.html
+user/releases/r5.0/release-notes/index.rst:6: [local] contrail-release-notes-5.0-title.html
+user/releases/r5.0/release-notes/index.rst:8: [local] intro.html
+user/releases/r5.0/release-notes/index.rst:10: [local] new-and-changed-features.html
+user/releases/r5.0/release-notes/index.rst:12: [local] supported-platforms-50-vnc.html
+user/releases/r5.0/release-notes/index.rst:14: [local] known-behavior.html
+user/releases/r5.0/release-notes/index.rst:16: [local] resolved-issues.html
+user/releases/r5.0/release-notes/index.rst:18: [local] deprecated-items.html
+user/releases/r5.0/release-notes/index.rst:20: [local] request-support.html

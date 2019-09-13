@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Technical Charter (the “Charter”) &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Introduction" href="tungsten-fabric-community-governance.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html"><span><img src="../_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributor/index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../administration/index.html">Administration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tungsten Fabric Governance</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Technical Charter (the “Charter”)</a></li>
+<li><a class="reference internal" href="#for">for</a></li>
+<li><a class="reference internal" href="#tungsten-fabric-project-a-series-of-lf-projects-llc">Tungsten Fabric Project a Series of LF Projects, LLC</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="tungsten-fabric-community-governance.html" title="Previous Chapter: Introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Introduction</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Technical Charter (the “Charter”)</a></li>
+<li><a class="reference internal" href="#for">for</a></li>
+<li><a class="reference internal" href="#tungsten-fabric-project-a-series-of-lf-projects-llc">Tungsten Fabric Project a Series of LF Projects, LLC</a></li>
+</ul>
+
+  <li>
+    <a href="tungsten-fabric-community-governance.html" title="Previous Chapter: Introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Introduction</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="technical-charter-the-charter">
+<h1>Technical Charter (the “Charter”)<a class="headerlink" href="#technical-charter-the-charter" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="for">
+<h1>for<a class="headerlink" href="#for" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="tungsten-fabric-project-a-series-of-lf-projects-llc">
+<h1>Tungsten Fabric Project a Series of LF Projects, LLC<a class="headerlink" href="#tungsten-fabric-project-a-series-of-lf-projects-llc" title="Permalink to this headline">¶</a></h1>
+<p>Adopted March 13, 2018</p>
+<p>This charter (the “Charter”) sets forth the responsibilities and
+procedures for technical contribution to, and oversight of, the Tungsten
+Fabric Project, which has been established as Tungsten Fabric Project a
+Series of LF Projects, LLC (the “Project”). LF Projects, LLC (“LF
+Projects”) is a Delaware series limited liability company. All
+Contributors to the Project must comply with the terms of this Charter.</p>
+<ol class="arabic">
+<li><p class="first"><strong>Mission and Scope of the Project</strong></p>
+<ol class="loweralpha simple">
+<li>The Tungsten Fabric Project is an open source project that is
+built using standards-based protocols and provides all the
+necessary components for network virtualization and network
+security. The components of the Project include: an SDN
+controller, virtual router, analytics engine, published northbound
+APIs, hardware integration features, cloud orchestration software
+and an extensive REST API.</li>
+<li>The mission of the Project is to facilitate the development,
+evolution and adoption of the Tungsten Fabric Project codebase to
+enable a comprehensive network and security fabric that
+encompasses various open source ecosystems, including virtual
+machine-based public and private clouds, container-based clouds
+and ecosystems and other computational platforms. The community’s
+goal is to maintain and improve the production-ready and scalable
+nature of the Project while accelerating development and
+attracting additional developers and users to the platform.</li>
+<li>The scope of the Project includes development of the Tungsten
+Fabric code base under an OSI-approved open source license
+supporting the mission, including documentation, testing,
+integration and the creation of other artifacts that aid the
+development, deployment, operation or adoption of the Project.</li>
+</ol>
+</li>
+<li><p class="first"><strong>Technical Steering Committee</strong></p>
+<ol class="loweralpha simple">
+<li>The TSC is responsible for:<ol class="lowerroman">
+<li>Setting high level architecture goals and coordinating
+overall project architecture and technical direction</li>
+<li>Selecting technology stack, software features and supported
+hardware including</li>
+<li>approving project or system proposals (including, but not
+limited to, incubation, deprecation, and changes to a
+sub-project’s scope);</li>
+<li>organizing sub-projects and removing sub-projects;</li>
+<li>Developing Project use cases;</li>
+<li>Defining and monitoring Project technical processes and
+interfaces with third party code and external projects
+including creating sub-committees or working groups to focus
+on cross-project technical issues and requirements;</li>
+<li>Overseeing the Infrastructure Working Group other TSC
+working groups;</li>
+<li>Appointing representatives to work with other open source or
+open standards communities;</li>
+<li>Establishing community norms, workflows, issuing releases,
+and security issue reporting policies;</li>
+<li>Approving and implementing policies and processes for
+contributing (to be published in the CONTRIBUTING file) and
+coordinating with other project committees to resolve
+matters or concerns that may arise as set forth in Section 7
+of this Charter;</li>
+<li>Engaging in discussions, seeking consensus, and where
+necessary, voting on technical matters relating to the code
+base that affect multiple projects;</li>
+<li>Setting target dates for software development and testing;</li>
+<li>Coordinating any marketing, events, or communications
+regarding the Project with the Manager of LF Projects and
+the Marketing Advisory Council of the LF Networking Fund of
+The Linux Foundation (“LFN”);</li>
+<li>Establishing a vetting process for maintaining security and
+integrity of new and/or changed code base and documentation,
+including vetting for malicious code and spyware; and</li>
+<li>Establishing a security issue reporting policy and
+resolution procedure.</li>
+</ol>
+</li>
+<li>The TSC voting members are initially selected from the Project’s
+Committers and Community volunteers. The TSC voting members, TSC
+election process and TSC defined processes and procedures will be
+documented in the TSC section of the community documentation
+repository. TSC will initially have 11 voting members, but may
+modify the number of voting members by two-thirds vote of all TSC
+members.</li>
+<li>Any meetings of the Technical Steering Committee are intended to
+be open to the public, and can be conducted electronically, via
+teleconference, or in person.</li>
+<li>TSC projects generally will involve Contributors and Committers.
+The TSC may adopt or modify roles so long as the roles are
+documented in the TSC section of the community documentation
+repository. Unless otherwise documented:<ol class="lowerroman">
+<li><dl class="first docutils">
+<dt>Contributors include anyone in the technical community that</dt>
+<dd>contributes code, documentation, or other technical
+artifacts to the Project;</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Committers are Contributors who have earned the ability to</dt>
+<dd>modify (“commit”) source code, documentation or other
+technical artifacts in a project’s repository;</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>The primary distinguishing characteristic of Committers is</dt>
+<dd>a demonstrated history of performing code reviews in the
+project code review system. References to quantity and/or
+quality of code reviews (of other Contributors’ code, not
+the Committer’s own code) should be given predominant
+weight when voting on the addition or removal of a
+Committer;</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>A Contributor may become a Committer by a majority approval</dt>
+<dd>of the existing Committers. A Committer may be removed by a
+majority approval of the other existing Committers; and</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>A Committer may be elected by other sub-project Committers</dt>
+<dd>to serve as a Project Technical Lead (PTL) and provide
+direction for a sub-project. The TSC may cast a tiebreaking
+vote or appoint a PTL in the absence of a majority
+agreement of the Committers.</dd>
+</dl>
+</li>
+</ol>
+</li>
+<li>Participation in the Project through becoming a Contributor and
+Committer is open to anyone so long as they abide by the terms of
+this Charter.</li>
+<li>The TSC may (1) establish workflow procedures for the submission,
+approval, and closure/archiving of projects, (2) set requirements
+for the promotion of Contributors to Committer status, as
+applicable, and (3) amend, adjust, refine and/or eliminate the
+roles of Contributors, and Committers, and create new roles, and
+publicly document any TSC roles, as it sees fit.</li>
+<li>The TSC will elect a TSC Chair, annually, who will preside over
+meetings of the TSC and will serve until their resignation or
+replacement by the TSC. The TSC Chair, or any other TSC member so
+designated by the TSC, will serve as the primary communication
+contact between the Project and LFN.</li>
+</ol>
+</li>
+<li><p class="first"><strong>TSC Voting</strong></p>
+<ol class="loweralpha simple">
+<li>While the Project aims to operate as a consensus based community,
+if any TSC decision requires a vote to move the Project forward,
+the voting members of the TSC will vote on a one vote per voting
+member basis.</li>
+<li>TSC votes must be conducted electronically, even if initiated
+verbally at a meeting, and, except as provided in Sections 2.b.,
+7.c. and 8.a., decisions will require the majority of all voting
+members of the TSC.</li>
+<li>TSC will define and document an appropriate conflict resolution
+mechanism, subject to approval by the Series Manager. This
+mechanism will be used in the event a vote cannot be resolved by
+the TSC.</li>
+</ol>
+</li>
+<li><p class="first"><strong>Compliance with Policies</strong></p>
+<ol class="loweralpha simple">
+<li>This Charter is subject to the Series Agreement for the Project
+and the Operating Agreement of LF Projects. Contributors will
+comply with the policies of LF Projects as may be adopted and
+amended by LF Projects, including, without limitation the policies
+listed at <a class="reference external" href="https://lfprojects.org/policies/">https://lfprojects.org/policies/</a>.</li>
+<li>The TSC may adopt a code of conduct (“CoC”) for the Project, which
+is subject to approval by the Series Manager. Contributors to the
+Project will comply with the CoC or, in the event that a
+Project-specific CoC has not been approved, the LF Projects Code
+of Conduct listed at <a class="reference external" href="https://lfprojects.org/policies/">https://lfprojects.org/policies/</a>.</li>
+<li>When amending or adopting any policy applicable to the Project, LF
+Projects will publish such policy, as to be amended or adopted, on
+its web site at least 30 days prior to such policy taking effect;
+provided, however, that in the case of any amendment of the
+Trademark Policy or Terms of Use of LF Projects, any such
+amendment is effective upon publication on LF Project’s web site.</li>
+<li>All participants must allow open participation from any individual
+or organization meeting the requirements for contributing under
+this Charter and any policies adopted for all participants by the
+TSC, regardless of competitive interests. Put another way, the
+Project community must not seek to exclude any participant based
+on any criteria, requirement, or reason other than those that are
+reasonable and applied on a non- discriminatory basis to all
+participants. Contribution requirements will be set based on
+reasonable criteria and applied on a non-discriminatory basis to
+all participants in the Project community.</li>
+<li>The Project will operate in a transparent, open, collaborative,
+and ethical manner at all times. The output of all Project
+discussions, proposals, timelines, decisions, and status should be
+made open and easily visible to all. Any potential violations of
+this requirement should be reported immediately to the LF Projects
+Manager.</li>
+</ol>
+</li>
+<li><p class="first"><strong>Community Assets</strong></p>
+<ol class="loweralpha simple">
+<li>LF Projects will hold title to all trade or service marks used by
+the Project (“Project Trademarks”), whether based on common law or
+registered rights. Project Trademarks will be transferred and
+assigned to LF Projects to hold on behalf of the Project. Any use
+of any Project Trademarks by participants in the Project will be
+in accordance with the license from LF Projects and inure to the
+benefit of LF Projects.</li>
+<li>The Project will, as permitted and in accordance with such license
+from LF Projects, develop and own all Project GitHub and social
+media accounts, and domain name registrations created by the
+Project community.</li>
+<li>Under no circumstances will LF Projects be expected or required to
+undertake any action on behalf of the Project that is inconsistent
+with the tax-exempt status or purpose, as applicable, of LFP, Inc.
+or LF Projects, LLC.</li>
+</ol>
+</li>
+<li><p class="first"><strong>General Rules and Operations.</strong></p>
+<ol class="loweralpha simple">
+<li>The Project will:<ol class="lowerroman">
+<li><dl class="first docutils">
+<dt>engage in the work of the project in a professional manner</dt>
+<dd>consistent with maintaining a cohesive community, while also
+maintaining the goodwill and esteem of LF Projects, LFP,
+Inc. and other partner organizations in the open source
+software community; and</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>respect the rights of all trademark owners, including any</dt>
+<dd>branding and trademark usage guidelines.</dd>
+</dl>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p class="first"><strong>Intellectual Property Policy</strong></p>
+<ol class="loweralpha">
+<li><p class="first">Participants acknowledge that the copyright in all new
+contributions will be retained by the copyright holder as
+independent works of authorship and that no contributor or
+copyright holder will be required to assign copyrights to the
+Project.</p>
+</li>
+<li><p class="first">Except as described in Section 7.c., all code contributions to the
+Project are subject to the following:</p>
+<ol class="lowerroman">
+<li><dl class="first docutils">
+<dt>All new inbound code contributions to the Project must be</dt>
+<dd><p class="first last">made using the Apache License, Version 2.0 (available here:
+<a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a>) (the “Project
+License”).</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">All new inbound code contributions must:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>be made pursuant to a duly executed Corporate
+Contributor License Agreement or, in the case of
+self-employed contributors, a duly executed Individual
+Contributor License Agreement (forms of which are
+available on the Project’s web site); and</li>
+<li>be accompanied by a Developer Certificate of Origin
+(<a class="reference external" href="http://developercertificate.org">http://developercertificate.org</a>) sign-off in the source
+code system that is submitted through a TSC-approved
+contribution process which will bind the authorized
+contributor and, if not self-employed, their employer to
+the applicable license;</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">All outbound code will be made available under the Project
+License.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Documentation will be received and made available by the</dt>
+<dd><p class="first last">Project under the Creative Commons Attribution 4.0
+International License (available at
+<a class="reference external" href="http://creativecommons.org/licenses/by/4.0/">http://creativecommons.org/licenses/by/4.0/</a>).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>The Project may seek to integrate and contribute back to</dt>
+<dd><p class="first last">other open source projects (“Upstream Projects”). In such
+cases, the Project will conform to all license requirements
+of the Upstream Projects, including dependencies, leveraged
+by the Project. Upstream Project code contributions not
+stored within the Project’s main code repository will
+comply with the contribution process and license terms for
+the applicable Upstream Project.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</li>
+<li><p class="first">The TSC may approve the use of an alternative license or licenses
+for inbound or outbound contributions on an exception basis. To
+request an exception, please describe the contribution, the
+alternative open source license(s), and the justification for
+using an alternative open source license for the Project. License
+exceptions must be approved by a two-thirds vote of the entire
+TSC. Contributed files should contain license information, such as
+SPDX short form identifiers, indicating the open source license or
+licenses pertaining to the file.</p>
+</li>
+</ol>
+</li>
+<li><p class="first"><strong>Amendments</strong></p>
+<ol class="loweralpha simple">
+<li>This charter may be amended by a two-thirds vote of the entire TSC
+and is subject to approval by LF Projects.</li>
+</ol>
+</li>
+</ol>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/governance/tungsten-fabric-project-technical-charter.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
