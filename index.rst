@@ -1,6 +1,6 @@
 .. important::
 
-   To report a bug for any part of the Tungsten Fabric project,
+   🚨 To report a bug for any part of the Tungsten Fabric project,
    including documentation, please use the `Tungsten Fabric Jira`_.
 
 
