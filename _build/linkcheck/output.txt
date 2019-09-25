@@ -1,9 +1,9 @@
 administration/index.rst:6: [local] /User
 contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:59: [redirected permanently] https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account to https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account
-contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:34: [redirected with Found] https://gerrit.tungsten.io to https://gerrit.tungsten.io/r/
 contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:24: [redirected permanently] http://identity.linuxfoundation.org to https://identity.linuxfoundation.org/
-governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3457 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3457
+contributor/getting-started/getting-started-with-tungsten-fabric-development.rst:34: [redirected with Found] https://gerrit.tungsten.io to https://gerrit.tungsten.io/r/
 governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3936 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3936
+governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3457 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3457
 governance/acc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3457 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3457
 governance/index.rst:28: [local] tungsten-fabric-project-technical-charter.rst
 governance/index.rst:29: [local] tungsten-fabric-community-governance.rst
@@ -33,13 +33,13 @@ governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten
 governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
 governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
 governance/tsc-atc-members.rst:4: [redirected with Found] https://lists.tungsten.io/g/tsc/responses?pollid=3456 to https://lists.tungsten.io/login?r=%2Fg%2Ftsc%2Fresponses%3Fpollid%3D3456
-governance/tungsten-fabric-community-governance.rst:456: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
-governance/tungsten-fabric-community-governance.rst:565: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
-governance/tungsten-fabric-community-governance.rst:728: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
-governance/tungsten-fabric-community-governance.rst:463: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
-governance/tungsten-fabric-community-governance.rst:463: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
 governance/tungsten-fabric-community-governance.rst:456: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
+governance/tungsten-fabric-community-governance.rst:463: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
+governance/tungsten-fabric-community-governance.rst:456: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
 governance/tungsten-fabric-community-governance.rst:728: [redirected permanently] http://en.wikipedia.org/wiki/Single_transferable_vote to https://en.wikipedia.org/wiki/Single_transferable_vote
+governance/tungsten-fabric-community-governance.rst:463: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
+governance/tungsten-fabric-community-governance.rst:728: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
+governance/tungsten-fabric-community-governance.rst:565: [redirected permanently] http://en.wikipedia.org/wiki/Condorcet_method to https://en.wikipedia.org/wiki/Condorcet_method
 governance/tungsten-fabric-project-technical-charter.rst:274: [redirected permanently] http://developercertificate.org to https://developercertificate.org/
 governance/tungsten-fabric-project-technical-charter.rst:285: [redirected permanently] http://creativecommons.org/licenses/by/4.0/ to https://creativecommons.org/licenses/by/4.0/
 index.rst:44: [redirected with Found] https://gerrit.tungsten.io to https://gerrit.tungsten.io/r/
