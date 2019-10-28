@@ -20,5 +20,6 @@ Releases
    :maxdepth: 2
    :titlesonly:
 
+   releases/r5.1/index.rst
    releases/r5.0.1/index.rst
    releases/r5.0/index.rst

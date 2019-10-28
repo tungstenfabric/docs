@@ -9,4 +9,4 @@ Tungsten Fabric is an open source project under Linux Foundation. It is standard
 
 These release notes accompany Release 5.0.1 of Tungsten Fabric. They describe new features, limitations, and known problems.
 
-These release notes are displayed on the Tungsten Fabric Documentation Web page at https://github.com/tungstenfabric/docs/tree/master/releaseinfo/r5.0.1/releasenotes
+These release notes are displayed on the Tungsten Fabric Documentation Web page at http://docs.tungsten.io/en/latest/user/releases/r5.0.1/release-notes/index.html

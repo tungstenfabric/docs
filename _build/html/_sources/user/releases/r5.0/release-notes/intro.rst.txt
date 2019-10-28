@@ -7,9 +7,8 @@ Tungsten Fabric is an open, standards-based software solution that delivers netw
 
 These release notes accompany Release 5.0 of Tungsten Fabric. They describe new features, limitations, and known problems.
 
-These release notes are displayed on the Tungsten Fabric Documentation Web page at: 
+These release notes are displayed on the Tungsten Fabric Documentation Web page at:
 
  `https://github.com/tungstenfabric/docs/tree/master/releaseinfo/r5.0/releasenotes`_  .
 
-.. _https://github.com/tungstenfabric/docs/tree/master/releaseinfo/r5.0/releasenotes: https://github.com/tungstenfabric/docs/tree/master/releaseinfo/r5.0/releasenotes
-
+.. _https://github.com/tungstenfabric/docs/tree/master/releaseinfo/r5.0/releasenotes: http://docs.tungsten.io/en/latest/user/releases/r5.0/release-notes/index.html
