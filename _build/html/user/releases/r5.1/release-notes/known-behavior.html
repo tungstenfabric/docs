@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Known Behavior &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Resolved Issues" href="resolved-issues.html" />
+    <link rel="prev" title="Supported Platforms Tungsten Fabric 5.1" href="supported-platforms-51-vnc.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../../../index.html"><span><img src="../../../../_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributor/index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../administration/index.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../governance/index.html">Tungsten Fabric Governance</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Known Behavior</a><ul>
+<li><a class="reference internal" href="#known-behavior-in-tungsten-fabric-release-5-1">Known Behavior in Tungsten Fabric Release 5.1</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="supported-platforms-51-vnc.html" title="Previous Chapter: Supported Platforms Tungsten Fabric 5.1"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Supported Pla...</span>
+    </a>
+  </li>
+  <li>
+    <a href="resolved-issues.html" title="Next Chapter: Resolved Issues"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Resolved Issues &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Known Behavior</a><ul>
+<li><a class="reference internal" href="#known-behavior-in-tungsten-fabric-release-5-1">Known Behavior in Tungsten Fabric Release 5.1</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="supported-platforms-51-vnc.html" title="Previous Chapter: Supported Platforms Tungsten Fabric 5.1"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Supported Pla...</span>
+    </a>
+  </li>
+  <li>
+    <a href="resolved-issues.html" title="Next Chapter: Resolved Issues"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Resolved Issues &raquo;</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="known-behavior">
+<h1>Known Behavior<a class="headerlink" href="#known-behavior" title="Permalink to this headline">¶</a></h1>
+<p>This section lists known limitations with this release.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#known-behavior-in-tungsten-fabric-release-5-1">Known Behavior in Tungsten Fabric Release 5.1</a></li>
+</ul>
+<div class="section" id="known-behavior-in-tungsten-fabric-release-5-1">
+<h2>Known Behavior in Tungsten Fabric Release 5.1<a class="headerlink" href="#known-behavior-in-tungsten-fabric-release-5-1" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">CEM-5402 Though the APIs allow 4 byte ASN, the backend code only support 2 byte ASN. Do not use 4 byte ASN in API integrations.</p>
+</li>
+<li><p class="first">CEM-5400 Configuring both tagged and un-tagged vlan in Contrail Fabric VPG is not supported.</p>
+</li>
+<li><p class="first">CEM-5284 Cloud Compute/vrouter nodes will not be listed in the cluster-nodes/compute node page, all nodes/computes will be listed in the servers page</p>
+</li>
+<li><p class="first">CEM-5283 For all-in-one cluster, where vrouter and openstack roles exist on the same node, “enable_haproxy” must not be enabled (set to ‘yes’) in the ansible yaml file. This is because of multicast traffic restrictions when vrouter is running.</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>::</dt>
+<dd><p class="first last">ansible-playbook  -i inventory/ -e orchestrator=openstack –tags nova playbooks/install_openstack.yml
+ansible-playbook  -i inventory/ -e orchestrator=openstack playbooks/install_contrail.yml</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>global_configuration:</dt>
+<dd><p class="first last">ENABLE_DESTROY: True</p>
+</dd>
+</dl>
+<p>instances:</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>srvr5:</dt>
+<dd><p class="first last">provider: bms
+ip: 19x.xxx.x.55
+roles:</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p class="first">CEM-5282 When Azure cloud is extended to On-Prem cluster running on RHEL hosts, contrail-status shows vRouters running on Azure as initializing, though the services are up. This is due to the Red Hat issue <a class="reference external" href="https://access.redhat.com/solutions/2766251">https://access.redhat.com/solutions/2766251</a>.</p>
+</li>
+<li><p class="first">CEM-5043 VNI update on a LR doesnt update the RouteTable. Workaround is to delete the LogicalRouter and create a new LogicalRouter with the new VNI.</p>
+</li>
+<li><p class="first">CEM-5042 Adding new subnet on an already provisioned VPC is not supported. If all the subnets are added during initial bringup of VPC, nodes can be added incrementally to the subnets anytime.</p>
+</li>
+<li><p class="first">CEM-5041 Provisioning of Region or VPC objects only on the cloud without any nodes is not supported. Add at least one node while provisioning Region/VPC.</p>
+</li>
+<li><p class="first">CEM-4865 Provisioning of Contrail Controllers on public cloud is not supported. Controllers need to be provisioned On-prem.</p>
+</li>
+<li><p class="first">CEM-4862 The cloud security objects associated with the underlay fabric in cloud cannot be configured with port range or CIDR.</p>
+</li>
+<li><p class="first">CEM-4381 Contrail Fabric device manager tasks can fail if one or more Contrail API servers is down. Contrail-status on the Contrail config nodes can be used to determine if this situation occur.</p>
+</li>
+<li><p class="first">CEM-4370 After creating a PNF Service Instance, the fields like PNF eBGP ASN*, RP IP Address, PNF Left BGP Peer ASN*, Left Service VLAN*, PNF Right BGP Peer ASN* ,Right Service VLAN* cannot be modified. If there is a need to modify these values, delete and re-create the Service Instance with intended values.</p>
+</li>
+<li><p class="first">CEM-4190 IPtables rules are not updated on MC-GW nodes. As a workaround, you must configure IPtables on the on-premise MC-GW nodes with INPUT and FORWARD and default ACCEPT policy.</p>
+</li>
+<li><p class="first">CEM-3959 BMS movement across TORs is not supported. To move BMS across TORs the whole VPG need to be moved. That means if there are more than one BMS associated to one VPG, and one of the BMS need to be moved, the whole VPG need to be deleted and re-configured as per the new association.</p>
+</li>
+<li><p class="first">CEM-3324 Users cannot provision Contrail Cluster entirely in Public cloud. Contrail Cluster need to be On-Prem and vRouters can be extended to public cloud.</p>
+</li>
+<li><p class="first">JCB-204796 In a Helm-based provisioned cluster, VM launch fails if MariaDB replication is set to &gt;1.</p>
+</li>
+<li><p class="first">JCB-202874 After deleting a vRouter chart with DPDK, the NICS do not rebind to the host in Helm.</p>
+</li>
+<li><p class="first">JCB-190956 While creating ironic-provision, service address in the subnet must be pointing to openstack ironic node ip/kolla internal vip.</p>
+</li>
+<li><p class="first">JCB-187320 On a DPDK compute vif list –rate core-dumps with traffic.</p>
+</li>
+<li><p class="first">JCB-187287 High Availability provisioning of Kubernetes master is not supported.</p>
+</li>
+<li><p class="first">JCB-186493 When a snapshot of an active VM fails, shutdown the VM before generating the snapshot.</p>
+</li>
+<li><p class="first">JCB-184837 After provisioning Contrail by using a Helm-based provisioned cluster, restart nova-compute container.</p>
+</li>
+<li><p class="first">JCB-184776 When the vRouter receives the head fragment of an ICMPv6 packet, the head fragment is immediately enqueued to the assembler. The flow is created as hold flow and then trapped to the agent. If fragments corresponding to this head fragment are already in the assembler or if new fragments arrive immediately after the head fragment, the assembler releases them to flow module. Fragments get enqueued in the hold queue if agent does not write flow action by the time the assembler releases fragments to the flow module. A maximum of three fragments are enqueued in the hold queue at a time. The remaining fragments are dropped from the assembler to the flow module. As a workaround, the head fragment is enqueued to assembler only after flow action is written by agent. If the flow is already present in non-hold state, it is immediately enqueued to assembler.</p>
+</li>
+<li><p class="first">JCB-177787 In DPDK vRouter use cases such as SNAT and LBaaS that require netns, jumbo MTU cannot be set. Maximum MTU allowed: &lt;=1500.</p>
+</li>
+<li><p class="first">JCB-177541 When you receive an error message during Kolla provisioning, rerunning the code will not work. In order for the provisioning to work, restart provisioning from scratch.</p>
+</li>
+<li><p class="first">JCB-171466 Metadata SSL works only in HA deployment mode.</p>
+</li>
+<li><p class="first">JCB-163773 A false alarm for config service is generated when config and configdb services are installed on different nodes. Ignore the false alarm.</p>
+</li>
+<li><p class="first">JCB-162927 SR-IOV with DPDK co-existence deployment is not supported using contrail-helm-deployer.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../../../_sources/user/releases/r5.1/release-notes/known-behavior.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
