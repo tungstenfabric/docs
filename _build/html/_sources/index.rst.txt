@@ -1,6 +1,6 @@
 .. important::
 
-   To report a bug for any part of the Tungsten Fabric project,
+   🚨 To report a bug for any part of the Tungsten Fabric project,
    including documentation, please use the `Tungsten Fabric Jira`_.
 
 
@@ -30,6 +30,7 @@ Documentation Structure
    infrastructure/index.rst
    administration/index.rst
    governance/index.rst
+   manual-cla-admin.rst
 
 
 We welcome new contributors!

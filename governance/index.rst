@@ -21,6 +21,7 @@ Docs Structure
    tsc-atc-members.rst
    tungsten-fabric-community-governance.rst
    tungsten-fabric-project-technical-charter.rst
+   core-committers.rst
 
 Governance Documents
 --------------------
@@ -100,13 +101,43 @@ Other roles
 ~~~~~~~~~~~
 
 -  **Project Technical Lead (PTL)**: The leader and spokesperson for a
-   sub-project of TF. This is an elected postion. The PTL for a project
+   sub-project of TF. This is an elected position. The PTL for a project
    is likely to be on the TSC or the ARB, but this is not a requirement
    of the position.
 -  **Voting community member**: In order to vote in TF elections, a
    person must be in the ATC, TSC-ATC, or ACC, which is to say, they
    must be recognised as a contributing member of the community. This is
    defined in `Section 5.2.4.3`_ of the Community Governance document.
+
+Community Commitments
+~~~~~~~~~~~~~~~~~~~~~
+
+The items below describe the commitments we ask of various community members.
+Moving forward, our plan is to measure performance against these commitments
+to help us ensure we are meeting our obligations to the Tungsten Fabric
+community.
+
+-  **Time to First Commit Review**: 2 weeks. Commits shall have an initial
+   review within 2 weeks time.
+-  **Time to First BluePrint Review**: 1 week.
+-  **Minimum Time Between Submission of Blueprint and Code Merging**: 2 weeks
+   (assuming no changes are required).
+-  **Code Reviewer Diversity**: 2 developers. No '+2s' in Gerrit except for
+   emergencies that are escalated to the TSC in the weekly calls.
+-  **Community Working Group Meeting Attendance**: 80% participation per
+   quarter. This applies to the docs project, marketing working
+   group, Technical Workstream calls for technical community members, and TSC
+   calls for TSC members, PTLs, and ARB members. Working group members must
+   attend 80% of calls per quarter directly or via proxy. Community members who
+   do not meet this commitment risk being removed from the group and having
+   your company/manager notified of non-compliance. Attendance shall be
+   measured manually by reviewing meeting notes for the quarter. Attendance
+   shall be tracked using the Tungsten Fabric wiki. PTLs, working group chairs,
+   and the TSC chair are responsible for enforcing attendance for their
+   respective meetings.
+
+
+
 
 Acronym Reference
 -----------------
@@ -116,7 +147,7 @@ reference.
 
 -  ACC: Active Community Contributor
 -  ARB: Architecture Review Board
--  ATC: Active Tecnical Contributor
+-  ATC: Active Technical Contributor
 -  CC: Community Committee
 -  PTL: Project Technical Lead
 -  TC: Technical Committee

@@ -1,8 +1,8 @@
 Community Committee Members
 ---------------------------
 
-- Liza Fung (AT&T) <lf1767@att.com>
-- Vacant () <>
+- Abhijeet Singh (AT&T) <AS753D@att.com>
+- Randy Bias (Juniper) <rbias@juniper.net>
 - Ian Rae (CloudOps) <irae@cloudops.com>
 - Jim St. Leger (Intel) <jim.st.leger@intel.com>
-- Doug Marschke (SDN Essentials) <doug@sdnessentials.com>
+- Darien Hirotsu (TachTech) <darien@tachtech.net>

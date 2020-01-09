@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Manual CLA Administration &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Core Committers" href="governance/core-committers.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="user/index.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributor/index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="administration/index.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">Tungsten Fabric Governance</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Manual CLA Administration</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Manual CLA Administration</a><ul>
+<li><a class="reference internal" href="#types-of-cla-administrators">Types of CLA Administrators</a></li>
+<li><a class="reference internal" href="#the-cla-lists-tungsten-io-mailing-list">The cla&#64;lists.tungsten.io Mailing List</a></li>
+<li><a class="reference internal" href="#accessing-the-review-opencontrail-org-gerrit">Accessing the review.opencontrail.org Gerrit</a></li>
+<li><a class="reference internal" href="#adding-someone-to-a-ccla">Adding Someone to a CCLA</a></li>
+<li><a class="reference internal" href="#removing-someone-from-a-ccla">Removing Someone from a CCLA</a></li>
+<li><a class="reference internal" href="#adding-a-new-company-to-the-ccla-groups">Adding a New Company to the CCLA Groups</a></li>
+<li><a class="reference internal" href="#processing-an-icla">Processing an ICLA</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="governance/core-committers.html" title="Previous Chapter: Core Committers"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Core Committers</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Manual CLA Administration</a><ul>
+<li><a class="reference internal" href="#types-of-cla-administrators">Types of CLA Administrators</a></li>
+<li><a class="reference internal" href="#the-cla-lists-tungsten-io-mailing-list">The cla&#64;lists.tungsten.io Mailing List</a></li>
+<li><a class="reference internal" href="#accessing-the-review-opencontrail-org-gerrit">Accessing the review.opencontrail.org Gerrit</a></li>
+<li><a class="reference internal" href="#adding-someone-to-a-ccla">Adding Someone to a CCLA</a></li>
+<li><a class="reference internal" href="#removing-someone-from-a-ccla">Removing Someone from a CCLA</a></li>
+<li><a class="reference internal" href="#adding-a-new-company-to-the-ccla-groups">Adding a New Company to the CCLA Groups</a></li>
+<li><a class="reference internal" href="#processing-an-icla">Processing an ICLA</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="governance/core-committers.html" title="Previous Chapter: Core Committers"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Core Committers</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="manual-cla-administration">
+<h1>Manual CLA Administration<a class="headerlink" href="#manual-cla-administration" title="Permalink to this headline">¶</a></h1>
+<p>At the time of the writing of this document, Tungsten Fabric is using two different Contributor License Agreement (CLA) processes depending upon the origin of the repository you’re contributing to:</p>
+<ol class="arabic simple">
+<li><strong>Sign/Return a PDF</strong>: For all repositories in the review.opencontrail.org Gerrit</li>
+<li><strong>Online automated system</strong>: For all repositories in the gerrit.tungsten.io Gerrit</li>
+</ol>
+<p>These instructions are for how to process signed CLAs that arrive via the first process. At some point in the (hopefully near) future, these instructions will be deprecated since all of the repositories will have moved to the Gerrit hosted at gerrit.tungsten.io.</p>
+<p>However, since the repository transition is a work in progress, we still need the procedure for processing these “manual” CLAs.</p>
+<div class="section" id="types-of-cla-administrators">
+<h2>Types of CLA Administrators<a class="headerlink" href="#types-of-cla-administrators" title="Permalink to this headline">¶</a></h2>
+<p>There are two types of CLA Administrators:</p>
+<ol class="arabic simple">
+<li>CCLA Administrators: People who are authorized by a company to approve new contributors under their Corporate CLA.</li>
+<li>ICLA Administrators: People who process any Individual CLAs that arrive. This is a superset of the CCLA Administrators plus any independent authorized individuals. The Linux Foundation staff are this type of CLA Administrator.</li>
+</ol>
+<p>As implied above, CCLA admins may process ICLAs, but ICLA admins may <strong>not</strong> process CCLAs without express written permission by the appropriate CCLA admin.</p>
+<p>Which is to say: Please don’t approve someone to contribute on behalf of a company you don’t work for.</p>
+</div>
+<div class="section" id="the-cla-lists-tungsten-io-mailing-list">
+<h2>The <a class="reference external" href="mailto:cla&#37;&#52;&#48;lists&#46;tungsten&#46;io">cla<span>&#64;</span>lists<span>&#46;</span>tungsten<span>&#46;</span>io</a> Mailing List<a class="headerlink" href="#the-cla-lists-tungsten-io-mailing-list" title="Permalink to this headline">¶</a></h2>
+<p>All manual CLAs arrive as messages sent to the <a class="reference external" href="mailto:cla&#37;&#52;&#48;lists&#46;tungsten&#46;io">cla<span>&#64;</span>lists<span>&#46;</span>tungsten<span>&#46;</span>io</a> mailing list. Because CLAs contain identifying information, membership to the mailing list is restricted to CLA Administrators.</p>
+<p>If you are a CLA admin, please pay attention to the <a class="reference external" href="mailto:cla&#37;&#52;&#48;lists&#46;tungsten&#46;io">cla<span>&#64;</span>lists<span>&#46;</span>tungsten<span>&#46;</span>io</a> mailing list and help to process new CLAs as they arrive.</p>
+<p><strong>We strive to process all CLAs within two work days of their arrival on the cla&#64;lists.tungsten.io mailing list.</strong></p>
+</div>
+<div class="section" id="accessing-the-review-opencontrail-org-gerrit">
+<h2>Accessing the review.opencontrail.org Gerrit<a class="headerlink" href="#accessing-the-review-opencontrail-org-gerrit" title="Permalink to this headline">¶</a></h2>
+<p>All manual CLAs are managed through the soon-to-be-deprecated Gerrit that’s hosted at <a class="reference external" href="https://review.opencontrail.org">https://review.opencontrail.org</a> (r.o.o).</p>
+<p>Access to this Gerrit requires a <a class="reference external" href="http://launchpad.net">Launchpad</a> ID. If you’re an admin, you already have one of these. If you’re going to be a new admin, make sure you create one of these even though you’ll only need it for a few months.</p>
+</div>
+<div class="section" id="adding-someone-to-a-ccla">
+<h2>Adding Someone to a CCLA<a class="headerlink" href="#adding-someone-to-a-ccla" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Confirm the new addition has a Launchpad ID and has logged into the r.o.o Gerrit at least once.</li>
+<li>If the new addition has sent over a CLA document, confirm that it’s complete (including an actual signature).</li>
+<li>Log into Gerrit at review.opencontrail.org using your Launchpad ID.</li>
+<li>Click ‘Browse’ at the top</li>
+<li>Click ‘Groups’&nbsp;at the top below ‘People’</li>
+<li>Select the CCLA-$company group for your company.</li>
+<li>Click ‘Members’.</li>
+<li><dl class="first docutils">
+<dt>Search for the new addition’s email address in the search field titled <cite>Members</cite> and click <cite>Add</cite> &nbsp;when they’re located.</dt>
+<dd><ul class="first last">
+<li>If you can’t locate them, re-confirm that they have a Launchpad ID and have logged into Gerrit at least once.</li>
+<li>Gerrit auto-saves the addition. There’s no <cite>Save</cite> button to push.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>If the addition request was accompanied by a document of a signed CLA, save that CLA document to the <a class="reference external" href="https://wiki.tungsten.io/display/TUN/Signed+CLAs">Signed CLAs</a> wiki page.</li>
+<li>Notify the new addition that you have finished processing their addition and that they can now commit code to review.opencontrail.org.</li>
+<li>If the signed CLA arrived via the <a class="reference external" href="mailto:cla&#37;&#52;&#48;lists&#46;tungsten&#46;io">cla<span>&#64;</span>lists<span>&#46;</span>tungsten<span>&#46;</span>io</a> mailing list, reply to the mailing list to let people know that you’ve processed the CLA.</li>
+</ul>
+</div>
+<div class="section" id="removing-someone-from-a-ccla">
+<h2>Removing Someone from a CCLA<a class="headerlink" href="#removing-someone-from-a-ccla" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Log into Gerrit at review.opencontrail.org using your Launchpad ID.</li>
+<li>Click ‘People’ &nbsp;at the top.</li>
+<li>Click ‘List Groups’&nbsp;at the top below ‘People’.</li>
+<li>Select the CCLA-$company group for your company.</li>
+<li>Click the checkmark next to the name of the person you wish to remove from your company’s CCLA.</li>
+<li>Click <cite>Delete</cite>. Gerrit auto-saves the deletion. There are no more buttons to push and you’re done.</li>
+</ul>
+</div>
+<div class="section" id="adding-a-new-company-to-the-ccla-groups">
+<h2>Adding a New Company to the CCLA Groups<a class="headerlink" href="#adding-a-new-company-to-the-ccla-groups" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Verify that you have a document of a CCLA in hand and that it is complete including a signature. If you don’t, <strong>DO NOT CONTINUE</strong>.</li>
+<li>Log into Gerrit at review.opencontrail.org using your Launchpad ID.</li>
+<li>Click ‘People’ at the &nbsp;top.</li>
+<li><dl class="first docutils">
+<dt>Create an Admin group for the company.</dt>
+<dd><ul class="first last">
+<li>Click ‘Create New Group’ at the top below ‘People’.</li>
+<li>Enter a name for the group. The name should follow the pattern <cite>CCLA-$companyname-Admin</cite>. If the company name contains spaces, replace them with underscores.</li>
+<li>Follow the steps for “Adding Someone to a CCLA”, adding the person who will be the CCLA administrator for that company.</li>
+<li>If there are multiple administrators for the company, repeat the addition process as many times as necessary.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Create a CCLA group for the company.</dt>
+<dd><ul class="first last">
+<li>Click ‘Create New Group’ at the top below ‘People’.</li>
+<li>Enter a name for the group. The name should follow the pattern <cite>CCLA-$companyname</cite>. The <cite>$companyname</cite> used here must match the <cite>$companyname</cite> used to create the Admin group.</li>
+<li>Search for the Admin group in the search field titled <cite>Included Groups</cite> and click <cite>Add</cite> &nbsp;when its located.</li>
+<li>If there are any other individuals to add to the CCLA, follow the steps for “Adding Someone to a CCLA”,&nbsp;repeating the addition process as many times as necessary for all of the individuals who need to be added.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Add the CCLA group to the ‘CLA Accepted’ group</dt>
+<dd><ul class="first last">
+<li>Click ‘List Groups’ at the top below ‘People’</li>
+<li>Find the ‘CLA Accepted’ group and click on it</li>
+<li>Scroll down past the Members to the ‘Included Groups’</li>
+<li>Search for the new CCLA-$company group in the search field titled <cite>Included Groups</cite> and click <cite>Add</cite> when its located.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Create a Jira Task ticket to have the new CCLA Manager(s) authorized to add documents to the&nbsp;<a class="reference external" href="https://wiki.tungsten.io/display/TUN/Signed+CLAs">Signed CLAs wiki page</a>.&nbsp;Assign the ticket to Casey Cain.</li>
+<li>Save the document to the Signed CLAs wiki page.</li>
+<li>Notify everyone involved that you have finished processing the CLA and that they can now commit code to review.opencontrail.org</li>
+</ul>
+</div>
+<div class="section" id="processing-an-icla">
+<h2>Processing an ICLA<a class="headerlink" href="#processing-an-icla" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Follow the steps for “Adding Someone to a CCLA” but instead of CCLA-$companyname, the new addition should be added to the <cite>ICLA-Accepted</cite> group.</li>
+</ul>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/manual-cla-admin.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
