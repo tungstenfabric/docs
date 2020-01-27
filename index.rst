@@ -73,7 +73,7 @@ This meeting is open to the public and all participants are welcome.
 -  Time: 1000 Pacific Time (1700 UTC during US Daylight Savings Time)
 -  Meeting URL: https://zoom.us/j/126834756
 -  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Technical+Steering+Committee
+   https://wiki.tungsten.io/x/bIBo
 
 Infrastructure Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,22 +81,22 @@ Infrastructure Working Group
 This group addresses technical work on the Continuous Integration (CI)
 system and developer environment.
 
--  Date: Every Tuesday
+-  Date: Every other Tuesday
 -  Time: 0800 Pacific Time (1500 UTC during US Daylight Savings Time)
--  Meeting URL: https://zoom.us/j/172248735
+-  Meeting URL: https://zoom.us/j/624916162
 -  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Infrastructure+Working+Group
+   https://wiki.tungsten.io/x/CoAV
 
 Documentation Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This group works on the user and developer facing documentation.
 
--  Date: Every Wednesday
--  Time: 0830 Pacific Time (1530 UTC during US Daylight Savings Time)
+-  Date: Every Thursday
+-  Time: 0700 Pacific Time (1400 UTC during US Daylight Savings Time)
 -  Meeting URL: https://zoom.us/j/939908205
 -  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Documentation+Project
+   https://wiki.tungsten.io/x/VYBo
 
 Marketing Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,7 +108,7 @@ TF usage and adoption.
 -  Time: 1030 Pacific Time (1730 UTC during US Daylight Savings Time)
 -  Meeting URL: https://zoom.us/j/742093023
 -  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Marketing+Working+Group
+   https://wiki.tungsten.io/x/OIEV
 
 Licensing
 ---------
