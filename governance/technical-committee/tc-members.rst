@@ -1,8 +1,8 @@
 Technical Committee Members
 ---------------------------
 
-- Joseph Gasparakis - Intel - <joseph.gasparakis@intel.com>
-- Paul Carver - AT&T - <pcarver@att.com>
-- Valentine Sinitsyn - Yandex - <valesini@yandex-team.ru>
 - Vacant - Vacant - <Vacant>
+- Vacant - Vacant - <Vacant>
+- Prabjhot Singh Sethi - ATC - <prabhjot.lists@gmail.com>
+- Edward Ting - <> - <eting@cloudasoft.com>
 - Sukhdev Kapur - Juniper - <sukhdev@juniper.net>

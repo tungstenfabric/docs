@@ -30,6 +30,7 @@ Documentation Structure
    infrastructure/index.rst
    administration/index.rst
    governance/index.rst
+   manual-cla-admin.rst
 
 
 We welcome new contributors!

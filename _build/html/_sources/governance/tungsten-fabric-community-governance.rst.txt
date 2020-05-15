@@ -52,7 +52,7 @@ Tungsten Fabric success as a project and community will be predicated on more th
 4 Per Project
 =============
 
-4.1 Project Roles 
+4.1 Project Roles
 ------------------
 
 4.1.1 Committer
@@ -73,15 +73,21 @@ Each project should strive for diversity of Committers representing different or
 4.1.2 Project Technical Leader:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A project is required to elect a Project Technical Leader (“PTL”). The primary responsibilities of the PTL are:
+A project is required to elect a Project Technical Leader (“PTL”). The primary responsibilities of the PTL are as follows.
 
-- Manage day to day operations of the project, including cross-project coordination to ensure Project delivery according to the Tungsten Fabric release schedule
+- Maintain ownership over a specific part of the Tungsten Fabric code base which could include one or more repos or a subset of repos. Ownership means that the PTL acts as a community leader, setting priorities, assigning code reviewers, participating in the Technical Work Stream call weekly (to make architectural decisions), … [ more here ]
 
-- Act as the de facto spokesperson for the Project
+- Manage day to day operations of the project, including cross-project coordination to ensure Project delivery according to the Tungsten Fabric release schedule.
 
-- Represent the Project in the TSC and other necessary meetings
+- Act as the de facto spokesperson for the Project.
 
-- Resolve conflicts that may arise within the Project
+- Represent the Project in the TSC and other necessary meetings.
+
+- Resolve conflicts that may arise within the Project.
+
+- Be a committer for the project.
+
+- Assign reviewers to commits and blueprints within their scope of ownership
 
 4.1.2.1 Project Technical Leader Candidates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -115,9 +121,9 @@ An election for Project Technical Leader occurs when any of the following are tr
 4.2.1 Project Decisions Making Process
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tech Committee (TC) of the TSC is responsible for setting technical TF goals, identifying use cases, setting release guidelines and milestones. It will work with ARB to develop and maintain project high level and detailed architecture. Project Committers will work within this technical and release guidance to deliver individual projects.
+The Technical Committee (TC) of the TSC is responsible for setting technical TF goals, identifying use cases, setting release guidelines and milestones. It will work with ARB to develop and maintain project high level and detailed architecture. Project Committers will work within this technical and release guidance to deliver individual projects.
 
-Within the project, Committers should operate by general consensus.  If consensus cannot be reached within a reasonable timeframe, decisions are taken by majority vote of a project’s Committers.  Committers may, by majority vote, delegate (or revoke delegation) of any portion of such decisions to an alternate open, documented, and traceable decision making process.
+Within the project, Committers should operate by general consensus to make technical and release decisions.  If consensus cannot be reached within a reasonable timeframe, decisions are taken by majority vote of a project’s Committers.  Committers may, by majority vote, delegate (or revoke delegation) of any portion of such decisions to an alternate open, documented (wiki and/or mailing list), and traceable decision making process.
 
 4.2.2 Committer Lifecycle
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,7 +149,7 @@ The method by which the TSC appoints an interim Committer is first by request to
 
 A Committer may voluntarily resign from a project by making a public request to the PTL to resign (via the project and tsc@lists.tungsten.io lists).
 
-A Committer for a project who is disruptive, or has been inactive on that project for a period greater than six months, may have his or her Committer status revoked by the project’s Project Technical Leader in consultation with TSC or by 2/3 super-majority vote of the project’s committers.
+A Committer for a project who is disruptive, or has been inactive on that project for a period greater than six months, may have their Committer status revoked by the project’s Project Technical Leader in consultation with TSC or by 2/3 super-majority vote of the project’s committers.
 
 The Project Technical Leader is responsible for informing the Technical Steering Committee (TSC) of any committers who are removed or resign via the tsc@lists.tungsten.io list.
 
@@ -249,7 +255,7 @@ The lifecycle of a project is depicted on the following tables:
 |                   | unforeseen reasons (no value anymore,         |
 |                   | technical, etc.).                             |
 +-------------------+-----------------------------------------------+
-               
+
 Project in any state can be Archived through a Termination Review.
 
 To move from one state to the next state, the Project Team has to formulate a project status review request to the TSC, by specifying its goal to move up the Project Lifecycle ladder.
@@ -325,7 +331,7 @@ Project may achieve incubation state by meeting following goals:
 -  Project following policies set by TSC and project technical guidelines specified by TC
 
 
-Projects are expected to stay in the incubation phase until they are ready to meet release quality criteria set by the TC.  
+Projects are expected to stay in the incubation phase until they are ready to meet release quality criteria set by the TC.
 
 4.3.6.2 Maturity Review
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -367,11 +373,6 @@ The TSC may make amendments to this Technical Community Document at any time. Th
 ~~~~~~~~~~~~~~~~~
 
 There will be a startup period for the TF project during the calendar year 2018 in which the TSC will be comprised of 11 members who volunteered to represent the project at its founding or stood for election as replacements following the resignation of one of the original members. After the startup period, January 2019 and beyond, the TSC will move to a “steady state” where the TSC is fully elected from the community. The specifics of this election process will be documented by the “startup” TSC no later than December, 2018. TSC shall be divided into 3 classes. Community 5 members, Technical 5 members and one ARB representative
-
-5.1.1.1 Startup Period 
-^^^^^^^^^^^^^^^^^^^^^^
-
-TSC Member list for the start up period can be located in https://docs.google.com/document/d/1xFNNPNb8lXXha24lNbKkMMCvE30ydS97Obb1YhEaPeU/edit?usp=sharing
 
 5.1.2 TSC Chair
 ~~~~~~~~~~~~~~~
@@ -419,7 +420,7 @@ Decisions of the TSC should be made by rough consensus and documented as “agre
 5.2.2 Standing Committees
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*Community Committee*: this committee will be responsible for non-technical aspects of the project, including initiating the budget proposals, controlling any budget delegated by the LFN directly to the project, drafting community policy and other governance materials, marketing and other outreach activities and other non-technical matters. CC members may be selected from the project Community Contributor and Technical Contributor candidates by the election process defined below. 
+*Community Committee*: this committee will be responsible for non-technical aspects of the project, including initiating the budget proposals, controlling any budget delegated by the LFN directly to the project, drafting community policy and other governance materials, marketing and other outreach activities and other non-technical matters. CC members may be selected from the project Community Contributor and Technical Contributor candidates by the election process defined below.
 
 This committee consists of TSC members elected as part of Community-At-Large TSC class.
 
@@ -568,7 +569,7 @@ Any TSC member can nominate a community member for ACC status, providing evidenc
 
 -  ARB shall meet and elect a representative to the TSC by simple majority vote.
 
-5.3 Responsibilities of the TSC. 
+5.3 Responsibilities of the TSC.
 ---------------------------------
 
 Subject to the Technical Charter, the TSC is responsible for:
@@ -600,7 +601,7 @@ Subject to the Technical Charter, the TSC is responsible for:
 5.4 TSC Additional Subcommittees
 --------------------------------
 
-The TSC, at its discretion, may establish additional subcommittees to assist the TSC with its responsibilities and provide expert guidance in technical subject areas (e.g., architecture or security).  
+The TSC, at its discretion, may establish additional subcommittees to assist the TSC with its responsibilities and provide expert guidance in technical subject areas (e.g., architecture or security).
 
 5.4.1 Membership
 ~~~~~~~~~~~~~~~~
