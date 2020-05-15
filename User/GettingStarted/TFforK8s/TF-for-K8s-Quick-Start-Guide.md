@@ -3,7 +3,7 @@ Tungsten Fabric as a CNI for Kubernetes: A Quick Start Guide
 
 Tungsten Fabric (TF), formerly known as OpenContrail, is an open source multi-cloud, multi-stack Software Defined Networking (SDN) solution that provides a single point of control to observe, analyze and securely manage the connectivity between workloads running in the same or different domains. It essentially consists of two main components, namely: the TF controller and TF vRouter. The former collects statistics and maintains the network model and policies, whereas the latter is deployed at each host to enforce those policies. A more detailed description of the TF architecture is presented here.
 
-TF is compatible with a wide range of cloud technology stacks, including the well-known Kubernetes (K8s) container management platform. A key component in K8s is the Container Networking Interface (CNI), i.e., a plugable framework which provides the networking functionality between pods as well as externally facing services. By default K8s provides a flat networking model wherein all pods can talk to each other. Tungsten Fabric adds additional networking functionality to the CNI solution including multi-tenancy, network isolation, micro-segmentation with network policies, load-balancing etc.
+TF is compatible with a wide range of cloud technology stacks, including the well-known Kubernetes (K8s) container management platform. A key component in K8s is the Container Networking Interface (CNI), i.e., a plugable framework which provides the networking functionality between pods as well as externally facing services. By default K8s provides a flat networking model wherein all pods can talk to each other. Tungsten Fabric adds additional networking functionality to the CNI solution including multi-tenancy, network isolation, micro-segmentation with network policies, load-balancing etc. While K8s also supports several other CNI plugins, TF is unique because provides comprehensive support for heterogeneous environments, multicloud/multi-tenancy workloads, scaling in multiple diemensions and provides a rich set of features.
 
 This document serves as a quick start guide for beginners looking to deploy TF for managing the K8s cluster networking. We will start by setting up a basic K8s cluster and configure TF to be used as an addon plugin to manage and monitor the connectivity between pods. The rest of the guide will walk you through a number of use cases, starting with a few simple scenarios and then moving onto more advanced ones.
 
@@ -482,36 +482,170 @@ If the two enviornments are correctly BGP peered you should see a continous ping
 
 ----
 
-### Case 6: Service chaining (*Work In Progress*)
+### Case 6: Service chaining
 
-Service chaining essentially involves the use of network services such as a firewall, load balancer etc. interconnected through the network to support an application. It is formed when a network policy specifies that the traffic between two networks has to flow through one or more network functions. The functions can be physical appliances, virtual machines or container-based. Tungsten Fabric, using the user-defined policies creates underlay tunnels starting from a virtual network (left_VN) spanning through the network services in the chain and ending at the right_VN. The figure below shows an example service chain schema with K8s pod
+Service chaining essentially involves the use of network services such as a firewall and load balancer that are interconnected through the network to support an application. It is formed when a network policy specifies that the traffic between two networks has to flow through one or more network functions. The functions can be physical appliances, virtual machines or container-based. Tungsten Fabric creates underlay tunnels traversing through these functions based on user-defined policies. The figure below shows an example service chain schema:
 
-![](svc-chain1.png)
+![](svc-chain3.png)
 
- Service Type remains “firewall” indicating a Service VM that is in-line with the Data traffic.
+Following a basic deployment of TF we will be setting the above shown service chain. First, we will create two virtual networks named `left-network` and `right-network` with different subnets:
+
+    #Create a new file named `network.yaml` with the following content:
+    apiVersion: k8s.cni.cncf.io/v1
+    kind: NetworkAttachmentDefinition
+    metadata:
+      annotations:
+        opencontrail.org/cidr: "192.172.0.0/24"
+        opencontrail.org/ip_fabric_forwarding: "false"
+        opencontrail.org/ip_fabric_snat: "false"
+      name: left-network
+      namespace: default
+    spec:
+      config: '{ “cniVersion”: “0.3.0”, "type": "contrail-k8s-cni", "isGateway": true}'
+
+    ---
+    apiVersion: k8s.cni.cncf.io/v1
+    kind: NetworkAttachmentDefinition
+    metadata:
+      annotations:
+        opencontrail.org/cidr: "192.168.0.0/24"
+        opencontrail.org/ip_fabric_forwarding: "false"
+        opencontrail.org/ip_fabric_snat: "false"
+      name: right-network
+      namespace: default
+    spec:
+      config: '{ “cniVersion”: “0.3.0”, "type": "contrail-k8s-cni", "isGateway": true }'
+
+    #Create networks:
+    kubectl apply -f network.yaml
+
+Creation of network can be confirmed via the TF web-ui from `configure` tab `networking -> network` switch to `k8s-default` namespace, you should see the two networks. Next we will create the three pods, namely: `left-pod`, `service-pod` and `right-pod`. The `left-pod` is attached to the `left-network` subnet and the `right-pod` is attached to the `right-network` subnet. The `service-pod` has multiple interface, used to connect to both left and right network subnets.
+
+    #Create a new file named `multiIntPods.yaml` with the following content:
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: service-pod
+      labels:
+        tier: svc
+      annotations:
+        k8s.v1.cni.cncf.io/networks: left-network,right-network
+    spec:
+      containers:
+      - name: debugapp
+        image: nicolaka/netshoot
+        tty: true
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+      restartPolicy: Never
+
+    ---
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: left-pod
+      labels:
+        tier: left
+      annotations:
+        k8s.v1.cni.cncf.io/networks: left-network
+    spec:
+      initContainers:
+      - name: fix-route-table
+        image: nicolaka/netshoot
+        command: ["/bin/bash", "-c", "route del default && route add default gw 192.172.0.254 dev eth1"]
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+      containers:
+      - name: debugapp
+        image: nicolaka/netshoot
+        tty: true
+      restartPolicy: Never
+
+    ---
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: right-pod
+      labels:
+        tier: right
+      annotations:
+        k8s.v1.cni.cncf.io/networks: right-network
+    spec:
+      initContainers:
+      - name: fix-route-table
+        image: nicolaka/netshoot
+        command: ["/bin/bash", "-c", "route del default && route add default gw 192.168.0.254 dev eth1"]
+        securityContext:
+          capabilities:
+            add:
+            - NET_ADMIN
+      containers:
+      - name: debugapp
+        image: nicolaka/netshoot
+        tty: true
+       restartPolicy: Never
+
+    #Create and Initiate the pods:
+    kubectl apply -f multiIntPods.yaml
+
+    #To check that pods are created
+    kubectl get pods
+
+Subsequent to pod creation and network assignment, we will now configure the service template and isntance. From the service template page `Configure->Services->Service templates` create a new service template by clicking the (+) on right and set up the following configuration:
+
+    Name: chain-template
+    Version: v2
+    Virtualization Type: Virtual Machine
+    Service Mode: In-Network
+    Service Type: Firewall
+    Interface: click (+) to add the following interfaces:
+                - management
+                - left
+                - right
 
 
-Service Policy
-The following are the parameters to be configured for a service policy:
--Policy name
--Source network name
--Destination network name
--Other policy match conditions, for example direction and source and destination ports
--Policy configured in “routed/in-network” or “bridged/” mode
--An action type called apply_service is used:
-	Example: 'apply_service’: [DomainName:ProjectName:ServiceInstanceName]
+TF uses three modes to cater to different types of traffic from network services, namley Transparent, In-Network and In-Network-NAT service-chain. Transparent is typically used for network services that do not modify the packet. In network (or layer-3) service chain provides a gateway service where packets are routed between the service instance interfaces, packets are routed based on destination IP. Finally, the In-Network-Nat mode is similar to In-Network, however, it replicates right virtual-network's prefixes to left virtual-network, but not vice-versa. Typical usecase of this flavor of service-chain is VNF's left interface has private ip, and the right interface has global ip, in a case such as SNAT for internet access is performed. Since private ip can't be exported to the internet, in this case, left virtual-network's prefix can't be replicated to right virtual-network.
 
+Next we need to create a `service instance` from the `Configure->Services->Service instance`. Click the (+) icon to create a new service instance with the following configuration:
 
-this case is an exception of this rule, and the vRouter at the left of VNF sends traffic with dest mac: 2:0:0:0:0:2, and the vRouter at the right of VNF sends traffic with dest mac 1:0:0:0:0:1. So bridge-type VNF will send traffic to the opposite side of its interfaces.
+    Service Template: Select the previously created templeate `chain-template`
+    Virtual Network: Select a virtual network for each interface of the service pod
+                      - management: select the default k8s pod network
+                      - left: select the left-network 
+                      - right select the right-network
+    Port Tuples: click (+) to add new port tuples and then click the arrow to select interfaces:
+                  - management: select the k8s default subnet
+                  - left: select the left-network default subnet
+                  - right select the right-network subnet
 
-Let me note that even if l2 vnf is used, the left virtual-network and right virtual-network need to have different subnet. This might be a bit counter intuitive, but since vRouter can do l3 routing, vRouter - L2VNF - vRouter is possible, just like router - L2VNF - router is acceptable.
+    #To check the allocated IP addresses to service pod interfaces with:
+    kubectl describe pod service-pod
 
- 
+The Figure below show a sample configuration for the service instance
 
+![](svc-instance.png)
 
+Finally, we will create a service policy and attach it to both left and right networks. The policy will be used to direct the traffic from left network to right via the service pod. To create the policy switch to `Configure->Networking->Policies` and click the (+) icon to create a new policy. The Figure below shows the policy configuration, simply select the source as `left-network`, destination as `right-network` and check the `services` checkbox, then select the service instance we previously created:
 
+![](svc-policy.png)
 
-Note: TF uses three modes to cater to different types of traffic from network services, namley Transparent, In-Network and In-Network-NAT service-chain. Transparent is typically used for network services that do not modify the packet. In network (or layer-3) service chain provides a gateway service where packets are routed between the service instance interfaces, packets are routed based on destination IP. Finally, the In-Network-Nat mode is similar to In-Network, however, it replicates right virtual-network's prefixes to left virtual-network, but not vice-versa. Typical usecase of this flavor of service-chain is VNF's left interface has private ip, and the right interface has global ip, in a case such as SNAT for internet access is performed. Since private ip can't be exported to the internet, in this case, left virtual-network's prefix can't be replicated to right virtual-network. The aforementioned service chaining process is a very basic walkthrough and falls under the first mode as firewall does not modifies the packet. 
+Switch over to `Configure->Networking->Networks` and assign the policy to `left-network` and `right-network`
 
+To test our setup we will ping from the left pod to right, while also monitoring the traffic at the interfaces of service pod:
+
+    #Initiate pinging
+    ping <RIGHT-POD-IP-ADDRESS>
+
+    #Monitor the interface at the service pod 
+    tcmpdump -i any
+
+    #The pods can be accessed using:
+    kubectl exec -it <POD-NAME>  /bin/bash
+
+If everything is correctly setup, you should see a constant pinging as well as ICMP traffic in the service pod terminal interface.
 
 
