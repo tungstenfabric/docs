@@ -1,5 +1,5 @@
 [gerrit]
 host=gerrit.tungsten.io
 port=29418
-project=docs.git
+project=tungstenfabric/docs.git
 defaultbranch=master
