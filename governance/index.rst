@@ -26,7 +26,7 @@ Docs Structure
 Governance Documents
 --------------------
 
--  `Technical Charter`_: The founding document for Tungsten Fabric.
+-  :ref:`Technical Charter`: The founding document for Tungsten Fabric.
 -  `Community Governance Document`_: A detailed description of the
    governance of Tungsten Fabric.
 
@@ -153,20 +153,19 @@ reference.
 -  TC: Technical Committee
 -  TSC: Technical Steering Committee
 
-.. _Technical Charter: tungsten-fabric-project-technical-charter.rst
-.. _Community Governance Document: tungsten-fabric-community-governance.rst
-.. _Architecture Review Board: architecture-review-board/arb-members.rst
-.. _Community Committee: community-committee/cc-members.rst
-.. _Technical Committee: technical-committee/tc-members.rst
-.. _Active Community Contributors: acc-members.rst
-.. _TSC Approved Active Technical Contributors: tsc-atc-members.rst
+.. _Community Governance Document: tungsten-fabric-community-governance.html
+.. _Architecture Review Board: architecture-review-board/arb-members.html
+.. _Community Committee: community-committee/cc-members.html
+.. _Technical Committee: technical-committee/tc-members.html
+.. _Active Community Contributors: acc-members.html
+.. _TSC Approved Active Technical Contributors: tsc-atc-members.html
 .. _Election Mechanics: https://wiki.tungsten.io/display/TUN/Election+Mechanics
 .. _this diagram: tsc-voters-and-candidates/tsc-voters-and-candidates-diagram.png
-.. _Sections 3.2 and 5.2.3.2.3: tungsten-fabric-community-governance.rst
-.. _Section 5.2.4.2.1: tungsten-fabric-community-governance.rst
-.. _Section 5.2.4.2.3: tungsten-fabric-community-governance.rst
-.. _Section 5.2.2: tungsten-fabric-community-governance.rst
-.. _Section 5.2.2: tungsten-fabric-community-governance.rst
-.. _Section 2: tungsten-fabric-project-technical-charter.rst
-.. _Section 5: tungsten-fabric-community-governance.rst
-.. _Section 5.2.4.3: tungsten-fabric-community-governance.rst
+.. _Sections 3.2 and 5.2.3.2.3: tungsten-fabric-community-governance.html
+.. _Section 5.2.4.2.1: tungsten-fabric-community-governance.html
+.. _Section 5.2.4.2.3: tungsten-fabric-community-governance.html
+.. _Section 5.2.2: tungsten-fabric-community-governance.html
+.. _Section 5.2.2: tungsten-fabric-community-governance.html
+.. _Section 2: tungsten-fabric-project-technical-charter.html
+.. _Section 5: tungsten-fabric-community-governance.html
+.. _Section 5.2.4.3: tungsten-fabric-community-governance.html

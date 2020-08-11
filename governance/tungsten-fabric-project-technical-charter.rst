@@ -1,3 +1,5 @@
+.. _Technical Charter:
+
 Technical Charter (the "Charter")
 =================================
 
