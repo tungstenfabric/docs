@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Getting Started as a Contributor &#8212; TungstenFabric master documentation</title>
+    <title>Tungsten Fabric JIRA workflow &#8212; TungstenFabric master documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
@@ -15,8 +15,8 @@
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Getting Started as a Developer" href="getting-started-with-tungsten-fabric-development.html" />
-    <link rel="prev" title="Contribute to Tungsten Fabric" href="../index.html" />
+    <link rel="next" title="How to review a patch in Gerrit" href="../../gerrit_patchreview.html" />
+    <link rel="prev" title="Processes before submitting a blueprint" href="Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -74,7 +74,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Getting Started as a Contributor</a></li>
+<li><a class="reference internal" href="#">Tungsten Fabric JIRA workflow</a></li>
 </ul>
 </ul>
 </li>
@@ -84,11 +84,11 @@
               
                 
   <li>
-    <a href="../index.html" title="Previous Chapter: Contribute to Tungsten Fabric"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Contribute to...</span>
+    <a href="Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions.html" title="Previous Chapter: Processes before submitting a blueprint"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Processes bef...</span>
     </a>
   </li>
   <li>
-    <a href="getting-started-with-tungsten-fabric-development.html" title="Next Chapter: Getting Started as a Developer"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Getting Start... &raquo;</span>
+    <a href="../../gerrit_patchreview.html" title="Next Chapter: How to review a patch in Gerrit"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">How to review... &raquo;</span>
     </a>
   </li>
               
@@ -116,31 +116,98 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Getting Started as a Contributor</a></li>
+<li><a class="reference internal" href="#">Tungsten Fabric JIRA workflow</a></li>
 </ul>
 
   <li>
-    <a href="../index.html" title="Previous Chapter: Contribute to Tungsten Fabric"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Contribute to...</span>
+    <a href="Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions.html" title="Previous Chapter: Processes before submitting a blueprint"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Processes bef...</span>
     </a>
   </li>
   <li>
-    <a href="getting-started-with-tungsten-fabric-development.html" title="Next Chapter: Getting Started as a Developer"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Getting Start... &raquo;</span>
+    <a href="../../gerrit_patchreview.html" title="Next Chapter: How to review a patch in Gerrit"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">How to review... &raquo;</span>
     </a>
   </li>
         </div>
       </div>
     <div class="body col-md-9 content" role="main">
       
-  <div class="section" id="getting-started-as-a-contributor">
-<h1>Getting Started as a Contributor<a class="headerlink" href="#getting-started-as-a-contributor" title="Permalink to this headline">¶</a></h1>
-<p>This directory contains community generated documentation on how to get started
-as a contributor to Tungsten Fabric, including tools and systems, procedures to
-ensure consistency in planning, and style guides.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started-with-tungsten-fabric-development.html">Getting Started as a Developer</a></li>
+  <div class="section" id="tungsten-fabric-jira-workflow">
+<h1>Tungsten Fabric JIRA workflow<a class="headerlink" href="#tungsten-fabric-jira-workflow" title="Permalink to this headline">¶</a></h1>
+<p>This Document provides guidance for the current  JIRA workflow for Tungsten
+Fabric utilizing various constructs available as part of Jira.</p>
+<p>Basic definitions:</p>
+<p>JIRA Projects:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>TF Blueprints - captures details on blueprints for all new features</dt><dd><p>that needs to be added to Tungsten Fabric</p>
+</dd>
+</dl>
+</li>
+<li><p>TF Bugs - captures all workflow other than blueprints</p></li>
 </ul>
-</div>
+<p>JIRA Issue Type:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Epic - Capture large user stories which can be broken down into</dt><dd><p>smaller user stories and used to bundle/group new features
+(BluePrints) together in one place.</p>
+</dd>
+</dl>
+</li>
+<li><p>Story (Not available for TF Bugs) - Capture user stories</p></li>
+<li><p>New Feature - introduction of new feature into Tungsten fabric</p></li>
+<li><dl class="simple">
+<dt>Bug - default bucket for any issue that does not fall into the</dt><dd><p>category of improvement or a new feature</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Improvement - ticket to track an improvement on already available</dt><dd><p>functionality</p>
+</dd>
+</dl>
+</li>
+<li><p>Task - a work unit defined to carry out an activity</p></li>
+</ul>
+<p>Affects Version:</p>
+<ul class="simple">
+<li><p>Blueprint :- represents which version this blueprint is proposed for</p></li>
+<li><p>Issue :- represents which version have this issue reported for</p></li>
+</ul>
+<p>Fix Versions:</p>
+<p>Version for which this Blueprint or fix for issue will be part of</p>
+<p><em>Current Workflow:</em></p>
+<p>While proposing a new feature</p>
+<ul>
+<li><dl class="simple">
+<dt>File a User Story under TF-Blueprint project for review, assignee</dt><dd><p>will be submitting a blueprint/spec using this User Story for
+community review</p>
+</dd>
+</dl>
+<ul class="simple">
+<li><dl class="simple">
+<dt>For larger activities an Epic needs to be created, which will be</dt><dd><p>broken down into separate user stories for Blueprint</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li><dl class="simple">
+<dt>As part of the approval of a Blueprint, a milestone version will be</dt><dd><p>attached to it to represent the targeted Release version</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Upon approval, the assignee will create (new feature / improvement) issue</dt><dd><p>under TF Bugs project to submit the changes to code repositories</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Link these new feature / improvement issues to the approved blueprint</dt><dd><p>user story</p>
+</dd>
+</dl>
+</li>
+<li><p>Follow the individual issue work flow on individual issues.</p></li>
+</ul>
+<img alt="../../_images/jira_workflow.png" src="../../_images/jira_workflow.png" />
 </div>
 
 
@@ -156,7 +223,7 @@ ensure consistency in planning, and style guides.</p>
         <br/>
         
 <div id="sourcelink">
-  <a href="../../_sources/contributor/getting-started/index.rst.txt"
+  <a href="../../_sources/contributor/getting-started/Tungsten_Fabric_JIRA_Workflow.rst.txt"
      rel="nofollow">Source</a>
 </div>
       

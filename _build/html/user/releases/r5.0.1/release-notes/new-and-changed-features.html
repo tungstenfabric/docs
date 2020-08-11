@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>New and Changed Features &#8212; TungstenFabric master documentation</title>
     <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -239,27 +238,27 @@
 <div class="section" id="support-for-red-hat-openstack-platform-director-13">
 <h2>Support for Red Hat OpenStack Platform Director 13<a class="headerlink" href="#support-for-red-hat-openstack-platform-director-13" title="Permalink to this headline">¶</a></h2>
 <p>Tungsten Fabric Release 5.0.1 supports integration with Red Hat OpenStack Platform Director 13.</p>
-<p><a class="reference internal" href="#table-1">Table&nbsp;1</a> lists the the OpenStack releases and the corresponding operating systems and deployer versions supported by Tungsten Fabric Release 5.0.1.</p>
+<p><a class="reference internal" href="#table-1">Table 1</a> lists the the OpenStack releases and the corresponding operating systems and deployer versions supported by Tungsten Fabric Release 5.0.1.</p>
 <p id="table-1"><em>Table 1</em> : Supported Release Versions</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="29%" />
-<col width="22%" />
-<col width="30%" />
-<col width="19%" />
+<col style="width: 29%" />
+<col style="width: 22%" />
+<col style="width: 30%" />
+<col style="width: 19%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Tungsten Fabric Release</th>
-<th class="head">Operating System</th>
-<th class="head">OpenStack</th>
-<th class="head">Deployer</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Tungsten Fabric Release</p></th>
+<th class="head"><p>Operating System</p></th>
+<th class="head"><p>OpenStack</p></th>
+<th class="head"><p>Deployer</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>Tungsten Fabric 5.0.1</td>
-<td>RHEL 7.5</td>
-<td>Red Hat OpenStack Platform 13</td>
-<td>RHOSP 13 director</td>
+<tbody>
+<tr class="row-even"><td><p>Tungsten Fabric 5.0.1</p></td>
+<td><p>RHEL 7.5</p></td>
+<td><p>Red Hat OpenStack Platform 13</p></td>
+<td><p>RHOSP 13 director</p></td>
 </tr>
 </tbody>
 </table>
@@ -282,7 +281,7 @@
 <p>The distributed SNAT feature allows virtual machines to communicate with the IP fabric network using the existing forwarding infrastructure for compute node connectivity. This functionality is achieved through port address translation of virtual machine traffic using the IP address of the compute node as the public address.</p>
 <p>The following distributed SNAT use case is supported:</p>
 <ul class="simple">
-<li>Virtual networks with distributed SNAT enabled can communicate with the IP fabric network. The session must be initiated from a virtual machine. Sessions initiated from the external network are not supported.</li>
+<li><p>Virtual networks with distributed SNAT enabled can communicate with the IP fabric network. The session must be initiated from a virtual machine. Sessions initiated from the external network are not supported.</p></li>
 </ul>
 <p>Distributed SNAT is supported only for TCP and UDP, and you can configure discrete port ranges for both protocols.</p>
 </div>
@@ -306,11 +305,11 @@
 <h2>Kubernetes Updates<a class="headerlink" href="#kubernetes-updates" title="Permalink to this headline">¶</a></h2>
 <p>Tungsten Fabric Release 5.0 includes the following Kubernetes updates.</p>
 <ul class="simple">
-<li>The IP fabric forwarding feature enables reachability to public cloud services for Kubernetes pods. The IP fabric forwarding feature enables the overlay network to be a part of the underlay network or the IP fabric network, eliminating the need for encapsulating data packets between Kubernetes pods.</li>
-<li>The ip-fabric-snat feature enables service or ingress reachability from external clusters in isolated namespaces.</li>
-<li>Multiple Ingress Controllers can co-exist in Tungsten Fabric. Since Tungsten Fabric ensures the reachability between pods and services, any ingress controller can reach the endpoints or pods directly or through services.</li>
-<li>Tungsten Fabric supports custom networks in namespace level. Starting with Tungsten Fabric Release 5.0, custom networks are supported for ingress resources as well.</li>
-<li>Tungsten Fabric network policy is created between the IP fabric network and pod-network to provide reachability between node and pods. So, any process in the node can reach the pods. Kubernetes Service Node-Port is also supported.</li>
+<li><p>The IP fabric forwarding feature enables reachability to public cloud services for Kubernetes pods. The IP fabric forwarding feature enables the overlay network to be a part of the underlay network or the IP fabric network, eliminating the need for encapsulating data packets between Kubernetes pods.</p></li>
+<li><p>The ip-fabric-snat feature enables service or ingress reachability from external clusters in isolated namespaces.</p></li>
+<li><p>Multiple Ingress Controllers can co-exist in Tungsten Fabric. Since Tungsten Fabric ensures the reachability between pods and services, any ingress controller can reach the endpoints or pods directly or through services.</p></li>
+<li><p>Tungsten Fabric supports custom networks in namespace level. Starting with Tungsten Fabric Release 5.0, custom networks are supported for ingress resources as well.</p></li>
+<li><p>Tungsten Fabric network policy is created between the IP fabric network and pod-network to provide reachability between node and pods. So, any process in the node can reach the pods. Kubernetes Service Node-Port is also supported.</p></li>
 </ul>
 <p>For more information on Kubernetes updates in Tungsten Fabric Release 5.0, see <a class="reference internal" href="#kubernetes-updates">Kubernetes Updates</a>  .</p>
 </div>
@@ -319,8 +318,8 @@
 <p>Service interface and static routes are proliferating as leaked routes in the routing table of the SDN gateway. To reduce these leaked routes, routing policies have additional term match conditions under the protocol options to distinguish interface routes, service interface routes, and static routes from other VM routes. Also, a new action attribute, ASPATH (autonomous system path), is added that can be appended with a configurable AS list. All of the action attributes of Add/Set/Remove Community, SetLocal-Pref, and Set Med are supported with the new protocol match conditions and the new ASPATH list append action.</p>
 <p>Users will be able to configure the new term match and action attributes as needed in the following cases:</p>
 <ul class="simple">
-<li>Setting LocalPref on service interface static routes when exporting to distinguish routes and take further action.</li>
-<li>Setting different LocalPref for all other reoriginated routes to distinguish routes and take further action.</li>
+<li><p>Setting LocalPref on service interface static routes when exporting to distinguish routes and take further action.</p></li>
+<li><p>Setting different LocalPref for all other reoriginated routes to distinguish routes and take further action.</p></li>
 </ul>
 <p>Additionally, Tungsten Fabric can set the LocalPref based on community onto imported routes, instead of the data center gateway, allowing direct access to VPN Internet-Shared from Tungsten Fabric.</p>
 </div>
@@ -345,9 +344,9 @@
 <p>Starting with Tungsten Fabric Release 5.0 , a flow-hold entries counter is transmitted in vRouter User-Visible Entities (UVEs). The counter specifies the number of flows in <strong>hold</strong> state in the vRouter. vRouter uses the flow-hold count to check against a defined limit and when it reaches a defined limit, packets requiring new flows are dropped and new flows are not created till the flow-hold count goes below the defined limit.</p>
 <p>Along with the flow-hold entries counter, the vRouter UVEs also provide information associated with a vRouter, such as:</p>
 <ul class="simple">
-<li>Virtual networks present on the vRouter</li>
-<li>Virtual machines spawned on the server of the vRouter</li>
-<li>Statistics of the traffic flowing through the vRouter</li>
+<li><p>Virtual networks present on the vRouter</p></li>
+<li><p>Virtual machines spawned on the server of the vRouter</p></li>
+<li><p>Statistics of the traffic flowing through the vRouter</p></li>
 </ul>
 </div>
 <div class="section" id="timestamp-in-uve-api-response">
@@ -364,8 +363,8 @@
 <p>Helm is the package manager for Kubernetes which is an open source software for managing containerized systems. The packaging format used by Helm is a chart, a collection of files that describe a related set of Kubernetes resources.</p>
 <p>Many Tungsten Fabric components have been broken out into manageable Helm charts, including the following specific features:</p>
 <ul class="simple">
-<li>Tungsten Fabric service and IP address numbers are configurable by means of Helm charts.</li>
-<li>Ingress controllers can be implemented by means of Helm charts.</li>
+<li><p>Tungsten Fabric service and IP address numbers are configurable by means of Helm charts.</p></li>
+<li><p>Ingress controllers can be implemented by means of Helm charts.</p></li>
 </ul>
 </div>
 <div class="section" id="rbac-support-for-tungsten-fabric-analytics-apibeta">
@@ -392,14 +391,14 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../../../../_sources/user/releases/r5.0.1/release-notes/new-and-changed-features.rst.txt"
+  <a href="../../../../_sources/User/releases/r5.0.1/release-notes/new-and-changed-features.rst.txt"
      rel="nofollow">Source</a>
 </div>
       
     </p>
     <p>
         &copy; Copyright 2019, Tungsten Fabric Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
     </p>
   </div>
 </footer>

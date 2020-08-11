@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>How to review a patch in Gerrit &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Infrastructure" href="infrastructure/index.html" />
+    <link rel="prev" title="Tungsten Fabric JIRA workflow" href="contributor/getting-started/Tungsten_Fabric_JIRA_Workflow.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html"><span><img src="_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="User/index.html">User Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="contributor/index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="administration/index.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governance/index.html">Tungsten Fabric Governance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manual-cla-admin.html">Manual CLA Administration</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">How to review a patch in Gerrit</a><ul>
+<li><a class="reference internal" href="#basic-terminologies">1. Basic Terminologies</a></li>
+<li><a class="reference internal" href="#fundamental-steps-to-review">2. Fundamental Steps to review</a><ul>
+<li><a class="reference internal" href="#inline-comments">2.1 Inline Comments</a></li>
+<li><a class="reference internal" href="#adding-review-score">2.2. Adding Review Score</a></li>
+<li><a class="reference internal" href="#submitting-the-patch">2.3 Submitting the Patch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#searching-for-changes-with-pending-edits">3 Searching for changes with pending edits</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="contributor/getting-started/Tungsten_Fabric_JIRA_Workflow.html" title="Previous Chapter: Tungsten Fabric JIRA workflow"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tungsten Fabr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="infrastructure/index.html" title="Next Chapter: Infrastructure"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Infrastructure &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">How to review a patch in Gerrit</a><ul>
+<li><a class="reference internal" href="#basic-terminologies">1. Basic Terminologies</a></li>
+<li><a class="reference internal" href="#fundamental-steps-to-review">2. Fundamental Steps to review</a><ul>
+<li><a class="reference internal" href="#inline-comments">2.1 Inline Comments</a></li>
+<li><a class="reference internal" href="#adding-review-score">2.2. Adding Review Score</a></li>
+<li><a class="reference internal" href="#submitting-the-patch">2.3 Submitting the Patch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#searching-for-changes-with-pending-edits">3 Searching for changes with pending edits</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="contributor/getting-started/Tungsten_Fabric_JIRA_Workflow.html" title="Previous Chapter: Tungsten Fabric JIRA workflow"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tungsten Fabr...</span>
+    </a>
+  </li>
+  <li>
+    <a href="infrastructure/index.html" title="Next Chapter: Infrastructure"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Infrastructure &raquo;</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="how-to-review-a-patch-in-gerrit">
+<h1>How to review a patch in Gerrit<a class="headerlink" href="#how-to-review-a-patch-in-gerrit" title="Permalink to this headline">¶</a></h1>
+<p>Patch review is an essential process of any contribution workflow.</p>
+<p>Any patch must undergo review by others before it gets committed.</p>
+<p><strong>Who can review:</strong>  After creating a developer account in Gerrit, anyone can comment and express their opinions and approvals. But only a small group of people in Gerrit will be given the authority to approve code and merge it into Gerrit repository.</p>
+<div class="section" id="basic-terminologies">
+<h2>1. Basic Terminologies<a class="headerlink" href="#basic-terminologies" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Change:</strong> A unit of review. Every git commit has a change-Id associated with it.</p></li>
+<li><p><strong>Patch set:</strong> A revision of a change. The first revision is patch set 1.</p></li>
+<li><p><strong>Label:</strong> A rating category that allows or blocks progress of a change</p></li>
+<li><p><strong>Score:</strong> The rating given to a label. For some labels, its range is +1/-1 that allows or blocks. Code review spans +2 to -2.</p></li>
+<li><p><strong>Abandon:</strong> Archives a change that can be restored later.</p></li>
+<li><p><strong>Project:</strong> A Git repository</p></li>
+</ul>
+</div>
+<div class="section" id="fundamental-steps-to-review">
+<h2>2. Fundamental Steps to review<a class="headerlink" href="#fundamental-steps-to-review" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Use Linux Foundation user credentials to login.
+Gerrit UI login: <a class="reference external" href="https://gerrit.tungsten.io/r/login/%2F%2Fq%2Fstatus%3Aopen">https://gerrit.tungsten.io/r/login/%2F%2Fq%2Fstatus%3Aopen</a></p></li>
+<li><p>Under <strong>Your</strong>-&gt; <strong>Changes</strong> :</p>
+<p><strong>Incoming reviews:</strong> Someone made a change and they want you to review.</p>
+<p><strong>Outgoing reviews:</strong>  You made a change and submitted for review to someone.</p>
+</li>
+<li><p>By clicking on <strong>ADD REVIEWER</strong> under Reviewers section on the left side panel,
+you can add reviewers for a particular patch. Reviewer immediately gets email notifications.
+We can have multiple reviewers assigned. For example, if reviewer 1 gave +1 score and the
+second reviewer gave +1 score, it does not mean +2. In order to get merged, +2 is needed.</p>
+<p>Scoring system has these values: <strong>-2,-1,0,+1,+2</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="mi">2</span> <span class="n">This</span> <span class="n">shall</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">merged</span>
+
+<span class="o">-</span><span class="mi">1</span> <span class="n">I</span> <span class="n">would</span> <span class="n">prefer</span> <span class="n">this</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">merged</span> <span class="k">as</span> <span class="n">it</span> <span class="ow">is</span>
+
+<span class="mi">0</span>  <span class="n">No</span> <span class="n">score</span>
+
+<span class="o">+</span><span class="mi">1</span> <span class="n">Looks</span> <span class="n">good</span> <span class="n">to</span> <span class="n">me</span><span class="p">,</span> <span class="n">but</span> <span class="n">someone</span> <span class="k">else</span> <span class="n">must</span> <span class="n">approve</span>
+
+<span class="o">+</span><span class="mi">2</span> <span class="n">Looks</span> <span class="n">good</span> <span class="n">to</span> <span class="n">me</span><span class="p">,</span> <span class="n">approved</span>
+
+<span class="n">Note</span><span class="p">:</span> <span class="o">+</span><span class="mi">2</span><span class="o">/-</span><span class="mi">2</span> <span class="n">scores</span> <span class="n">are</span> <span class="n">only</span> <span class="k">for</span> <span class="s2">&quot;core&quot;</span> <span class="n">contributors</span><span class="p">,</span> <span class="n">but</span> <span class="n">anyone</span> <span class="k">with</span> <span class="n">a</span> <span class="n">login</span> <span class="n">can</span> <span class="n">review</span> <span class="ow">and</span> <span class="n">give</span> <span class="o">+</span><span class="mi">1</span><span class="o">/-</span><span class="mi">1</span> <span class="n">to</span> <span class="nb">any</span> <span class="n">patch</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+<li><p>Go to <strong>File</strong> section at the bottom, click on the file name and add comments. You can add comment line by line or to the entire file.</p></li>
+</ol>
+<div class="section" id="inline-comments">
+<h3>2.1 Inline Comments<a class="headerlink" href="#inline-comments" title="Permalink to this headline">¶</a></h3>
+<p>Inline comments are displayed directly in the patch file under the code that is commented.
+Inline comments can be placed on lines or on code blocks.
+If an inline comment relates to a code block, this code block is highlighted by a yellow background.</p>
+<p>Follow the following steps to leave your review comments inline:</p>
+<ol class="loweralpha simple">
+<li><p>You can set the <strong>Diff view</strong> on the right hand side to either <strong>Side-by-side diff</strong> or <strong>Unified-diff</strong> view. The side-by-side diff screen shows a single patch; the old file version is displayed on the left side of the screen; the new file version is displayed on the right side of the screen. This screen allows to review a patch and to comment on it.</p></li>
+<li><p>To add a new inline comment, select a code block or a line and press <strong>c</strong> from keyboard. Alternatively, you can also click on the line number for adding comments.</p></li>
+<li><p>For typing your comments inline, a new comment box is displayed under the code block or the line that you selected.</p></li>
+<li><p>Type your comment in the comment box.</p></li>
+<li><p>Clicking on the <strong>Save</strong> button saves the new comment as a draft. To make it visible to other users it must be published from the change screen by replying (click on the <strong>Reply</strong> button) to the change.</p></li>
+<li><p>Clicking on the <strong>Discard</strong> button deletes the new comment.</p></li>
+<li><p>If you have selected <strong>side-by-side diff</strong> view, file-level comments can also be applied by clicking on the File button displayed in the header.</p></li>
+</ol>
+</div>
+<div class="section" id="adding-review-score">
+<h3>2.2. Adding Review Score<a class="headerlink" href="#adding-review-score" title="Permalink to this headline">¶</a></h3>
+<ol class="loweralpha simple">
+<li><p>Click on the <strong>Reply</strong> button in the main page. For example: <a class="reference external" href="https://gerrit.tungsten.io/r/c/tungstenfabric/docs/+/351">https://gerrit.tungsten.io/r/c/tungstenfabric/docs/+/351</a>.</p></li>
+<li><p>Add your score. In order to pass, the final reviewer must give +2 score.</p></li>
+</ol>
+</div>
+<div class="section" id="submitting-the-patch">
+<h3>2.3 Submitting the Patch<a class="headerlink" href="#submitting-the-patch" title="Permalink to this headline">¶</a></h3>
+<ol class="loweralpha simple">
+<li><p>Click Submit button if ready to merge.</p></li>
+<li><p>Criteria to submit: The final score must be +2. History is displayed under Change log. Comment threads display reviewer comments.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="searching-for-changes-with-pending-edits">
+<h2>3 Searching for changes with pending edits<a class="headerlink" href="#searching-for-changes-with-pending-edits" title="Permalink to this headline">¶</a></h2>
+<p>To find changes with pending edits: Select <strong>Your</strong> &lt; <strong>Changes</strong> from the Gerrit dashboard.</p>
+<p>All the changes are listed here, according to works in progress, outgoing reviews, incoming reviews, and so on.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/gerrit_patchreview.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

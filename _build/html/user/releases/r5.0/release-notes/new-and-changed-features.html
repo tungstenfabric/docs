@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>New and Changed Features &#8212; TungstenFabric master documentation</title>
     <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -183,27 +182,27 @@
 <p>The features listed in this section are new or changed as of Tungsten Fabric Release 5.0. A brief description of each new feature is included.</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="#ansible-scripts-to-provision-tungsten-fabric">Ansible Scripts to Provision Tungsten Fabric</a></li>
-<li><a class="reference internal" href="#tungsten-fabric-microservices">Tungsten Fabric Microservices</a></li>
-<li><a class="reference internal" href="#containerization-of-dpdk-vrouter">Containerization of DPDK vRouter</a></li>
-<li><a class="reference internal" href="#distributed-source-network-address-translation-snat">Distributed Source Network Address Translation (SNAT)</a></li>
-<li><a class="reference internal" href="#evpn-vrouter-multihoming-to-multiple-tors">EVPN vRouter MultiHoming to Multiple ToRs</a></li>
-<li><a class="reference internal" href="#fat-flow-enhancements">Fat Flow Enhancements</a></li>
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/k8s-network-policy.html">Implementing Kubernetes Network Policy with Tungsten Fabric Firewall Policy</a></li>
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/k8s-ip-fabric.html">Kubernetes Updates</a></li>
-<li><a class="reference internal" href="#routing-policies-enhanced-for-interface-routes">Routing Policies Enhanced for Interface Routes</a></li>
-<li><a class="reference internal" href="#service-instance-health-check-failure">Service Instance Health Check Failure</a></li>
-<li><a class="reference internal" href="#support-for-load-balancing-as-a-service-lbaas-in-the-web-ui">Support for Load Balancing as a Service (LBaaS) in the Web UI</a></li>
-<li><a class="reference internal" href="#support-for-security-policies-draft-mode">Support for Security Policies Draft Mode</a></li>
-<li><a class="reference internal" href="#support-for-virtual-network-route-tables-in-tungsten-fabric-introspect">Support for Virtual Network Route Tables in Tungsten Fabric Introspect</a></li>
-<li><a class="reference internal" href="#support-for-a-flow-hold-entries-counter-in-vrouter-uves">Support for a Flow-Hold Entries Counter in vRouter UVEs</a></li>
-<li><a class="reference internal" href="#timestamp-in-uve-api-response">Timestamp In UVE API Response</a></li>
-<li><a class="reference internal" href="#timestamp-in-uve-stream-response">Timestamp In UVE Stream Response</a></li>
-<li><a class="reference internal" href="#using-helm-charts-to-provision-tungsten-fabric">Using Helm Charts to Provision Tungsten Fabric</a></li>
-<li><a class="reference internal" href="#tungsten-fabric-plugin-for-vmware-vrealize-orchestratorbeta">Tungsten Fabric Plugin For VMware vRealize Orchestrator—Beta</a></li>
-<li><a class="reference internal" href="#rbac-support-for-tungsten-fabric-analytics-apibeta">RBAC Support for Tungsten Fabric Analytics API—Beta</a></li>
-<li><a class="reference internal" href="#remote-computebeta">Remote Compute—Beta</a></li>
-<li><a class="reference internal" href="#openshift-enterprise">OpenShift Enterprise</a></li>
+<li><p><a class="reference internal" href="#ansible-scripts-to-provision-tungsten-fabric">Ansible Scripts to Provision Tungsten Fabric</a></p></li>
+<li><p><a class="reference internal" href="#tungsten-fabric-microservices">Tungsten Fabric Microservices</a></p></li>
+<li><p><a class="reference internal" href="#containerization-of-dpdk-vrouter">Containerization of DPDK vRouter</a></p></li>
+<li><p><a class="reference internal" href="#distributed-source-network-address-translation-snat">Distributed Source Network Address Translation (SNAT)</a></p></li>
+<li><p><a class="reference internal" href="#evpn-vrouter-multihoming-to-multiple-tors">EVPN vRouter MultiHoming to Multiple ToRs</a></p></li>
+<li><p><a class="reference internal" href="#fat-flow-enhancements">Fat Flow Enhancements</a></p></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/k8s-network-policy.html">Implementing Kubernetes Network Policy with Tungsten Fabric Firewall Policy</a></p></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/k8s-ip-fabric.html">Kubernetes Updates</a></p></li>
+<li><p><a class="reference internal" href="#routing-policies-enhanced-for-interface-routes">Routing Policies Enhanced for Interface Routes</a></p></li>
+<li><p><a class="reference internal" href="#service-instance-health-check-failure">Service Instance Health Check Failure</a></p></li>
+<li><p><a class="reference internal" href="#support-for-load-balancing-as-a-service-lbaas-in-the-web-ui">Support for Load Balancing as a Service (LBaaS) in the Web UI</a></p></li>
+<li><p><a class="reference internal" href="#support-for-security-policies-draft-mode">Support for Security Policies Draft Mode</a></p></li>
+<li><p><a class="reference internal" href="#support-for-virtual-network-route-tables-in-tungsten-fabric-introspect">Support for Virtual Network Route Tables in Tungsten Fabric Introspect</a></p></li>
+<li><p><a class="reference internal" href="#support-for-a-flow-hold-entries-counter-in-vrouter-uves">Support for a Flow-Hold Entries Counter in vRouter UVEs</a></p></li>
+<li><p><a class="reference internal" href="#timestamp-in-uve-api-response">Timestamp In UVE API Response</a></p></li>
+<li><p><a class="reference internal" href="#timestamp-in-uve-stream-response">Timestamp In UVE Stream Response</a></p></li>
+<li><p><a class="reference internal" href="#using-helm-charts-to-provision-tungsten-fabric">Using Helm Charts to Provision Tungsten Fabric</a></p></li>
+<li><p><a class="reference internal" href="#tungsten-fabric-plugin-for-vmware-vrealize-orchestratorbeta">Tungsten Fabric Plugin For VMware vRealize Orchestrator—Beta</a></p></li>
+<li><p><a class="reference internal" href="#rbac-support-for-tungsten-fabric-analytics-apibeta">RBAC Support for Tungsten Fabric Analytics API—Beta</a></p></li>
+<li><p><a class="reference internal" href="#remote-computebeta">Remote Compute—Beta</a></p></li>
+<li><p><a class="reference internal" href="#openshift-enterprise">OpenShift Enterprise</a></p></li>
 </ul>
 </div></blockquote>
 <div class="section" id="ansible-scripts-to-provision-tungsten-fabric">
@@ -227,7 +226,7 @@
 <p>The distributed SNAT feature allows virtual machines to communicate with the IP fabric network using the existing forwarding infrastructure for compute node connectivity. This functionality is achieved through port address translation of virtual machine traffic using the IP address of the compute node as the public address.</p>
 <p>The following distributed SNAT use case is supported:</p>
 <ul class="simple">
-<li>Virtual networks with distributed SNAT enabled can communicate with the IP fabric network. The session must be initiated from a virtual machine. Sessions initiated from the external network are not supported.</li>
+<li><p>Virtual networks with distributed SNAT enabled can communicate with the IP fabric network. The session must be initiated from a virtual machine. Sessions initiated from the external network are not supported.</p></li>
 </ul>
 <p>Distributed SNAT is supported only for TCP and UDP, and you can configure discrete port ranges for both protocols.</p>
 <p>For more information, see <a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/task/configuration/snat-vnc.html">Source Network Address Translation (SNAT)</a>  .</p>
@@ -253,11 +252,11 @@
 <h2>Kubernetes Updates<a class="headerlink" href="#kubernetes-updates" title="Permalink to this headline">¶</a></h2>
 <p>Tungsten Fabric Release 5.0 includes the following Kubernetes updates.</p>
 <ul class="simple">
-<li>The IP fabric forwarding feature enables reachability to public cloud services for Kubernetes pods. The IP fabric forwarding feature enables the overlay network to be a part of the underlay network or the IP fabric network, eliminating the need for encapsulating data packets between Kubernetes pods.</li>
-<li>The ip-fabric-snat feature enables service or ingress reachability from external clusters in isolated namespaces.</li>
-<li>Multiple Ingress Controllers can co-exist in Tungsten Fabric. Since Tungsten Fabric ensures the reachability between pods and services, any ingress controller can reach the endpoints or pods directly or through services.</li>
-<li>Tungsten Fabric 5.0 supports custom networks in namespace level as well as for ingress resources.</li>
-<li>Tungsten Fabric network policy is created between the IP fabric network and pod-network to provide reachability between node and pods. So, any process in the node can reach the pods. Kubernetes Service Node-Port is also supported.</li>
+<li><p>The IP fabric forwarding feature enables reachability to public cloud services for Kubernetes pods. The IP fabric forwarding feature enables the overlay network to be a part of the underlay network or the IP fabric network, eliminating the need for encapsulating data packets between Kubernetes pods.</p></li>
+<li><p>The ip-fabric-snat feature enables service or ingress reachability from external clusters in isolated namespaces.</p></li>
+<li><p>Multiple Ingress Controllers can co-exist in Tungsten Fabric. Since Tungsten Fabric ensures the reachability between pods and services, any ingress controller can reach the endpoints or pods directly or through services.</p></li>
+<li><p>Tungsten Fabric 5.0 supports custom networks in namespace level as well as for ingress resources.</p></li>
+<li><p>Tungsten Fabric network policy is created between the IP fabric network and pod-network to provide reachability between node and pods. So, any process in the node can reach the pods. Kubernetes Service Node-Port is also supported.</p></li>
 </ul>
 <p>For more information on Kubernetes updates in Tungsten Fabric Release 5.0, see <a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/k8s-ip-fabric.html">Kubernetes Updates</a>  .</p>
 </div>
@@ -266,8 +265,8 @@
 <p>Service interface and static routes are proliferating as leaked routes in the routing table of the SDN gateway. To reduce these leaked routes, routing policies have additional term match conditions under the protocol options to distinguish interface routes, service interface routes, and static routes from other VM routes. Also, a new action attribute, ASPATH (autonomous system path), is added that can be appended with a configurable AS list. All of the action attributes of Add/Set/Remove Community, SetLocal-Pref, and Set Med are supported with the new protocol match conditions and the new ASPATH list append action.</p>
 <p>Users will be able to configure the new term match and action attributes as needed in the following cases:</p>
 <ul class="simple">
-<li>Setting LocalPref on service interface static routes when exporting to distinguish routes and take further action.</li>
-<li>Setting different LocalPref for all other reoriginated routes to distinguish routes and take further action.</li>
+<li><p>Setting LocalPref on service interface static routes when exporting to distinguish routes and take further action.</p></li>
+<li><p>Setting different LocalPref for all other reoriginated routes to distinguish routes and take further action.</p></li>
 </ul>
 <p>Additionally, Tungsten Fabric can set the LocalPref based on community onto imported routes, instead of the data center gateway, allowing direct access to VPN Internet-Shared from Tungsten Fabric.</p>
 </div>
@@ -295,9 +294,9 @@
 <p>In Tungsten Fabric Release 5.0 , a flow-hold entries counter is transmitted in vRouter User-Visible Entities (UVEs). The counter specifies the number of flows in <strong>hold</strong> state in the vRouter. vRouter uses the flow-hold count to check against a defined limit and when it reaches a defined limit, packets requiring new flows are dropped and new flows are not created till the flow-hold count goes below the defined limit.</p>
 <p>Along with the flow-hold entries counter, the vRouter UVEs also provide information associated with a vRouter, such as:</p>
 <ul class="simple">
-<li>Virtual networks present on the vRouter</li>
-<li>Virtual machines spawned on the server of the vRouter</li>
-<li>Statistics of the traffic flowing through the vRouter</li>
+<li><p>Virtual networks present on the vRouter</p></li>
+<li><p>Virtual machines spawned on the server of the vRouter</p></li>
+<li><p>Statistics of the traffic flowing through the vRouter</p></li>
 </ul>
 </div>
 <div class="section" id="timestamp-in-uve-api-response">
@@ -314,16 +313,16 @@
 <p>Helm is the package manager for Kubernetes which is an open source software for managing containerized systems. The packaging format used by Helm is a chart, a collection of files that describe a related set of Kubernetes resources.</p>
 <p>Many Tungsten Fabric components have been broken out into manageable Helm charts, including the following specific features:</p>
 <ul class="simple">
-<li>Tungsten Fabric service and IP address numbers are configurable by means of Helm charts.</li>
-<li>Ingress controllers can be implemented by means of Helm charts.</li>
+<li><p>Tungsten Fabric service and IP address numbers are configurable by means of Helm charts.</p></li>
+<li><p>Ingress controllers can be implemented by means of Helm charts.</p></li>
 </ul>
 <p>For more information, see:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-chart-50.html">Installing and Managing Tungsten Fabric 5.0 Microservices Architecture Using Helm Charts</a></li>
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-multi-50.html">Using Helm Charts to Provision Multinode Tungsten Fabric OpenStack Ocata with High Availability</a></li>
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-aio-50.html">Using Helm Charts to Provision All-in-One Tungsten Fabric with OpenStack Ocata</a></li>
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/access_os_helm_cluster.html">Accessing a Tungsten Fabric OpenStack Helm Cluster</a></li>
-<li><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-multi-faq-50.html">Frequently Asked Questions About Tungsten Fabric and Helm Charts</a></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-chart-50.html">Installing and Managing Tungsten Fabric 5.0 Microservices Architecture Using Helm Charts</a></p></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-multi-50.html">Using Helm Charts to Provision Multinode Tungsten Fabric OpenStack Ocata with High Availability</a></p></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-aio-50.html">Using Helm Charts to Provision All-in-One Tungsten Fabric with OpenStack Ocata</a></p></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/access_os_helm_cluster.html">Accessing a Tungsten Fabric OpenStack Helm Cluster</a></p></li>
+<li><p><a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/topics/concept/install-microsvcs-helm-multi-faq-50.html">Frequently Asked Questions About Tungsten Fabric and Helm Charts</a></p></li>
 </ul>
 </div>
 <div class="section" id="tungsten-fabric-plugin-for-vmware-vrealize-orchestratorbeta">
@@ -360,14 +359,14 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../../../../_sources/user/releases/r5.0/release-notes/new-and-changed-features.rst.txt"
+  <a href="../../../../_sources/User/releases/r5.0/release-notes/new-and-changed-features.rst.txt"
      rel="nofollow">Source</a>
 </div>
       
     </p>
     <p>
         &copy; Copyright 2019, Tungsten Fabric Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
     </p>
   </div>
 </footer>

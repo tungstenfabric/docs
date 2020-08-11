@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Known Behavior &#8212; TungstenFabric master documentation</title>
     <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -136,84 +135,64 @@
 <h1>Known Behavior<a class="headerlink" href="#known-behavior" title="Permalink to this headline">¶</a></h1>
 <p>This section lists known limitations with this release. Bug numbers are listed and can be researched in <a class="reference external" href="https://launchpad.net">Launchpad.net</a>  at <a class="reference external" href="https://bugs.launchpad.net/juniperopenstack">https://bugs.launchpad.net/juniperopenstack</a>  .</p>
 <ul class="simple">
-<li>1628326 DPDK-based compute node may not handle ARP packets correctly if only one CPU core is assigned to the vRouter in the test bed file.</li>
-<li>1694343 In DPDK vRouter use cases such as SNAT and LBaaS that require netns, you cannot set jumbo MTU size. Maximum MTU allowed: &lt;=1500 . There is no workaround at present.</li>
-<li>1714063 Analytics services does not support Keystone V3.</li>
-<li>1716308 When the vRouter receives the head fragment of an ICMPv6 packet, the head fragment is immediately enqueued to the assembler. The flow is created as hold flow and then trapped to the agent. If fragments corresponding to this head fragment are already in the assembler or if new fragments arrive immediately after the head fragment, the assembler releases them to flow module. Fragments get enqueued in the hold queue if agent does not write flow action by the time the assembler releases fragments to the flow module. A maximum of three fragments are enqueued in the hold queue at a time. The remaining fragments are dropped from the assembler to the flow module.</li>
+<li><p>1628326 DPDK-based compute node may not handle ARP packets correctly if only one CPU core is assigned to the vRouter in the test bed file.</p></li>
+<li><p>1694343 In DPDK vRouter use cases such as SNAT and LBaaS that require netns, you cannot set jumbo MTU size. Maximum MTU allowed: &lt;=1500 . There is no workaround at present.</p></li>
+<li><p>1714063 Analytics services does not support Keystone V3.</p></li>
+<li><p>1716308 When the vRouter receives the head fragment of an ICMPv6 packet, the head fragment is immediately enqueued to the assembler. The flow is created as hold flow and then trapped to the agent. If fragments corresponding to this head fragment are already in the assembler or if new fragments arrive immediately after the head fragment, the assembler releases them to flow module. Fragments get enqueued in the hold queue if agent does not write flow action by the time the assembler releases fragments to the flow module. A maximum of three fragments are enqueued in the hold queue at a time. The remaining fragments are dropped from the assembler to the flow module.</p></li>
 </ul>
 <blockquote>
-<div>As a workaround, the head fragment is enqueued to assembler only after flow action is written by agent. If the flow is already present in non-hold state, it is immediately enqueued to assembler.</div></blockquote>
+<div><p>As a workaround, the head fragment is enqueued to assembler only after flow action is written by agent. If the flow is already present in non-hold state, it is immediately enqueued to assembler.</p>
+</div></blockquote>
 <ul class="simple">
-<li>1730021 In Tungsten Fabric Security, non-admin users cannot access global scope objects when  <code class="docutils literal notranslate"><span class="pre">global_access</span></code> is set to  <code class="docutils literal notranslate"><span class="pre">0</span></code>.</li>
+<li><p>1730021 In Tungsten Fabric Security, non-admin users cannot access global scope objects when  <code class="docutils literal notranslate"><span class="pre">global_access</span></code> is set to  <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 </ul>
 <blockquote>
-<div>As a workaround, for non-admin users to access global scope objects, set  <code class="docutils literal notranslate"><span class="pre">global_access</span></code> to  <code class="docutils literal notranslate"><span class="pre">5</span></code>.</div></blockquote>
+<div><p>As a workaround, for non-admin users to access global scope objects, set  <code class="docutils literal notranslate"><span class="pre">global_access</span></code> to  <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p>
+</div></blockquote>
 <ul>
-<li><p class="first">1733027 In a multi-node analytics cluster, when one of analytics nodes shuts down or is rebooted, the contrail-status on the other analytics nodes displays the status of contrail-analytics-api and contrail-alarm-gen as initializing with the error message:  <code class="docutils literal notranslate"><span class="pre">Redis-UVE:&lt;ip-address</span> <span class="pre">of</span> <span class="pre">analytics</span> <span class="pre">node</span> <span class="pre">that</span> <span class="pre">was</span> <span class="pre">shutdown/rebooted&gt;:6381[None]</span> <span class="pre">connection</span> <span class="pre">down</span></code>. This does not impact the functioning of the analytics cluster.</p>
-</li>
-<li><p class="first">1735057 When bringing up Tungsten Fabric cluster on Red Hat container, manually install docker-py on all the target nodes.</p>
+<li><p>1733027 In a multi-node analytics cluster, when one of analytics nodes shuts down or is rebooted, the contrail-status on the other analytics nodes displays the status of contrail-analytics-api and contrail-alarm-gen as initializing with the error message:  <code class="docutils literal notranslate"><span class="pre">Redis-UVE:&lt;ip-address</span> <span class="pre">of</span> <span class="pre">analytics</span> <span class="pre">node</span> <span class="pre">that</span> <span class="pre">was</span> <span class="pre">shutdown/rebooted&gt;:6381[None]</span> <span class="pre">connection</span> <span class="pre">down</span></code>. This does not impact the functioning of the analytics cluster.</p></li>
+<li><p>1735057 When bringing up Tungsten Fabric cluster on Red Hat container, manually install docker-py on all the target nodes.</p>
 <ul>
-<li><p class="first">To install Pip, use the following command:</p>
+<li><p>To install Pip, use the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bootstrap</span><span class="o">.</span><span class="n">pypa</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span> <span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">To install docker-py, use the following command:</p>
+<li><p>To install docker-py, use the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">py</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </li>
-<li><p class="first">1749614 In a Helm-based provisioned cluster, VM launch fails if MariaDB replication is set to &gt;1.</p>
-</li>
-<li><p class="first">1754742 When you receive an error message during Kolla provisioning, rerunning the code will not work. In order for the provisioning to work, restart provisioning from scratch.</p>
-</li>
-<li><p class="first">1755997 Kubernetes IP fabric feature is supported only on the pods and not the services.</p>
-</li>
-<li><p class="first">1759428 Cannot provision an external MX series router by running the  provision_mx.pyscript that contains the list of external routers.</p>
-</li>
-<li><p class="first">1759576 Metadata SSL works only in HA deployment mode.</p>
-</li>
-<li><p class="first">1759695 After deleting a vRouter chart with DPDK, the NICS do not rebind to the host in Helm.</p>
-</li>
-<li><p class="first">1761137 High Availability provisioning of Kubernetes master is not supported.</p>
-</li>
-<li><p class="first">1764610 Ansible-deployer: DPDK PPS is low.</p>
-</li>
-<li><p class="first">1764739 Docker restart hangs indefinitely and Docker daemon stops running post the hang.</p>
-</li>
-<li><p class="first">1765281 On a DPDK compute  vif list –ratecore-dumps with traffic.</p>
-</li>
-<li><p class="first">1766035 On a Kubernetes cluster, a controller node reboot fails to re-establish the BGP XMPP connection with compute nodes. As a workaround, flush the iptables on the Kubernetes master.</p>
-</li>
-<li><p class="first">1766315 After provisioning Tungsten Fabric by using a Helm-based provisioned cluster, restart nova-compute container.</p>
-</li>
-<li><p class="first">1767472 SR-IOV with DPDK co-existence deployment is not supported using contrail-helm-deployer.</p>
-</li>
-<li><p class="first">1781305 OpenShift deployer code does not have the option to choose different interface names for different physical nodes.</p>
-</li>
-<li><p class="first">1784085 OpenShift deployments do not install NTP on the nodes. After provisioning, you must install and start the ntpd on all Openshift nodes manually.</p>
-</li>
-<li><p class="first">1784750 Tungsten Fabric RBAC (API and analytics) policies are not part of Tungsten Fabric Helm charts unlike in OpenStack components. You cannot override global/domain/project RBAC policies while deploying Helm charts.</p>
-</li>
-<li><p class="first">1786487 Dynamic mirroring without Juniper header does not work for VxLAN encapsulation.</p>
-</li>
-<li><p class="first">1786511 rabbitmq cluster formation fails during Helm sanity job. As a workaround, update the rabbitmq section of the <code class="docutils literal notranslate"><span class="pre">contrail-analytics/values.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">contrail-controller/values.yaml</span></code> files, to include the IP addresses of the controller nodes. For example, change <code class="docutils literal notranslate"><span class="pre">endpoints.rabbitmq.hosts.default:</span> <span class="pre">rabbitmq</span></code> to <code class="docutils literal notranslate"><span class="pre">endpoints.rabbitmq.hosts.default:</span> <span class="pre">&quot;controller_node1_IP,controller_node2_IP,controller_node3_IP&quot;</span></code> .</p>
-</li>
-<li><p class="first">1786527 In Helm-based provisioning when the vRouter gets provisioned, the vRouter gets disconnected from other vRouters residing on different subnets. As a workaround, move the host routes used to reach different subnets to vhost0 interface and restart the system.</p>
-</li>
-<li><p class="first">1786560 In Kubernetes single yaml file-based provisioning, when the vRouter gets provisioned, the vRouter gets disconnected from other vRouters residing on different subnets. As a workaround, move the host routes used to reach different subnets to vhost0 interface and restart the system.</p>
-</li>
-<li><p class="first">1787303 Tungsten Fabric Release 5.0.1 uses DPDK version 17.11.03, DPDK vRouter using uio driver as vfio-pci, typically for Intel Fortville NICs, and needs firmware upgrade to the following version or later (if it is certified by users).</p>
+<li><p>1749614 In a Helm-based provisioned cluster, VM launch fails if MariaDB replication is set to &gt;1.</p></li>
+<li><p>1754742 When you receive an error message during Kolla provisioning, rerunning the code will not work. In order for the provisioning to work, restart provisioning from scratch.</p></li>
+<li><p>1755997 Kubernetes IP fabric feature is supported only on the pods and not the services.</p></li>
+<li><p>1759428 Cannot provision an external MX series router by running the  provision_mx.pyscript that contains the list of external routers.</p></li>
+<li><p>1759576 Metadata SSL works only in HA deployment mode.</p></li>
+<li><p>1759695 After deleting a vRouter chart with DPDK, the NICS do not rebind to the host in Helm.</p></li>
+<li><p>1761137 High Availability provisioning of Kubernetes master is not supported.</p></li>
+<li><p>1764610 Ansible-deployer: DPDK PPS is low.</p></li>
+<li><p>1764739 Docker restart hangs indefinitely and Docker daemon stops running post the hang.</p></li>
+<li><p>1765281 On a DPDK compute  vif list –ratecore-dumps with traffic.</p></li>
+<li><p>1766035 On a Kubernetes cluster, a controller node reboot fails to re-establish the BGP XMPP connection with compute nodes. As a workaround, flush the iptables on the Kubernetes master.</p></li>
+<li><p>1766315 After provisioning Tungsten Fabric by using a Helm-based provisioned cluster, restart nova-compute container.</p></li>
+<li><p>1767472 SR-IOV with DPDK co-existence deployment is not supported using contrail-helm-deployer.</p></li>
+<li><p>1781305 OpenShift deployer code does not have the option to choose different interface names for different physical nodes.</p></li>
+<li><p>1784085 OpenShift deployments do not install NTP on the nodes. After provisioning, you must install and start the ntpd on all Openshift nodes manually.</p></li>
+<li><p>1784750 Tungsten Fabric RBAC (API and analytics) policies are not part of Tungsten Fabric Helm charts unlike in OpenStack components. You cannot override global/domain/project RBAC policies while deploying Helm charts.</p></li>
+<li><p>1786487 Dynamic mirroring without Juniper header does not work for VxLAN encapsulation.</p></li>
+<li><p>1786511 rabbitmq cluster formation fails during Helm sanity job. As a workaround, update the rabbitmq section of the <code class="docutils literal notranslate"><span class="pre">contrail-analytics/values.yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">contrail-controller/values.yaml</span></code> files, to include the IP addresses of the controller nodes. For example, change <code class="docutils literal notranslate"><span class="pre">endpoints.rabbitmq.hosts.default:</span> <span class="pre">rabbitmq</span></code> to <code class="docutils literal notranslate"><span class="pre">endpoints.rabbitmq.hosts.default:</span> <span class="pre">&quot;controller_node1_IP,controller_node2_IP,controller_node3_IP&quot;</span></code> .</p></li>
+<li><p>1786527 In Helm-based provisioning when the vRouter gets provisioned, the vRouter gets disconnected from other vRouters residing on different subnets. As a workaround, move the host routes used to reach different subnets to vhost0 interface and restart the system.</p></li>
+<li><p>1786560 In Kubernetes single yaml file-based provisioning, when the vRouter gets provisioned, the vRouter gets disconnected from other vRouters residing on different subnets. As a workaround, move the host routes used to reach different subnets to vhost0 interface and restart the system.</p></li>
+<li><p>1787303 Tungsten Fabric Release 5.0.1 uses DPDK version 17.11.03, DPDK vRouter using uio driver as vfio-pci, typically for Intel Fortville NICs, and needs firmware upgrade to the following version or later (if it is certified by users).</p>
 <blockquote>
 <div><p>driver: i40e</p>
 <p>version: 2.1.14-k</p>
 <p>firmware-version: 6.01 0x80003493 255.65535.255</p>
 </div></blockquote>
 </li>
-<li><p class="first">1789768 Instances.yml in the contrail_command container is populated with the default password instead of the one provided by the user.</p>
-</li>
+<li><p>1789768 Instances.yml in the contrail_command container is populated with the default password instead of the one provided by the user.</p></li>
 </ul>
 </div>
 
@@ -230,14 +209,14 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="../../../../_sources/user/releases/r5.0.1/release-notes/known-behavior.rst.txt"
+  <a href="../../../../_sources/User/releases/r5.0.1/release-notes/known-behavior.rst.txt"
      rel="nofollow">Source</a>
 </div>
       
     </p>
     <p>
         &copy; Copyright 2019, Tungsten Fabric Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
     </p>
   </div>
 </footer>

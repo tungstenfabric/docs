@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Processes before submitting a blueprint &#8212; TungstenFabric master documentation</title>
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tungsten Fabric JIRA workflow" href="Tungsten_Fabric_JIRA_Workflow.html" />
+    <link rel="prev" title="Getting Started as a Developer" href="getting-started-with-tungsten-fabric-development.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/logo.png"></span>
+          TungstenFabric</a>
+        <span class="navbar-text navbar-version pull-left"><b>master</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../User/index.html">User Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Contribute to Tungsten Fabric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../administration/index.html">Administration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../governance/index.html">Tungsten Fabric Governance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../manual-cla-admin.html">Manual CLA Administration</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Processes before submitting a blueprint</a></li>
+<li><a class="reference internal" href="#blueprint-submission">Blueprint Submission</a><ul>
+<li><a class="reference internal" href="#launchpad">Launchpad</a></li>
+<li><a class="reference internal" href="#spec">Spec</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-submission">Code Submission</a></li>
+<li><a class="reference internal" href="#test-plan-submission">Test plan Submission</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="getting-started-with-tungsten-fabric-development.html" title="Previous Chapter: Getting Started as a Developer"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Getting Start...</span>
+    </a>
+  </li>
+  <li>
+    <a href="Tungsten_Fabric_JIRA_Workflow.html" title="Next Chapter: Tungsten Fabric JIRA workflow"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tungsten Fabr... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Processes before submitting a blueprint</a></li>
+<li><a class="reference internal" href="#blueprint-submission">Blueprint Submission</a><ul>
+<li><a class="reference internal" href="#launchpad">Launchpad</a></li>
+<li><a class="reference internal" href="#spec">Spec</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-submission">Code Submission</a></li>
+<li><a class="reference internal" href="#test-plan-submission">Test plan Submission</a></li>
+</ul>
+
+  <li>
+    <a href="getting-started-with-tungsten-fabric-development.html" title="Previous Chapter: Getting Started as a Developer"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Getting Start...</span>
+    </a>
+  </li>
+  <li>
+    <a href="Tungsten_Fabric_JIRA_Workflow.html" title="Next Chapter: Tungsten Fabric JIRA workflow"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tungsten Fabr... &raquo;</span>
+    </a>
+  </li>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="processes-before-submitting-a-blueprint">
+<h1>Processes before submitting a blueprint<a class="headerlink" href="#processes-before-submitting-a-blueprint" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>The TSC is deciding on high level what is the use case and hardware</dt><dd><p>or software features that will go into a specific release. Any
+blueprint that is targeting that specific release but doesn’t fit
+under the prioritized use case and features will be either
+rejected or marked as “For future release”</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Provided the blueprint matches the release, or is submitted for TSC’s</dt><dd><p>future consideration the BP submitter will have to consult the
+guidelines below and submit the required documentation in the
+launchpad (<a class="reference external" href="https://review.opencontrail.org/#/q/status:open">https://review.opencontrail.org/#/q/status:open</a>)</p>
+</dd>
+</dl>
+</li>
+<li><p>There will be two buckets:</p>
+<ol class="loweralpha simple">
+<li><p>One for the current (say N) release</p></li>
+<li><dl class="simple">
+<dt>A backlog which is the bucket for future releases. The TSC is</dt><dd><p>advised to review this bucket when planning for an upcoming
+release (say release N+1).</p>
+</dd>
+</dl>
+</li>
+</ol>
+</li>
+<li><dl class="simple">
+<dt>There will also be a deadline, announced at the beginning of a</dt><dd><p>release cycle (N) by which BPs targeting this release will be
+accepted. Anything submitted past that deadline will automatically
+be moved to the backlog for the upcoming releases unless the
+author appeals by email to ARB. If the ARB accepts their
+submission it will be included for this release.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>For the accepted BPs, the ARB will have a regular meeting (bi-weekly)</dt><dd><p>and assign reviewers to BPs. When the reviewers have read offline
+the BP they will need to invite the submitter to the ARB regular
+meeting and ask them to briefly justify their submission and
+answer any questions the ARB member will have. The reviewer who is
+assigned to that particular BP will be leading the ARB discussion
+and has power to give a +2 or -2, but it is appropriate to have
+support from the rest of the ARB members in order to do so.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="blueprint-submission">
+<h1>Blueprint Submission<a class="headerlink" href="#blueprint-submission" title="Permalink to this headline">¶</a></h1>
+<p>Blueprint submission is a two step process.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Submit a blueprint providing high level overview of the feature (or</dt><dd><p>enhancement) proposed. The blueprint is submitted
+at<a class="reference external" href="https://blueprints.launchpad.net/opencontrail/">https://blueprints.launchpad.net/opencontrail/</a>. This
+blueprint must have a link to the full specifications of the
+feature (or enhancement).</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>At a minimum, the blueprint must have the following fields filled:</p>
+<ul class="simple">
+<li><p>Assignee</p></li>
+<li><p>Milestone Targeted</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt>Submit full specification of the feature (or enhancement) in details.</dt><dd><p>This specification must be submitted
+at<a class="reference external" href="https://github.com/Juniper/contrail-specs">https://github.com/Juniper/contrail-specs</a>. This
+specification must be submitted in Markdown format (file with .md
+extension).</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>EULA is necessary for submitting a spec file.</p>
+<blockquote>
+<div><p>An MD file is a text file which is created using dialects of Markdown
+language. All specification files reside
+at<a class="reference external" href="https://github.com/OpenContrail">https://github.com/OpenContrail</a>. Full details of the feature
+must be provided in order for the feature to be considered by ARB.
+Take a look at any of the specs present at the above mentioned github
+repo and ensure that you fill in all of the fields of the spec to be
+considered. Here is an example of specification using MD file
+-<a class="reference external" href="https://review.opencontrail.org/#/c/26584/2/specs/ironic_contrail.md">https://review.opencontrail.org/#/c/26584/2/specs/ironic_contrail.md</a></p>
+</div></blockquote>
+<div class="section" id="launchpad">
+<h2>Launchpad<a class="headerlink" href="#launchpad" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Please go to<a class="reference external" href="https://blueprints.launchpad.net/opencontrail">https://blueprints.launchpad.net/opencontrail</a>and
+register a blueprint. The fields on the page are explained here:</p>
+<p>Status: This field is auto-updated</p>
+<p>Priority: Default for all TSC reviewed blueprints will be Medium
+until further notice</p>
+<p>Direction: “Approved” = TSC approved the blueprint after discussion
+on one of the weekly calls</p>
+<p>Definition: “Approved” = spec file merged in Gerrit, “Pending
+Approval” = at least one +1 but not merged yet, “Review” = a spec
+file exists in Gerrit</p>
+<p>Milestone target: Currently “5.0-featurefreeze” for all TSC approved
+blueprints. Need further discussion of whether we need additional
+milestones such as codefreeze.</p>
+<p>Approver: The designated member of the ARB who is responsible for
+merging the spec in Gerrit after appropriate review time</p>
+<p>Drafter: The author of the spec in Gerrit</p>
+<p>Assignee: The developer who is writing the code, probably should be
+the same as Drafter in most cases</p>
+<p>Series goal: Currently 5.0. This will probably always be the next
+upcoming release unless it is determined that a blueprint will miss
+the release and needs to be bumped out.</p>
+<p>Implementation: The assignee’s subjective opinion on how far along
+they are on writing the code (not the spec or blueprint, but the
+actual implementation code)</p>
+<p>Related bugs: Should be linked to a Launchpad bug because Gerrit
+automatically updates Launchpad bugs but does not automatically
+update Launchpad blueprints</p>
+</div></blockquote>
+</div>
+<div class="section" id="spec">
+<h2>Spec<a class="headerlink" href="#spec" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Specs must be submitted
+into<a class="reference external" href="https://github.com/Juniper/contrail-specs">https://github.com/Juniper/contrail-specs</a>. Make sure first
+you have a Gerrit account. Once the account is in place here is the
+command line needed to do push your spec file for review:</p>
+<p>git clone <a class="reference external" href="https://review.opencontrail.org/Juniper/contrail-specs">https://review.opencontrail.org/Juniper/contrail-specs</a></p>
+<p>cd contrail-specs/5.0</p>
+<p>Create the spec file here (spec filename should have a .md extension)</p>
+<p>Edit your spec in a text editor. Please hard wrap lines to somewhere
+around 80 characters for ease of reviewing on the Gerrit side-by-side
+diff view. Consult a markdown cheatsheet such as
+<a class="reference external" href="https://daringfireball.net/projects/markdown/syntax">https://daringfireball.net/projects/markdown/syntax</a>or similar.
+After finishing your editing, run:</p>
+<p>git checkout -b &lt;your spec short name&gt; (optional, but this will show
+up in Gerrit as “Topic” and is not a bad idea to do)</p>
+<p>git add &lt;insert your spec filename here&gt;</p>
+<p>git commit (write a good commit message and make sure to include a
+line “Partial-bug: #&lt;your Launchpad bug ID&gt;”</p>
+<p>git remote add gerrit <a class="reference external" href="ssh:/">ssh:/</a>/&lt;your gerrit
+username&gt;&#64;review.opencontrail.org:29418/Juniper/contrail-specs.git
+(this is needed once)</p>
+<p>git review</p>
+<p>If all goes well, the git review command should output a URL to
+<a class="reference external" href="https://review.opencontrail.org">https://review.opencontrail.org</a>for your newly created spec.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="code-submission">
+<h1>Code Submission<a class="headerlink" href="#code-submission" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p>Initially any submitter will need to sign the appropriate CLA.</p></li>
+<li><dl class="simple">
+<dt>Submission of code patch(set) needs to be done into</dt><dd><p>review.opencontrail.org.</p>
+</dd>
+</dl>
+<ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>Patch(set) must compile cleanly. By “cleanly” we mean depending on</dt><dd><p>which repo the patch(set) targets, some repos allow warnings
+some don’t.</p>
+</dd>
+</dl>
+</li>
+<li><p>Unitests for that patch(set) need to have been ran successfully.</p></li>
+</ol>
+</li>
+<li><dl class="simple">
+<dt>Together with patch(set) submission unitest code needs to be</dt><dd><p>submitted as well with guidelines how CI can invoke those unitests
+provided the submission is about a feature.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>For bug fixes unitests are highly desired but is not a hard</dt><dd><p>requirement when this unitest is a complicated test (such as race
+conditions).</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+<div class="section" id="test-plan-submission">
+<h1>Test plan Submission<a class="headerlink" href="#test-plan-submission" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Possibly for CI test plan submission we *must* have code +</dt><dd><p>documentation.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>For “individual tests” just documentation is ok although we prefer</dt><dd><p>code to come with it.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/contributor/getting-started/Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2019, Tungsten Fabric Project.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

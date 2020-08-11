@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Getting Started with Tungsten Fabric 5.0.1 &#8212; TungstenFabric master documentation</title>
     <link rel="stylesheet" href="../../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" />
@@ -163,24 +162,22 @@ A node can be either a virtual machine or a bare-metal server; either way, user 
 <p>Hardware:</p>
 <blockquote>
 <div><ul class="simple">
-<li><dl class="first docutils">
-<dt>Target Nodes:</dt>
-<dd><ul class="first last">
-<li>At least 4 CPU cores</li>
-<li>At least 64 GB RAM</li>
-<li>At least 300 GB storage</li>
-<li>At least one Ethernet port</li>
+<li><dl class="simple">
+<dt>Target Nodes:</dt><dd><ul>
+<li><p>At least 4 CPU cores</p></li>
+<li><p>At least 64 GB RAM</p></li>
+<li><p>At least 300 GB storage</p></li>
+<li><p>At least one Ethernet port</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Deploy Node:</dt>
-<dd><ul class="first last">
-<li>At least 2 CPU cores</li>
-<li>At least 4 GB RAM</li>
-<li>At least 50 GB storage</li>
-<li>At least one Ethernet port</li>
+<li><dl class="simple">
+<dt>Deploy Node:</dt><dd><ul>
+<li><p>At least 2 CPU cores</p></li>
+<li><p>At least 4 GB RAM</p></li>
+<li><p>At least 50 GB storage</p></li>
+<li><p>At least one Ethernet port</p></li>
 </ul>
 </dd>
 </dl>
@@ -190,12 +187,12 @@ A node can be either a virtual machine or a bare-metal server; either way, user 
 <p>Software:</p>
 <blockquote>
 <div><ul class="simple">
-<li><cite>RedHat 7.5</cite> or greater/<cite>CentOS 7.5</cite> or greater</li>
-<li>valid <cite>RedHat 7.5</cite> subscription, in case <cite>RedHat 7.5</cite> is used as OS (Operating System)</li>
-<li><cite>Kernel release 3.10.0.862*</cite> or greater</li>
-<li><cite>Ansible 2.6.4</cite> or greater</li>
-<li><cite>Docker 18.06.1-ce</cite> or greater</li>
-<li><cite>OpenStack Newton/Ocata/Pike/Queens</cite></li>
+<li><p><cite>RedHat 7.5</cite> or greater/<cite>CentOS 7.5</cite> or greater</p></li>
+<li><p>valid <cite>RedHat 7.5</cite> subscription, in case <cite>RedHat 7.5</cite> is used as OS (Operating System)</p></li>
+<li><p><cite>Kernel release 3.10.0.862*</cite> or greater</p></li>
+<li><p><cite>Ansible 2.6.4</cite> or greater</p></li>
+<li><p><cite>Docker 18.06.1-ce</cite> or greater</p></li>
+<li><p><cite>OpenStack Newton/Ocata/Pike/Queens</cite></p></li>
 </ul>
 </div></blockquote>
 </div>
@@ -203,14 +200,14 @@ A node can be either a virtual machine or a bare-metal server; either way, user 
 <h2>Steps on All Target Nodes<a class="headerlink" href="#steps-on-all-target-nodes" title="Permalink to this headline">¶</a></h2>
 <p>Please note that all commands, on all Target nodes, have been run as <strong>root</strong>.</p>
 <ol class="arabic">
-<li><p class="first">Update all installed packages and reboot:</p>
+<li><p>Update all installed packages and reboot:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">yum</span> <span class="pre">update</span> <span class="pre">-y</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">reboot</span></code></p>
 </li>
-<li><p class="first">Generate SSH public key:</p>
+<li><p>Generate SSH public key:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">rsa</span></code></p>
 </li>
-<li><p class="first">Copy SSH public key (from each Target node) to the Deploy node:</p>
+<li><p>Copy SSH public key (from each Target node) to the Deploy node:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-copy-id</span> <span class="pre">root&#64;&lt;Deploy_Node_IP_Address&gt;</span></code></p>
 </li>
 </ol>
@@ -219,19 +216,19 @@ A node can be either a virtual machine or a bare-metal server; either way, user 
 <h2>Steps on the Deploy Node<a class="headerlink" href="#steps-on-the-deploy-node" title="Permalink to this headline">¶</a></h2>
 <p>Please note that all commands, on the Deploy node, have been run as <strong>root</strong>.</p>
 <ol class="arabic">
-<li><p class="first">Install prerequisites:</p>
+<li><p>Install prerequisites:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">yum-plugin-priorities</span> <span class="pre">yum-utils</span> <span class="pre">vim</span> <span class="pre">net-tools</span> <span class="pre">git</span> <span class="pre">ansible</span></code></p>
 </li>
-<li><p class="first">Generate SSH public key:</p>
+<li><p>Generate SSH public key:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-keygen</span> <span class="pre">-t</span> <span class="pre">rsa</span></code></p>
 </li>
-<li><p class="first">Copy SSH public key from the Deploy node to the 3 Target nodes:</p>
+<li><p>Copy SSH public key from the Deploy node to the 3 Target nodes:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ssh-copy-id</span> <span class="pre">root&#64;&lt;Target_Node_IP_Address&gt;</span></code></p>
 </li>
-<li><p class="first">Clone the <cite>contrail-ansible-deployer</cite> repo, <cite>R5.0</cite> branch:</p>
+<li><p>Clone the <cite>contrail-ansible-deployer</cite> repo, <cite>R5.0</cite> branch:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/Juniper/contrail-ansible-deployer.git</span> <span class="pre">-b</span> <span class="pre">R5.0</span></code></p>
 </li>
-<li><p class="first">Replace the content of <cite>contrail-ansible-deployer/config/instances.yaml</cite> with the following and fill in placeholders - marked as <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> - with info from your setup:</p>
+<li><p>Replace the content of <cite>contrail-ansible-deployer/config/instances.yaml</cite> with the following and fill in placeholders - marked as <code class="docutils literal notranslate"><span class="pre">&lt;...&gt;</span></code> - with info from your setup:</p>
 <p>Worth mentioning that it is recommended for each Target node to have at least 2 Ethernet ports.
 1st Ethernet port should be used for management/provisioning and control plane traffic. 2nd Ethernet port should be used for dataplane traffic. Info regarding the dataplane traffic is set in the following lines in <code class="docutils literal notranslate"><span class="pre">instances.yaml</span></code>:</p>
 <p><code class="docutils literal notranslate"><span class="pre">PHYSICAL_INTERFACE:</span> <span class="pre">&lt;Iface_Name_That_vhost0_Will_Use&gt;</span></code></p>
@@ -303,13 +300,13 @@ Otherwise, if only 1 Ethernet port is used, we will fill in all the placeholders
 </pre></div>
 </div>
 <ol class="arabic" start="6">
-<li><p class="first">Go to <cite>contrail-ansible-deployer</cite> folder and run the following <cite>ansible</cite> commands:</p>
+<li><p>Go to <cite>contrail-ansible-deployer</cite> folder and run the following <cite>ansible</cite> commands:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">cd</span> <span class="pre">contrail-ansible-deployer</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">inventory/</span> <span class="pre">-e</span> <span class="pre">orchestrator=openstack</span> <span class="pre">playbooks/configure_instances.yml</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">inventory/</span> <span class="pre">playbooks/install_openstack.yml</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">ansible-playbook</span> <span class="pre">-i</span> <span class="pre">inventory/</span> <span class="pre">-e</span> <span class="pre">orchestrator=openstack</span> <span class="pre">playbooks/install_contrail.yml</span></code></p>
 </li>
-<li><p class="first">After the Tungsten Fabric deployment, we can run <code class="docutils literal notranslate"><span class="pre">contrail-status</span></code> command on both Tungsten Fabric Controller node and Tungsten Fabric Compute Node(s) to check whether Tungsten Fabric Docker containers are up and running. A successful installation should display all Tungsten Fabric containers as <cite>active</cite>.</p>
+<li><p>After the Tungsten Fabric deployment, we can run <code class="docutils literal notranslate"><span class="pre">contrail-status</span></code> command on both Tungsten Fabric Controller node and Tungsten Fabric Compute Node(s) to check whether Tungsten Fabric Docker containers are up and running. A successful installation should display all Tungsten Fabric containers as <cite>active</cite>.</p>
 <p>Below it is displayed the output of <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">contrail-status</span></code> command run on Tungsten Fabric Controller node and on Tungsten Fabric Compute node, respectively:</p>
 <p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">contrail-status</span></code></p>
 </li>
@@ -388,12 +385,12 @@ Otherwise, if only 1 Ethernet port is used, we will fill in all the placeholders
 <h2>External References<a class="headerlink" href="#external-references" title="Permalink to this headline">¶</a></h2>
 <p>Below are reference links related to further details of features and use cases.</p>
 <ul class="simple">
-<li>OpenStack: <a class="reference external" href="https://www.openstack.org/">https://www.openstack.org/</a></li>
-<li>DPDK: <a class="reference external" href="https://www.dpdk.org/">https://www.dpdk.org/</a></li>
-<li>Kubernetes: <a class="reference external" href="https://kubernetes.io/">https://kubernetes.io/</a></li>
-<li>Red Hat: <a class="reference external" href="https://www.redhat.com/">https://www.redhat.com/</a></li>
-<li>Ubuntu: <a class="reference external" href="https://www.ubuntu.com/">https://www.ubuntu.com/</a></li>
-<li>Contrail Feature Guide: <a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html">https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html</a></li>
+<li><p>OpenStack: <a class="reference external" href="https://www.openstack.org/">https://www.openstack.org/</a></p></li>
+<li><p>DPDK: <a class="reference external" href="https://www.dpdk.org/">https://www.dpdk.org/</a></p></li>
+<li><p>Kubernetes: <a class="reference external" href="https://kubernetes.io/">https://kubernetes.io/</a></p></li>
+<li><p>Red Hat: <a class="reference external" href="https://www.redhat.com/">https://www.redhat.com/</a></p></li>
+<li><p>Ubuntu: <a class="reference external" href="https://www.ubuntu.com/">https://www.ubuntu.com/</a></p></li>
+<li><p>Contrail Feature Guide: <a class="reference external" href="https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html">https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html</a></p></li>
 </ul>
 </div>
 </div>
@@ -411,14 +408,14 @@ Otherwise, if only 1 Ethernet port is used, we will fill in all the placeholders
         <br/>
         
 <div id="sourcelink">
-  <a href="../../../../_sources/user/releases/r5.0.1/getting-started/index.rst.txt"
+  <a href="../../../../_sources/User/releases/r5.0.1/getting-started/index.rst.txt"
      rel="nofollow">Source</a>
 </div>
       
     </p>
     <p>
         &copy; Copyright 2019, Tungsten Fabric Project.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
     </p>
   </div>
 </footer>

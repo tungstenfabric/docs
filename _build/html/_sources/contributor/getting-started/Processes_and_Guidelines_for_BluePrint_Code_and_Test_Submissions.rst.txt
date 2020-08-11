@@ -68,8 +68,7 @@ EULA is necessary for submitting a spec file.
    Take a look at any of the specs present at the above mentioned github
    repo and ensure that you fill in all of the fields of the spec to be
    considered. Here is an example of specification using MD file
-   -\ https://review.opencontrail.org/c/Juniper/contrail-controller/+/26584/2/specs/ironic_contrail.md
-   
+   -\ https://review.opencontrail.org/#/c/26584/2/specs/ironic_contrail.md
 
 Launchpad
 ---------
