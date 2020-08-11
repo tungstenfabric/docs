@@ -25,7 +25,7 @@ Documentation Structure
    :maxdepth: 3
    :titlesonly:
 
-   user/index.rst
+   User/index.rst
    contributor/index.rst
    infrastructure/index.rst
    administration/index.rst
