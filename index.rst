@@ -38,11 +38,13 @@ We welcome new contributors!
 
 Some useful Tungsten Fabric links:
 
--  Main website: https://tungsten.io
+-  Main website:  https://tungsten.io
 -  Community Wiki: https://wiki.tungsten.io
+-  Documentation: https://docs.tungsten.io
 -  Issue Tracker: https://jira.tungsten.io
 -  Mailing lists: https://lists.tungsten.io
 -  Code review: https://gerrit.tungsten.io
+-  Code repository: https://github.com/tungstenfabric 
 
 For now, you can also access some of the old sites from our former
 OpenContrail days, but these are no longer in active use:
