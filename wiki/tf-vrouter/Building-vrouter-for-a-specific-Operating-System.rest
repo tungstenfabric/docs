@@ -1,0 +1,33 @@
+1. Clone 3 repos viz vrouter, sandesh and build using below mentioned manifest.xml
+
+$ cat .repo/manifest.xml 
+
+<manifest>
+
+<remote name="github" fetch=".."/>
+
+<default revision="refs/heads/master" remote="github"/>
+
+<project name="contrail-build" remote="github" path="tools/build">
+  <copyfile src="SConstruct" dest="SConstruct"/>
+</project>
+
+<project name="contrail-vrouter" remote="github" path="vrouter"/>
+
+<project name="contrail-sandesh" remote="github" path="tools/sandesh"/>
+
+</manifest>
+
+2. Sync repos using 'repo sync'
+
+$ repo sync
+
+3. ls should give 2 directories and a SConstruct file.
+
+$ ls
+
+SConstruct  tools  vrouter
+
+4.  Run below mentioned "scons" command.
+
+$ scons vrouter

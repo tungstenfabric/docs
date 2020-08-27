@@ -1,0 +1,1 @@
+## These wiki pages are obsolete - please go to [project-config repo wiki](https://github.com/Juniper/contrail-project-config/wiki/)

@@ -1,0 +1,10 @@
+While we host our code on GitHub as of today, we are in the process of migrating all of it to [Gerrit](review.opencontrail.org). After the migration is finished, GitHub repositories will become read-only clones and all the work will be done on Gerrit.
+
+| Name                         | Purpose                                      | URL                                                    | Notes                                                                                                   |
+|------------------------------|----------------------------------------------|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| contrail-infra               | Puppet code of CI infra hosts                | https://github.com/Juniper/contrail-infra              | No 'master' branch, only 'production' and 'development' matching CI environments accordingly.           |
+| contrail-project-config*     | Job definitions for production environment   | https://github.com/Juniper/contrail-project-config     | See notes below.                                                                                        |
+| contrail-project-config-dev* | Job definitions for development environment  | https://github.com/Juniper/contrail-project-config-dev | See notes below.                                                                                        |
+| zuul-jobs                    | Generic job definitions for all environments | https://github.com/Juniper/zuul-jobs                   | Fork of [OpenStack's zuul-jobs](https://github.com/openstack-infra/zuul-jobs) with minor modifications. |
+
+*_The job configuration (project-config) is split into two repos instead of two branches because currently zuul can read its config only from the “master” branch. We have two zuuls (prod and dev), so we need two separate repos. This may be made configurable in future releases of Zuul._

@@ -1,0 +1,17 @@
+The following analytics REST API can be used to send the trace buffer to the Collector
+
+*/analytics/send-tracebuffer/<source>/<module>/<instance_id>/<name>*
+____
+  source - hostname of the server where the contrail module/service runs.
+  module - name of the contrail service whose trace-buffer needs to be sent to the Collector.
+  instance_id - instance id of the service. 0, if there is only one instance of this service.
+  name - name of the trace buffer.
+____
+
+For example, to send a trace buffer named "IFMapTraceBuf" from contrail-control service running in host1
+
+*curl -u <user:password> localhost:8181/analytics/send-tracebuffer/host1/contrail-control/0/IFMapTraceBuf*
+
+After the trace buffer is sent to the Collector, contrail-logs utility can be used to get the trace buffer from the Analytics database.
+
+*contrail-logs --source host1 --module contrail-control --trace IFMapTraceBuf*

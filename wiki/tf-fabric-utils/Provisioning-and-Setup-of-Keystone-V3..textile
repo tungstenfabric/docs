@@ -1,0 +1,241 @@
+KEYSTONE V3 PROVISION/SETUP STEPS;-
+
+
+
+1. reimage and provision to bring up setup with keystone v2 - default.
+
+2. install vim and jq - add this to sources.list for getting jq from trusty - deb http://cz.archive.ubuntu.com/ubuntu trusty main universe
+
+
+3. Get a token for admin user with proper credentials
+```
+ADMIN_TOKEN=$(\
+curl http://localhost:5000/v3/auth/tokens \
+    -s \
+    -i \
+    -H "Content-Type: application/json" \
+    -d '
+{
+    "auth": {
+        "identity": {
+            "methods": [
+                "password"
+            ],
+            "password": {
+                "user": {
+                    "domain": {
+                        "name": "Default"
+                    },
+                    "name": "admin",
+                    "password": "contrail123"
+                }
+            }
+        },
+        "scope": {
+            "project": {
+                "domain": {
+                    "name": "Default"
+                },
+                "name": "admin"
+            }
+        }
+    }
+}' | grep ^X-Subject-Token: | awk '{print $2}' )
+
+echo $ADMIN_TOKEN
+```
+
+4. With admin user token create admin_domain a new domain.
+```
+ID_ADMIN_DOMAIN=$(\
+curl http://localhost:5000/v3/domains \
+    -s \
+    -H "X-Auth-Token: $ADMIN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '
+{
+    "domain": {
+    "enabled": true,
+    "name": "admin_domain"
+    }
+}' | jq .domain.id | tr -d '"' )
+
+echo "ID of domain cloud: $ID_ADMIN_DOMAIN"
+```
+
+
+5. Create a user cloud_admin using admin token
+```
+ID_CLOUD_ADMIN=$(\
+curl http://localhost:5000/v3/users \
+    -s \
+    -H "X-Auth-Token: $ADMIN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '
+{
+    "user": {
+        "description": "Cloud administrator",
+        "domain_id": "<$ID_ADMIN_DOMAIN>",
+        "enabled": true,
+        "name": "cloud_admin",
+        "password": "cloudadmin"
+    }
+}' | jq .user.id | tr -d '"' )
+
+echo "ID of user cloud_admin: $ID_CLOUD_ADMIN"
+```
+
+
+
+6. Get "administrator" role using admin token and then assign this role to cloud_admin on domain "admin_domain"
+```
+ADMIN_ROLE_ID=$(\
+curl http://localhost:5000/v3/roles?name=admin \
+    -s \
+    -H "X-Auth-Token: $ADMIN_TOKEN" \
+| jq .roles[0].id | tr -d '"' )
+
+curl -X PUT http://localhost:5000/v3/domains/${ID_ADMIN_DOMAIN}/users/${ID_CLOUD_ADMIN}/roles/${ADMIN_ROLE_ID} \
+    -s \
+    -i \
+    -H "X-Auth-Token: $ADMIN_TOKEN" \
+    -H "Content-Type: application/json"
+
+curl http://localhost:5000/v3/domains/${ID_ADMIN_DOMAIN}/users/${ID_CLOUD_ADMIN}/roles\
+    -s \
+    -H "X-Auth-Token: $ADMIN_TOKEN" | jq .roles
+```
+
+
+
+7. Replace policy.json under /etc/keystone/ with policy.v3cloudsample.json and change the "cloud_admin" rule to 
+   "cloud_admin": "rule:admin_required",
+   in the file.
+
+
+8. configure "auth_url=http://[<keystone_ip>]:35357/v3" in /etc/contrail/contrail-keystone-auth.conf file on all the config nodes.
+
+
+9. configure "config.identityManager.apiVersion = ['v3'];" in /etc/contrail/config.global.js file on the WebUI node.
+
+
+10. change configs to bring up horizon in keystone v3 mode. On openstack node in the file /etc/openstack-dashboard/local_settings.py
+
+- a.    Set the OpenStack API version to version 3:
+```
+           OPENSTACK_API_VERSIONS = {
+               "identity": 3,
+           }
+```
+- b.    Enable multi-domain support:
+```
+           OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = True
+```
+- c.    Point to Keystone V3 endpoint:
+```
+           OPENSTACK_KEYSTONE_URL = "http://%s:5000/v3" % OPENSTACK_HOST
+```
+
+11. edit the service conf files listed below to bring up the services in v3 mode. Add configuration "auth_version=v3" under keystone_authtoken flag.
+    and change all "v2" urls to "v3"
+
+- a. /etc/nova/nova.conf
+- b. /etc/heat/heat.conf
+- c. /etc/neutron/neutron.conf
+- d. /etc/glance/glance-api.conf
+- e. /etc/glance/glance-registry.conf
+       
+
+
+12. grant "admin" and "_member_" role to user "admin" for the default_domain.
+```
+root@nodeb2:~# curl http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1/roles    -s     -H "X-Auth-Token: $ADMIN_TOKEN" | python -m json.tool
+{
+    "links": {
+        "next": null,
+        "previous": null,
+        "self": "http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1/roles"
+    },
+    "roles": []
+}
+
+root@nodeb2:~# curl -X PUT http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1<ADMIN_USER_ID>/roles/${ADMIN_ROLE_ID}     -s     -i     -H "X-Auth-Token: $ADMIN_TOKEN"     -H "Content-Type: application/json"
+HTTP/1.1 204 No Content
+Vary: X-Auth-Token
+X-Distribution: Ubuntu
+Content-Length: 0
+X-Openstack-Request-Id: req-3e9cff92-4d84-4ed9-a8c8-34e8276ef73c
+Date: Tue, 14 Jun 2016 04:34:40 GMT
+
+root@nodeb2:~# curl http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1<ADMIN_USER_ID>/roles    -s     -H "X-Auth-Token: $ADMIN_TOKEN" | python -m json.tool                           {
+    "links": {
+        "next": null,
+        "previous": null,
+        "self": "http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1/roles"
+    },
+    "roles": [
+        {
+            "id": "4910c05651b74af7bd1631baea43382b",
+            "links": {
+                "self": "http://localhost:5000/v3/roles/4910c05651b74af7bd1631baea43382b"
+            },
+            "name": "admin"
+        }
+    ]
+}
+root@nodeb2:~# MEMBER_ROLE_ID=$(\
+curl http://localhost:5000/v3/roles?name=_member_ \
+    -s \
+    -H "X-Auth-Token: $ADMIN_TOKEN" \
+| jq .roles[0].id | tr -d '"' )
+root@nodeb2:~# curl -X PUT http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1<ADMIN_USER_ID>/roles/${MEMBER_ROLE_ID}     -s     -i     -H "X-Auth-Token: $ADMIN_TOKEN"     -H "Content-Type: application/json"
+HTTP/1.1 204 No Content
+Vary: X-Auth-Token
+X-Distribution: Ubuntu
+Content-Length: 0
+X-Openstack-Request-Id: req-a6b93ff0-8295-447b-85d6-e534a9b4b90b
+Date: Tue, 14 Jun 2016 04:35:49 GMT
+
+root@nodeb2:~# curl http://localhost:5000/v3/domains/default/users/<ADMIN_USER_ID>fcc30a13bef44aa89a20186d0ac55bf1/roles    -s     -H "X-Auth-Token: $ADMIN_TOKEN" | python -m json.tool                           {
+    "links": {
+        "next": null,
+        "previous": null,
+        "self": "http://localhost:5000/v3/domains/default/users/fcc30a13bef44aa89a20186d0ac55bf1/roles"
+    },
+    "roles": [
+        {
+            "id": "4910c05651b74af7bd1631baea43382b",
+            "links": {
+                "self": "http://localhost:5000/v3/roles/4910c05651b74af7bd1631baea43382b"
+            },
+            "name": "admin"
+        },
+        {
+            "id": "9fe2ff9ee4384b1894a90878d3e92bab",
+            "links": {
+                "self": "http://localhost:5000/v3/roles/9fe2ff9ee4384b1894a90878d3e92bab"
+            },
+            "name": "_member_"
+        }
+    ]
+}
+root@nodeb2:~#
+```
+
+12. restart in this sequence:-
+
+- a. restart keystone                          -     service keystone restart
+- b. restart api server  on all config nodes   -     service supervisor-config restart
+- c. restart webui                             -     service supervisor-webui restart
+- d. for horrizon changes restart the webserver-     service apache2 restart
+- e. service monitor restart for               -     service contrail-svc-monitor restart
+
+
+13. change v2.0 to v3 in /etc/contrail/openstackrc
+
+
+14. create v3 endpoints on keystone for the services to connect to.
+```
+keystone endpoint-create --region RegionOne --service keystone --publicurl http://10.204.221.27:35357/v3 --internalurl http://10.204.221.27:35357/v3 --adminurl http://10.204.221.27:35357/v3
+```
+15. service nova-api nova-conductor nova-console nova-consoleauth nova-novncproxy nova-objectstore nova-scheduler neutron-server keystone glance-api glance-registry restart
