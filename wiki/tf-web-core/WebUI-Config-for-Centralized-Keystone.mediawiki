@@ -1,0 +1,123 @@
+First create fernet keystone token Setup
+Need to load liberty or post liberty openstack flavor.
+
+Keystone Config file changes:
+
+1. Setup master keystone
+
+ $keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
+
+=>This will create /etc/keystone/fernet-keys directory.
+
+Do below configuration in /etc/keystone/keystone.conf
+
+  [token]
+        provider = fernet
+  [fernet_tokens]
+        # key repository where the fernet keys are stored
+        key_repository = /etc/keystone/fernet-keys/
+        # maximum number of keys in key repository
+        max_active_keys =  # default is 3
+
+
+
+2. Setup local keystone
+
+Copy master's /etc/keystone/fernet-keys directory to each local keystone
+
+In /etc/keystone/keystone.conf configure below:
+  [token]
+        provider = fernet
+  [fernet_tokens]
+        # key repository where the fernet keys are stored
+        key_repository = /etc/keystone/fernet-keys/
+        # maximum number of keys in key repository
+        max_active_keys =  # default is 3
+
+restart keystone service.
+
+3. Setup mySql replication
+
+Open master keystone node's /etc/mysql/my.cnf file and add below entries in [mysqld] section
+
+  [mysqld]
+  log-bin=mysql-bin
+  server-id=1
+
+Now restart mysql
+
+  $cat /etc/contrail/mysql.token
+  12345678901234
+  $mysql -u root -p
+
+  mysql> CREATE USER 'slave'@'%' IDENTIFIED BY 'secret';
+  Query OK, 0 rows affected (0.01 sec)
+
+  mysql> GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%';
+  Query OK, 0 rows affected (0.00 sec)
+
+  mysql> show master status;
+  +------------------+----------+--------------+------------------+
+  +------------------+----------+--------------+------------------+
+  | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |
+  +------------------+----------+--------------+------------------+
+  | mysql-bin.000002 |    35408 |              |                  |
+  +------------------+----------+--------------+------------------+
+  1 row in set (0.03 sec)
+  mysql>
+
+Now master data to keystone.db and copy this file to all slaves
+
+  $mysqldump -uroot -p  keystone > keystone.db
+  Enter password:
+
+Setup mysql slave
+
+Open /etc/mysql/my.cnf file and add below entries in [mysqld] section
+
+  [mysqld]
+  server-id=2
+  replicate-do-db=keystone
+
+  $mysql -u root -p
+  Enter password:
+
+  mysql>  CHANGE MASTER TO MASTER_HOST='host1', MASTER_USER='slave', MASTER_PASSWORD='secret', MASTER_LOG_FILE='mysql-
+  bin.000002', MASTER_LOG_POS=35408;
+  Query OK, 0 rows affected (0.01 sec)
+
+  $mysql -u root -p keystone < keystone.db
+  $mysql -u root -p keystone –e "start slave"
+
+config changes in /etc/contrail/config.global.js (contrail-webui config file).
+
+Do the below Config file changes:
+
+1. To enable Centralized keystone:
+  config.serviceEndPointFromConfig = false;
+  config.regionsFromConfig = false;
+
+2. To enable multiple keystone:
+  config.serviceEndPointFromConfig = false;
+  config.regionsFromConfig = true;
+
+List down all the regions below:
+
+  config.regions = {};
+  config.regions.RegionOne = 'http://keystone1:5000/v2.0';
+  config.regions.RegionTwo = 'http://keystone2:5000/v2.0';
+
+
+Now in keystone create 3 services ApiServer/OpServer/cgc
+
+  $keystone service-create --name ApiServer --type ApiServer
+  $keystone service-create --name OpServer --type OpServer
+  $keystone service-create --name cgc --type cgc
+
+Create 3 keystone endpoints 
+
+  $keystone endpoint-create --region <RegionName> --service ApiServer --publicurl http://<node>:8082
+  $keystone endpoint-create --region <RegionName> --service OpServer --publicurl http://<node>:8081
+  $keystone endpoint-create --region <RegionName> --service cgc --publicurl http://<gohan/ukai server>:<port_gohan_running>
+
+Now you can login to contrail-webui with Config file changes as specified in 1, you will see "All Regions", clicking on it will open gohan/ukai configuration pages.

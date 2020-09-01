@@ -1,0 +1,286 @@
+==== *1.0 Introduction*  
+  
+vRouter is the component that takes packets from VMs and forwards them to their destinations. In this effort, vRouter depends on the vRouter agent to make sense of the overall topology, understand the various policies that govern the communication between VMs and finally to program them in vRouter in a way vRouter understands. 
+  
+vRouter has a few fundamental data structures that abstracts out the various communication paths. So, we have 'interface', 'flow', 'route' and 'nexthop' (all well known terms in networking) that enables vRouter to push packets to their eventual destinations. In addition, vRouter also has a reasonably good statistics support that can help understand and debug packet paths. This guide will detail the various command line utilities provided by the vRouter package that can be used to display all these data structures and make sense of the behavior that one sees in a compute node. 
+ 
+<<< 
+
+==== *2.0 Interface*  
+  
+To forward traffic, vRouter needs interfaces, which it calls as 'VrouterInterFace' (or 'vif' in short). Please note that just having the interfaces in the OS (Linux) is not sufficient for forwarding. The relevant interfaces have to be added to vRouter so that it can make use of those interfaces. Typically, the creation of these interfaces and addition are handled by components such as 'nova-compute' and the vRouter-agent.
+
+===== *2.1 Usage*
+
+----
+
+vif [--create <intf_name> --mac <mac>]
+           [--add <intf_name> --mac <mac> --vrf <vrf>
+                --type [vhost|agent|physical|virtual]
+                --xconnect <physical interface name>
+                --policy, --vhost-phys, --dhcp-enable]]
+           [--delete <intf_id>]
+           [--get <intf_id>][--kernel]
+           [--set <intf_id> --vlan <vlan_id> --vrf <vrf_id>]
+           [--list]
+           [--help]
+----
+
+'vif --help' can be used at any time to dump the usage of the command.
+
+===== *2.2 list*
+
+The ‘vif’ command can be used to see the interfaces that the vRouter is aware of. A typical invocation of the command is with the '--list' option.
+----
+bash$ vif --list  
+Vrouter Interface Table  
+
+Flags: P=Policy, X=Cross Connect, S=Service Chain, Mr=Receive Mirror  
+       Mt=Transmit Mirror, Tc=Transmit Checksum Offload, L3=Layer 3, L2=Layer 2  
+       D=DHCP, Vp=Vhost Physical, Pr=Promiscuous, Vnt=Native Vlan Tagged  
+       Mnp=No MAC Proxy  
+  
+vif0/0      OS: eth0 (Speed 1000, Duplex 1)  
+            Type:Physical HWaddr:00:25:90:c3:08:68 IPaddr:0  
+            Vrf:0 Flags:L3L2Vp MTU:1514 Ref:22  
+            RX packets:2664341  bytes:702708970 errors:0  
+            TX packets:1141456  bytes:234609942 errors:0  
+  
+vif0/1      OS: vhost0  
+            Type:Host HWaddr:00:25:90:c3:08:68 IPaddr:0  
+            Vrf:0 Flags:L3L2 MTU:1514 Ref:3  
+            RX packets:716612  bytes:155442906 errors:0  
+            TX packets:2248399  bytes:552491888 errors:0  
+  
+vif0/2      OS: pkt0  
+            Type:Agent HWaddr:00:00:5e:00:01:00 IPaddr:0  
+            Vrf:65535 Flags:L3 MTU:1514 Ref:2  
+            RX packets:450524  bytes:94618532 errors:0  
+            TX packets:437968  bytes:66753290 errors:0  
+  
+vif0/3      OS: tap519615d8-a2  
+            Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0  
+            Vrf:1 Flags:PL3L2 MTU:9160 Ref:6  
+            RX packets:134  bytes:15697 errors:0  
+            TX packets:8568  bytes:945944 errors:0  
+
+----
+
+===== *2.2.1 Output Structure*
+
+The command output gives everything that one would expect to get out of an interface listing, including statistics, flags and the type of interface. Individual fields are explained in detail below.
+
+===== *2.2.1.1 Flags*
+
+The first few lines print the expansion of the various flags that are used in the utility. In the below explanation, please note that ingress denotes packets that ingress vRouter and egress denotes packets that egress vRouter, and packets ingress or egress vRouter through interfaces.  
+
+'P=Policy' +
+All traffic that comes to vRouter from this interface will be subjected to policy.  
+  
+'X=Cross Connect' +  
+All traffic that comes to this interface will be sent to the corresponding cross connect interface without subjecting them to internal table lookups. This flag will typically be seen on the 'vhost' interface and the corresponding physical interface, when vRouter agent dies and there is nobody to populate the tables, in which case we would like the management traffic to continue working.  
+
+'S=Service Chain' +  
+This interface is a transparent service chain interface. Transparent service chain interfaces have a specific way of determining the VRF to which the traffic belongs.
+  
+'Mr=Receive Mirror' +  
+All packets that ingresses this interface will be mirrored  
+
+'Mt=Transmit Mirror' +  
+All packets that egresses this interface will be mirrored  
+  
+'Tc=Transmit Checksum Offload' +  
+This interface is capable of doing transmit checksum offload  
+
+'L3=Layer 3' +  
+Packets passing through this interface can be subjected to layer 3 processing  
+
+'L2=Layer 2' +   
+Packets passing through this interface can be subjected to layer 2 processing  
+
+'D=DHCP' +  
+DHCP is enabled on this interface (no longer used)  
+
+'Vp=Vhost Physical' +  
+This interface is a physical interface with a corresponding vhost interface
+
+'Pr=Promiscuous' +  
+Packets that ingresses this interface can have macs that do not belong to this interface  
+
+'Vnt=Native Vlan Tagged' +  
+Untagged packets belong to default vlan  
+
+'Mnp=No MAC Proxy' +  
+ARP requests that ingresses this interface will not be proxied except for requests to some special addresses  
+
+===== *2.2.1.2 Name*
+
+Individual interface listing starts with the string 'vifX/Y'. 'X' stands for router id. As of current versions, this field will always be zero. 'Y' stands for the interface index within the module. So, in 'vif0/1', 1 is the interface index of that vif inside the vRouter module.
+
+===== *2.2.1.3 OS Name*
+
+The operating system visible name of the interface. 'ethX', 'pktX', 'tapX', 'vhostX', 'pXpYpZ' or 'pXpY' are some of the most common names that you will find in this field. However, names are only limited by OS and can be anything that OS allows.
+
+For physical interfaces, the speed and duplex settings of the interface is also displayed if the link is up.
+
+===== *2.2.1.4 Type*
+
+vRouter has multiple interface types. Based on the interface type packet processing might differ. For e.g.: packets from physical interface might need to go through different kind of processing compared to packets from VM. The various interface types that vRouter is aware of are: +
+
+'Physical' +
+Interfaces of type 'Physical' will be the actual NICs that are present in the compute node
+
+'Virtual' +
+'Virtual' interfaces are typically tap interfaces that are attached to a VM
+
+'Agent' +
+'Agent' interface is used by vRouter to send packets to vRouter-agent.
+
+'Vhost' +
+'Vhost' interfaces are interfaces that send and receive traffic from and to the host OS.
+
+'Gateway' +
+'Gateway' interfaces are a type of 'vhost' interface that aids in gateway functionality
+
+'Stats' +
+Dummy interfaces that just hold statistics
+
+===== *2.2.1.5 HWAddr*
+
+'HWaddr' is the mac address of that 'vif' that is configured by the agent. This address need not be the actual mac address that one will see in the 'ifconfig' output, since the address is used as an aid in packet transportation.
+
+===== *2.2.1.6 IPaddr*
+
+This field indicates the IP address that is configured on that interface. Absence of this address need not really indicate a problem. As of this release, this field is only used as store for agent to aid in DHCP processing.
+
+===== *2.2.1.7 Vrf*
+
+This field indicates the 'vrf' to which the interface belongs to. As a broad representation, vrf in most cases indicates the virtual network to which the interface belongs to, and hence packet transportation will happen in that network. In the forwarding path, 'vrf' is just one of the many programmable entities that can be used cleverly to achieve forwarding functionality. 
+
+===== *2.2.1.8 MTU*
+
+This field is not used (could be used in the future)
+
+===== *2.2.1.9 Ref*
+
+The number of references to this interface by other data structures of vRouter. The interface will not go away till all references drop to 1 (which is a self reference). This field is useful only for debugging problems. 
+
+===== *2.2.1.10 Statistics*
+
+The statistics lines are self explanatory. 'RX' indicates packets/bytes that are received by vRouter on this interface whereas 'TX' indicates packets/bytes that are sent out on this interface by vRouter.
+
+===== *2.3 get*
+
+Instead of listing all the available interfaces, one can dump only a specific interface, if the interface index is known.
+
+----
+
+# vif --get 5
+Vrouter Interface Table
+
+Flags: P=Policy, X=Cross Connect, S=Service Chain, Mr=Receive Mirror
+       Mt=Transmit Mirror, Tc=Transmit Checksum Offload, L3=Layer 3, L2=Layer 2
+       D=DHCP, Vp=Vhost Physical, Pr=Promiscuous, Vnt=Native Vlan Tagged
+       Mnp=No MAC Proxy
+
+vif0/5      OS: tapd61b62dc-69
+            Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0
+            Vrf:1 Flags:PL3L2 MTU:9160 Ref:6
+            RX packets:488  bytes:57691 errors:0
+            TX packets:31485  bytes:3476558 errors:0
+
+----
+
+The output format remains the same as for the '--list' option.
+
+===== *2.4 create*
+
+The '--create' option can be used to create vhost type interfaces in the host kernel. 
+
+----
+
+# vif --create vhost1 --mac 00:00:00:01:02:03
+# ifconfig vhost1
+vhost1    Link encap:Ethernet  HWaddr 00:00:00:01:02:03  
+          BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+----
+
+This is how 'vhost0' is created.
+
+===== *2.5 add*
+
+Just creating an interface using '--create' will not be of any use. To send receive traffic, the interface will have to be added to vRouter. One adds an interface to the vRouter with the '--add' option.
+
+----
+
+# vif --add vhost1 --mac 00:00:00:01:02:03 --vrf 3 --type vhost --xconnect eth1
+#
+
+----
+
+To add an interface to vRouter, one will have to specify the 'vrf' to which the interface belongs to. One also will have to specify the type of the interface (as explained earlier, type can be 'vhost', 'physical', 'virtual', etc.:). '--xconnect' option is specific for 'vhost' type interface. It just specifies the physical interface to which this 'vhost' interface has to be associated to. This is just an added information to the vRouter to help it route packets to the physical interface in case the agent keeps crashing or is not in a sane state and vRouter does not have any information to forward packets. The '--xconnect' option is optional.
+
+
+<<< 
+
+==== *3.0 Dropstats*  
+
+The _dropstats_ utility provides statistics on the packets dropped in the vrouter. A summary of what each count means is provided below.
+
+----
+GARP                          Number of GARP messages seen
+ARP no where to go            (Currently unused)
+Invalid ARPs                  ARP format error / ARP packet is not meant to be answered by this Vrouter
+
+Invalid IF                    Interface is not present in vrouter
+Trap No IF                    Inteface pkt0 is not found while attempting to trap a packet
+IF TX Discard                 Interface is not initialized
+IF Drop                       Packet dropped in interface RX/TX path
+IF RX Discard                 Interface is not initialized in the Rx path
+
+Flow Unusable                 Flow Hold Count is more than the flow hold limit
+Flow No Memory                (Currently unused)
+Flow Table Full               Flow table is full
+Flow NAT no flow              Packet had to be NATed and no reverse flow is found
+Flow Action Drop              Flow action is drop
+Flow Action Invalid           Flow action is not valid
+Flow Invalid Protocol         (currently unused)
+Flow Queue Limit Exceeded     More than three packets received before flow processing is completed
+Flow Unusable (Eviction)      The flow has been marked for eviction by vrouter (based on TCP state) 
+
+Discards                      Packets going to discard Nexthop
+TTL Exceeded                  Packets whose TTL became zero
+Mcast Clone Fail              Cloning of Multicast buffer failed
+Cloned Original               Original packet is dropped, after action is taken on cloned packet
+
+Invalid NH                    Nexthop is not valid
+Invalid Label                 Label received in the packet is Invalid
+Invalid Protocol              Protocols packet not handled by vrouter
+Rewrite Fail                  Failure while applying L2 header to packet
+Invalid Mcast Source          Source address is not part of multicast tree
+
+Push Fails                    Increasing the length of buffer failed
+Pull Fails                    Decreasing the length of buffer failed
+Duplicated                    Trap packet to Agent has been truncated and original packet is dropped
+Head Alloc Fails              (Currently unused)
+Head Space Reserve Fails      (Currently unused)
+PCOW fails                    (Cloning and copying of buffer failed)
+Invalid Packets               Format of the received packet is Invalid
+
+Misc                          Packet dropped for miscellaneous reasons
+Nowhere to go                 Packet dropped because intended L3 or L2 processing failed
+Checksum errors               Packet dropped because of Checksum failure
+No Fmd                        No forwarding metadata to process the packet
+Invalid VNID                  Wrong VNI/Vxlan Id received in the packet
+Fragment errors               Enqueueing to fragment queue failed
+Invalid Source                RPF check on the packet failed
+Jumbo Mcast Pkt with DF Bit   Multicast packet more than MTU size is received
+ARP No Route                  (Currently unused)
+ARP Reply No Route            (Currently unused)
+No L2 Route                   L2 route is missing
+----
