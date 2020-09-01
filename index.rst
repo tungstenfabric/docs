@@ -30,19 +30,19 @@ Documentation Structure
    infrastructure/index.rst
    administration/index.rst
    governance/index.rst
-   manual-cla-admin.rst
-
 
 We welcome new contributors!
 ----------------------------
 
 Some useful Tungsten Fabric links:
 
--  Main website: https://tungsten.io
--  Wiki: https://wiki.tungsten.io
+-  Main website:  https://tungsten.io
+-  Community Wiki: https://wiki.tungsten.io
+-  Documentation: https://docs.tungsten.io
 -  Issue Tracker: https://jira.tungsten.io
 -  Mailing lists: https://lists.tungsten.io
 -  Code review: https://gerrit.tungsten.io
+-  Code repository: https://github.com/tungstenfabric 
 
 For now, you can also access some of the old sites from our former
 OpenContrail days, but these are no longer in active use:
@@ -57,8 +57,7 @@ Public Meetings
 Tungsten Fabric holds several regular public meetings via Zoom
 conference call. All participants are welcome!
 
-You can always find the full call schedule on the `community calendar`_,
-but some of the most important/interesting are also listed here…
+You can always find the full call schedule on the `community calendar`_.
 
 Technical Steering Committee
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,11 +69,7 @@ community body of the project.
 
 This meeting is open to the public and all participants are welcome.
 
--  Date: Every Thursday
--  Time: 1000 Pacific Time (1700 UTC during US Daylight Savings Time)
--  Meeting URL: https://zoom.us/j/126834756
--  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Technical+Steering+Committee
+https://wiki.tungsten.io/display/TUN/Technical+Steering+Committee
 
 Infrastructure Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,22 +77,14 @@ Infrastructure Working Group
 This group addresses technical work on the Continuous Integration (CI)
 system and developer environment.
 
--  Date: Every Tuesday
--  Time: 0800 Pacific Time (1500 UTC during US Daylight Savings Time)
--  Meeting URL: https://zoom.us/j/172248735
--  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Infrastructure+Working+Group
+https://wiki.tungsten.io/display/TUN/Infrastructure+Working+Group
 
 Documentation Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This group works on the user and developer facing documentation.
 
--  Date: Every Wednesday
--  Time: 0830 Pacific Time (1530 UTC during US Daylight Savings Time)
--  Meeting URL: https://zoom.us/j/939908205
--  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Documentation+Project
+https://wiki.tungsten.io/display/TUN/Documentation+Project
 
 Marketing Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,11 +92,7 @@ Marketing Working Group
 This group works to get the word out about Tungsten Fabric and promote
 TF usage and adoption.
 
--  Date: Every Friday
--  Time: 1030 Pacific Time (1730 UTC during US Daylight Savings Time)
--  Meeting URL: https://zoom.us/j/742093023
--  Agenda/Minutes:
-   https://wiki.tungsten.io/display/TUN/Marketing+Working+Group
+https://wiki.tungsten.io/display/TUN/Marketing+Working+Group
 
 Licensing
 ---------
