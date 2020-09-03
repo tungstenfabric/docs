@@ -5,3 +5,4 @@
 *.swp
 .tox
 .DS_Store
+_build
