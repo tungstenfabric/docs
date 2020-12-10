@@ -13,11 +13,11 @@ Result: you have a file that contains:
 1. Information which of those pages can be copied to TF
 
 # Step 2 - Get all pages and check for difference
-1. Run webcrawler -i output.yml 
+1. Run ```webcrawler -i output.yml``` 
 1. The script will download all files under the links provided in output.yml
 1. The script will download only tiles marked as JuniperAgreesToCopy=True
 1. Create new branch outof docs master
-1. Commit documentation_pages_output/ to that branch
+1. Commit ```documentation_pages_output/``` to that branch
 1. Raise pull request of that branch to master
 1. Compare changes in the files.
 1. Analyze each change and update TF documentation
