@@ -1,0 +1,13 @@
+documents:
+  - name: Contrail Networking and Security User Guide
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-networking-security-user-guide.html
+  - name: Contrail Networking Installation and Upgrade Guide
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-install-and-upgrade-guide.html 
+  - name: Contrail Networking Deployment Guide
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-deployment-guide.html
+  - name: Contrail Networking Service Provider Focused Features Guide
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-service-provider-feature-guide.html
+  - name: Contrail Networking Fabric Lifecycle Management Guide
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-fabric-lifecycle-management-feature-guide.html
+  - name: Contrail Networking Monitoring and Troubleshooting Guide
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-analytics-troubleshooting-guide.html 
