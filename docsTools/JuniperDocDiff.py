@@ -25,13 +25,14 @@ class AllDocuments(object):
     def generateDocuments(self, documents):
         for document in documents:
             pages=[] #list of pages in that document
-
-
             print('Analyzing '+document['name'])
-            #print('2 '+document['url'])
             websiteName=document['name']
             websiteURL=document['url']
-            websiteCode = urllib.request.urlopen(websiteURL).read() #kod html strony z ToC
+            try:
+                websiteCode = urllib.request.urlopen(websiteURL).read() #kod html strony z ToC
+            except:
+                print("Page doesn't exist: "+websiteURL)
+                continue
             filename=os.path.basename(urlparse(websiteURL).path) #nazwa pliku z ToC aby usunąć go z URL
             websiteBaseUrl=websiteURL.replace(filename, "") #domena do której będą doklejane linki z ToC
             #print('3 '+websiteBaseUrl)
@@ -67,7 +68,6 @@ class AllDocuments(object):
         print("Writing to yaml")
         with open(args.output, 'w') as file:
             documents = yaml.dump(document, file)
-        #print(yaml.dump(document))    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='This script takes input file with links to top level of each document in Juniper documentation and for each of those documents he gathers link to every page.',
@@ -87,8 +87,7 @@ if __name__ == '__main__':
     parser.add_argument('-o','--output',help='Output file that should be compared with the output file generated for previous version to see what have changed', required=True)
     args = parser.parse_args()
  
-    #print ("Input file: %s" % args.input )
-    #print ("Output file: %s" % args.output )
+
     input = read_input_file()
     #print("Loaded input")
     AllDocuments(input['documents'])
