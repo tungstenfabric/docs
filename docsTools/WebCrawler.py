@@ -24,6 +24,17 @@ class AllDocuments(object):
         # set of DOCUMENTS with dictionaries of PAGES 
         self.newDocuments = []
         self.generateDocuments(documents_dict)
+    
+    def has_only_newline(self,tag):
+        for content in tag.contents:
+            if content!="\n":
+                return False
+        return True
+    
+    def has_empty_style(self,tag):
+        if "style" in tag.attrs and tag.attrs['style']=='':    
+            return True
+        return False
 
     def generateDocuments(self, documents):
         test_html_docs="""<?xml version="1.0" encoding="UTF-8"?>
@@ -247,12 +258,13 @@ class AllDocuments(object):
                             <sw-breadcrumb>&nbsp;</sw-breadcrumb>
                         </nav>
                         <div class="topicBody">
-                            <div id="topic-content">
+                            <html id="topic-content">
                                 <h1 id="jd0e2">Security Policy Features</h1>
                                 <sw-topic-details date="2019-04-16">&nbsp;</sw-topic-details>
                                 <div style="">
                                     <p></p>
                                 </div>
+                                
                                 <h2 id="jd0e12">Overview of Existing Network Policy and Security Groups in Contrail</h2>
                                 <p>Contrail virtual networks are isolated by default. Workloads
                                 in a virtual network cannot communicate with workloads in other virtual
@@ -267,6 +279,10 @@ class AllDocuments(object):
                                 application attributes to author policies, so that the policies don't
                                 need to be updated on account of workload mobility. </p>
                                 <div style="">
+                                    <p>You might want to segregate traffic based on the different categories
+                                    of data origination, such as: </p>
+                                </div>
+                                <div style="ssss">
                                     <p>You might want to segregate traffic based on the different categories
                                     of data origination, such as: </p>
                                 </div>
@@ -999,8 +1015,7 @@ class AllDocuments(object):
                                 </p>
                                 <figure id="fw13">
                                     <figurecaption>Figure 13: Traffic Groups, Endpoint Statistics</figurecaption>
-                                    <div class="graphic">
-                                        <img alt="Traffic Groups, Endpoint Statistics" src="/documentation/images/s019925.png" style="">
+                                    <div class="graphic"><img alt="Traffic Groups, Endpoint Statistics" src="/documentation/images/s019925.png" style="">
                                         </img>
                                     </div>
                                 </figure>
@@ -1014,9 +1029,7 @@ class AllDocuments(object):
                                 </p>
                                 <figure id="fw14">
                                     <figurecaption>Figure 14: Traffic Groups, Details</figurecaption>
-                                    <div class="graphic">
-                                        <img alt="Traffic Groups, Details" src="/documentation/images/s019926.png" style="">
-                                        </img>
+                                    <div class="graphic"><img alt="Traffic Groups, Details" src="/documentation/images/s019926.png" style=""></img>
                                     </div>
                                 </figure>
                                 <p></p>
@@ -1042,6 +1055,11 @@ class AllDocuments(object):
                                         <img alt="Traffic Groups Settings" src="/documentation/images/s019928.png" style="">
                                         </img>
                                     </div>
+                                    <div style="">
+
+
+                                    </div>
+                                </div>
                                 </figure>
                                 <div class="l-aside-box">
                                     <h3>Related Documentation</h3>
@@ -1095,25 +1113,49 @@ class AllDocuments(object):
                         #get filename
                         filename=os.path.basename(urlparse(page['url']).path) 
                         #check if file exist
-                        if os.path.isfile(args.outputFolder+"/"+document['name']+"/"+filename):
+                        if 1==0:
+                        #if os.path.isfile(args.outputFolder+"/"+document['name']+"/"+filename):
                         #if yes print message
                             print("Page already exist: "+document['url'])
-                            continue
+                            pass
                         else:
                             #open file
                             f = open(args.outputFolder+"/"+document['name']+"/"+filename, "w")
                             #download that page
                             websiteCode = urllib.request.urlopen(page['url']).read()
                             #extract the content
-                            #parsed_html = BeautifulSoup(websiteCode, 'html.parser')
-                            parsed_html = BeautifulSoup(test_html_docs, 'html.parser')    
+                            parsed_html = BeautifulSoup(websiteCode, 'html.parser')
+                            #parsed_html = BeautifulSoup(test_html_docs, 'html.parser')    
 
                             #remove empty tags for better html
-                            empty_tags = parsed_html.findAll(lambda tag: (not tag.contents or len(tag.get_text(strip=True)) <= 0) and not tag.name == 'br' and not tag.name == 'img')
+                            
+
+                            empty_tags = parsed_html.findAll(lambda tag: ((not tag.contents) and len(tag.get_text(strip=True)) <= 0) and not tag.name == 'br' and not tag.name == 'img')
+
+                            #pp.pprint(empty_tags)
                             for empty_tag in empty_tags:
                                 empty_tag.decompose()
-                            #parsed_.smooth()
-                            content = parsed_html.body.find(id="topic-content")
+                            
+                            #remove tags that contain only newline
+                            empty_tags2 = parsed_html.findAll(lambda tag: self.has_only_newline(tag) and not tag.name == 'br' and not tag.name == 'img')
+                            for empty_tag in empty_tags2:
+                                empty_tag.decompose()
+
+                            #unwrap div that don't have any style
+                            empty_tags2 = parsed_html.findAll(lambda tag: self.has_empty_style(tag) and tag.name=='div')
+                            for empty_tag in empty_tags2:
+                                empty_tag.unwrap()
+                            
+                            #remove rlated documentation section
+                            empty_tags2 = parsed_html.findAll("div", class_="l-aside-box")
+                            for empty_tag in empty_tags2:
+                                empty_tag.decompose()                
+
+
+
+
+
+                            content = parsed_html.body.find("div", id="topic-content")
                             #extract all images and files
                             images=parsed_html.body.find(id="topic-content").find_all("img")
                             #for each found image
@@ -1139,9 +1181,11 @@ class AllDocuments(object):
                                     #newSrc="documentation/images/"+str(imageFileName)
                                     #content=content.replace(image['src'],newSrc)
                                     
+                            content.unwrap()
+                            print(content)
+                            exit()
                             #write to file
-                            
-                            f.write(str(content))              
+                            f.write(content)              
                             f.close()
                             #Convert from html to github markdown
                             
