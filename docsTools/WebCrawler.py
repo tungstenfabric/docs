@@ -258,13 +258,12 @@ class AllDocuments(object):
                             <sw-breadcrumb>&nbsp;</sw-breadcrumb>
                         </nav>
                         <div class="topicBody">
-                            <html id="topic-content">
+                            <div id="topic-content">
                                 <h1 id="jd0e2">Security Policy Features</h1>
                                 <sw-topic-details date="2019-04-16">&nbsp;</sw-topic-details>
                                 <div style="">
                                     <p></p>
                                 </div>
-                                
                                 <h2 id="jd0e12">Overview of Existing Network Policy and Security Groups in Contrail</h2>
                                 <p>Contrail virtual networks are isolated by default. Workloads
                                 in a virtual network cannot communicate with workloads in other virtual
@@ -279,10 +278,6 @@ class AllDocuments(object):
                                 application attributes to author policies, so that the policies don't
                                 need to be updated on account of workload mobility. </p>
                                 <div style="">
-                                    <p>You might want to segregate traffic based on the different categories
-                                    of data origination, such as: </p>
-                                </div>
-                                <div style="ssss">
                                     <p>You might want to segregate traffic based on the different categories
                                     of data origination, such as: </p>
                                 </div>
@@ -1015,7 +1010,8 @@ class AllDocuments(object):
                                 </p>
                                 <figure id="fw13">
                                     <figurecaption>Figure 13: Traffic Groups, Endpoint Statistics</figurecaption>
-                                    <div class="graphic"><img alt="Traffic Groups, Endpoint Statistics" src="/documentation/images/s019925.png" style="">
+                                    <div class="graphic">
+                                        <img alt="Traffic Groups, Endpoint Statistics" src="/documentation/images/s019925.png" style="">
                                         </img>
                                     </div>
                                 </figure>
@@ -1029,16 +1025,16 @@ class AllDocuments(object):
                                 </p>
                                 <figure id="fw14">
                                     <figurecaption>Figure 14: Traffic Groups, Details</figurecaption>
-                                    <div class="graphic"><img alt="Traffic Groups, Details" src="/documentation/images/s019926.png" style=""></img>
+                                    <div class="graphic">
+                                        <img alt="Traffic Groups, Details" src="/documentation/images/s019926.png" style="">
+                                        </img>
                                     </div>
                                 </figure>
                                 <p></p>
                                 <figure id="fw15">
-                                    <figurecaption>Figure 15: Traffic Groups, Details</figurecaption>
-                                    <div class="graphic">
+                                    <figcaption>Figure 15: Traffic Groups, Details</figcaption>
                                         <img alt="Traffic Groups, Details" src="/documentation/images/s019927.png" style="">
                                         </img>
-                                    </div>
                                 </figure>
                                 <p>
                                     You can change the settings of what statistics are displayed
@@ -1050,27 +1046,16 @@ class AllDocuments(object):
                                     .
                                 </p>
                                 <figure id="fw16">
-                                    <figurecaption>Figure 16: Traffic Groups Settings</figurecaption>
+                                    <figcaption>Figure 16: Traffic Groups Settings</figcaption>
                                     <div class="graphic">
                                         <img alt="Traffic Groups Settings" src="/documentation/images/s019928.png" style="">
                                         </img>
                                     </div>
-                                    <div style="">
-
-
-                                    </div>
-                                </div>
                                 </figure>
-                                <div class="l-aside-box">
-                                    <h3>Related Documentation</h3>
-                                    <ul>
-                                        <li style="">
-                                            <p>
-                                                <a href="openstack-security-policy-features.html">Security Policy Features in OpenStack</a>
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <figure>
+                                    <img src="/documentation/images/s019928.png" alt="Traffic Groups Settings" style="width:100%">
+                                    <figcaption>Fig.1 - Trulli, Puglia, Italy.</figcaption>
+                                </figure>
                                 <sw-prev-next>&nbsp;</sw-prev-next>
                             </div>
                             <sw-comments>&nbsp;</sw-comments>
@@ -1091,6 +1076,8 @@ class AllDocuments(object):
     </script>
 </body>
 </html>
+
+
 
 """
         pp = pprint.PrettyPrinter(indent=4)
@@ -1124,8 +1111,8 @@ class AllDocuments(object):
                             #download that page
                             websiteCode = urllib.request.urlopen(page['url']).read()
                             #extract the content
-                            parsed_html = BeautifulSoup(websiteCode, 'html.parser')
-                            #parsed_html = BeautifulSoup(test_html_docs, 'html.parser')    
+                            #parsed_html = BeautifulSoup(websiteCode, 'html.parser')
+                            parsed_html = BeautifulSoup(test_html_docs, 'html.parser')    
 
                             #remove empty tags for better html
                             
@@ -1151,7 +1138,10 @@ class AllDocuments(object):
                             for empty_tag in empty_tags2:
                                 empty_tag.decompose()                
 
-
+                            #change figurecaption to figcaption
+                            empty_tags2 = parsed_html.findAll("figurecaption")
+                            for empty_tag in empty_tags2:
+                                empty_tag.name="figcaption"
 
 
 
@@ -1181,11 +1171,11 @@ class AllDocuments(object):
                                     #newSrc="documentation/images/"+str(imageFileName)
                                     #content=content.replace(image['src'],newSrc)
                                     
-                            content.unwrap()
-                            print(content)
-                            exit()
+                            content.name="p"
+                            #print(parsed_html)
+                            #exit()
                             #write to file
-                            f.write(content)              
+                            f.write(str(content))              
                             f.close()
                             #Convert from html to github markdown
                             
