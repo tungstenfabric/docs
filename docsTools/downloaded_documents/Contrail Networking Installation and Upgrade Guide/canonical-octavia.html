@@ -1,0 +1,188 @@
+<p id="topic-content"><h1 id="jd0e2">Installing OpenStack Octavia LBaaS with Juju Charms in Contrail
+Networking</h1><sw-topic-details date="2020-05-22"> </sw-topic-details><p><span id="jd0e11">Contrail
+Networking Release 2005 supports Octavia as LBaaS.</span> The deployment supports RHOSP and Juju platforms.</p><p>With Octavia as LBaaS, Contrail Networking is only maintaining
+network connectivity and is not involved in any load balancing functions.</p><p>For each OpenStack load balancer creation, Octavia launches
+a VM known as <em>amphora VM</em>. The VM starts the HAPROXY
+when listener is created for the load balancer in OpenStack. Whenever
+the load balancer gets updated in OpenStack, <em>amphora VM</em> updates the running HAPROXY configuration. The <em>amphora
+VM</em> is deleted on deleting the load balancer.</p><p>Contrail Networking provides connectivity to <em>amphora
+VM</em> interfaces. <em>Amphora VM</em> has two
+interfaces; one for management and the other for data. The management
+interface is used by the Octavia services for the management communication.
+Since, Octavia services are running in the underlay network and <em>amphora VM</em> is running in the overlay network, SDN gateway is needed to reach
+the overlay network. The data interface is used for load balancing.</p><p>Follow the procedure to install OpenStack Octavia LBaaS
+in Canonical deployment:</p><ol type="1"><li id="jd0e42" style="">Prepare Juju setup with OpenStack Train version and Octavia
+overlay bundle.<p>Refer to <a href="canonical-octavia.html#SampleOctavia-bundle.yamlFile">Sample octavia-bundle.yaml file</a> output.</p><div class="sample" dir="ltr" id="jd0e49"><div dir="ltr" id="jd0e50"><code>juju deploy --overlay=./octavia-bundle.yaml ./contrail-bundle.yaml</code></div></div><p>or</p><p>Add Octavia service after deploying the main bundle on the existing
+cluster.</p><div class="sample" dir="ltr" id="jd0e56"><div dir="ltr" id="jd0e57"><code>juju deploy --overlay=./octavia-bundle.yaml --map-machines=existing
+./contrail-bundle.yaml</code></div></div></li><li id="jd0e59" style="">Prepare ssh key for amphora VM. Add the options in the <code class="filepath">octavia-bundle.yaml</code> file.<div class="sample" dir="ltr" id="jd0e65"><div dir="ltr" id="jd0e66"><code>ssh-keygen -f octavia # generate the key base64 octavia.pub
+# print public key data</code></div></div><p>Add the following options to Octavia options.</p><div class="sample" dir="ltr" id="jd0e70"><div dir="ltr" id="jd0e71"><code>amp-ssh-pub-key: # paste public key data here amp-ssh-key-name:
+octavia</code></div></div></li><li id="jd0e73" style="">Generate certificates.<div class="sample" dir="ltr" id="jd0e76"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>rm -rf demoCA/
+mkdir -p demoCA/newcerts
+touch demoCA/index.txt
+touch demoCA/index.txt.attr
+openssl genrsa -passout pass:foobar -des3 -out issuing_ca_key.pem 2048
+openssl req -x509 -passin pass:foobar -new -nodes -key issuing_ca_key.pem \
+    -config /etc/ssl/openssl.cnf \
+    -subj "/C=US/ST=Somestate/O=Org/CN=www.example.com" \
+    -days 30 \
+    -out issuing_ca.pem
+openssl genrsa -passout pass:foobar -des3 -out controller_ca_key.pem 2048
+openssl req -x509 -passin pass:foobar -new -nodes \
+        -key controller_ca_key.pem \
+    -config /etc/ssl/openssl.cnf \
+    -subj "/C=US/ST=Somestate/O=Org/CN=www.example.com" \
+    -days 30 \
+    -out controller_ca.pem
+openssl req \
+    -newkey rsa:2048 -nodes -keyout controller_key.pem \
+    -subj "/C=US/ST=Somestate/O=Org/CN=www.example.com" \
+    -out controller.csr
+openssl ca -passin pass:foobar -config /etc/ssl/openssl.cnf \
+    -cert controller_ca.pem -keyfile controller_ca_key.pem \
+    -create_serial -batch \
+    -in controller.csr -days 30 -out controller_cert.pem
+cat controller_cert.pem controller_key.pem &gt; controller_cert_bundle.pem
+juju config octavia \
+    lb-mgmt-issuing-cacert="$(base64 controller_ca.pem)" \
+    lb-mgmt-issuing-ca-private-key="$(base64 controller_ca_key.pem)" \
+    lb-mgmt-issuing-ca-key-passphrase=foobar \
+    lb-mgmt-controller-cacert="$(base64 controller_ca.pem)" \
+    lb-mgmt-controller-cert="$(base64 controller_cert_bundle.pem)"
+</pre></template></sw-code></div></div><p>Make sure all the units are in <em>active</em> or <em>blocked</em> state.</p></li><li id="jd0e87" style="">Configure vault service.<ol type="a"><li id="jd0e91" style="">SSH into the machine where vault service is installed.<div class="sample" dir="ltr" id="jd0e94"><div dir="ltr" id="jd0e95"><code>juju ssh vault/0</code></div></div></li><li id="jd0e97" style="">Export vault address and run <code class="inline" v-pre="">init</code>.<div class="sample" dir="ltr" id="jd0e103"><div dir="ltr" id="jd0e104"><code>export VAULT_ADDR='http://localhost:8200'<br/>/snap/bin/vault
+operator init -key-shares=5 -key-threshold=3</code></div></div><p>It will print 5 unseal keys and initial root token.</p></li><li id="jd0e110" style="">Call unseal command by using any three of the five printed
+unseal keys.<div class="sample" dir="ltr" id="jd0e113"><div dir="ltr" id="jd0e114"><code>/snap/bin/vault operator unseal Key1<br/>/snap/bin/vault
+operator unseal Key2<br/>/snap/bin/vault operator unseal
+Key3</code></div></div></li><li id="jd0e120" style="">Export initial root token.<div class="sample" dir="ltr" id="jd0e123"><div dir="ltr" id="jd0e124"><code>export VAULT_TOKEN="..."</code></div></div></li><li id="jd0e126" style="">Create user token.<div class="sample" dir="ltr" id="jd0e129"><div dir="ltr" id="jd0e130"><code>/snap/bin/vault token create -ttl=10m</code></div></div></li><li id="jd0e132" style="">Exit from vault’s machine and initialize vault’s
+charm with the user token.<div class="sample" dir="ltr" id="jd0e135"><div dir="ltr" id="jd0e136"><code>juju run-action --wait vault/leader authorize-charm token=”...”</code></div></div></li></ol></li><li id="jd0e138" style="">Create amphora image.<div class="sample" dir="ltr" id="jd0e141"><div dir="ltr" id="jd0e142"><code>juju run-action --wait octavia-diskimage-retrofit/leader
+retrofit-image </code></div></div><p>For more details, refer to <a href="https://docs.openstack.org/project-deploy-guide/charm-deployment-guide/latest/app-octavia.html#amphora-image">https://docs.openstack.org/project-deploy-guide/charm-deployment-guide/latest/app-octavia.html#amphora-image</a>.</p></li><li id="mgmtnetwork" style="">Install <em>python-openstackclient</em> and <em>python-octaviaclient</em> and create management
+network for Octavia.<p>You must create these objects in <em>services</em> project.</p><div class="sample" dir="ltr" id="jd0e163"><div dir="ltr" id="jd0e164"><code>project=$(openstack project list --domain service_domain
+| awk '/services/{print $2}')<br/>openstack network create
+octavia --tag charm-octavia --project $project<br/>openstack
+subnet create --subnet-range 172.x.0.0/24 --network octavia --tag
+charm-octavia octavia<br/># security group for octavia<br/>openstack security group create octavia --tag charm-octavia
+--project $project<br/>openstack security group rule create
+--ingress --ethertype IPv4 --protocol icmp octavia<br/>openstack
+security group rule create --ingress --ethertype IPv6 --protocol icmp
+octavia<br/>openstack security group rule create --ingress
+--ethertype IPv4 --protocol tcp --dst-port 22:22 octavia<br/>openstack security group rule create --ingress --ethertype IPv6
+--protocol tcp --dst-port 22:22 octavia<br/>openstack security
+group rule create --ingress --ethertype IPv6 --protocol tcp --dst-port
+9443:9443 octavia<br/>openstack security group rule create
+--ingress --ethertype IPv4 --protocol tcp --dst-port 9443:9443 octavia <br/># security group for octavia-health<br/>openstack
+security group create octavia-health --tag charm-octavia-health --project
+$project<br/>openstack security group rule create --ingress
+--ethertype IPv4 --protocol icmp octavia-health<br/>openstack
+security group rule create --ingress --ethertype IPv6 --protocol icmp
+octavia-health<br/>openstack security group rule create
+--ingress --ethertype IPv4 --protocol udp --dst-port 5555:5555 octavia-health<br/>openstack security group rule create --ingress --ethertype
+IPv6 --protocol udp --dst-port 5555:5555 octavia-health</code></div></div></li><li id="jd0e198" style="">The management
+network created in step <a href="canonical-octavia.html#mgmtnetwork">6</a> is in overlay
+network and Octavia services are running in the underlay network.
+Verify network connectivity between overlay and underlay network via
+SDN gateway.</li><li id="jd0e203" style="">Configure Octavia with the created network.<div class="sample" dir="ltr" id="jd0e206"><div dir="ltr" id="jd0e207"><code>juju run-action --wait octavia/leader configure-resources</code></div></div><p>Make sure the juju cluster is functional and all units have <em>active</em> status.</p></li></ol><p>If you want to run amphora instances on DPDK computes, you have
+to create your own flavor with the required options and set the ID
+to configuration of Octavia charm via <em>custom-amp-flavor-id</em> option before call configure-resources. <br/>Or<br/>Set the required options to created flavor with name <em>charm-octavia</em> by charm</p><div class="sample" dir="ltr" id="jd0e226"><div dir="ltr" id="jd0e227"><code>openstack flavor set  charm-octavia  --property hw:mem_page_size=any</code></div></div><p>Here is an example for creating and testing load balancer:</p><p>Prerequisites:</p><ul><li style=""><p>You must have connectivity between Octavia controller
+and amphora instances,</p></li><li style=""><p>You must have OpenStack services into LXD containers.</p></li><li style=""><p>You must have separate interfaces for control plane and
+data plane.</p></li></ul><ol type="1"><li id="jd0e247" style="">Create private network.<div class="sample" dir="ltr" id="jd0e250"><div dir="ltr" id="jd0e251"><code>openstack network create private<br/>openstack
+subnet create private --network private --subnet-range 10.10.10.0/24
+--allocation-pool<br/>start=10.10.10.50,end=10.10.10.70
+--gateway none</code></div></div></li><li id="jd0e257" style="">Create security group.<div class="sample" dir="ltr" id="jd0e260"><div dir="ltr" id="jd0e261"><code>openstack security group create allow_all<br/>openstack
+security group rule create --ingress --protocol any --prefix '0.0.0.0/0'
+allow_all</code></div></div></li><li id="jd0e265" style="">Check available flavors and images. You can create them,
+if needed.<div class="sample" dir="ltr" id="jd0e268"><div dir="ltr" id="jd0e269"><code>openstack flavor list<br/>openstack image list</code></div></div></li><li id="jd0e273" style="">Create two servers for load balancer.<div class="sample" dir="ltr" id="jd0e276"><div dir="ltr" id="jd0e277"><code>openstack server create --flavor test_flavor --image cirros
+--security-group allow_all --network private cirros1<br/>openstack server create --flavor test_flavor --image cirros --security-group
+allow_all --network private cirros2</code></div></div></li><li id="jd0e281" style="">Create additional server to test load balancer.<div class="sample" dir="ltr" id="jd0e284"><div dir="ltr" id="jd0e285"><code>openstack server create --flavor test_flavor --image cirros
+--security-group allow_all --network private cirros-test</code></div></div></li><li id="jd0e287" style="">Check status and IP addresses.<div class="sample" dir="ltr" id="jd0e290"><div dir="ltr" id="jd0e291"><code>openstack server list --long</code></div></div></li><li id="CreateSimpleHTTPServerOnEveryCirros" style="">Create simple
+HTTP server on every cirros. Login on both the cirros instances and
+run following commands:<div class="sample" dir="ltr" id="jd0e296"><div dir="ltr" id="jd0e297"><code>MYIP=$(ifconfig eth0|grep 'inet addr'|awk -F: '{print $2}'|
+awk '{print $1}') while true; do echo -e "HTTP/1.0 200 OK\r\n\r\nWelcome
+to $MYIP" | sudo nc -l -p 80 ; done&amp;</code></div></div></li><li id="jd0e299" style="">Create load balancer<div class="sample" dir="ltr" id="jd0e302"><div dir="ltr" id="jd0e303"><code>openstack loadbalancer create --name lb1 --vip-subnet-id
+private</code></div></div><p>Make sure <em>provisioning_status</em> is <em>Active</em>.</p><div class="sample" dir="ltr" id="jd0e313"><div dir="ltr" id="jd0e314"><code>openstack loadbalancer show lb1</code></div></div></li><li id="jd0e316" style="">Setup load balancer<div class="sample" dir="ltr" id="jd0e319"><div dir="ltr" id="jd0e320"><code>openstack loadbalancer listener create --protocol HTTP --protocol-port
+80 --name listener1 lb1<br/>openstack loadbalancer show
+lb1  # Wait for the provisioning_status to be ACTIVE.<br/>openstack loadbalancer pool create --lb-algorithm ROUND_ROBIN --listener
+listener1 --protocol HTTP --name pool1<br/>openstack loadbalancer
+healthmonitor create --delay 5 --timeout 2 --max-retries 1 --type
+HTTP pool1<br/>openstack loadbalancer member create --subnet-id
+private --address 10.10.10.50 --protocol-port 80 pool1<br/>openstack loadbalancer member create --subnet-id private --address
+10.10.10.51 --protocol-port 80 pool1</code></div><p>IP addresses 10.10.10.50 and 10.10.10.51 belong to VMs created
+with test http server in step <a href="canonical-octavia.html#CreateSimpleHTTPServerOnEveryCirros">7</a>.</p></div></li><li id="jd0e336" style="">Check the status of load balancer.<div class="sample" dir="ltr" id="jd0e339"><div dir="ltr" id="jd0e340"><code>openstack loadbalancer show lb1  # Wait for the provisioning_status
+to be ACTIVE. <br/>openstack loadbalancer pool list<br/>openstack loadbalancer pool show pool1<br/>openstack
+loadbalancer member list pool1<br/>openstack loadbalancer
+listener list</code></div></div></li><li id="jd0e350" style="">Login to load balancer client and verify if round robin works.<div class="sample" dir="ltr" id="jd0e353"><div dir="ltr" id="jd0e354"><code>ubuntu@comp-1:~$ ssh cirros@169.x.0.9<br/>The
+authenticity of host '169.x.0.9 (169.x.0.9)' can't be established.<br/>RSA key fingerprint is SHA256:jv0qgZkorxxxxxxxmykOSVQV3fFl0.<br/>Are you sure you want to continue connecting (yes/no)? yes<br/>Warning: Permanently added '169.x.0.9' (RSA) to the list
+of known hosts.<br/>cirros@169.x.0.9's password:<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.52<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.53<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.52<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.53<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.52<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.53</code></div></div></li></ol><div class="sample" dir="ltr" id="SampleOctavia-bundle.yamlFile"><p><b>Sample octavia-bundle.yaml file</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># Loadbalancer (LBAASv2) with Octavia - requires Rocky or later
+---
+applications:
+  barbican:
+    charm: cs:barbican
+    num_units: 1
+    options:
+      openstack-origin: cloud:bionic-train
+    to:
+    - lxd:4
+  barbican-vault:
+    charm: cs:barbican-vault-12
+  octavia:
+    series: bionic
+    charm: cs:~apavlov-e/octavia
+    num_units: 1
+    options:
+      openstack-origin: cloud:bionic-train
+      create-mgmt-network: false
+    to:
+    - lxd:4
+  octavia-dashboard:
+    charm: cs:octavia-dashboard
+  vault:
+    charm: cs:vault
+    num_units: 1
+    to:
+    - lxd:4
+  glance-simplestreams-sync:
+    charm: cs:glance-simplestreams-sync
+    num_units: 1
+    options:
+      source: ppa:simplestreams-dev/trunk
+      use_swift: false
+    to:
+    - lxd:4
+  octavia-diskimage-retrofit:
+    charm: cs:octavia-diskimage-retrofit
+    options:
+      amp-image-tag: 'octavia-amphora'
+      retrofit-uca-pocket: train
+relations:
+- - mysql:shared-db
+  - octavia:shared-db
+- - mysql:shared-db
+  - barbican:shared-db
+- - mysql:shared-db
+  - vault:shared-db
+- - keystone:identity-service
+  - octavia:identity-service
+- - keystone:identity-service
+  - barbican:identity-service
+- - rabbitmq-server:amqp
+  - octavia:amqp
+- - rabbitmq-server:amqp
+  - barbican:amqp
+- - neutron-api:neutron-load-balancer
+  - octavia:neutron-api
+- - openstack-dashboard:dashboard-plugin
+  - octavia-dashboard:dashboard
+- - barbican-vault:secrets
+  - barbican:secrets
+- - vault:secrets
+  - barbican-vault:secrets-storage
+- - glance-simplestreams-sync:juju-info
+  - octavia-diskimage-retrofit:juju-info
+- - keystone:identity-service
+  - glance-simplestreams-sync:identity-service
+- - rabbitmq-server:amqp
+  - glance-simplestreams-sync:amqp
+- - keystone:identity-credentials
+  - octavia-diskimage-retrofit:identity-credentials
+- - contrail-openstack
+  - octavia
+</pre></template></sw-code></div></div><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e11">2005</a></div><div class="table-cell">Contrail
+Networking Release 2005 supports Octavia as LBaaS.</div></div></div><sw-prev-next> </sw-prev-next></p>

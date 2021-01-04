@@ -1,0 +1,51 @@
+<p id="topic-content"><h1 id="jd0e2">Debugging Ping Failures for Policy-Connected Networks</h1><sw-topic-details date="2020-09-16"> </sw-topic-details><p>This topic presents troubleshooting scenarios and steps
+for resolving reachability issues (ping failures) when working with
+policy-connected virtual networks.</p><p>These are the methods used to configure reachability
+for a virtual network or virtual machine:</p><ul><li style=""><p>Use network policy to exchange virtual network routes. </p></li><li style=""><p>Use a floating IP address pool to associate an IP address
+from a destination virtual network to virtual machine(s) in the source
+virtual network. </p></li><li style=""><p>Use an ASN/RT configuration to exchange virtual network
+routes with an MX Series router gateway. </p></li><li style=""><p>Use a service instance static route configuration to route
+between service instances in two virtual networks.</p></li></ul><p>This topic focuses on troubleshooting reachability for the first
+method --- using network policy to exchange routes between virtual
+networks.</p><p><em>Troubleshooting Procedure for Policy-Connected
+Network</em></p><ol type="1"><li id="jd0e35" style=""> Check the state of the virtual machine and interface.<p>Before doing anything else, check the status of the source and
+destination virtual machines.</p><ul><li style=""><p> Is the <strong v-pre="">Status</strong> of each virtual machine <strong v-pre="">Up</strong>?</p></li><li style=""><p>Are the corresponding tap interfaces <strong v-pre="">Active</strong>?</p></li></ul><p>Check the virtual machine status in the Contrail UI:</p><figure id="jd0e58"><figcaption>Figure 1: Virtual Machine Status Window</figcaption><div class="graphic"><img alt="Virtual Machine Status Window" src="documentation/images/s041980.gif" style=""/></div></figure><p>Check the tap interface status in the http agent introspect,
+for example:  </p><p><code class="inline" v-pre="">https://&lt;host ip address&gt;:8085/Snh_ItfReq?name=</code></p><figure id="jd0e67"><figcaption>Figure 2: Tap Interface Status Window</figcaption><div class="graphic"><img alt="Tap Interface Status Window" src="documentation/images/s041981.gif" style=""/></div></figure><p>When the virtual machine status is verified <strong v-pre="">Up</strong>, and
+the tap interface is <strong v-pre="">Active</strong>, you can focus on other factors
+that affect traffic, including routing, network policy, security policy,
+and service instances with static routes.</p></li><li id="jd0e79" style="">Check reachability and routing.<p>Use the following troubleshooting guidelines whenever you are
+experiencing ping failures on virtual network routes that are connected
+by means of network policy. </p><p> Check the network policy configuration:  </p><ul><li style=""><p>Verify that the policy is attached to each of the virtual
+networks. </p></li><li style=""><p>Each attached policy should have either an explicit rule
+allowing traffic from one virtual network to the other, or an allow
+all traffic rule. </p></li><li style=""><p>Verify that the order of the actions in the policy rules
+is correct,  because the actions are applied in the order in which
+they are listed. </p></li><li style=""><p>If there are multiple policies attached to a virtual network,
+verify that the policies are attached in a logical order. The first
+policy listed is applied first, and its rules are applied first, then
+the next policy is applied.  </p></li><li style=""><p>Finally, if either of the virtual networks does not have
+an explicit rule to allow traffic from the other virtual network,
+the traffic flow will be treated as an <strong v-pre="">UNRESOLVED</strong> or <strong v-pre="">SHORT</strong> flow and all packets will be dropped.</p></li></ul><p>Use the following sequence in the Contrail UI to check policies,
+attachments, and traffic rules:  </p><p>Check VN1-VN2 ACL information from the compute node:</p><figure id="jd0e112"><figcaption>Figure 3: Policies, Attachments, and Traffic Rule Status Window</figcaption><div class="graphic"><img alt="Policies, Attachments, and Traffic Rule Status Window" src="documentation/images/s041982.gif" style=""/></div></figure><p>Check the virtual network policy configuration with route information:</p><figure id="jd0e118"><figcaption>Figure 4: Virtual Network Policy Configuration Window</figcaption><div class="graphic"><img alt="Virtual Network Policy Configuration Window" src="documentation/images/s041983.gif" style=""/></div></figure><p>Check the VN1 route information for VN2 routes:</p><figure id="jd0e124"><figcaption>Figure 5: Virtual Network Route Information Window</figcaption><div class="graphic"><img alt="Virtual Network Route Information Window" src="documentation/images/s041984.gif" style=""/></div></figure><p>If a route is missing, ping fails. Flow inspection in the compute
+node displays <strong v-pre="">Action: D(rop)</strong>.</p><p>Repeated dropstats commands confirms the drop by incrementing
+the <strong v-pre="">Flow Action Drop</strong> counter with each iteration of dropstats.</p><p>Flow and dropstats commands issued at the compute node:</p><figure id="jd0e140"><figcaption>Figure 6: Flow and Dropstats Command List</figcaption><div class="graphic"><img alt="Flow and Dropstats Command List" src="documentation/images/s041985.gif" style=""/></div></figure><p>To help in debugging flows, you can use the detailed flow query
+from the agent introspect page for the compute node. </p><p>Fields of interest include: </p><ul><li style=""><p>Inputs [from <strong v-pre="">flow –l </strong>output]: <strong v-pre="">src/dest
+ip, src/dest ports, protoco</strong>l, and <strong v-pre="">vrf</strong></p></li><li style=""><p>Output from detailed flow query: <strong v-pre="">short_flow, src_vn,
+action_str-&gt;action</strong></p></li></ul><p>Flow command output:</p><figure id="jd0e167"><figcaption>Figure 7: Flow Command Output Window</figcaption><div class="graphic"><img alt="Flow Command Output Window" src="documentation/images/S041986.gif" style=""/></div></figure><p>Fetching details of a single flow:</p><figure id="jd0e173"><figcaption>Figure 8: Fetch Flow Record Window</figcaption><div class="graphic"><img alt="Fetch Flow Record Window" src="documentation/images/S041987.gif" style=""/></div></figure><p>Output from <strong v-pre="">FetchFlowRecord</strong> shows unresolved IP addresses:</p><figure id="jd0e182"><figcaption>Figure 9: Unresolved IP Address Window</figcaption><div class="graphic"><img alt="Unresolved IP Address Window" src="documentation/images/S041988.gif" style=""/></div></figure><p>You can also retrieve information about unresolved flows from
+the Contrail UI, as shown in the following:</p><figure id="jd0e188"><figcaption>Figure 10: Unresolved Flow Details Window</figcaption><div class="graphic"><img alt="Unresolved Flow Details Window" src="documentation/images/S041989.gif" style=""/></div></figure></li><li id="jd0e192" style=""> Check for protocol-specific network policy action.<p>If you are still experiencing reachability issues, troubleshoot
+any protocol-specific action, where routes are exchanged, but only
+specific protocols are allowed.  </p><p>The following shows a sample query on a protocol-specific flow
+in the agent introspect:</p><figure id="jd0e199"><figcaption>Figure 11: Protocol-Specific Flow Sample</figcaption><div class="graphic"><img alt="Protocol-Specific Flow Sample" src="documentation/images/S041991.gif" style=""/></div></figure><p>The following shows that the policy action clearly displays <strong v-pre="">deny</strong> as the action.</p><figure id="jd0e208"><figcaption>Figure 12: Protocol-Specific Flow Sample With Deny Action</figcaption><div class="graphic"><img alt="Protocol-Specific Flow Sample With Deny Action" src="documentation/images/S041992.gif" style=""/></div></figure></li></ol><p><em>Summary </em></p><p>This topic explores one area —debugging for policy-based
+routing. However, in a complex system, a virtual network might have
+one or more configuration methods combined that influence reachability
+and routing.</p><p>For example, an environment might have a virtual network VN-X
+configured with policy-based routing to another virtual network VN-Y.
+At the same time, there are a few virtual machines in VN-X that have
+a floating IP to another virtual network VN-Z, which is connected
+to VN-XX via a NAT service instance.  This is a complex scenario,
+and you need to debug step-by-step, taking into account all of the
+features working together. </p><p>Additionally, there are other considerations beyond routing
+and reachability that can affect traffic flow. For example, the rules
+of network policies and security groups can affect traffic to the
+destination. Also, if multi-path is involved, then ECMP and RPF need
+to be taken into account while debugging.</p><sw-prev-next> </sw-prev-next></p>

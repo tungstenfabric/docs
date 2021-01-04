@@ -1,0 +1,70 @@
+<p id="topic-content"><h1 id="jd0e3">Understanding Flow Sampling</h1><sw-topic-details date="2020-11-11"> </sw-topic-details><p>This topic describes how flow records are sampled and
+exported to the Contrail collector, flow handling, and flow aging.</p><h2 id="jd0e14">Flow Sampling</h2><p>The Contrail vRouter agent exports flow records to the Contrail
+collector when a flow is created or deleted. It also updates flow
+statistics at regular intervals.</p><p>If  all flow records are exported from the agent, depending
+on the scale of flows, some of the exported flows might be dropped
+due to queue overflow.</p><p>Based on sampling, flow records are sampled and exported to
+the Contrail Controller of Contrail Networking. This enables Contrail
+Networking to reduce queue overflow. </p><p>The flows that are exported are selected based on the following
+parameters used in the algorithm:</p><ul><li style=""><p>The configured flow export rate. This is configured as
+part of the <code class="inline" v-pre="">global-vrouter-config</code> object.</p></li><li style=""><p>The actual flow export rate.</p></li><li style=""><p>The sampling threshold. This is a dynamic value calculated
+internally. If the flow statistics in a flow sample are above this
+threshold, the flow record is exported.</p></li></ul><p>Each flow is subjected to the following algorithm at regular
+intervals. The algorithm determines whether to export the sample or
+not.</p><ul><li style=""><p>Flows with traffic that is greater than or equal to the
+sampling threshold are always exported. The byte and packet counts
+are reported without modification.</p></li><li style=""><p>Flows with traffic that is less than the sampling threshold
+are exported according to the probability. The byte and packet counts
+are adjusted upwards according to the probability.</p><p>The probability is calculated as <code class="equation" v-pre="">(bytes during the
+interval) / (sampling threshold)</code>.</p></li><li style=""><p>The system generates a random number less than the sampling
+threshold. If the byte count during the interval is less than the
+random number, then the flow sample is not exported.</p></li><li style=""><p> If none of these conditions are met, the flow sample
+is exported after normalizing the byte count and packet count during
+the interval. Normalization is done by dividing the byte count and
+packet count during the interval by the probability. This normalization
+is used as a heuristic to account for statistics of flow samples that
+are dropped.</p></li></ul><p>The actual flow export rate is close to the configured export
+rate. If there is a large deviation, the sampling threshold is adjusted
+to bring the actual flow export rate close to the configured flow
+export rate.</p><h2 id="jd0e62">Flow Handling</h2><p>When a virtual machine sends or receives IP traffic, forward
+and reverse flow entries are set up. When the first packet arrives,
+a flow key is used to hash into a flow table (identify a hash bucket).
+The flow key is based on five-tuples consisting of source and destination
+IP addresses, ports, and the IP protocol.</p><p>A flow entry is created and the packet is sent to the Contrail
+vRouter agent. Configured policies are applied and the flow action
+is updated. The agent also creates a flow entry for the reverse direction
+where relevant. Subsequent packets match the established flow entries
+and are forwarded, dropped, NAT translated, and so on, based on the
+flow action.</p><p>When the hash bucket is full, entries are created in an overflow
+table. Contrail Networking maintains the overflow entries as a list
+against the hash bucket.</p><p>By default, the maximum number of flow table and overflow table
+entries are 512,000 and 8000 respectively. These can be modified by
+configuring them as vRouter module parameters, for example: <span class="cli" v-pre="">vr_flow_entries</span> and <code class="inline" v-pre="">vr_oflow_entries</code>.</p><p>For more information about the vRouter module parameters, see <a href="https://github.com/Juniper/contrail-controller/wiki/Vrouter-Module-Parameters">https://github.com/Juniper/contrail-controller/wiki/Vrouter-Module-Parameters</a>.</p><h2 id="jd0e84">Flow Aging</h2><p>Flows are aged out based on inactivity for a specified period
+of time. By default, the timeout value is 180 seconds. This can be
+modified by configuring the <span class="cli" v-pre="">flow_cache_timeout</span> parameter
+under the <code class="inline" v-pre="">DEFAULT</code> section in the <span class="cli" v-pre="">/etc/contrail/contrail-vrouter-agent.conf</span> file.</p><h2 id="jd0e98">TCP State-Based Flow Handling and Aging</h2><ul><li style=""><p><a href="flow-sample-overview.html#jd0e106">TCP State-Based Flow Handling</a></p></li><li style=""><p><a href="flow-sample-overview.html#jd0e119">Protocol-Based Flow Aging</a></p></li></ul><h3 id="jd0e106">TCP State-Based Flow Handling</h3><p>The Contrail vRouter in Contrail Networking monitors TCP flows
+to identify entries that can be reused without going through the standard
+aging cycle.</p><p>All flow entries that match TCP flows that have experienced
+a connection teardown, either through the standard TCP closure cycle
+(FIN/ACK-FIN/ACK) or the RST indicator, are torn down by the vRouter
+and are immediately available for use by new qualified flows. </p><p>The vRouter also keeps track of connection establishment cycles
+and exports the necessary information to the vRouter agent, such as
+SYN/ACK and a digested established flag. This allows the vRouter agent
+to tear down flows that do not experience a full connection cycle.</p><p>Flows that the vRouter identifies as reuse candidates, or eviction
+candidates, are marked as such in the flow entry. Flows are in the
+evicted state when they become available for other new flows to be
+reused. </p><p>This two-step transition is used so that the flow entry remains
+valid until the packet reaches the destination, preventing the flow
+from getting remapped to another flow entry in the interim.</p><h3 id="jd0e119">Protocol-Based Flow Aging</h3><p>Although TCP flows are deleted based on TCP state, you are sometimes
+required to age out specific protocol flows more aggressively. One
+example is when a DNS server is run in one VM. In this case, multiple
+flows are set up for DNS. A pair of flows are set up to serve each
+query. Because the flows are no longer required after the query is
+served, the timeout can be lower for these flows. To handle these
+cases, protocol-based flow aging is used.  </p><p>With protocol-based flow aging, the aging timeout can be configured
+per protocol. All other protocols continue to use the default aging
+timeout.</p><p>Protocol-based flow aging is also supported in Contrail Networking.</p><p>The configuration for protocol-based flow aging can be done
+in the <code class="inline" v-pre="">global-vrouter-config</code> object. For
+example, to have all DNS flows aged out in five seconds, use the following
+entry: <code class="inline" v-pre="">protocol = udp, port = 53 will be set an aging
+timeout of 5 seconds.</code></p><sw-prev-next> </sw-prev-next></p>

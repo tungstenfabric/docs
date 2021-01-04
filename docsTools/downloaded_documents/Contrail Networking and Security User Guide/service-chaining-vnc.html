@@ -1,0 +1,46 @@
+<p id="topic-content"><h1 id="jd0e2">Service Chaining</h1><sw-topic-details date="2020-05-21"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Contrail Controller supports chaining of various
+Layer 2 through Layer 7 services such as firewall, NAT, IDP, and so
+on. </p></div></div><h2 id="jd0e15">Service Chaining Basics</h2><p>Services are offered by instantiating service virtual machines
+to dynamically apply single or multiple services to virtual machine
+(VM) traffic. It is also possible to chain physical appliance-based
+services. </p><p><a href="service-chaining-vnc.html#service-chain-vm1">Figure 1</a> shows the basic service
+chain schema, with a single service. The service VM spawns the service,
+using the convention of left interface (left IF) and right interface
+(right IF). Multiple services can also be chained together.</p><figure id="service-chain-vm1"><figcaption>Figure 1: Service Chaining </figcaption><div class="graphic"><img alt="Service Chaining " src="documentation/images/s041619.gif" style=""/></div></figure><p>When you create a service chain, the Contrail software creates
+tunnels across the underlay network that span through all services
+in the chain. <a href="service-chaining-vnc.html#svc-chain">Figure 2</a> shows two end points
+and two compute nodes, each with one service instance and traffic
+going to and from one end point to the other.</p><figure id="svc-chain"><figcaption>Figure 2: Contrail Service Chain</figcaption><div class="graphic"><img alt="Contrail Service Chain" src="documentation/images/s041901.gif" style=""/></div></figure><p>The following are the modes of services that can be configured.</p><ul><li class="unmarked-list" style=""><p><em>Transparent or bridge mode</em></p><ul><li class="unmarked-list" style=""><p>Used for services that do not modify the packet. Also
+known as bump-in-the-wire or Layer 2 mode. Examples include Layer
+2 firewall, IDP, and so on.</p></li></ul></li><li class="unmarked-list" style=""><p><em>In-network or routed mode</em></p><ul><li class="unmarked-list" style=""><p>Provides a gateway service where packets are routed between
+the service instance interfaces. Examples include NAT, Layer 3 firewall,
+load balancer, HTTP proxy, and so on.</p></li></ul></li><li class="unmarked-list" style=""><p><em>In-network-nat mode</em></p><ul><li class="unmarked-list" style=""><p>Similar to in-network mode, however, return traffic does
+not need to be routed to the source network. In-network-nat mode is
+particularly useful for NAT service.</p></li></ul></li></ul><h2 id="jd0e64">Service Chaining Configuration Elements</h2><p>Service chaining requires the following configuration elements
+in the solution:</p><ul><li style=""><p>Service template</p></li><li style=""><p>Service instance</p></li><li style=""><p>Service policy</p></li></ul><p><em>Service Template</em></p><p>Service templates are always configured in the scope of a domain,
+and the templates can be used on all projects within a domain. A template
+can be used to launch multiple service instances in different projects
+within a domain. </p><p>The following are the parameters to be configured for
+a service template:</p><ul><li style=""><p>Service template name </p></li><li style=""><p>Domain name</p></li><li style=""><p>Service mode</p><ul><li style=""><p>Transparent</p></li><li style=""><p>In-Network</p></li><li style=""><p>In-Network NAT</p></li></ul></li><li style=""><p>Image name (for virtual service)</p><ul><li style=""><p>If the service is a virtual service, then the name of
+the image to be used must be included in the service template. In
+an OpenStack setup, the image must be added to the setup by using
+Glance. </p></li></ul></li><li style=""><p>Interface list</p><ul><li style=""><p>Ordered list of interfaces---this determines the order
+in which Interfaces will be created on the service instance. </p></li><li style=""><p>Most service templates will have management, left, and
+right interfaces. For service instances requiring more interfaces,
+“other” interfaces can be added to the interface list. </p></li><li style=""><p>Shared IP attribute, per interface </p></li><li style=""><p>Static routes enabled attribute, per interface</p></li></ul></li><li style=""><p>Advanced options</p><ul><li style=""><p>Service scaling— use this attribute to enable a
+service instance to have more than one instance of the service instance
+virtual machine. </p></li><li style=""><p>Flavor—assign an OpenStack flavor to be used while
+launching the service instance. Flavors are defined in OpenStack Nova
+with attributes such as assignments of CPU cores, memory, and disk
+space. </p></li></ul></li></ul><p><em>Service Instance</em></p><p>A service instance is always maintained within the scope of
+a project. A service instance is launched using a specified service
+template from the domain to which the project belongs. </p><p>The following are the parameters to be configured for
+a service instance:</p><ul><li style=""><p>Service instance name </p></li><li style=""><p>Project name</p></li><li style=""><p>Service template name</p></li><li style=""><p>Number of virtual machines that will be spawned</p><ul><li style=""><p>Enable service scaling in the service template for multiple
+virtual machines </p></li></ul></li><li style=""><p>Ordered virtual network list</p><ul><li style=""><p>Interfaces listed in the order specified in the service
+template</p></li><li style=""><p>Identify virtual network for each interface</p></li><li style=""><p>Assign static routes for virtual networks that have static
+route enabled in the service template for their interface</p><ul><li style=""><p>Traffic that matches an assigned static route is directed
+to the service instance on the interface created for the corresponding
+virtual network</p></li></ul></li></ul></li></ul><p><em>Service Policy</em></p><p>The following are the parameters to be configured for
+a service policy:</p><ul><li style=""><p>Policy name</p></li><li style=""><p>Source network name</p></li><li style=""><p>Destination network name</p></li><li style=""><p>Other policy match conditions, for example direction and
+source and destination ports </p></li><li style=""><p>Policy configured in “routed/in-network” or
+“bridged/” mode</p></li><li style=""><p>An action type called <strong v-pre="">apply_service</strong> is used:</p><ul><li class="unmarked-list" style=""><p>Example: <strong v-pre="">'apply_service’: [DomainName:ProjectName:ServiceInstanceName]</strong></p></li></ul></li></ul><sw-prev-next> </sw-prev-next></p>

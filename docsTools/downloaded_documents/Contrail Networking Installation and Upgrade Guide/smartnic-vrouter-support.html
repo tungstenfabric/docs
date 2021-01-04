@@ -1,0 +1,51 @@
+<p id="topic-content"><h1 id="jd0e2">Using Netronome SmartNIC vRouter with Contrail Networking</h1><sw-topic-details date="2020-12-16"> </sw-topic-details><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The Netronome SmartNIC vRouter technology covered in this
+document is available for evaluation purposes only. It is not intended
+for deployment in production networks.</p></sw-admonition><p>Contrail supports Netronome Agilio CX SmartNICs for Contrail
+Networking deployment with Red Hat OpenStack Platform Director (RHOSPd)
+13 environment.</p><p>This feature will enable service providers to improve the forwarding
+performance which includes packets per second (PPS) of vRouter. This
+will optimize server CPU usage and you can deploy more Virtual network
+functions (VNFs) per server.</p><p>Benefits:</p><ul><li style=""><p>Increased PPS capacity of Contrail vRouter datapath allowing
+applications to reach their full processing capacity.</p></li><li style=""><p>Reclaimed CPU cores from Contrail vRouter off-loading
+allowing more VMs and VNFs to be deployed per server.</p></li></ul><p>The goal of this topic is to provide a procedure for deploying
+accelerated vRouter compute nodes.</p><p>Before you begin:</p><ul><li style=""><p>Equip compute nodes with Netronome Agilio CX SmartNIC.</p><p>For details, refer to <a href="https://www.netronome.com/products/agilio-cx/">Agilio CX SmartNICs</a>.</p></li><li style=""><p>Retrieve <em>Agilio heat-template plugin</em>.</p><p>Register on Netronome support site at <a href="https://help.netronome.com">https://help.netronome.com</a> and provide Docker Hub credentials.</p><p>Netronome will provide the TripleO templates for SmartNIC vRouter
+deployment on compute nodes. Also, Netronome will authorize Docker
+Hub registry access.</p><p>For details, refer to <a href="https://github.com/netronome-support/Agilio-vRouter-19xx/wiki/Agilio-vRouter-19xx-deployment-guide-%5BRHEL-7.6%5D%5BRHOSP-13%5D">Netronome Agilio vRouter 19<var v-pre="">xx</var> deployment guide</a>.</p></li><li style=""><p>Note the following version tags:</p><p><code class="inline" v-pre="">AGILIO_TAG="2.38-rhel-queens<br/>FORWARDER_TAG="2.38-rhel-queens</code></p></li></ul><p>Procedure:</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>If you have multiple undercloud nodes deployed, you must
+perform the following procedure on the same node.</p></sw-admonition><ol type="1"><li id="jd0e76" style="">Configure <em>Agilio</em> plugin.<p>For details, refer to <a href="https://github.com/Netronome/agilio-ovs-openstack-plugin">Netronome
+agilio-ovs-openstack-plugin GitHub Repository</a>.</p><ol type="a"><li id="jd0e89" style="">Extract the <em>Agilio</em> plugin archive
+and copy the <code class="filepath">agilio-plugin</code> folder
+into the <code class="filepath">tripleo-heat-templates</code> directory.<p><code class="inline" v-pre="">[stack@queensa ~]$ tar -xzvf rhosp-contrail-agilio-heat-plugin-5-34.tgz<br/>agilio-plugin/<br/>agilio-plugin/agilio-vrouter.yaml<br/>agilio-plugin/agilio_upgrade.sh<br/>agilio-plugin/deploy_rhosp.sh<br/>agilio-plugin/nfp_udev.sh<br/>agilio-plugin/agilio-env.yaml<br/>agilio-plugin/version<br/>agilio-plugin/README.md<br/>[stack@queensa ~]$ cp -r agilio-plugin/ tripleo-heat-templates/</code></p></li><li id="jd0e122" style="">Navigate to the <code class="filepath">agilio-plugin</code> directory on the undercloud node.<p><code class="inline" v-pre="">[tripleo-heat-templates]$ cd agilio-plugin/</code></p></li><li id="jd0e131" style="">Modify <code class="filepath">agilio-env.yaml</code> file as per your environment.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>Reserve at least 1375*2 MB hugepages for <var v-pre="">virtio-forwarder</var>.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e143"><p>Sample <code class="filepath">agilio-env.yaml</code> file:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>resource_registry:
+  OS::TripleO::NodeExtraConfigPost: agilio-vrouter.yaml
+
+parameter_defaults:
+  # Hugepages
+  ContrailVrouterHugepages2MB: "8192"
+  # IOMMU
+  ComputeParameters:
+    KernelArgs: "intel_iommu=on iommu=pt isolcpus=1,2 " 
+
+  ComputeCount: 3
+
+  # Aditional config
+  ControlPlaneDefaultRoute: 10.0.x.1
+  EC2MetadataIp: 10.0.x.1  # Generally the IP of the Undercloud
+  DnsServers: ["8.8.8.8","192.168.3.3"]
+  NtpServer: ntp.is.co.za
+  ContrailRegistryInsecure: true
+  DockerInsecureRegistryAddress: 172.x.x.150:6666,10.0.x.1:8787
+  ContrailRegistry: 172.x.x.150:6666
+  ContrailImageTag: &lt;container_tag&gt;-rhel-queens
+
+# Fix DB Diskspace too low issue
+  ContrailAnalyticsDBMinDiskGB: 40
+</pre></template></sw-code></div></div></li><li id="jd0e151" style="">Add Docker Hub credentials to <code class="filepath">tripleo-heat-templates/agilio-plugin/agililo_upgrade.sh</code> file to retrieve containers from <code class="filepath">AGILIO_REPO="docker.io/netronomesystems/"</code> repository.<p><code class="inline" v-pre="">#GENERAL DOCKER CONFIG<br/>DOCKER_USR=******
+#ENTER_DOCKER_USERNAME_HERE<br/>DOCKER_PASS=****** #ENTER_DOCKER_PASSWORD_HERE</code></p><p><code class="inline" v-pre="">[root@overcloud-novacompute-2 heat-admin]# docker
+ps -a | grep virtio_for<br/>7d5af8a2591d        docker.io/netronomesystems/virtio-forwarder:2.38-rhel-queens
+          "./entrypoint.sh"        30 seconds ago      Up 15 seconds
+virtio_forwarder</code></p><p><code class="inline" v-pre="">[root@overcloud-novacompute-2 heat-admin]# docker
+ps -a | grep agilio<br/>c7c611b5168b        docker.io/netronomesystems/agilio-vrouter:2.38-rhel-queens
+            "./entrypoint.sh"        46 seconds ago      Up 38 seconds
+agilio_vrouter</code></p></li></ol></li><li id="jd0e177" style="">Prepare the Contrail Networking cluster for deployment.<p>Refer to the following topics for deployment:</p><ul><li style=""><p><a href="../../topic-map/setting-up-contrail-rhosp-introduction.html">Understanding Red Hat OpenStack Platform Director</a></p></li><li style=""><p><a href="../../topic-map/setting-up-contrail-rhosp-infrastructure.html">Setting Up the Infrastructure</a></p></li><li style=""><p><a href="../../topic-map/setting-up-contrail-rhosp-undercloud.html">Setting Up the Undercloud</a></p></li><li style=""><p><a href="../../topic-map/setting-up-contrail-rhosp-overcloud.html">Setting Up the Overcloud</a></p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Do not perform steps for <a href="../../topic-map/setting-up-contrail-rhosp-overcloud.html#id-installing-overcloud">Installing Overcloud</a>.</p></sw-admonition></li></ul></li><li id="jd0e201" style="">Deploy the cluster by one of the following ways:<ul><li style=""><p>Add <code class="inline" v-pre="">agilio-env.yaml</code> to installing
+overcloud step as mentioned in <a href="../../topic-map/setting-up-contrail-rhosp-overcloud.html#id-installing-overcloud">Installing Overcloud</a> topic.</p><p><code class="inline" v-pre="">openstack overcloud deploy --templates ~/tripleo-heat-templates<br/>-e ~/overcloud_images.yaml<br/>-e ~/tripleo-heat-templates/environments/network-isolation.yaml<br/>-e ~/tripleo-heat-templates/environments/contrail/contrail-plugins.yaml<br/>-e ~/tripleo-heat-templates/environments/contrail/contrail-services.yaml<br/>-e ~/tripleo-heat-templates/environments/contrail/contrail-net.yaml<br/>-e ~/tripleo-heat-templates/agilio-plugin/agilio-env.yaml<br/>--roles-file ~/tripleo-heat-templates/roles_data_contrail_aio.yaml</code></p><p>Or</p></li><li style=""><p>Run the following command:</p><p><code class="inline" v-pre="">deploy_rhosp.sh</code></p><p><code class="inline" v-pre="">-e ~/tripleo-heat-templates/agilio-plugin/agilio-env.yaml</code></p></li></ul></li></ol><p>On completing above steps successfully, refer to <a href="https://github.com/Netronome/agilio-ovs-openstack-plugin">Netronome
+agilio-ovs-openstack-plugin GitHub Repository</a> on how to spin
+up the accelerated VMs.</p><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,208 @@
+<p id="topic-content"><h1 id="jd0e3">Updating Contrail Networking using the Zero Impact Upgrade
+Process in an Environment using Red Hat Openstack</h1><sw-topic-details date="2020-09-16"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>This document provides the steps needed to update
+a Contrail Networking deployment that is using Red Hat Openstack as
+it’s orchestration platform. The procedure provides a zero impact
+upgrade (ZIU) with minimal disruption to network operations.</p></div></div><h2 id="jd0e14">When to Use This Procedure</h2><p>This procedure is used to upgrade Contrail Networking when it
+is running in environments using RHOSP13.</p><p>The procedure in this document has been validated for the following
+Contrail Networking upgrade scenarios:</p><sw-table><p class="SubTitle" id="jd0e23">Table 1: Contrail Networking with RHOSP13 Validated Upgrade Scenarios</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Starting Contrail Networking Release</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Target Upgraded Contrail Networking Release</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1912.L0</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1912.L1</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1912.L0</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2003</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2003</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2005</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2005</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2008</p></td></tr></tbody></table></sw-table><p>A different procedure is followed for upgrading to earlier target
+Contrail Networking releases in environments using RHOSP13 orchestration.
+See <a href="../configuration/contrail-issu.html">Upgrading Contrail Networking with Red Hat Openstack 13 using ISSU</a>.</p><p>If you want to use this procedure to upgrade your Contrail Networking
+release to other releases, you must engage Juniper Networks professional
+services. Contact your Juniper representative for additional information.</p><h2 id="id-prerequisites">Prerequisites</h2><p>This document makes the following assumptions about your environment:</p><ul><li style=""><p>A Contrail Networking deployment using Red Hat Openstack
+version 13 (RHOSP13) as the orchestration platform is already operational.</p></li><li style=""><p>The overcloud nodes in the RHOSP13 environment have an
+enabled Red Hat Enterprise Linux (RHEL) subscription.</p></li><li style=""><p>Your environment is running Contrail Release 1912 and
+upgrading to Contrail Release 1912-L1 or to Contrail Release 2003
+or later.</p></li><li style=""><p>If you are updating Red Hat Openstack simultaneously with
+Contrail Networking, we assume that the undercloud node is updated
+to the latest minor version and that new overcloud images are prepared
+for an upgrade if needed for the upgrade. See the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/keeping_red_hat_openstack_platform_updated/assembly-upgrading_the_undercloud">Upgrading the Undercloud</a> section of the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/keeping_red_hat_openstack_platform_updated/index">Keeping Red Hat OpenStack Platform Updated</a> guide from Red Hat.</p><p>If the undercloud has been updated and a copy of the heat templates
+are used for the deployment, update the copy of the heat template
+from the Red Hat’s core heat template collection at <span class="cli" v-pre="">/usr/share/openstack-tripleo-heat-templates</span>. See the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/advanced_overcloud_customization/sect-understanding_heat_templates">Understanding Heat Templates</a> document from Red Hat for information
+on this process.</p></li></ul><h2 id="id-before-you-begin">Before You Begin</h2><p>We recommend performing these procedures before starting the
+update:</p><ul><li style=""><p>Backup your Contrail configuration database before starting
+this procedure. See <a href="../../concept/backup-using-json-50.html">How to Backup and Restore Contrail Databases in JSON Format</a>.</p></li><li style=""><p>Each compute node agent will go down during this procedure,
+causing some compute node downtime. The estimated downtime for a compute
+node varies by environment, but typically took between 12 and 15 minutes
+in our testing environments.</p><p>If you have compute nodes with workloads that cannot tolerate
+this downtime, consider migrating workloads or taking other steps
+to accommodate this downtime in your environment.</p></li><li style=""><p>If you are updating Red Hat Openstack simultaneously with
+Contrail Networking, update Red Hat Openstack to the latest minor
+release version and ensure that the new overcloud images are prepared
+for the upgrade. See the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/keeping_red_hat_openstack_platform_updated/assembly-upgrading_the_undercloud">Upgrading the Undercloud</a> section of the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/keeping_red_hat_openstack_platform_updated/index">Keeping Red Hat OpenStack Platform Updated</a> guide from Red Hat
+for additional information.</p><p>If the undercloud has been updated and a copy of the heat templates
+are used for the deployment, update the Heat templates from Red Hat’s
+core Heat template collection at <span class="cli" v-pre="">/usr/share/openstack-tripleo-heat-templates</span>. See the <a href="https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/advanced_overcloud_customization/sect-understanding_heat_templates">Understanding Heat Templates</a> document from Red Hat for additional
+information.</p></li></ul><h2 id="id-importing-canonical-openstack-into-contrail-command">Updating Contrail Networking in an Environment using Red Hat
+Openstack</h2><p>To update Contrail Networking in an environment that
+is using Red Hat Openstack as the orchestration platform:</p><ol type="1"><li id="jd0e152" style="">Prepare your docker registry. The registry is often included
+in the undercloud, but it can also be a separate node.<p>Docker registry setup is environment independent. See <a href="https://docs.docker.com/registry/">Docker Registry</a> from
+Docker for additional information on Docker registry setup.</p></li><li id="jd0e160" style="">Backup the Contrail TripleO Heat Templates. See <a href="https://www.juniper.net/documentation/en_US/contrail20/topics/task/configuration/heat-template-vnc.html">Using the Contrail Heat Template</a>.</li><li id="jd0e166" style="">Get the Contrail TripleO Heat Templates (Stable/Queens
+branch) from <a href="https://github.com/Juniper/contrail-tripleo-heat-templates">https://github.com/Juniper/contrail-tripleo-heat-templates</a>.</li><li id="jd0e172" style="">(Optional) Update the Contrail TripleO Puppet module to
+the latest version and prepare Swift Artifacts, as applicable.<p>Below are sample commands entered in the undercloud:</p><div class="sample" dir="ltr" id="jd0e177"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[stack@queensa ~]$ mkdir -p ~/usr/share/openstack-puppet/modules/tripleo
+[stack@queensa ~]$ git clone -b stable/queens https://github.com/Juniper/contrail-tripleo-puppet usr/share/openstack-puppet/modules/tripleo
+[stack@queensa ~]$ tar czvf puppet-modules.tgz usr/
+[stack@queensa ~]$ upload-swift-artifacts -c contrail-artifacts -f puppet-modules.tgz</pre></template></sw-code></div></div></li><li id="jd0e180" style="">Update the parameter <var v-pre="">ContrailImageTag</var> to the new version.<p>The location of the <var v-pre="">ContrailImageTag</var> variable
+varies by environment. In the most commonly-used environments, this
+variable is set in the <var v-pre="">contrail-services.yaml</var> file.</p><p>You can obtain the <var v-pre="">ContrailImageTag</var> parameter
+from the <a href="/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf">README Access to Contrail Registry 20XX</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p></li><li id="jd0e202" style="">(Recommended) If you are upgrading to Contrail Networking
+Release 2005 or later, check and, if needed, enable kernel vRouter
+huge page support to support future compute node upgrades without
+rebooting.<p>You can enable or verify kernel-mode vRouter huge page support
+in the <kbd class="user-typing" v-pre="">contrail-services.yaml</kbd> file using
+either the <kbd class="user-typing" v-pre="">ContrailVrouterHugepages1GB:</kbd> and <kbd class="user-typing" v-pre="">ContrailVrouterHugepages2MB:</kbd> parameters:</p><div class="sample" dir="ltr" id="jd0e216"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>parameter_defaults:
+  …
+  ContrailVrouterHugepages1GB: ‘2’
+</pre></template></sw-code></div></div><div class="sample" dir="ltr" id="jd0e219"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>parameter_defaults:
+  …
+ # ContrailVrouterHugepages2MB: ‘1024’</pre></template></sw-code></div></div><p>Notes about kernel-mode vRouter huge page support in Red Hat
+Openstack environments:</p><ul><li style=""><p>Kernel-mode vRouter huge page support was introduced in
+Contrail Networking Release 2005, and is configured to support 2 1GB
+huge pages by default in Contrail Networking Release 2005 or later.</p><p>A compute node has to be rebooted once for a huge page configuration
+to finalize. After this initial reboot, the compute node can perform
+future Contrail Networking software upgrades without rebooting.</p><p>Notably, a compute node in an environment running Contrail Networking
+2005 or later has not enabled huge page support for kernel-mode vRouters
+until it is rebooted. The 2x1GB huge page support configuration is
+present by default, but it isn’t enabled until the compute node
+is rebooted.</p></li><li style=""><p>We recommend only using 1GB or 2MB kernel-mode vRouter
+huge pages in most environments. You can, however, simultaneously
+enable 1GB or 2MB kernel-mode vRouter huge pages in Red Hat Openstack
+environments if your environment requires enablement of both huge
+page options.</p></li><li style=""><p>Changing vRouter huge page configuration settings in a
+Red Hat Openstack environment typically requires a compute node reboot.</p><ul><li style=""><p>1 GB pages: Reboot required.</p></li><li style=""><p>2 MB: Reboot usually required. The reboot is sometimes
+avoided in environments where memory isn’t highly fragmented
+or the required number of pages can be easily allocated.</p></li></ul></li><li style=""><p>We recommend allotting 2GB of memory—either using
+the default 1024x2MB huge page size setting or the 2x1GB size setting—for
+huge pages in most environments. Some larger environments might require
+additional huge page memory settings for scale. Other huge page size
+settings should only be set by expert users in specialized circumstances.</p></li><li style=""><p>If the <kbd class="user-typing" v-pre="">ContrailVrouterHugepages1GB:</kbd> and <kbd class="user-typing" v-pre="">ContrailVrouterHugepages2MB:</kbd> parameters
+are set to empty value in the <kbd class="user-typing" v-pre="">contrail-services.yaml</kbd> file, vRouter huge pages are disabled.</p></li></ul></li><li id="overcloud-prepare-step" style="">Update the overcloud by entering
+the <span class="cli" v-pre="">openstack overcloud update prepare</span> command and include
+the files that were updated during the previous steps with the overcloud
+update.<p>Example:</p><div class="sample" dir="ltr" id="jd0e268"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update prepare 
+--templates tripleo-heat-templates/
+--roles-file tripleo-heat-templates/roles_data_contrail_aio.yaml -e
+environment-rhel-registration.yaml -e
+tripleo-heat-templates/extraconfig/pre_deploy/rhel-registration/rhel-registrationresource-registry.yaml -e
+tripleo-heat-templates/environments/contrail/contrail-services.yaml -e
+tripleo-heat-templates/environments/contrail/contrail-net-single.yaml -e
+tripleo-heat-templates/environments/contrail/contrail-plugins.yaml -e
+misc_opts.yaml -e
+contrail-parameters.yaml -e
+docker_registry.yaml</pre></template></sw-code></div></div></li><li id="jd0e271" style="">Prepare the overcloud nodes that include Contrail containers
+for the update.<ul><li style=""><p>Pull the images in the repository onto the overcloud nodes.</p><p>There are multiple methods for performing this step. Commonly
+used methods for performing this operation include using the <span class="cli" v-pre="">docker pull</span> command for Docker containers and the <span class="cli" v-pre="">openstack
+overcloud container image upload</span> command for Openstack containers,
+or running the <span class="cli" v-pre="">tripleo-heat-templates/upload.containers.sh</span> and <span class="cli" v-pre="">tools/contrail/update_contrail_preparation.sh</span> scripts.</p></li><li style=""><p>(Not required in all setups) Provide export variables
+for the script if the predefined values aren’t appropriate for
+your environment. The script location:</p><div class="sample" dir="ltr" id="jd0e295"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>~/tripleo-heat-templates/tools/contrail/update_contrail_preparation.sh</pre></template></sw-code></div></div><p>The following variables within the script are particularly significant
+for this upgrade:</p><ul><li style=""><p><span class="cli" v-pre="">CONTRAIL_NEW_IMAGE_TAG</span>—The image tag
+of the target upgrade version of Contrail. The default value is <span class="cli" v-pre="">latest</span>.</p><p>If needed, you can obtain this parameter for a specific image
+from the <a href="/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf">README Access to Contrail Registry 20XX</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Some older deployments use the <span class="cli" v-pre="">CONTRAIL_IMAGE_TAG</span> variable in place of the <span class="cli" v-pre="">CONTRAIL_NEW_IMAGE_TAG</span> variable.
+Both variables are recognized by the <span class="cli" v-pre="">update_contrail_preparation.sh</span> script and perform the same function.</p></sw-admonition></li><li style=""><p><span class="cli" v-pre="">SSH_USER</span>—The SSH username for logging
+into overcloud nodes. The default value is <span class="cli" v-pre="">heat-admin</span>.</p></li><li style=""><p><span class="cli" v-pre="">SSH_OPTIONS</span>—Custom SSH option values.</p><p>The default SSH options for your environment are typically pre-defined.
+You are typically only changing this value if you want to customize
+your update.</p></li><li style=""><p><span class="cli" v-pre="">STOP_CONTAINERS</span>—The list of containers
+that must be stopped before the upgrade can proceed. The default value
+is <span class="cli" v-pre="">contrail_config_api contrail_analytics_api</span>.</p></li></ul></li><li style=""><p>Run the script:</p><sw-admonition name="caution" style=""><strong class="title">Caution</strong><p>Contrail services stop working when the script starts
+running.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e355"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>~/tripleo-heat-templates/tools/contrail/update_contrail_preparation.sh</pre></template></sw-code></div></div></li></ul></li><li id="jd0e358" style="">Update the Contrail Controller nodes:<ul><li style=""><p>Run the <span class="cli" v-pre="">openstack overcloud update run</span> command
+on the first Contrail controller and, if needed, on a Contrail Analytics
+node. The purpose of this step is to update one Contrail Controller
+and one Contrail Analytics node to support the environment so the
+other Contrail Controllers and analytics nodes can be updated without
+incurring additional downtime.</p><p>Example:</p><div class="sample" dir="ltr" id="jd0e370"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update run --nodes overcloud-contrailcontroller-0</pre></template></sw-code></div></div><p>Ensure that the contrail status is <span class="cli" v-pre="">ok</span> on overcloud-contrailcontroller-0
+before proceeding.</p><p>If the analytics and the analyticsdb nodes are on separate nodes,
+you may have to update the nodes individually:</p><div class="sample" dir="ltr" id="jd0e380"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update run --nodes overcloud-contrailcontroller-0
+openstack overcloud update run --roles ContrailAnalytics,ContrailAnalyticsDatabase</pre></template></sw-code></div></div></li><li style=""><p>After the upgrade, check the docker container status and
+versions for the Contrail Controllers and the Contrail Analytics and
+AnalyticsDB nodes.</p><div class="sample" dir="ltr" id="jd0e386"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker ps -a</pre></template></sw-code></div></div></li><li style=""><p>Update the remaining Contrail Controller nodes:</p><p>Example:</p><div class="sample" dir="ltr" id="jd0e394"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update run --nodes overcloud-contrailcontroller-1
+openstack overcloud update run --nodes overcloud-contrailcontroller-2
+openstack overcloud update run --nodes overcloud-contrailcontroller-3
+...</pre></template></sw-code></div></div></li></ul></li><li id="jd0e397" style="">Update the Openstack Controllers using the <span class="cli" v-pre="">openstack
+overcloud update run</span> commands:<p>Example:</p><div class="sample" dir="ltr" id="jd0e405"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update run --nodes overcloud-controller-0
+openstack overcloud update run --nodes overcloud-controller-1
+openstack overcloud update run --nodes overcloud-controller-2
+...</pre></template></sw-code></div></div></li><li id="jd0e408" style="">Individually update the compute nodes.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>The compute node agent will be down during this step.
+The estimated downtime varies by environment, but is typically between
+1 and 5 minutes.</p><p>Consider migrating workloads that can’t tolerate this
+downtime before performing this step</p><div class="sample" dir="ltr" id="jd0e416"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update run --nodes overcloud-novacompute-1
+openstack overcloud update run --nodes overcloud-novacompute-2
+openstack overcloud update run --nodes overcloud-novacompute-3
+...</pre></template></sw-code></div></div></sw-admonition><p>Reboot your compute node to complete the update.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>A reboot is required to complete this procedure only if
+a kernel update is also needed. If you would like to avoid rebooting
+your compute node, check the log files in the <span class="cli" v-pre="">/var/log/yum.log</span> file to see if kernel packages were updated during the compute node
+update. A reboot is required only if kernel updates occurred as part
+of the compute node update procedure.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e427"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>sudo reboot</pre></template></sw-code></div></div><p>Use the <span class="cli" v-pre="">contrail-status</span> command to monitor upgrade
+status. Ensure all pods reach the <var v-pre="">running</var> state
+and all services reach the <var v-pre="">active</var> state.</p><p>This <span class="cli" v-pre="">contrail-status</span> command provides output after
+a successful upgrade:</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Some output fields and data have been removed from this <span class="cli" v-pre="">contrail-status</span> command sample for readability.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e452"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>
+Pod             Service        Original Name                     State
+analytics       api            contrail-analytics-api            <span data-fg-color="blue">running</span>
+analytics       collector      contrail-analytics-collector      <span data-fg-color="blue">running</span>
+analytics       nodemgr        contrail-nodemgr                  <span data-fg-color="blue">running</span>
+analytics       provisioner    contrail-provisioner              <span data-fg-color="blue">running</span>
+analytics       redis          contrail-external-redis           <span data-fg-color="blue">running</span>
+analytics-alarm alarm-gen      contrail-analytics-alarm-gen      <span data-fg-color="blue">running</span>
+analytics-alarm kafka          contrail-external-kafka           <span data-fg-color="blue">running</span>
+analytics-alarm nodemgr        contrail-nodemgr                  <span data-fg-color="blue">running</span>
+analytics-alarm provisioner    contrail-provisioner              <span data-fg-color="blue">running</span>
+analytics-alarm zookeeper      contrail-external-zookeeper       <span data-fg-color="blue">running</span>
+analytics-snmp  nodemgr        contrail-nodemgr                  <span data-fg-color="blue">running</span>
+analytics-snmp  provisioner    contrail-provisioner              <span data-fg-color="blue">running</span>
+analytics-snmp  snmp-collector contrail-analytics-snmp-collector <span data-fg-color="blue">running</span>
+analytics-snmp  topology       contrail-analytics-snmp-topology  <span data-fg-color="blue">running</span>
+config          api            contrail-controller-config-api    <span data-fg-color="blue">running</span>
+&lt;trimmed&gt;
+
+== Contrail control ==
+control: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+named: <span data-fg-color="blue">active</span>
+dns: <span data-fg-color="blue">active</span>
+
+== Contrail analytics-alarm ==
+nodemgr: <span data-fg-color="blue">active</span>
+kafka: <span data-fg-color="blue">active</span>
+alarm-gen: <span data-fg-color="blue">active</span>
+
+== Contrail database ==
+nodemgr: <span data-fg-color="blue">active</span>
+query-engine: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail analytics ==
+nodemgr: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+collector: <span data-fg-color="blue">active</span>
+
+== Contrail config-database ==
+nodemgr: <span data-fg-color="blue">active</span>
+zookeeper: <span data-fg-color="blue">active</span>
+rabbitmq: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail webui ==
+web: <span data-fg-color="blue">active</span>
+job: <span data-fg-color="blue">active</span>
+
+== Contrail analytics-snmp ==
+snmp-collector: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+topology: <span data-fg-color="blue">active</span>
+
+== Contrail config ==
+svc-monitor: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+device-manager: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+schema: <span data-fg-color="blue">active</span></pre></template></sw-code></div></div></li><li id="jd0e580" style="">Enter the <span class="cli" v-pre="">openstack overcloud update converge</span> command to finalize the update.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>The options used in the <span class="cli" v-pre="">openstack overcloud update
+converge</span> in this step will match the options used with the <span class="cli" v-pre="">openstack overcloud update prepare</span> command entered in <a href="install-contrail-rhosp-ziu.html#overcloud-prepare-step">7</a>.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e597"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>openstack overcloud update converge 
+--templates tripleo-heat-templates/
+--roles-file tripleo-heat-templates/roles_data_contrail_aio.yaml -e
+environment-rhel-registration.yaml -e
+tripleo-heat-templates/extraconfig/pre_deploy/rhel-registration/rhel-registrationresource-registry.yaml -e
+tripleo-heat-templates/environments/contrail/contrail-services.yaml -e
+tripleo-heat-templates/environments/contrail/contrail-net-single.yaml -e
+tripleo-heat-templates/environments/contrail/contrail-plugins.yaml -e
+misc_opts.yaml -e
+contrail-parameters.yaml -e
+docker_registry.yaml</pre></template></sw-code></div></div><p>Monitor screen messages indicating <var v-pre="">SUCCESS</var> to confirm that the updates made in this step are successful.</p></li></ol><sw-prev-next> </sw-prev-next></p>

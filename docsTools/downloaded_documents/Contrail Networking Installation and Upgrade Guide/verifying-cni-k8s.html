@@ -1,0 +1,50 @@
+<p id="topic-content"><h1 id="jd0e2">Verifying Configuration for CNI for Kubernetes </h1><sw-topic-details date="2019-07-18"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Use the verification steps in this topic to
+view and verify your configuration of Contrail Container Network Interface
+(CNI) for Kubernetes.</p></div></div><h2 id="id-view-pod-name-and-ip-address">View Pod Name and IP Address</h2><p>Use the following command to view the IP address allocated to
+a pod.</p><div class="example" dir="ltr" id="jd0e22"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl get pods --all-namespaces -o wide</kbd> 
+NAMESPACE     	NAME               READY     STATUS    RESTARTS   AGE       IP              		   NODE
+default       		client-1            1/1       	Running   	0          		19d       10.47.25.247   k8s-minion-1-3
+default       		client-2            1/1      	Running   	0          		19d       10.47.25.246   k8s-minion-1-1
+default       		client-x             1/1       	Running   	0          		19d       10.84.21.272   k8s-minion-1-1</pre></template></sw-code></div><h2 id="id-verify-reachability-of-pods">Verify Reachability of Pods</h2><p>Perform the following steps to verify if the pods are
+reachable to each other.</p><ol type="1"><li id="jd0e38" style="">Determine the IP address and name of the pod.<div class="example" dir="ltr" id="jd0e41"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl get pods --all-namespaces -o wide</kbd>
+NAME                        READY     STATUS    RESTARTS   AGE       IP              NODE
+example1-36xpr   1/1       Running   0          43s       10.47.25.251   b3s37
+example2-pldp1   1/1       Running   0          39s       10.47.25.250   b3s37</pre></template></sw-code></div></li><li id="jd0e47" style="">Ping the destination pod from the source pod to verify
+if the pod is reachable.<div class="example" dir="ltr" id="jd0e50"><sw-code><template v-pre=""><pre>
+root@device ~]# <kbd class="user-typing" v-pre="">kubectl exec -it <var v-pre="">example1-36xpr</var>  ping <var v-pre="">10.47.25.250</var></kbd>
+PING 10.47.25.250 (10.47.25.250): 56 data bytes
+64 bytes from 10.47.25.250: icmp_seq=0 ttl=63 time=1.510 ms
+64 bytes from 10.47.25.250: icmp_seq=1 ttl=63 time=0.094 ms</pre></template></sw-code></div></li></ol><h2 id="id-verify-if-isolated-namespacepods-are-not-reachable">Verify If Isolated Namespace-Pods Are Not Reachable</h2><p>Perform the following steps to verify if pods in isolated
+namespaces cannot be reached by pods in non-isolated namespaces.</p><ol type="1"><li id="jd0e70" style="">Determine the IP address and name of a pod in an isolated
+namespace.<div class="example" dir="ltr" id="jd0e73"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl get pod -n <var v-pre="">test-isolated-ns</var> -o wide</kbd>
+NAME                        READY     STATUS    RESTARTS   AGE       IP              NODE
+example3-bvqx5   1/1       Running   0          1h        10.47.25.249   b3s37</pre></template></sw-code></div></li><li id="jd0e82" style="">Determine the IP address of a pod in a non-solated namespace.<div class="example" dir="ltr" id="jd0e85"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl get pods</kbd>
+NAME                        READY     STATUS    RESTARTS   AGE
+example1-36xpr   1/1       Running   0          15h
+example2-pldp1   1/1       Running   0          15h
+</pre></template></sw-code></div></li><li id="jd0e91" style="">Ping the IP address of the pod in the isolated namespace
+from the pod in the non-isolated namespace.<div class="example" dir="ltr" id="jd0e94"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl exec -it <var v-pre="">example1-36xpr</var> ping <var v-pre="">10.47.25.249</var></kbd>
+        --- 10.47.255.249 ping statistics ---
+ 2 packets transmitted, 0 packets received, 100% packet loss</pre></template></sw-code></div></li></ol><h2 id="id-verify-if-nonisolated-namespacepods-are-reachable">Verify If Non-Isolated Namespace-Pods Are Reachable</h2><p>Perform the following steps to verify if pods in non-isolated
+namespaces can be reached by pods in isolated namespaces.</p><ol type="1"><li id="jd0e114" style="">Determine the IP address of a pod in a non-isolated namespace.<div class="example" dir="ltr" id="jd0e117"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl get pods -o wide</kbd>
+NAME                        READY     STATUS    RESTARTS   AGE       IP              NODE
+example1-36xpr   1/1       Running   0          15h       10.47.25.251   b3s37
+example2-pldp1   1/1       Running   0          15h       10.47.25.250   b3s37
+</pre></template></sw-code></div></li><li id="jd0e123" style="">Determine the IP address and name of a pod in an isolated
+namespace.<div class="example" dir="ltr" id="jd0e126"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl get pod -n <var v-pre="">test-isolated-ns</var> -o wide</kbd>
+NAME                        READY     STATUS    RESTARTS   AGE       IP              NODE
+example3-bvqx5   1/1       Running   0          1h        10.47.25.249   b3s37</pre></template></sw-code></div></li><li id="jd0e135" style="">Ping the IP address of the pod in the non-isolated namespace
+from a pod in the isolated namespace.<div class="example" dir="ltr" id="jd0e138"><sw-code><template v-pre=""><pre>[root@device ~]# <kbd class="user-typing" v-pre="">kubectl exec -it <var v-pre="">example3-bvqx5</var> -n <var v-pre="">test-isolated-ns</var> ping <var v-pre="">10.47.25.251</var></kbd>
+PING 10.47.25.251 (10.47.25.251): 56 data bytes
+64 bytes from 10.47.25.251: icmp_seq=0 ttl=63 time=1.467 ms
+64 bytes from 10.47.25.251: icmp_seq=1 ttl=63 time=0.137 ms
+^C--- 10.47.25.251 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.137/0.802/1.467/0.665 ms</pre></template></sw-code></div></li></ol><h2 id="id-verify-if-a-namespace-is-isolated">Verify If a Namespace is Isolated</h2><p>Namespace annotations are used to turn on isolation in a Kubernetes
+namespace. In isolated Kubernetes namespaces, the namespace metadata
+is annotated with the <code class="inline" v-pre="">opencontrail.org/isolation : true</code> annotation.</p><p>Use the following command to view annotations on a namespace.</p><div class="example" dir="ltr" id="jd0e164"><sw-code><template v-pre=""><pre>[root@a7s16 ~]#
+<kbd class="user-typing" v-pre="">kubectl describe namespace <var v-pre="">test-isolated-ns</var></kbd>   
+Name:       test-isolated-ns
+Labels:     &lt;none&gt;
+Annotations:    opencontrail.org/isolation : true     Namespace is isolated
+Status:     Active</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

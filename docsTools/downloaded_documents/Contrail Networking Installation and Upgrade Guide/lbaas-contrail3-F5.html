@@ -1,0 +1,309 @@
+<p id="topic-content"><h1 id="jd0e2">Using Load Balancers in Contrail </h1><sw-topic-details date="2020-05-26"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>As of Contrail Release 3.0, load balancer LBaaS
+features are available. This topic includes:</p></div></div><h2 id="jd0e13">Invoking LBaaS Drivers </h2><p>The provider field specified in the pool configuration determines
+which load balancer drivers are selected. The load balancer driver
+selected is responsible for configuring the external hardware or virtual
+machine load balancer. </p><p>Supported load balancer drivers include:</p><ul><li style=""><p>HAProxy</p></li><li style=""><p>A10 Networks</p></li><li style=""><p>F5 Networks</p></li><li style=""><p>Avi Networks</p></li></ul><h2 id="jd0e34">Benefits of Creating Configuration Objects</h2><p>Starting with Contrail 3.0, the Neutron LBaaS plugin creates
+required configuration objects (such as pool, VIP, members, and monitor)
+in the Contrail API server, instead of within the Neutron plugin context,
+as in previous releases.</p><p>This method of configuration has the following benefits:</p><ul><li style=""><p>Configuration objects can be created in multiple ways:
+from Neutron, from virtual controller APIs, or from the Contrail UI.</p></li><li style=""><p>The load balancer driver can make inline calls, such as
+REST or SUDS, to configure the external load balancer device.</p></li><li style=""><p>The load balancer driver can use Contrail service monitor
+infrastructure, such as database, logging, and API server.</p></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The <em>Neutron</em> LBaaS plugin is not supported
+in OpenStack Train release.</p></sw-admonition><p><a href="lbaas-contrail3-F5.html#lbaas-neutron">Figure 1</a> provides an overview of the Contrail LBaaS components.</p><figure id="lbaas-neutron"><figcaption>Figure 1: Contrail LBaaS components with neutron-lbaas</figcaption><div class="graphic"><img alt="Contrail LBaaS components with neutron-lbaas" src="documentation/images/g300524.png" style=""/></div></figure><h2 id="jd0e65">Using a Service Appliance Set as the LBaaS Provider</h2><p>In OpenStack Neutron, the load balancer provider is statically
+configured in <code class="inline" v-pre="">neutron.conf</code>, which requires
+restart of the Neutron server when configuring a new provider. The
+following is an example of the service provider configuration in <code class="inline" v-pre="">neutron.conf</code>. </p><div class="sample" dir="ltr" id="jd0e76"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[service_providers]
+service_provider = LOADBALANCER:Opencontrail:neutron_plugin_contrail.plugins.opencontrail. loadbalancer.driver.OpencontrailLoadbalancerDriver:default
+</pre></template></sw-code></div></div><p>In Contrail Release 3.0 and greater, the Neutron LBaaS provider
+is configured by using the object <code class="inline" v-pre="">service-appliance-set</code>. All of the configuration parameters of the LBaaS driver are populated
+to the <code class="inline" v-pre="">service-appliance-set</code> object and
+passed to the driver.  </p><p>During initialization, the service monitor creates a default
+service appliance set with a default LBaaS provider, which uses an
+HAProxy-based load balancer. The service appliance set consists of
+individual service appliances for load balancing the traffic. The
+service appliances can be physical devices or virtual machines. </p><div class="sample" dir="ltr" id="jd0e89"><p><b>Sample Configuration: Service Appliance Set</b></p><p>The following is a sample configuration of the service appliance
+set for the LBaaS provider:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+  "service-appliance-set": {
+    "fq_name": [
+      "default-global-system-config",
+      "f5"
+    ],
+    "service_appliance_driver": "svc_monitor.services.loadbalancer.drivers.f5.f5_driver.OpencontrailF5LoadbalancerDriver",
+    "parent_type": "global-system-config",
+    "service_appliance_set_properties": {
+      "key_value_pair": [
+        {
+          "key": "sync_mode",
+          "value": "replication"
+        },
+       {
+          "key": "global_routed_mode",
+          "value": "True"
+        }
+      ]
+    },
+    "name": "f5"
+  }
+}
+</pre></template></sw-code></div></div><div class="sample" dir="ltr" id="jd0e96"><p><b>Sample Configuration: Single Service Appliance </b></p><p>The following is a sample configuration of a single service
+appliance:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+  "service-appliance": {
+    "fq_name": [
+      "default-global-system-config",
+      "f5",
+      "bigip"
+    ],
+    "parent_type": "service-appliance-set",
+    "service_appliance_ip_address": "&lt;ip address&gt;",
+    "service_appliance_user_credentials": {
+      "username": "admin",
+      "password": "&lt;password&gt;"
+    },
+    "name": "bigip"
+  }
+}
+</pre></template></sw-code></div></div><h2 id="jd0e103">Understanding the Load Balancer Agent</h2><p>The load balancer agent is a module in the service monitor.
+The service monitor listens on the RabbitMQ configuration messaging
+queue (<code class="inline" v-pre="">vnc_config.object-update</code>) to get
+configuration objects.  The dependency tracker triggers changes to
+all related objects, based on configuration updates.</p><p>The dependency tracker is informed to notify the pool object
+whenever the VIP, member, or health monitor object is modified.</p><p>Whenever there is an update to the pool object, either directly
+due to a pool update or due to a dependency update, the load balancer
+agent in the service monitor is notified.</p><p>The load balancer agent module handles the following:</p><ul><li style=""><p>Loading and unloading LBaaS driver-based service appliance
+set configuration.</p></li><li style=""><p>Providing the abstract driver class for the load balancer
+driver.</p></li><li style=""><p>Invoking the LBaaS driver.</p></li><li style=""><p>Load balancer-related configuration.</p></li></ul><h2 id="jd0e131">F5 Networks Load Balancer Integration in Contrail  </h2><div class="mini-toc-intro"><p>This section details use of the F5 load balancer driver with
+Contrail.</p></div><ul><li style=""><p><a href="lbaas-contrail3-F5.html#jd0e154">F5 Load Balancer Global Routed Mode</a></p></li><li style=""><p><a href="lbaas-contrail3-F5.html#jd0e254">Initial Configuration on an F5 Device </a></p></li><li style=""><p><a href="lbaas-contrail3-F5.html#jd0e264">Initial Configuration on an MX Series Device Used as DC Gateway</a></p></li></ul><p>Contrail Release 3.0 implements an LBaaS driver that supports
+a physical or virtual F5 Networks load balancer, using the abstract
+load balancer driver class, <code class="inline" v-pre="">ContrailLoadBalancerAbstractDriver</code>.   </p><p>This driver is invoked from the load balancer agent of the <code class="inline" v-pre="">contrail-svc-monitor</code>. The driver makes a BIG-IP interface
+call to configure the F5 Networks device. All of the configuration
+parameters used to tune the driver are configured in the <code class="inline" v-pre="">service-appliance-set</code> object and passed to the driver
+by the load balancer agent while loading the driver.  </p><p>The F5 load balancer driver uses the BIG-IP interface version
+V1.0.6, which is a Python package extracted from the load balancer
+plugin provided by F5 Networks. The driver uses either a SOAP API
+or a REST API.  </p><h3 id="jd0e154">F5 Load Balancer Global Routed Mode</h3><p>The F5 load balancer driver is programmed in <code class="inline" v-pre="">global
+routed</code> mode using a property of the <code class="inline" v-pre="">service-appliance-set</code>.</p><p>This section describes the features and requirements of the
+F5 load balancer driver configured in global routed mode.</p><p>The following are features of the global routed mode.</p><ul><li style=""><p>All virtual IP addresses (VIPs) are assumed to be routable
+from clients and all members are routable from the F5 device. </p></li><li style=""><p>All access to and from the F5 device is assumed to be
+globally routed, with no segregation between tenant services on the
+F5 device. Consequently, do NOT configure overlapping addresses across
+tenants and networks.</p></li><li style=""><p>The F5 device can be attached to the corporate network
+or to the IP fabric.</p></li></ul><p>The following are requirements to support global routed mode
+of an F5 device used with LBaaS:</p><ul><li style=""><p>The entire configuration of the F5 device for Layer 2
+and Layer 3 is preprovisioned.</p></li><li style=""><p>All tenant networks and all IP fabrics are in the same
+namespace as the corporate network.</p></li><li style=""><p>All VIPs are in the same namespace as the tenant and corporate
+networks.</p></li></ul><h4 id="jd0e193">Traffic Flow in Global Routed Mode</h4><p>This section describes and illustrates the behavior of traffic
+flow in global routed mode.</p><p>The information in this section is based on a model that includes
+the following network topology:</p><p>Corporate Network --- DC Gateway (MX device) --- IP Fabric ---
+Compute nodes  </p><p>The Corporate Network, the IP Fabric and all tenant networks
+use IP addresses from a single namespace, there is no overlap of the
+addresses in the networks. The F5 devices can be attached to the Corporate
+Network or to the IP Fabric, and are configured to use the global
+routed mode.   </p><p>The role of the MX Series device is to route post-proxy traffic,
+coming from the F5 device in the underlay, to the pool members in
+the overlay.  In the reverse direction, the MX device takes traffic
+coming from the pool members in the overlay and routes it back to
+the F5 device in the underlay.</p><p>The MX device is preprovisioned with the following:</p><ul><li style=""><p>VRF connected to pool network 2</p></li><li style=""><p>ability to route traffic from inet.0 to the pool network</p></li></ul><p>The MX routes the traffic from inet.0 to public VRF and sends
+traffic to the compute node where the pool member is instantiated.</p><p>The F5 device is preprovisioned with the following:</p><ul><li style=""><p>publish route to attract VIP traffic</p></li><li style=""><p>pool network subnet route that points to the MX device</p></li></ul><p>The F5 device is responsible for attracting traffic destined
+to all the VIPs, by advertising a subnet route that covers all VIPs
+using IGP.</p><p>The F5 device load balances among different pool members and
+sends traffic to the chosen member.</p><p><a href="lbaas-contrail3-F5.html#lbaas-contrail-2">Figure 2</a> shows the traffic flow
+in global routed mode.</p><figure id="lbaas-contrail-2"><figcaption>Figure 2: Global Routed Traffic Flow</figcaption><div class="graphic"><img alt="Global Routed Traffic Flow" src="documentation/images/g300525.png" style=""/></div></figure><p>A similar result can also be achieved on the switch to which
+the F5 is attached, by publishing the VIP subnet in IGP and using
+a static route to point the VIP traffic to the F5 device.</p><p> The MX should attract the reverse traffic from the pool members
+going back to the F5. </p><h5 class="Head5" id="jd0e244">Routing Traffic to Pool Members</h5><p>For post load balancing traffic going from the F5 device to
+the pool members, the MX Series device needs to attract traffic for
+all the tenant networks.</p><h5 class="Head5" id="jd0e249">Routing Reverse Traffic from Pool Members to the F5 Device</h5><p>The MX should attract the reverse traffic from the pool members
+going back to the F5. </p><h3 id="jd0e254">Initial Configuration on an F5 Device </h3><ul><li style=""><p>The operator is responsible for ensuring that the F5 device
+attracts traffic to all VIP subnets by injecting the route for the
+VIP subnet into IGP. Alternately, the switch to which F5 is connected
+can advertise the VIP subnet route and use the static route to send
+VIP traffic to the F5 device.</p></li><li style=""><p>In the global routed mode, the F5 uses AutoMap SNAT for
+all VIP traffic.	 </p></li></ul><h3 id="jd0e264">Initial Configuration on an MX Series Device Used as DC Gateway</h3><ul><li style=""><p>The operator must identify a super-net that contains all
+tenant network subnets (pool members across multiple pools) and advertise
+its route into corporate and fabric networks, using IGP (preferred)
+or static routes. </p></li><li style=""><p>The operator must add a static route for the super-net
+into inet.0 with a next-hop of public.inet.0.</p></li><li style=""><p>The operator must create a public VRF and get its default
+route imported into the VRF. This is to attract the return traffic
+from pool members to the F5 device (VIP destination).</p></li></ul><h4 id="jd0e277">Configuration on MX Device for Each Pool Member </h4><ul><li style=""><p>For each member virtual network, the operator adds a policy
+to connect the member pool virtual network to the public virtual network. </p></li><li style=""><p>As new member virtual networks are connected to the public
+virtual network by policy, corresponding targets are imported by the
+public VRF on MX. The Contrail Device Manager generates the configuration
+of import, export targets for public VRF on the MX device.</p></li><li style=""><p>The operator must ensure that security group rules for
+the member virtual network ports allow traffic coming from the F5
+device.</p></li></ul><h2 id="jd0e290">Example: Creating a Load Balancer</h2><p>Use the following steps to create a load balancer in Contrail
+Release 3.0 and greater.  </p><ol type="1"><li id="jd0e297" style="">To configure a service appliance set, use the script in <code class="filepath">/opt/contrail/utils</code> to create a load balancer provider.
+With the script, you specify the driver and name of the selected provider.
+Additional configuration can be performed using the key-value pair
+property configuration. <p><code class="inline" v-pre="">/opt/contrail/utils/service_appliance_set.py --api_server_ip
+&lt;ip address&gt;--api_server_port 8082 --oper add --admin_user admin
+--admin_password &lt;password&gt; --admin_tenant_name admin --name f5
+--driver "svc_monitor.services.loadbalancer.drivers.f5.f5_driver.OpencontrailF5LoadbalancerDriver"
+--properties '{"use_snat": "True", "num_snat": "1", "global_routed_mode":"True",
+"sync_mode": "replication", "vip_vlan": "trial2"}'</code></p></li><li id="jd0e306" style="">Add the actual device information of the load balancer. <p><code class="inline" v-pre="">/opt/contrail/utils/service_appliance.py --api_server_ip
+&lt;ip address&gt;--api_server_port 8082 --oper add --admin_user admin
+--admin_password &lt;password&gt; --admin_tenant_name admin --name bigip
+--service_appliance_set f5 --device_ip 10.204.216.113 --user_credential
+'{"user": "admin", "password": "&lt;password&gt;"}'</code></p></li><li id="jd0e312" style="">Refer to the load balancer provider while configuring
+the pool.<p><code class="inline" v-pre="">neutron lb-pool-create --lb-method ROUND_ROBIN
+--name web_service --protocol HTTP --provider "f5" --subnet-id &lt;subnet
+id&gt;</code> </p></li><li id="jd0e319" style="">Add members to the load balancer pool. Both bare metal
+webserver and overlay webserver are allowed as pool members. The F5
+device can load balance the traffic among all pool members.  <p><code class="inline" v-pre="">neutron lb-member-create --address &lt;ip address&gt;--protocol-port
+8080 --weight 3 web_service</code></p><p><code class="inline" v-pre="">neutron lb-member-create --address &lt;ip address&gt;
+--protocol-port 8080 --weight 2 web_service</code></p></li><li id="jd0e328" style="">Create a VIP for the load balancer pool. <p><code class="inline" v-pre="">neutron lb-vip-create --name httpserver --protocol-port
+80 --protocol HTTP web_service --subnet-id &lt;subnet id&gt;</code></p></li><li id="jd0e334" style="">Create the health monitor and associate it with the load
+balancer pool.<p><code class="inline" v-pre="">neutron lb-healthmonitor-create --delay 3 --type
+HTTP --max-retries 3 --timeout 3</code></p><p><code class="inline" v-pre="">neutron lb-healthmonitor-associate &lt;nnnnn-nnnnn-nnnn-&gt;
+web_service</code></p></li></ol><h2 id="jd0e343">Using the Avi Networks Load Balancer for Contrail</h2><p>If you are using the Avi LBaaS driver in an OpenStack Contrail
+environment, there are two possible modes that are mutually-exclusive.
+The Avi Vantage cloud configuration is exactly the same in both modes: </p><ul><li style=""><p>Neutron-based Avi LBaaS driver<br/>In this
+mode, the Avi LBaaS driver derives from Neutron and resides in the
+Neutron server process. This mode enables coexistence of multiple
+Neutron LBaaS providers.  </p></li><li style=""><p>Contrail-based Avi LBaaS driver<br/>In this
+mode, the Avi LBaaS driver derives from Contrail and resides in the
+service-monitor process. This mode enables coexistence of multiple
+Contrail LBaaS providers.  </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>In a Contrail environment, you cannot have a mix of Contrail
+LBaaS and Neutron LBaaS. You must select a mode that is compatible
+with the current environment.</p></sw-admonition></li></ul><h3 id="jd0e362">Installing the Avi LBaaS Neutron Driver</h3><p>Use the following procedure to install the Avi Networks LBaaS
+load balancer driver for the Neutron server for Contrail.</p><p>The following steps are performed on the Neutron server host.</p><ol type="1"><li id="jd0e371" style="">Determine the installed version of the Contrail Neutron
+plugin.<div class="sample" dir="ltr" id="jd0e374"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ contrail-version neutron-plugin-contrail
+Package Version
+------------------------- ------------
+neutron-plugin-contrail 3.0.2.0-51</pre></template></sw-code></div></div></li><li id="jd0e377" style="">Adjust the <code class="inline" v-pre="">neutron.conf </code>database
+connection URL.<div class="sample" dir="ltr" id="jd0e383"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ vi /etc/neutron/neutron.conf
+# if using mysql
+connection = mysql+pymysql://neutron:c0ntrail123@127.0.0.1/neutron</pre></template></sw-code></div></div></li><li id="jd0e386" style="">Populate and upgrade the Neutron database schema.<div class="sample" dir="ltr" id="jd0e389"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># to upgrade to head
+$ neutron-db-manage upgrade head
+# to upgrade to a specific version
+$ neutron-db-manage --config-file /etc/neutron/neutron.conf upgrade liberty</pre></template></sw-code></div></div></li><li id="jd0e392" style="">Drop foreign key constraints.<div class="sample" dir="ltr" id="jd0e395"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># obtain current mysql token
+$ cat /etc/contrail/mysql.token
+fabe17d9dd5ae798f7ea
+
+$ mysql -u root -p
+Enter password: fabe17d9dd5ae798f7ea
+
+mysql&gt; use neutron;
+
+mysql&gt; show create table vips;
+# CONSTRAINT `vips_ibfk_1` FOREIGN KEY (`port_id`) REFERENCES `ports` (`id`) - ports table is not used by Contrail
+mysql&gt; alter table vips drop FOREIGN KEY vips_ibfk_1;
+
+mysql&gt; show create table lbaas_loadbalancers;
+# CONSTRAINT `fk_lbaas_loadbalancers_ports_id` FOREIGN KEY (`vip_port_id`) REFERENCES `ports` (`id`)
+mysql&gt; alter table lbaas_loadbalancers drop FOREIGN KEY fk_lbaas_loadbalancers_ports_id;
+</pre></template></sw-code></div></div></li><li id="jd0e398" style="">To install the Avi LBaaS plugin, continue with steps from
+the readme file that downloads with the Avi LBaaS software. You can
+perform either a local installation or a manual installation. The
+following are sample installation steps.<ul><li style=""><p>For a local installation:</p><div class="sample" dir="ltr" id="jd0e405"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># LBaaS v1 driver
+$ ./install.sh --aname avi_adc --aip
+
+  &lt;controller_ip|controller_vip&gt;
+    --auser
+   
+     --apass
+    
+# LBaaS v2 driver 
+$ ./install.sh --aname avi_adc_v2 --aip
+     &lt;controller_ip|controller_vip&gt;
+       --auser
+      
+        --apass
+       
+         --v2
+</pre></template></sw-code></div></div></li><li style=""><p>For a manual installation:</p><div class="sample" dir="ltr" id="jd0e411"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># LBaaS v1 driver
+$ vi /etc/neutron/neutron.conf
+#service_plugins = neutron_plugin_contrail.plugins.opencontrail.loadbalancer.plugin.LoadBalancerPlugin
+service_plugins = neutron_lbaas.services.loadbalancer.plugin.LoadBalancerPlugin
+[service_providers]
+service_provider = LOADBALANCER:Avi_ADC:neutron_lbaas.services.loadbalancer.drivers.avi.avi_driver.AviLbaaSDriver
+
+[avi_adc]
+address=10.1.11.4
+user=admin
+password=avi123
+cloud=jcos
+
+# LBaaS v2 driver
+$ vi /etc/neutron/neutron.conf
+#service_plugins = neutron_plugin_contrail.plugins.opencontrail.loadbalancer.plugin.LoadBalancerPlugin
+service_plugins = neutron_lbaas.services.loadbalancer.plugin.LoadBalancerPluginv2
+[service_providers]
+service_provider = LOADBALANCERV2:avi_adc_v2:neutron_lbaas.drivers.avi.driver.AviDriver
+
+[avi_adc_v2]
+controller_ip=10.1.11.3
+username=admin
+password=avi123
+
+$ service neutron-server restart
+$ neutron service-provider-list</pre></template></sw-code></div></div></li></ul></li></ol><h3 id="jd0e414">Installing the Avi LBaaS Contrail Driver</h3><p>Use the following procedure to install the Avi Networks LBaaS
+load balancer driver for Contrail.</p><p>The following steps are performed on the Contrail <code class="inline" v-pre="">api-server</code> host.</p><ol type="1"><li id="jd0e426" style="">Determine the installed version of the Contrail Neutron
+plugin.<div class="sample" dir="ltr" id="jd0e429"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ contrail-version neutron-plugin-contrail
+Package Version
+------------------------- ------------
+neutron-plugin-contrail 3.0.2.0-51</pre></template></sw-code></div></div></li><li id="jd0e432" style="">Install the Avi driver.<div class="sample" dir="ltr" id="jd0e435"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># LBaaS v2 driver
+$ ./install.sh --aname ocavi_adc_v2 --aip
+
+  &lt;controller_ip|controller_vip&gt;
+    --auser
+   
+     --apass
+    
+      --v2 --no-restart --no-confmodify</pre></template></sw-code></div></div></li><li id="jd0e438" style="">Set up the service appliance set.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>If <code class="inline" v-pre="">neutron_lbaas</code> doesn’t exist
+on the <code class="inline" v-pre="">api-server</code> node, adjust the driver
+path to the correct path location for <code class="inline" v-pre="">neutron_lbaas</code>.</p></sw-admonition><p><code class="inline" v-pre="">$ /opt/contrail/utils/service_appliance_set.py
+--api_server_ip 10.xx.xx.100 --api_server_port 8082 --oper add --admin_user
+admin --admin_password &lt;password&gt; --admin_tenant_name admin --name
+ocavi_adc_v2 --driver "neutron_lbaas.drivers.avi.avi_ocdriver.OpencontrailAviLoadbalancerDriver"
+--properties '{"address": "10.1.xx.3", "user": "admin", "password":
+"avi123", "cloud": "Default-Cloud"}'</code></p></li><li id="jd0e456" style="">To delete the service appliance set.<p><code class="inline" v-pre="">$ /opt/contrail/utils/service_appliance_set.py
+--api_server_ip 10.xx.xx.100 --api_server_port 8082 --oper del --admin_user
+admin --admin_password &lt;password&gt; --admin_tenant_name admin --name
+ocavi_adc_v2</code></p></li></ol><h3 id="jd0e462">Configuring the Avi Controller</h3><ol type="1"><li id="jd0e466" style="">If OpenStack endpoints are private IPs and Contrail provides
+a public front-end IP to those endpoints, use iptables to DNAT. On
+the AviController only, perform iptable NAT to reach the private IPs. <p><code class="inline" v-pre="">$ iptables -t nat -I OUTPUT --dest 17x.xx.xx.50
+-j DNAT --to-dest 10.xx.xx.100</code></p></li><li id="jd0e472" style="">To configure the Avi controller during cloud configuration,
+select the “Integration with Contrail” checkbox and provide
+the endpoint URL of the Contrail VNC api-server. Use the Keystone
+credentials from the OpenStack configuration to authenticate with
+the api-server service.<div class="sample" dir="ltr" id="jd0e475"><p><b>Example Configuration Settings</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>: &gt; show cloud jcos
+    +---------------------------+--------------------------------------------+
+    | Field                     | Value                                      |
+    +---------------------------+--------------------------------------------+
+    | uuid                      | cloud-104bb7e6-a9d2-4b34-a4c5-d94be659bb91 |
+    | name                      | jcos                                       |
+    | vtype                     | CLOUD_OPENSTACK                            |
+    | openstack_configuration   |                                            |
+    |   username                | admin                                      |
+    |   admin_tenant            | demo                                       |
+    |   keystone_host           | 17x.xx.xx.50                               |
+    |   mgmt_network_name       | mgmtnw                                     |
+    |   privilege               | WRITE_ACCESS                               |
+    |   use_keystone_auth       | True                                       |
+    |   region                  | RegionOne                                  |
+    |   hypervisor              | KVM                                        |
+    |   tenant_se               | True                                       |
+    |   import_keystone_tenants | True                                       |
+    |   anti_affinity           | True                                       |
+    |   port_security           | False                                      |
+    |   security_groups         | True                                       |
+    |   allowed_address_pairs   | True                                       |
+    |   free_floatingips        | True                                       |
+    |   img_format              | OS_IMG_FMT_AUTO                            |
+    |   use_admin_url           | True                                       |
+    |   use_internal_endpoints  | False                                      |
+    |   config_drive            | True                                       |
+    |   insecure                | True                                       |
+    |   intf_sec_ips            | False                                      |
+    |   external_networks       | False                                      |
+    |   neutron_rbac            | True                                       |
+    |   nuage_port              | 8443                                       |
+    |   contrail_endpoint       | http://10.10.10.100:8082                   |
+    | apic_mode                 | False                                      |
+    | dhcp_enabled              | True                                       |
+    | mtu                       | 1500 bytes                                 |
+    | prefer_static_routes      | False                                      |
+    | enable_vip_static_routes  | False                                      |
+    | license_type              | LIC_CORES                                  |
+    | tenant_ref                | admin                                      |
+    +---------------------------+--------------------------------------------+</pre></template></sw-code></div></div></li></ol><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,188 @@
+<p id="topic-content"><h1 id="jd0e2">Configuring Underlay Network for ContrailVM</h1><sw-topic-details date="2019-07-30"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>The ContrailVM can be configured
+in several different ways for the underlay (<code class="inline" v-pre="">ip-fabric</code>) connectivity:</p></div></div><h2 id="id-standard-switch-setup">Standard Switch Setup</h2><p>In the standard switch setup, the ContrailVM is provided an
+interface through the standard switch port group that is used for
+management and control data, see <a href="vcenter-as-orchestrator-deployment-scenarios-501.html#stdswitch">Figure 1</a>.
+ </p><figure id="stdswitch"><figcaption>Figure 1: Standard Switch Setup</figcaption><div class="graphic"><img alt="Standard Switch Setup" src="documentation/images/g300460.png" style=""/></div></figure><p>To set up the ContrailVM in this mode, the standard switch and
+port group must be configured in <code class="inline" v-pre="">vcenter_vars.yml</code>. </p><p>If switch name is not configured, the default values of <code class="inline" v-pre="">vSwitch0</code> are used for the standard switch.</p><p>The ContrailVM supports multiple NICs for management and <code class="inline" v-pre="">control_data</code> interfaces. The management interface must
+have the DHCP flag as <code class="inline" v-pre="">true</code> and the <code class="inline" v-pre="">control_data</code> interface can have DHCP set as <code class="inline" v-pre="">false</code>. When DHCP is set to false, the IP address of
+the <code class="inline" v-pre="">control_data</code> interface must be configured
+by the user and ensure connectivity. Additional configuration such
+as static routes and bond interface must be configured by the user.</p><div class="sample" dir="ltr" id="jd0e56"><p>The following is an example of configuration with standard
+switch.</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>
+-   name: &lt;esxi_host&gt;
+    username: &lt;username&gt;
+    password: &lt;password&gt;
+    datastore: &lt;datastore&gt;
+    vcenter_server: &lt;server&gt;
+    datacenter: &lt;datacenter&gt;
+    cluster: &lt;cluster&gt;
+    std_switch_list:
+      - pg_name: mgmt-pg
+        switch_name: vSwitch0
+    contrail_vm:
+       networks:
+         - mac: 00:77:56:aa:bb:03
+           sw_type: standard
+           switch_name: vSwitch0
+           pg: mgmt-pg
+</pre></template></sw-code></div></div><h2 id="id-distributed-switch-setup">Distributed Switch Setup</h2><p>A distributed switch functions as a single virtual switch across
+associated hosts.</p><p>In the distributed switch setup, the ContrailVM is provided
+an interface through the distributed switch port group that is used
+for management and control data, see <a href="vcenter-as-orchestrator-deployment-scenarios-501.html#distswitch">Figure 2</a>.  </p><p>The ContrailVM can be configured to use the management and control_data
+NICs from DVS. When the DVS configuration is specified, the standard
+switch configuration is ignored.</p><figure id="distswitch"><figcaption>Figure 2: Distributed Switch Setup</figcaption><div class="graphic"><img alt="Distributed Switch Setup" src="documentation/images/g300461.png" style=""/></div></figure><p>To set up the ContrailVM in this mode, configure the distributed
+switch, port group, number of ports in the port group, and the uplink
+in the <code class="inline" v-pre="">vcenter_servers </code> section in <code class="filepath">vcenter_servers.yml</code>.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The uplink can be a link aggregation group (LAG). If you
+use LAG, then DVS and LAG should be preconfigured.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e89"><p>The following is an example distributed switch configuration
+in <code class="inline" v-pre="">vcenter_vars.yml</code>.</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre> vcenter_servers:
+  - SRV1:
+      hostname: &lt;server&gt;
+      username: &lt;username&gt;
+      password: &lt;password&gt;
+      datacentername: &lt;datacenter&gt;
+      clusternames:
+        - &lt;cluster&gt;
+      
+      
+      dv_switch:
+        dv_switch_name: &lt;dvs_name&gt;
+      dv_port_group:
+        dv_portgroup_name: &lt;pg_name&gt;
+        number_of_ports: &lt;num_of_ports&gt;
+      dv_switch_control_data:
+        dv_switch_name: &lt;ctrl_dvs_name&gt;
+      dv_port_group_control_data:
+        dv_portgroup_name: &lt;ctrl_pg_name&gt;
+        number_of_ports: &lt;num_of_ports&gt;
+        uplink:
+         - 'vmnic3'
+</pre></template></sw-code></div></div><h2 id="id-pci-passthrough-setup">PCI Pass-Through Setup</h2><p>PCI pass-through is a virtualization technique in which a physical
+Peripheral Component Interconnect (PCI) device is directly connected
+to a virtual machine, bypassing the hypervisor. Drivers in the VM
+can directly access the PCI device, resulting in a high rate of data
+transfer.</p><p>In the pass-through setup, the ContrailVM is provided management
+and control data interfaces. Pass-through interfaces are used for
+control data. <a href="vcenter-as-orchestrator-deployment-scenarios-501.html#pcisinglecd">Figure 3</a> shows a PCI pass-through
+setup with a single <code class="inline" v-pre="">control_data</code> interface.</p><figure id="pcisinglecd"><figcaption>Figure 3: PCI Pass-Through with Single Control
+Data Interface</figcaption><div class="graphic"><img alt="PCI Pass-Through with Single Control
+Data Interface" src="documentation/images/g300462.png" style=""/></div></figure><p>When setting up the ContrailVM with pass-through interfaces,
+upon provisioning ESXi hosts in the installation process, the PCI
+pass-through interfaces are exposed as Ethernet interfaces in the
+ContrailVM, and are identified in the <code class="inline" v-pre="">control_data</code> device field.</p><div class="sample" dir="ltr" id="jd0e120"><p>The following is an example PCI pass-through configuration
+with a single <code class="inline" v-pre="">control_data</code> interface:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>esxihosts:
+  - name: &lt;esxi_host&gt;
+    username: &lt;username&gt;
+    password: &lt;password&gt;
+    datastore: &lt;datastore&gt;
+    vcenter_server: &lt;server&gt;
+    datacenter: &lt;datacenter&gt;
+    cluster: &lt;cluster&gt;
+    contrail_vm:
+      networks:
+        - mac: &lt;mac_addr&gt;
+      pci_devices:
+       - '0000:04:00.0'</pre></template></sw-code></div></div><p><a href="vcenter-as-orchestrator-deployment-scenarios-501.html#pcibond">Figure 4</a> shows a PCI pass-through setup
+with a bond_control data interface, which has multiple pass-through
+NICs.</p><figure id="pcibond"><figcaption>Figure 4: PCI Pass-Through Setup with Bond Control
+Interface</figcaption><div class="graphic"><img alt="PCI Pass-Through Setup with Bond Control
+Interface" src="documentation/images/g300463.png" style=""/></div></figure><p>Update the ContrailVM section in <code class="inline" v-pre="">vcenter_vars.yml</code> with <code class="inline" v-pre="">pci_devices</code> as shown in the following
+example:</p><div class="sample" dir="ltr" id="jd0e143"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>esxihosts:
+  - name: &lt;esxi_host&gt;
+    username: &lt;username&gt;
+    password: &lt;password&gt;
+    datastore: &lt;datastore&gt;
+    vcenter_server: &lt;server&gt;
+    datacenter: &lt;datacenter&gt;
+    cluster: &lt;cluster&gt;
+    contrail_vm:
+     
+      networks:
+        - mac: &lt;mac_addr&gt;
+      pci_devices:
+       - '0000:04:00.0'
+       - '0000:04:00.1'
+</pre></template></sw-code></div></div><h2 id="id-sriov-setup">SR-IOV Setup</h2><p>A single root I/O virtualization (SR-IOV) interface allows a
+network adapter device to separate access to its resources among various
+hardware functions.</p><p>In the SR-IOV setup, the ContrailVM is provided management and
+control data interfaces. SR-IOV interfaces are used for control data.
+See <a href="vcenter-as-orchestrator-deployment-scenarios-501.html#sriov">Figure 5</a>.</p><figure id="sriov"><figcaption>Figure 5: SR-IOV Setup</figcaption><div class="graphic"><img alt="SR-IOV Setup" src="documentation/images/g300464.png" style=""/></div></figure><p>In VMware, the <code class="inline" v-pre="">port-group</code> is mandatory
+for SR-IOV interfaces because the ability to configure the networks
+is based on the active policies for the port holding the virtual machines.</p><p>To set up the ContrailVM with SR-IOV interfaces, all configurations
+used for the standard switch setup are also used for the pass-through
+setup, providing management connectivity to the ContrailVM. </p><p>To provide the <code class="inline" v-pre="">control_data</code> interfaces,
+configure the SR-IOV-enabled physical interfaces in the <code class="inline" v-pre="">contrail_vm</code> section, and configure the <code class="inline" v-pre="">control_data</code> in the global section of <code class="inline" v-pre="">vcenter_vars.yml</code>.</p><p>Upon provisioning ESXi hosts in the installation process, the
+SR-IOV interfaces are exposed as Ethernet interfaces in the ContrailVM.</p><p><a href="vcenter-as-orchestrator-deployment-scenarios-501.html#sriovsingle">Figure 6</a> shows a SR-IOV setup with
+a single <code class="inline" v-pre="">control_data</code> interface.</p><figure id="sriovsingle"><figcaption>Figure 6: SR-IOV With Single Control Data Interface</figcaption><div class="graphic"><img alt="SR-IOV With Single Control Data Interface" src="documentation/images/g300464.png" style=""/></div></figure><div class="sample" dir="ltr" id="jd0e195"><p>The following is an example SR-IOV configuration for
+the cluster and server configuration.</p><p>The cluster configuration:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>vcenter_servers:
+  - SRV1:
+      hostname: &lt;server&gt;
+      username: &lt;username&gt;
+      password: &lt;password&gt;
+      datacentername: &lt;datacenter&gt;
+      clusternames:
+        - &lt;cluster&gt;
+      
+      
+      dv_switch:
+        dv_switch_name: &lt;dvs_name&gt;
+      dv_port_group:
+        dv_portgroup_name: &lt;pg_name&gt;
+        number_of_ports: &lt;num_of_ports&gt;
+      dv_switch_sr_iov:
+        dv_switch_name: &lt;sriov_dvs_name&gt;
+      dv_port_group_sriov:
+        dv_portgroup_name: &lt;sriov_pg_name&gt;
+        number_of_ports: 
+</pre></template></sw-code></div><p>The server configuration:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>esxihosts:
+  - name: &lt;esxi_host&gt;
+    username: &lt;username&gt;
+    password: &lt;password&gt;
+    datastore: &lt;datastore&gt;
+    vcenter_server: &lt;server&gt;
+    datacenter: &lt;datacenter&gt;
+    cluster: &lt;cluster&gt;
+    contrail_vm:
+      
+      networks:
+        - mac: &lt;mac_addr&gt;
+      sr_iov_nics:
+       - 'vmnic0'
+</pre></template></sw-code></div></div><p><a href="vcenter-as-orchestrator-deployment-scenarios-501.html#sriovbond">Figure 7</a> shows an SR-IOV configuration
+with a bond <code class="inline" v-pre="">control_data</code> interface, which
+has multiple SR-IOV NICs.</p><figure id="sriovbond"><figcaption>Figure 7: SR-IOV With Bond Control Data Interface</figcaption><div class="graphic"><img alt="SR-IOV With Bond Control Data Interface" src="documentation/images/g300465.png" style=""/></div></figure><p>For Bond interface-configuration specify multiple NICs in <span class="cli" v-pre="">sr_iov_nics</span>, and add required configuration for multi-interface
+and bond configuration in <code class="inline" v-pre="">vcenter_vars.yml</code>.</p><div class="sample" dir="ltr" id="jd0e224"><p>The cluster configuration:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>vcenter_servers:
+  - SRV1:
+      hostname: &lt;server&gt;
+      username: &lt;username&gt;
+      password: &lt;password&gt;
+      datacentername: &lt;datacenter&gt;
+      clusternames:
+        - &lt;cluster&gt;
+      
+      
+      dv_switch:
+        dv_switch_name: &lt;dvs_name&gt;
+      dv_port_group:
+        dv_portgroup_name: &lt;pg_name&gt;
+        number_of_ports: &lt;num_of_ports&gt;
+      dv_switch_sr_iov:
+        dv_switch_name: &lt;sriov_dvs_name&gt;
+      dv_port_group_sriov:
+        dv_portgroup_name: &lt;sriov_pg_name&gt;
+        number_of_ports: 
+</pre></template></sw-code></div><p>The server configuration:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>esxihosts:
+  - name: &lt;esxi_host&gt;
+    username: &lt;username&gt;
+    password: &lt;password&gt;
+    datastore: &lt;datastore&gt;
+    vcenter_server: &lt;server&gt;
+    datacenter: &lt;datacenter&gt;
+    cluster: &lt;cluster&gt;
+    contrail_vm:
+     
+      networks:
+        - mac: &lt;mac_addr&gt;
+      sr_iov_nics:
+       - 'vmnic0'
+       - 'vmnic1'
+</pre></template></sw-code></div></div><sw-prev-next> </sw-prev-next></p>

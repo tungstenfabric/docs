@@ -1,0 +1,10 @@
+<p id="topic-content"><h1 id="jd0e2">Configuring Interface Monitoring and Mirroring</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><p>Contrail supports user monitoring of traffic on any guest virtual
+machine interface when using the Juniper Contrail user interface. </p><p>When interface monitoring (packet capture) is selected, a default
+analyzer is created and all traffic from the selected interface is
+mirrored and sent to the default analyzer. If a mirroring instance
+is already launched, the traffic will be redirected to the selected
+instance. The interface traffic is only mirrored during the time that
+the monitor packet capture interface is in use. When the capture screen
+is closed, interface mirroring stops.  </p><p>To configure interface mirroring: </p><ol><li style=""><p>Select <strong v-pre="">Monitor &gt; Infrastructure &gt; Virtual Routers</strong>, then select the vRouter that has the interface to mirror.</p></li><li style=""><p>In the list of attributes for the vRouter, select Interfaces;
+see <a href="interface-monitor-mirror-vnc.html#vrouter-interfaces">Figure 1</a>.</p><figure id="vrouter-interfaces"><figcaption>Figure 1: Individual vRouter</figcaption><div class="graphic"><img alt="Individual vRouter" src="documentation/images/s041839.gif" style=""/></div></figure><p>A list of interfaces for that vRouter appears.</p></li><li style=""><p>For the interface to mirror, click the Action icon in
+the last column and select the option Packet Capture; see <a href="interface-monitor-mirror-vnc.html#vr-intf">Figure 2</a>.</p><figure id="vr-intf"><figcaption>Figure 2: Interfaces</figcaption><div class="graphic"><img alt="Interfaces" src="documentation/images/s041856.gif" style=""/></div></figure><p>The mirror packet capture starts and displays at this screen. </p><p>The mirror packet capture stops when you exit this screen.</p></li></ol><sw-prev-next> </sw-prev-next></p>

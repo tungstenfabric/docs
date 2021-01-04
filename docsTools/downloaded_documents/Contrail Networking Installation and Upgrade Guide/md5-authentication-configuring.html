@@ -1,0 +1,23 @@
+<p id="topic-content"><h1 id="jd0e3">Configuring MD5 Authentication for BGP Sessions</h1><sw-topic-details date="2019-04-23"> </sw-topic-details><p>Contrail supports MD5 authentication for BGP peering
+based on RFC 2385.</p><p>This option allows BGP to protect itself against the introduction
+of spoofed TCP segments into the connection stream. Both of the BGP
+peers must be configured with the same MD5 key. Once configured, each
+BGP peer adds a 16-byte MD5 digest to the TCP header of every segment
+that it sends. This digest is produced by applying the MD5 algorithm
+on various parts of the TCP segment. Upon receiving a signed segment,
+the receiver validates it by calculating its own digest from the same
+data (using its own key) and compares the two digests. For valid segments,
+the comparison is successful since both sides know the key. </p><p>The following are ways to enable BGP MD5 authentication
+and set the keys on the Contrail node.</p><ol type="1"><li id="jd0e29" style="">If the <code class="inline" v-pre="">md5</code> key is not included
+in the provisioning, and the node is already provisioned, you can
+run the following script with an argument for md5:<div class="example" dir="ltr" id="jd0e35"><sw-code><template v-pre=""><pre>contrail-controller/src/config/utils/provision_control.py
+
+host@&lt;your_node&gt;:/opt/contrail/utils# python provision_control.py --host_name &lt;host_name&gt; --host_ip &lt;host_ip&gt; --router_asn &lt;asn&gt; --api_server_ip &lt;api_ip&gt; --api_server_port &lt;api_port&gt; --oper add --md5 “juniper” --admin_user admin --admin_password &lt;password&gt;  --admin_tenant_name admin
+
+</pre></template></sw-code></div></li><li id="jd0e38" style=""><p>You can also use the web user interface to configure
+MD5.</p><ol type="a"><li style=""><p>Connect to the node’s IP address at port 8080 (&lt;node_ip&gt;:8080)
+and select <strong v-pre="">Configure-&gt;Infrastructure-&gt;BGP Routers</strong>. As shown
+in <a href="md5-authentication-configuring.html#edit-bgp-router">Figure 1</a>, a list of BGP peers is displayed.</p><figure id="edit-bgp-router"><figcaption>Figure 1: Edit BGP Router Window</figcaption><div class="graphic"><img alt="Edit BGP Router Window" src="documentation/images/s042480.png" style=""/></div></figure></li><li style=""><p>For a BGP peer, click on the gear icon on the right hand
+side of the peer entry. Then click <strong v-pre="">Edit</strong>. This displays
+the Edit BGP Router dialog box.</p></li><li style=""><p>Scroll down the window and select <strong v-pre="">Advanced Options</strong>. </p></li><li style=""><p>Configure the MD5 authentication by selecting <strong v-pre="">Authentication
+Mode&gt;MD5</strong> and entering the <strong v-pre="">Authentication Key</strong> value.</p></li></ol></li></ol><sw-prev-next> </sw-prev-next></p>

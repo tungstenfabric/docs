@@ -1,0 +1,92 @@
+<p id="topic-content"><h1 id="jd0e2">Installing Contrail with Kubernetes in Nested Mode by Using
+Juju Charms</h1><sw-topic-details date="2020-10-15"> </sw-topic-details><p><span id="jd0e10">Contrail Networking
+Release 1909 and later support provisioning of a Kubernetes cluster
+inside an OpenStack cluster. Contrail Networking offers a nested control
+and data plane where a single Contrail control plane and a single
+network stack can manage and service both the OpenStack and Kubernetes
+clusters.</span></p><p>In nested mode, a Kubernetes cluster is provisioned in virtual
+machines of an OpenStack cluster. The CNI plugin and the Contrail-Kubernetes
+manager of the Kubernetes cluster interface directly with Contrail
+components that manage the OpenStack cluster.</p><p>All Kubernetes features, functions and specifications are supported
+when used in nested mode.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Nested mode deployment is only supported for Contrail
+with OpenStack cluster.</p></sw-admonition><p>Before you begin:</p><ul><li style=""><p>Deploy Contrail with OpenStack either on bare metal server
+or virtual machines.</p><sw-admonition name="best-practice" style=""><strong class="title">Best Practice</strong><p>Public cloud deployment is not recommended because
+of slow nested virtualization.</p></sw-admonition></li><li style=""><p>The VMs must have internet connectivity.</p></li><li style=""><p>Contrail in underlay network must be configured to support
+nested mode.</p><p>You must select an unused IP in the cluster to configure <var v-pre="">link-local</var>.</p><div class="sample" dir="ltr" id="jd0e41"><p>For example:</p><p>10.10.10.5 is the selected service IP.</p></div><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>LL Service Name</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Service IP</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Service Port</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Fabric IP	</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Fabric Port</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>K8s-cni-to-agent</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>10.10.10.5</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>9091</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>127.0.0.1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>9091</p></td></tr></tbody></table></sw-table></li></ul><p>Follow these steps to deploy Juju Charms with Kubernetes
+in nested mode using bundle deployment:</p><p>Use this method if you want to use the existing machines.</p><ol type="1"><li id="jd0e93" style="">Create a Juju controller.<p><code class="inline" v-pre="">juju bootstrap --bootstrap-series=xenial <var v-pre="">&lt;cloud name&gt; &lt;controller name&gt;</var></code></p><p>You can use OpenStack Cloud provider or manually spun-up VMs.
+For details, refer to <a href="/documentation/en_US/contrail19/topics/topic-map/deploying-contrail-using-juju-charms-kubernetes.html#PreparingToDeployContrailk8s">Preparing to Deploy Contrail with Kubernetes by Using Juju Charms</a>.</p></li><li id="jd0e106" style="">Deploy bundle.<p><code class="inline" v-pre="">juju deploy --series xenial cs:~containers/kubernetes-worker-550
+--to:0 \<br/>     --config channel="1.14/stable" \<br/>     --config docker_runtime="custom" \</code></p><p>If the machines for the setup are already provisioned, run the
+following command to deploy bundle:</p><p><code class="inline" v-pre="">juju deploy --map-machines=existing,0=0,5=1 ./bundle.yaml</code><br/>where <code class="inline" v-pre="">bundle-id=existing-id</code></p><p>For details, refer to <a href="https://jaas.ai/u/juniper-os-software/contrail-k8s-nested/bundle">https://jaas.ai/u/juniper-os-software/contrail-k8s-nested/bundle</a>.</p></li></ol><br/><p>or</p><br/><p>Follow these steps to deploy Juju Charms with Kubernetes
+in nested mode manually:</p><ol type="1"><li id="jd0e138" style="">Create a Juju controller.<p><code class="inline" v-pre="">juju bootstrap --bootstrap-series=xenial <var v-pre="">&lt;cloud name&gt; &lt;controller name&gt;</var></code></p><p>You can use OpenStack Cloud provider or manually spun-up VMs.
+For details, refer to <a href="/documentation/en_US/contrail19/topics/topic-map/deploying-contrail-using-juju-charms-kubernetes.html#PreparingToDeployContrailk8s">Preparing to Deploy Contrail with Kubernetes by Using Juju Charms</a>.</p></li><li id="jd0e151" style="">Create machine instances for Contrail components, Kubernetes
+master and Kubernetes workers.<div class="sample" dir="ltr" id="jd0e154"><p>Sample constraints for minimal deployment:</p><p>All-In-One deployment:</p><p><code class="inline" v-pre="">juju add-machine --constraints mem=32G cores=8
+root-disk=150G --series=xenial # for all-in-one machine</code></p><p>or</p><p>Multinode deployment:</p><p><code class="inline" v-pre="">juju add-machine --constraints mem=8G cores=2 root-disk=50G
+--series=xenial # kubernetes workers<br/>juju add-machine
+--constraints mem=8G cores=2 root-disk=50G --series=xenial # kubernetes
+masters<br/>juju add-machine --constraints mem=4G cores=4
+root-disk=50G --series=xenial # contrail components</code></p></div><p>You can use any series—<var v-pre="">xenial</var> or <var v-pre="">bionic</var>.</p></li><li id="jd0e181" style="">Add machines to the cloud.<p>For details, refer to <a href="https://jaas.ai/docs/constraints">Using Constraints-Juju</a>.</p></li><li id="jd0e189" style="">Deploy the Kubernetes services.<p>Some of the applications may need additional configuration.</p><p>You can deploy Kubernetes services using any one of the following
+methods:</p><ul><li style=""><p>By specifying the Kubernetes parameters in a YAML file.</p></li><li style=""><p>By passing options/values directly on the command line.</p></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>You must use the same docker version for Contrail and
+Kubernetes.</p></sw-admonition><p>For more details, refer to <a href="https://old-docs.jujucharms.com/2.4/en/charms-config">Juju Application
+Configuration</a>.</p></li><li id="jd0e211" style="">Deploy and configure <span class="cli" v-pre="">ntp, easyrsa, etcd, kubernetes-master,
+kubernetes-worker</span>.<div class="sample" dir="ltr" id="jd0e217"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju deploy --series xenial cs:ntp ntp
+
+juju deploy --series xenial cs:~containers/easyrsa --to lxd:0
+
+juju deploy --series xenial cs:~containers/etcd --to:0 --config channel="3.2/stable"
+
+juju deploy --series xenial cs:~containers/kubernetes-master-696 --to:0 \
+    --config channel="1.14/stable" \
+    --config docker_runtime="custom" \
+    --config docker_runtime_repo="deb [arch={ARCH}] https://download.docker.com/linux/ubuntu {CODE} stable" \
+    --config docker_runtime_key_url="https://download.docker.com/linux/ubuntu/gpg" \
+    --config docker_runtime_package="docker-ce"
+
+juju deploy --series xenial cs:~containers/kubernetes-worker-550 --to:0 \
+    --config channel="1.14/stable" \
+    --config ingress="false" \
+    --config docker_runtime="custom" \
+    --config docker_runtime_repo="deb [arch={ARCH}] https://download.docker.com/linux/ubuntu {CODE} stable" \
+    --config docker_runtime_key_url="https://download.docker.com/linux/ubuntu/gpg" \
+    --config docker_runtime_package="docker-ce"</pre></template></sw-code></div></div></li><li id="jd0e220" style="">Deploy and configure Contrail services.<p>Deploy <span class="cli" v-pre="">contrail-kubernetes-master, contrail-kubernetes-node,
+contrail-agent</span> from the directory where you have downloaded
+the charms.</p><div class="sample" dir="ltr" id="jd0e228"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>contrail-kubernetes-master:
+    nested_mode: true
+    cluster_project: "{'domain':'default-domain','project':'admin'}"
+    cluster_network: "{'domain':'default-domain','project':'admin','name':'juju-net'}"
+    service_subnets: '10.96.0.0/12'
+    nested_mode_config: |
+        {
+        "CONTROLLER_NODES": "10.0.12.20",
+        "AUTH_MODE": "keystone",
+        "KEYSTONE_AUTH_ADMIN_TENANT": "admin",
+        "KEYSTONE_AUTH_ADMIN_USER": "admin",
+        "KEYSTONE_AUTH_ADMIN_PASSWORD": "password",
+        "KEYSTONE_AUTH_URL_VERSION": "/v2.0",
+        "KEYSTONE_AUTH_HOST": "10.0.12.122",
+        "KEYSTONE_AUTH_PROTO": "http",
+        "KEYSTONE_AUTH_PUBLIC_PORT":"5000",
+        "KEYSTONE_AUTH_REGION_NAME": "RegionOne",
+        "KEYSTONE_AUTH_INSECURE": "True",
+        "KUBERNESTES_NESTED_VROUTER_VIP": "10.10.10.5"
+        }</pre></template></sw-code></div><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju deploy --series xenial cs:~juniper-os-software/contrail-kubernetes-master \
+    --config ./path-to-config.yaml
+
+juju deploy --series xenial cs:~juniper-os-software/contrail-kubernetes-node</pre></template></sw-code></div></div></li><li id="jd0e233" style="">Add the necessary relations.<div class="sample" dir="ltr" id="jd0e236"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju add-relation "kubernetes-master:juju-info" "ntp:juju-info"
+juju add-relation "kubernetes-worker:juju-info" "ntp:juju-info"
+
+juju add-relation "kubernetes-master:kube-api-endpoint" "kubernetes-worker:kube-api-endpoint"
+juju add-relation "kubernetes-master:kube-control" "kubernetes-worker:kube-control"
+juju add-relation "kubernetes-master:certificates" "easyrsa:client"
+juju add-relation "kubernetes-master:etcd" "etcd:db"
+juju add-relation "kubernetes-worker:certificates" "easyrsa:client"
+juju add-relation "etcd:certificates" "easyrsa:client"
+
+juju add-relation "contrail-kubernetes-node:cni" "kubernetes-master:cni"
+juju add-relation "contrail-kubernetes-node:cni" "kubernetes-worker:cni"
+juju add-relation "contrail-kubernetes-master:kube-api-endpoint" "kubernetes-master:kube-api-endpoint"
+juju add-relation "contrail-kubernetes-master:contrail-kubernetes-config" "contrail-kubernetes-node:contrail-kubernetes-config"</pre></template></sw-code></div></div></li><li id="jd0e239" style="">Apply SSL, if needed.<p>You must provide the same certificates to the <var v-pre="">contrail-kubernetes-master</var> node if Contrail in underlay cluster has SSL enabled.</p></li></ol><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e10">1909</a></div><div class="table-cell">Contrail Networking
+Release 1909 and later support provisioning of a Kubernetes cluster
+inside an OpenStack cluster. Contrail Networking offers a nested control
+and data plane where a single Contrail control plane and a single
+network stack can manage and service both the OpenStack and Kubernetes
+clusters.</div></div></div><sw-prev-next> </sw-prev-next></p>

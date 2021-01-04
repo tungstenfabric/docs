@@ -1,0 +1,113 @@
+<p id="topic-content"><h1 id="jd0e2">Configuring Graceful Restart and Long-lived Graceful Restart</h1><sw-topic-details date="2020-08-25"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Graceful restart and long-lived graceful restart
+BGP helper modes are supported for the Contrail control node and XMPP
+helper mode.</p></div></div><h2 id="jd0e13">Application of Graceful Restart and Long-lived Graceful Restart</h2><p>Whenever a BGP peer session is detected as down, all routes
+learned from the peer are deleted and immediately withdrawn from advertised
+peers. This causes instantaneous disruption to traffic flowing end-to-end,
+even when routes kept in the vrouter kernel in the data plane remain
+intact. </p><p>Graceful restart and long-lived graceful restart features can
+be used to alleviate traffic disruption caused by downs.</p><p>When configured, graceful restart features enable existing network
+traffic to be unaffected if Contrail controller processes go down.
+The Contrail implementation ensures that if a Contrail control module
+restarts, it can use graceful restart functionality provided by its
+BGP peers. Or when the BGP peers restart, Contrail provides a graceful
+restart helper mode to minimize the impact to the network. The graceful
+restart features can be used  to ensure that traffic is not affected
+by temporary outage of processes.</p><p>Graceful restart is not enabled by default.</p><p>With graceful restart features enabled, learned routes are not
+deleted when sessions go down, and the routes are not withdrawn from
+the advertised peers. Instead, the routes are kept and marked as 'stale'.
+Consequently, if sessions come back up and routes are relearned, the
+overall impact to the network is minimized.  </p><p>After a certain duration, if a downed session does not come
+back up, all remaining stale routes are deleted and withdrawn from
+advertised peers. </p><p>The graceful restart and long-lived graceful restart features
+can be enabled only for BGP peers in Contrail 3.2.</p><h2 id="jd0e30">BGP Graceful Restart Helper Mode</h2><p>The BGP helper mode can be used to minimize routing churn whenever
+a BGP session flaps. This is especially helpful if the SDN gateway
+router goes down gracefully, as in an rpd crash or restart on an MX
+Series Junos device. In that case, the contrail-control can act as
+a graceful restart helper to the gateway, by retaining the routes
+learned from the gateway and advertising them to the rest of the network
+as applicable. In order for this to work, the restarting router (the
+SDN gateway in this case) must support and be configured with graceful
+restart for all of the address families used.</p><p>The graceful restart helper mode is also supported for BGP-as-a-Service
+(BGPaaS) clients. When configured, contrail-control can provide a
+graceful restart or long-lived graceful restart helper mode to a restarting
+BGPaaS client.</p><h2 id="jd0e37">Feature Highlights</h2><p>The following are highlights of the graceful restart and long-lived
+graceful restart features.</p><ul><li style=""><p>Configuring a non-zero restart time enables the ability
+to advertise graceful restart and long-lived graceful restart capabilities
+in BGP.</p></li><li style=""><p>Configuring helper mode enables the ability for graceful
+restart and long-lived graceful restart helper modes to retain routes
+even after sessions go down.</p></li><li style=""><p>With graceful restart configured, whenever a session down
+event is detected and a closing process is triggered, all routes,
+across all address families, are marked stale. The stale routes are
+eligible for best-path election for the configured graceful restart
+time duration. </p></li><li style=""><p> When long-lived graceful restart is in effect, stale
+routes can be retained for a much longer time than that allowed by
+graceful restart alone. With long-lived graceful restart, route preference
+is retained and best paths are recomputed. The community marked LLGR_STALE
+is tagged for stale paths and re-advertised. However, if no long-lived
+graceful restart community is associated with any received stale route,
+those routes are not kept, instead, they are deleted. </p></li><li style=""><p>After a certain time, if a session comes back up, any
+remaining stale routes are deleted. If the session does not come back
+up, all retained stale routes are permanently deleted and withdrawn
+from the advertised peer.</p></li></ul><h2 id="jd0e58">XMPP Helper Mode</h2><p>Contrail supports for long-lived graceful restart (LLGR) with
+XMPP helper mode. Graceful restart and long lived graceful restart
+can be enabled using the Contrail web UI or by using the provision_control
+script. </p><p>The helper modes can also be enabled via schema, and can be
+disabled selectively in a contrail-control node for BGP or XMPP sessions
+by configuring <code class="inline" v-pre="">gr_helper_disable</code> in the <code class="filepath">/etc/contrail/contrail-control.conf</code> configuration
+file. </p><h2 id="jd0e71">Configuration Parameters </h2><p>Graceful restart parameters are configured in the <code class="inline" v-pre="">global-system-config</code> of the schema. They can be configured
+by means of a provisioning script or by using the Contrail Web UI.</p><p>Configure a non-zero restart time to advertise for graceful
+restart and long-lived graceful restart capabilities from peers. </p><p>Configure helper mode for graceful restart and long-lived graceful
+restart to retain routes even after sessions go down. </p><p>Configuration parameters include:</p><ul><li style=""><p><code class="inline" v-pre="">enable</code> or <code class="inline" v-pre="">disable</code> for all graceful restart parameters:</p><ul><li style=""><p><code class="inline" v-pre="">restart-time</code></p></li><li style=""><p><code class="inline" v-pre="">long-lived-restart-time</code></p></li><li style=""><p><code class="inline" v-pre="">end-of-rib-timeout</code></p></li></ul></li><li style=""><p><code class="inline" v-pre="">bgp-helper-enable</code> to enable
+graceful restart helper mode for BGP peers in contrail-control</p></li><li style=""><p><code class="inline" v-pre="">xmpp-helper-enable</code> to enable
+graceful restart helper mode for XMPP peers (agents) in contrail-control</p></li></ul><div class="sample" dir="ltr" id="jd0e117"><p>The following shows configuration by a provision script.</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>/opt/contrail/utils/provision_control.py 
+            --api_server_ip 10.xx.xx.20 
+            --api_server_port 8082 
+            --router_asn 64512             
+            --admin_user admin
+            --admin_password &lt;password&gt; 
+            --admin_tenant_name admin 
+            --set_graceful_restart_parameters 
+            --graceful_restart_time 60 
+            --long_lived_graceful_restart_time 300 
+            --end_of_rib_timeout 30 
+            --graceful_restart_enable 
+            --graceful_restart_bgp_helper_enable
+</pre></template></sw-code></div></div><p>The following are sample parameters:</p><div class="sample" dir="ltr" id="jd0e124"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>-set_graceful_restart_parameters 
+            --graceful_restart_time 300 
+            --long_lived_graceful_restart_time 60000 
+            --end_of_rib_timeout 30 
+            --graceful_restart_enable 
+            --graceful_restart_bgp_helper_enable 
+</pre></template></sw-code></div></div><p>When BGP peering with Juniper Networks devices, Junos must also
+be explicitly configured for graceful restart/long-lived graceful
+restart, as shown in the following example: </p><div class="sample" dir="ltr" id="jd0e129"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>set routing-options graceful-restart
+set protocols bgp group &lt;a1234&gt; type internal
+set protocols bgp group &lt;a1234&gt; local-address 10.xx.xxx.181
+set protocols bgp group &lt;a1234&gt; keep all
+set protocols bgp group &lt;a1234&gt; family inet-vpn unicast graceful-restart long-lived restarter stale-time 20
+set protocols bgp group &lt;a1234&gt; family route-target graceful-restart long-lived restarter stale-time 20
+set protocols bgp group &lt;a1234&gt; graceful-restart restart-time 600
+set protocols bgp group &lt;a1234&gt; neighbor 10.xx.xx.20 peer-as 64512
+</pre></template></sw-code></div></div><p>The graceful restart helper modes can be enabled in the schema.
+The helper modes can be disabled selectively in the <code class="inline" v-pre="">contrail-control.conf</code> for BGP sessions by configuring <code class="inline" v-pre="">gr_helper_disable</code> in the <code class="inline" v-pre="">/etc/contrail/contrail-control.conf </code>file. </p><p>The following are examples:</p><p><code class="inline" v-pre="">/usr/bin/openstack-config /etc/contrail/contrail-control.conf
+DEFAULT gr_helper_bgp_disable 1 </code></p><p><code class="inline" v-pre="">/usr/bin/openstack-config /etc/contrail/contrail-control.conf
+DEFAULT gr_helper_xmpp_disable 1 </code></p><p><code class="inline" v-pre="">service contrail-control restart </code></p><p>For more details about graceful restart configuration, see <a href="https://github.com/Juniper/contrail-controller/wiki/Graceful-Restart">https://github.com/Juniper/contrail-controller/wiki/Graceful-Restart</a> .</p><h2 id="jd0e159">Cautions for Graceful Restart</h2><p>Be aware of the following caveats when configuring and using
+graceful restart.</p><ul><li style=""><p>Using the graceful restart/long-lived graceful restart
+feature with a peer is effective either to all negotiated address
+families or to none. If a peer signals support for graceful restart/long-lived
+graceful restart for only a subset of the negotiated address families,
+the graceful restart helper mode does not come into effect for any
+family in the set of negotiated address families. </p></li><li style=""><p>Because graceful restart is not yet supported for contrail-vrouter-agent,
+the parameter should <em>not</em> be set for <code class="inline" v-pre="">graceful_restart_xmpp_helper_enable</code>. If the vrouter
+agent restarts, the data plane is reset and the routes and flows are
+reprogrammed anew, which typically results in traffic loss for several
+seconds for new and /existing flows.</p></li><li style=""><p>Graceful restart/long-lived graceful restart is not supported
+for multicast routes. </p></li><li style=""><p>Graceful restart/long-lived graceful restart helper mode
+may not work correctly for EVPN routes, if the restarting node does
+not preserve forwarding state for EVPN routes.</p></li></ul><h2 id="jd0e183">Configuring Graceful Restart using Contrail Command</h2><p>To configure graceful restart in Contrail Command, navigate
+to <strong v-pre="">Infrastructure &gt; Cluster &gt; Advanced Options</strong> and select
+the Edit icon near the top right corner of the screen.</p><figure id="jd0e191"><figcaption>Figure 1: Global Config System Configuration Screen</figcaption><div class="graphic"><img alt="Global Config System Configuration Screen" src="documentation/images/s060275.png" style=""/></div></figure><p>The <strong v-pre="">Edit System Configuration</strong> window opens. Click
+the box for <strong v-pre="">Graceful Restart</strong> to enable graceful restart,
+and enter a non-zero number to define the <strong v-pre="">Restart Time</strong> in
+seconds. You can also specify the times for the long-lived graceful
+restart (LLGR) and the end of RIB timers from this window.</p><figure id="jd0e206"><figcaption>Figure 2: Edit System Configuration Window</figcaption><div class="graphic"><img alt="Edit System Configuration Window" src="documentation/images/s060276.png" style=""/></div></figure><sw-prev-next> </sw-prev-next></p>

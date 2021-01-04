@@ -1,0 +1,121 @@
+<p id="topic-content"><h1 id="jd0e3">Configuring EVPN and VXLAN</h1><sw-topic-details date="2019-01-30"> </sw-topic-details><p>Contrail supports Ethernet VPNs (EVPN) and Virtual Extensible
+Local Area Networks (VXLAN).</p><p>EVPN is a flexible solution that uses Layer 2 overlays to interconnect
+multiple edges (virtual machines) within a data center. Traditionally,
+the data center is built as a flat Layer 2 network with issues such
+as flooding, limitations in redundancy and provisioning, and high
+volumes of MAC address learning, which cause churn during node failures.
+EVPNs are designed to address these issues without disturbing flat
+MAC connectivity.</p><p>In EVPNs, MAC address learning is driven by the control plane,
+rather than by the data plane, which helps control learned MAC addresses
+across virtual forwarders, thus avoiding flooding. The forwarders
+advertise locally learned MAC addresses to the controllers. The controllers
+use MP-BGP to communicate with peers. The peering of controllers using
+BGP for EVPN results in better and faster convergence.</p><p>With EVPN, MAC learning is confined to the virtual networks
+to which the virtual machine belongs, thus isolating traffic between
+multiple virtual networks. In this manner, virtual networks can share
+the same MAC addresses without any traffic crossover.</p><p><em>Unicast in EVPNs</em></p><p>Unicast forwarding is based on MAC addresses where traffic can
+terminate on a local endpoint or is encapsulated to reach the remote
+endpoint. Encapsulation can be MPLS/UDP, MPLS/GRE, or VXLAN.</p><p><em>BUM Traffic in EVPN </em></p><p>Multicast and broadcast traffic is flooded in a virtual network.
+The replication tree is built by the control plane, based on the advertisements
+of end nodes (virtual machines) sent by forwarders. Each virtual network
+has one distribution tree, a method that avoids maintaining multicast
+states at fabric nodes, so the nodes are unaffected by multicast.
+The replication happens at the edge forwarders. Per-group subscription
+is not provided. Broadcast, unknown unicast, and multicast (BUM) traffic
+is handled the same way, and gets flooded in the virtual network to
+which the virtual machine belongs.</p><p><em>VXLAN </em></p><p>VXLAN is an overlay technology that encapsulates MAC frames
+into a UDP header at Layer 2. Communication is established between
+two virtual tunnel endpoints (VTEPs). VTEPs encapsulate the virtual
+machine traffic into a VXLAN header, as well as strip off the encapsulation.
+Virtual machines can only communicate with each other when they belong
+to the same VXLAN segment. A 24-bit virtual network identifier (VNID)
+uniquely identifies the VXLAN segment. This enables having the same
+MAC frames across multiple VXLAN segments without traffic crossover.
+Multicast in VXLAN is implemented as Layer 3 multicast, in which endpoints
+subscribe to groups. </p><p><em>Design Details of EVPN and VXLAN </em></p><p>In Contrail Release 1.03 and later, EVPN is enabled by default.
+The supported forwarding modes include: </p><ul><li style=""><p>Fallback bridging—IPv4 traffic lookup is performed
+using the IP FIB. All non-IPv4 traffic is directed to a MAC FIB.</p></li><li style=""><p>Layer 2-only— All traffic is forwarded using a MAC
+FIB lookup.</p></li></ul><p>You can configure the forwarding mode individually on each virtual
+network.</p><p>EVPN is used to share MAC addresses across different control
+planes in both forwarding models. The result of a MAC address lookup
+is a next hop, which, similar to IP forwarding, points to a local
+virtual machine or a tunnel to reach the virtual machine on a remote
+server. The tunnel encapsulation methods supported for EVPN are MPLSoGRE,
+MPLSoUDP, and VXLAN. The encapsulation method selected is based on
+a user-configured priority.</p><p>In VXLAN, the VNID is assigned uniquely for every virtual network
+carried in the VXLAN header. The VNID uniquely identifies a virtual
+network. When the VXLAN header is received from the fabric at a remote
+server, the VNID lookup provides the VRF of the virtual machine. This
+VRF is used for the MAC lookup from the inner header, which then provides
+the destination virtual machine.</p><p>Non-IP multicast traffic uses the same multicast tree as for
+IP multicast (255.255.255.255). The multicast is matched against the
+all-broadcast prefix in the bridging table (FF:FF:FF:FF:FF:FF). VXLAN
+is not supported for IP/non-IP multicast traffic. </p><p>The following table summarizes the traffic and encapsulation
+types supported for EVPN.</p><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><tbody><tr valign="top"><td align="left" colspan="2" rowspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"> </td><td align="left" colspan="3" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Encapsulation</strong></p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">MPLS-GRE</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">MPLS-UDP</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">VXLAN</strong></p></td></tr><tr valign="top"><td align="left" rowspan="4" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Traffic Type</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">IP unicast</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>No</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">IP-BUM</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>No</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">non IP unicast</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">non IP-BUM</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>No</p></td></tr></tbody></table></sw-table><h2 id="id-configuring-the-vxlan-identifier-mode">Configuring the VXLAN Identifier Mode</h2><p>You can configure the global VXLAN identifier mode to select
+an auto-generated VNID or a user-generated VXLAN ID, either through
+the Contrail Web UI or by modifying a python file. </p><p>To configure the global VXLAN identifier mode:</p><ol type="1"><li id="jd0e165" style="">From the Contrail Web UI, select <strong v-pre="">Configure &gt; Infrastucture
+&gt; Global Config</strong>.<p>The Global Config options and values are displayed in the Global
+Config window.</p><figure id="jd0e173"><figcaption>Figure 1: Global Config Window for VXLAN ID</figcaption><div class="graphic"><img alt="Global Config Window for VXLAN ID" src="documentation/images/s018533.png" style=""/></div></figure></li><li id="jd0e177" style="">Click the edit icon <span class="graphic"><img alt="" src="documentation/images/s018510.png" style=""/></span>.<p>The Edit Global Config window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-vxmode">Figure 2</a>.</p><figure id="edit-global-config-vxmode"><figcaption>Figure 2: Edit Global Config Window
+for VXLAN Identifier Mode</figcaption><div class="graphic"><img alt="Edit Global Config Window
+for VXLAN Identifier Mode" src="documentation/images/s018508.png" style=""/></div></figure></li><li id="jd0e190" style=""><p>Select one of the following:</p><ul><li style=""><p><strong v-pre="">Auto Configured</strong>— The VXLAN identifier
+is automatically assigned for the virtual network. </p></li><li style=""><p><strong v-pre="">User Configured</strong>– You must provide the
+VXLAN identifier for the virtual network. </p></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>When <strong v-pre="">User Configured</strong> is selected, if you do
+not provide an identifier, then VXLAN encapsulation <em>is not
+used</em> and the mode falls back to MPLS.</p></sw-admonition></li></ol><p>Alternatively, you can set the VXLAN identifier mode by using
+Python to modify the <code class="inline" v-pre="">/opt/contrail/utils/encap.py</code> file as follows:</p><p><code class="inline" v-pre="">python encap.py &lt;add | update | delete &gt; &lt;username
+&gt; &lt; password &gt; &lt; tenant_name &gt; &lt; config_node_ip &gt;</code></p><h2 id="jd0e226">Configuring Forwarding</h2><p>In Contrail, the default forwarding mode is enabled for
+fallback bridging (IP FIB and MAC FIB). The mode can be changed, either
+through the Contrail Web UI or by using python provisioning commands.</p><p>To change the forwarding mode:</p><ol type="1"><li id="jd0e242" style="">From the Contrail Web UI, select <strong v-pre="">Configure &gt; Networking
+&gt; Networks</strong>.</li><li id="jd0e248" style="">Select the virtual network that you want to change the
+forwarding mode for.</li><li id="jd0e251" style="">Click the gear icon <span class="graphic"><img alt="" src="documentation/images/s018509.png" style=""/></span> and
+select <strong v-pre="">Edit</strong>.<p>The Edit Network window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-network-window">Figure 3</a>.</p><figure id="edit-network-window"><figcaption>Figure 3: Edit Network Window</figcaption><div class="graphic"><img alt="Edit Network Window" src="documentation/images/s042518.png" style=""/></div></figure><p>Under the Advanced Options select the forwarding mode
+from the following choices:</p><ul><li style=""><p>Select <strong v-pre="">Default</strong> to enable the default forwarding
+mode.</p></li><li style=""><p>Select <strong v-pre="">L2 and L3</strong> to enable IP and MAC FIB (fallback
+bridging).</p></li><li style=""><p>Select <strong v-pre="">L2 Only</strong> to enable only MAC FIB.</p></li><li style=""><p>Select <strong v-pre="">L3 Only</strong> to enable only IP.</p></li></ul></li></ol><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The full list of forwarding modes are only displayed if
+you change entries in the <code class="filepath">/usr/src/contrail/contrail-web-core/config/config.global.js</code> file. For example:</p></sw-admonition><ol type="1"><li id="jd0e303" style="">To make the <strong v-pre="">L2</strong> selection available locate the
+following:<div class="example" dir="ltr" id="jd0e309"><sw-code><template v-pre=""><pre>config.network = {};
+config.network.L2_enable = false;
+</pre></template></sw-code></div></li><li id="jd0e312" style="">Change the entry to the following:<div class="example" dir="ltr" id="jd0e315"><sw-code><template v-pre=""><pre>config.network = {};
+config.network.L2_enable = true;
+</pre></template></sw-code></div></li><li id="jd0e318" style="">To make the other selections available, modify the corresponding
+entries.</li><li id="jd0e321" style="">Save the file and quit the editor.</li><li id="jd0e324" style="">Restart the Contrail Web user interface process (webui).</li></ol><p>Alternatively, you can use the following python provisioning
+command to change the forwarding mode: </p><p><code class="inline" v-pre="">python provisioning_forwarding_mode --project_fq_name
+'defaultdomain: admin' --vn_name vn1 --forwarding_mode &lt; l2_l3|
+l2 &gt;</code></p><p>Options:</p><p><code class="inline" v-pre="">l2_l3</code> = Enable IP FIB and MAC FIB
+(fallback bridging)</p><p><code class="inline" v-pre="">l2</code> = Enable MAC FIB only (Layer 2
+only)</p><h2 id="jd0e343">Configuring the VXLAN Identifier</h2><p>The VXLAN identifier can be set only if the VXLAN network
+identifier mode has been set to User Configured. You can then set
+the VXLAN ID by either using the Contrail Web UI or by using Python
+commands. </p><p>To configure the global VXLAN identifier:</p><ol type="1"><li id="jd0e359" style="">From the Contrail Web UI, select <strong v-pre="">Configure &gt; Networking
+&gt; Networks</strong>.</li><li id="jd0e365" style="">Select the virtual network that you want to change the
+forwarding mode for.</li><li id="jd0e368" style="">Click the gear icon <span class="graphic"><img alt="" src="documentation/images/s018509.png" style=""/></span> and
+select <strong v-pre="">Edit</strong>.<p>The Edit Network window is displayed. Select the <strong v-pre="">Advanced
+Options</strong> as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-vxid">Figure 4</a>.</p><figure id="edit-global-config-vxid"><figcaption>Figure 4: Edit Network Window for
+VXLAN Identifier</figcaption><div class="graphic"><img alt="Edit Network Window for
+VXLAN Identifier" src="documentation/images/s018534.png" style=""/></div></figure></li><li id="jd0e387" style="">Type the VXLAN identifier.</li><li id="jd0e390" style="">Click <strong v-pre="">Save</strong>.</li></ol><p>Alternatively, you can use the following Python provisioning
+command to configure the VXLAN identifier: </p><p><code class="inline" v-pre="">python provisioning_forwarding_mode --project_fq_name
+'defaultdomain: admin' --vn_name vn1 --forwarding_mode &lt; vxlan_id
+&gt;</code></p><h2 id="jd0e402">Configuring Encapsulation Methods</h2><p>The default encapsulation mode for EVPN is MPLS over UDP. All
+packets on the fabric are encapsulated with the label allocated for
+the virtual machine interface. The label encoding and decoding is
+the same as for IP forwarding. Additional encapsulation methods supported
+for EVPN include MPLS over GRE and VXLAN. MPLS over UDP is different
+from MPLS over GRE only in the method of tunnel header encapsulation.</p><p>VXLAN has its own header and uses a VNID label to carry the
+traffic over the fabric. A VNID is assigned with every virtual network
+and is shared by all virtual machines in the virtual network. The
+VNID is mapped to the VRF of the virtual network to which it belongs.</p><p>The priority order in which to apply encapsulation methods is
+determined by the sequence of methods set either from the Contrail
+Web UI or in the <code class="filepath">encap.py</code> file.</p><p>To configure the global VXLAN identifier mode:</p><ul><li style=""><p>From the Contrail Web UI, select <strong v-pre="">Configure &gt; Infrastucture
+&gt; Global Config</strong>.</p></li><li style=""><p>The Global Config options are displayed.</p></li><li style=""><p>Click the edit icon <span class="graphic"><img alt="" src="documentation/images/s018510.png" style=""/></span>.</p></li></ul><p>The Edit Global Config window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-encapriority">Figure 5</a>.</p><figure id="edit-global-config-encapriority"><figcaption>Figure 5: Edit Global Config
+Window for Encapsulation Priority Order</figcaption><div class="graphic"><img alt="Edit Global Config
+Window for Encapsulation Priority Order" src="documentation/images/s018508.png" style=""/></div></figure><p>Under Encapsulation Priority Order select one of the
+following:</p><ul><li style=""><p><strong v-pre="">MPLS over UDP</strong></p></li><li style=""><p><strong v-pre="">MPLS over GRE</strong></p></li><li style=""><p><strong v-pre="">VxLAN</strong></p></li></ul><p>Click the + plus symbol to the right of the first priority to
+add a second priority or third priority.</p><p>Use the following procedure to change the default encapsulation
+method to VXLAN by editing the <code class="filepath">encap.py</code> file.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>VXLAN is <em>only</em> supported for EVPN
+unicast. It is not supported for IP traffic or multicast traffic.
+VXLAN priority and presence in the <code class="filepath">encap.py</code> file or configured in the Web UI is ignored for traffic not supported
+by VXLAN.</p></sw-admonition><p>To set the priority of encapsulation methods to VXLAN:</p><ol type="1"><li id="jd0e483" style="">Modify the <code class="filepath">encap.py</code> file
+found in the <code class="filepath">/opt/contrail/utils/</code> directory. <p>The default encapsulation line is:</p><p><code class="inline" v-pre="">encap_obj=EncapsulationPrioritiesType(encapsulation=['MPLSoUDP','M
+PLSoGRE'])</code></p><p>Modify the line to:</p><p><code class="inline" v-pre="">encap_obj=EncapsulationPrioritiesType(encapsulation=['VXLAN',
+'MPLSoUDP','MPLSoGRE'])</code></p></li><li id="jd0e502" style="">After the status is modified, execute the following script: <p><code class="inline" v-pre="">python encap_set.py &lt;add|update|delete&gt; &lt;username&gt;
+&lt;password&gt; &lt;tenant_name&gt; &lt;config_node_ip&gt;</code></p><p>The configuration is applied globally for all virtual networks.</p></li></ol><sw-prev-next> </sw-prev-next></p>

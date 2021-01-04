@@ -1,0 +1,127 @@
+<p id="topic-content"><h1 id="jd0e2">Updating Contrail Networking using the Zero Impact Upgrade
+Procedure in a Canonical Openstack Deployment with Juju Charms</h1><sw-topic-details date="2020-12-09"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>This document provides the steps needed to update
+a Contrail Networking deployment that is using Canonical Openstack
+as it’s orchestration platform. The procedure utilizes Juju
+charms and provides a zero impact upgrade (ZIU) with minimal disruption
+to network operations.</p></div></div><h2 id="id-overview-canonical-openstack-deployment-into-contrail-command">Prerequisites</h2><p>This document makes the following assumptions about your environment:</p><ul><li style=""><p>A Contrail Networking deployment using Canonical Openstack
+as the orchestration platform is already operational.</p></li><li style=""><p>Juju charms for Contrail services are active in your environment,
+and the Contrail Networking controller has access to the Juju jumphost
+and the Juju cluster.</p></li></ul><h2 id="jd0e28">When to Use This Procedure</h2><p>This procedure is used to upgrade Contrail Networking when it
+is running in environments using Canonical Openstack.</p><p>You can use this procedure to incrementally upgrade to the next
+main Contrail Networking release only. This procedure is not validated
+for upgrades between releases that are two or more releases apart. </p><p>The procedure in this document has been validated for the following
+Contrail Networking upgrade scenarios:</p><sw-table><p class="SubTitle" id="jd0e39">Table 1: Contrail Networking with Canonical Openstack Validated
+Upgrade Scenarios</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Starting Contrail Networking Release</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Target Upgraded Contrail Networking Release</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1912.L0</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1912.L1</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1912 or 1912.L0</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2003</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2003</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2005</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2005</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2008</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2008</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2011</p></td></tr></tbody></table></sw-table><h2 id="recommendations-update-canonical-juju">Recommendations</h2><p>We strongly recommend performing the following tasks before
+starting this procedure:</p><ul><li style=""><p>Backup your current environment.</p></li><li style=""><p>Enable huge pages for the kernel-mode vRouter.</p><p>Starting in Contrail Networking Release 2005, you can enable
+huge pages in the kernel-mode vRouter to avoid future compute node
+reboots during upgrades. Huge pages in Contrail Networking are used
+primarily to allocate flow and bridge table memory within the vRouter.
+Huge pages for kernel-mode vRouters provide enough flow and bridge
+table memory to avoid compute node reboots to complete future Contrail
+Networking software upgrades.</p><p>We recommend allotting 2GB of memory—either using the
+default 1024x2MB huge page size setting or the 2x1GB size setting—for
+huge pages. Other huge page size settings should only be set by expert
+users in specialized circumstances.</p><p>A compute node reboot is required to initially enable huge pages.
+Future compute node upgrades can happen without reboots after huge
+pages are enabled.  The 1024x2MB huge page setting is configured by
+default starting in Contrail Networking Release 2005, but is not active
+in any compute node until the compute node is rebooted to enable the
+setting.</p><p>2GB and 1MB huge page size settings cannot be enabled simultaneously
+in environments using Juju.</p><p>The huge page configurations can be changed by entering one
+of the following commands:</p><ul><li style=""><p>Enable 1024 2MB huge pages (Default): <kbd class="user-typing" v-pre="">juju
+config contrail-agent kernel-hugepages-2m=1024</kbd></p><p>Disable 2MB huge pages (empty value): <kbd class="user-typing" v-pre="">juju config
+contrail-agent kernel-hugepages-2m=““</kbd></p></li><li style=""><p>Enable 2 1GB huge pages: <kbd class="user-typing" v-pre="">juju config contrail-agent
+kernel-hugepages-1g=2</kbd></p><p>Disable 1GB huge pages (default. empty value): <kbd class="user-typing" v-pre="">juju config contrail-agent kernel-hugepages-1g=““</kbd></p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>1GB huge page settings can only be specified at initial
+deployment; you cannot modify the setting in active deployments. The
+1GB huge page setting can also not be completely disabled after being
+activated on a compute node. Be sure that you want to use 1GB huge
+page settings on your compute node before enabling the setting.</p></sw-admonition></li></ul></li></ul><h2 id="id-importing-canonical-openstack-into-contrail-command">Updating Contrail Networking in a Canonical Openstack Deployment
+Using Juju Charms</h2><p>To update Contrail Networking in an environment that
+is using Canonical Openstack as the orchestration platform:</p><ol type="1"><li id="jd0e144" style="">Upgrade all
+charms. See the <a href="https://juju.is/docs/upgrading-applications">Upgrading applications</a> document from Juju.</li><li id="jd0e150" style="">From the Juju jumphost, enter the <span class="cli" v-pre="">run-action</span> command to place all control plane services—Contrail Controller,
+Contrail Analytics, &amp; Contrail AnalyticsDB—into maintenance
+mode in preparation for the upgrade.<div class="sample" dir="ltr" id="jd0e156"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju run-action --wait contrail-controller/leader upgrade-ziu</pre></template></sw-code></div></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The <kbd class="user-typing" v-pre="">--wait</kbd> option is not required to complete this step,
+but is recommended to ensure this procedure completes without interfering
+with the procedures in the next step.</p></sw-admonition><p>Wait for all charms to move to the <var v-pre="">maintenance</var> status. You can check the status of all charms by entering the <kbd class="user-typing" v-pre="">juju status </kbd> command.</p></li><li id="jd0e173" style="">Update the image tags in Juju for the Contrail Analytics,
+Contrail AnalyticsDB, Contrail Agent, and Contrail Openstack services.<div class="sample" dir="ltr" id="jd0e176"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre> juju config contrail-analytics image-tag=master-latest 
+ juju config contrail-analyticsdb image-tag=master-latest
+ juju config contrail-agent image-tag=master-latest
+ juju config contrail-openstack image-tag=master-latest</pre></template></sw-code></div></div><p>If a Contrail Service
+node (CSN) is part of the cluster, also update the image tags in Juju
+for the Contrail Service node.</p><div class="sample" dir="ltr" id="jd0e181"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju config contrail-agent-csn image-tag=master-latest</pre></template></sw-code></div></div></li><li id="jd0e184" style="">Update the image tag in Juju for the Contrail Controller
+service:<div class="sample" dir="ltr" id="jd0e187"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju config contrail-controller image-tag=master-latest</pre></template></sw-code></div></div></li><li id="jd0e190" style="">After updating the image tags, wait for all services to
+complete stage 5 of the ZIU upgrade process workflow. The wait time
+for this step varies by environment, but often takes 30 to 90 minutes.<p>Enter the <span class="cli" v-pre="">juju status</span> command and review the <strong v-pre="">Workload</strong> and <strong v-pre="">Message</strong> field outputs to monitor progress.
+The update is complete when all services are in the maintenance state—the <strong v-pre="">Workload</strong> field output is <span class="cli" v-pre="">maintenance</span>—and each
+individual service has completed stage 5 of the ZIU upgrade—illustrated
+by the <span class="cli" v-pre="">ziu is in progress - stage/done = 5/5</span> output in
+the <strong v-pre="">Message</strong> field.</p><p>A sample output of an in-progress update that has not completed
+the image tag update process. The <strong v-pre="">Message</strong> field illustrates
+that the ZIU processes have not completed stage 5 of the upgrade.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Some <kbd class="user-typing" v-pre="">juju status</kbd> output fields
+removed for readability.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e227"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre><kbd class="user-typing" v-pre="">juju status</kbd>
+Unit                      Workload    Agent     Message
+contrail-analytics/0*     maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/4</span>
+contrail-analytics/1      maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/4</span>
+contrail-analytics/2      maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/4</span>
+contrail-analyticsdb/0*   maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/4</span>
+contrail-analyticsdb/1    maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/3</span>
+contrail-analyticsdb/2    maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/3</span>
+contrail-controller/0*    maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/4</span>
+  ntp/3                   active      idle      chrony: Ready
+contrail-controller/1     maintenance executing <span data-fg-color="blue">ziu is in progress - stage/done = 4/3</span>
+  ntp/2                   active      idle      chrony: Ready
+contrail-controller/2     maintenance idle      <span data-fg-color="blue">ziu is in progress - stage/done = 4/3</span>
+  ntp/4                   active      idle      chrony: Ready
+contrail-keystone-auth/0* active      idle      Unit is ready</pre></template></sw-code></div></div><p>A sample output of an update that has completed the image tag
+update process on all services. The <strong v-pre="">Workload field</strong> is <span class="cli" v-pre="">maintenance</span> for all services and the <strong v-pre="">Message</strong> field
+explains that stage 5 of the ZIU process is done.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Some <kbd class="user-typing" v-pre="">juju status</kbd> output fields
+removed for readability.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e276"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre><kbd class="user-typing" v-pre="">juju status</kbd>
+Unit                      Workload     Agent Message
+contrail-analytics/0*     <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+contrail-analytics/1      <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+contrail-analytics/2      <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+contrail-analyticsdb/0*   <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+contrail-analyticsdb/1    <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+contrail-analyticsdb/2    <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+contrail-controller/0*    <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+  ntp/3                   active       idle  chrony: Ready
+contrail-controller/1     <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+  ntp/2                   active       idle  chrony: Ready
+contrail-controller/2     <span data-fg-color="blue">maintenance</span>  idle  <span data-fg-color="blue">ziu is in progress - stage/done = 5/5</span>
+  ntp/4                   active       idle  chrony: Ready
+contrail-keystone-auth/0* active       idle  Unit is ready
+glance/0*                 active       idle  Unit is ready
+haproxy/0*                active       idle  Unit is ready
+  keepalived/2            active       idle  VIP ready
+haproxy/1                 active       idle  Unit is ready
+  keepalived/0*           active       idle  VIP ready
+haproxy/2                 active       idle  Unit is ready
+  keepalived/1            active       idle  VIP ready
+heat/0*                   active       idle  Unit is ready
+  contrail-openstack/3    active       idle  Unit is ready
+keystone/0*               active       idle  Unit is ready
+mysql/0*                  active       idle  Unit is ready
+neutron-api/0*            active       idle  Unit is ready
+  contrail-openstack/2    active       idle  Unit is ready
+nova-cloud-controller/0*  active       idle  Unit is ready
+nova-compute/0*           active       idle  Unit is ready
+</pre></template></sw-code></div></div></li><li id="jd0e335" style="">Upgrade every Contrail agent on each individual compute
+node:<div class="sample" dir="ltr" id="jd0e338"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju run-action contrail-agent/0 upgrade
+juju run-action contrail-agent/1 upgrade
+juju run-action contrail-agent/2 upgrade
+...</pre></template></sw-code></div></div><p>If Contrail Service
+nodes (CSNs) are part of the cluster, also upgrade every Contrail
+CSN agent:</p><div class="sample" dir="ltr" id="jd0e343"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>juju run-action contrail-agent-csn/0 upgrade
+...</pre></template></sw-code></div></div><p>Wait for each compute node and CSN node upgrade to finish. The
+wait time for this step varies by environment, but typically takes
+around 10 minutes to complete per node.</p></li><li id="jd0e348" style="">If huge pages are not enabled for your vRouter, log into
+each individual compute node and reboot to complete the procedure.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>A compute node reboot is required to initially enable
+huge pages. If huge pages have been configured in Juju without a compute
+node reboot, you can also use this reboot to enable huge pages. You
+can avoid rebooting the compute node during future software upgrades
+after this initial reboot.</p><p>1024x2MB huge page support is configured by default starting
+in Contrail Networking Release 2005, which is also the first Contrail
+Networking release that supports huge pages. If you are upgrading
+to Release 2005 for the first time, a compute node reboot is always
+required because huge pages could not have been previously enabled.</p><p>This reboot also enables the default 1024x2MB huge page configuration
+unless you change the huge page configuration in Release 2005 or later.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e359"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>sudo reboot</pre></template></sw-code></div></div><p>This step can be skipped if huge pages are enabled.</p></li></ol><sw-prev-next> </sw-prev-next></p>

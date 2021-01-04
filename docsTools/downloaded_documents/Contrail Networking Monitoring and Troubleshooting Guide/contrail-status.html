@@ -1,0 +1,45 @@
+<p id="topic-content"><h1 id="jd0e3">contrail-status (Viewing Node Status)</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><h4 id="jd0e11">Syntax</h4><div class="example" dir="ltr" id="jd0e12"><sw-code><template v-pre=""><div class="statement" style="display:block;">[root@host ~]# contrail-status</div></template></sw-code></div><h4>Release Information</h4><p formatting-option="none" id="jd0e16">Command introduced in Contrail Release
+1.0.</p><h4>Description</h4><p>Display a list of all components of a Contrail
+server node (such as control, configuration, database, Web-UI, analytics,
+or vrouter) and report their current status of active or inactive. </p><h4>Required Privilege Level</h4><p>admin</p><h4>Sample Output</h4><div id="jd0e24">The following example usage displays on a server
+that is configured for the roles of vrouter, controller, analytics,
+configuration, web-ui, and database. <p id="jd0e33"><b>Sample Output</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>root@host:~# contrail-status
+== Contrail vRouter ==
+supervisor-vrouter:           active
+contrail-vrouter-agent        active
+contrail-vrouter-nodemgr      active
+
+== Contrail Control ==
+supervisor-control:           active
+contrail-control              active
+contrail-control-nodemgr      active
+contrail-dns                  active
+contrail-named                active
+
+== Contrail Analytics ==
+supervisor-analytics:         active
+contrail-analytics-api        active
+contrail-analytics-nodemgr    active
+contrail-collector            active
+contrail-query-engine         active
+
+== Contrail Config ==
+supervisor-config:            active
+contrail-api:0                active
+contrail-config-nodemgr       active
+contrail-discovery:0          active
+contrail-schema               active
+contrail-svc-monitor          active
+ifmap                         active
+rabbitmq-server               active
+
+== Contrail Web UI ==
+supervisor-webui:             active
+contrail-webui                active
+contrail-webui-middleware     active
+redis-webui                   active
+
+== Contrail Database ==
+supervisord-contrail-database:active
+contrail-database             active
+contrail-database-nodemgr     active</pre></template></sw-code></div></div><sw-prev-next> </sw-prev-next></p>

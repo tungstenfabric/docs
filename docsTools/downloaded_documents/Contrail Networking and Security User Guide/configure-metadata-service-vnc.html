@@ -1,0 +1,12 @@
+<p id="topic-content"><h1 id="jd0e2">Configuring Metadata Service</h1><sw-topic-details date="2015-09-02"> </sw-topic-details><p>OpenStack enables virtual machines to access metadata by sending
+an HTTP request to the link-local address 169.254.169.254. The metadata
+request from the virtual machine is proxied to Nova with additional
+HTTP header fields that Nova uses to identify the source instance,
+then responds with appropriate metadata. </p><p>In Contrail, the vRouter acts as the proxy, by trapping the
+metadata requests, adding the necessary header fields, and sending
+the requests to the Nova API server. </p><p>The metadata service is configured by setting the <code class="inline" v-pre="">linklocal-services</code> property on the <code class="inline" v-pre="">global-vrouter-config</code> object. </p><p>Use the following elements to configure the <code class="inline" v-pre="">linklocal-services</code> element for metadata service:</p><ul><li style=""><p><code class="inline" v-pre="">linklocal-service-name = metadata</code></p></li><li style=""><p><code class="inline" v-pre="">linklocal-service-ip = 169.254.169.254</code></p></li><li style=""><p><code class="inline" v-pre="">linklocal-service-port = 80 </code></p></li><li style=""><p><code class="inline" v-pre="">ip-fabric-service-ip = <var v-pre="">[server-ip-address]</var> </code></p></li><li style=""><p><code class="inline" v-pre="">ip-fabric-service-port = <var v-pre="">[server-port]</var></code></p></li></ul><p>The <code class="inline" v-pre="">linklocal-services</code> properties
+can be set from the Contrail UI (<strong v-pre="">Configure &gt; Infrastructure &gt;
+Link Local Services</strong>) or by using the following command: </p><p><code class="inline" v-pre="">python /opt/contrail/utils/provision_linklocal.py
+--admin_user <var v-pre="">&lt;user&gt;</var> --admin_password <var v-pre="">&lt;passwd&gt;</var>  --linklocal_service_name metadata --linklocal_service_ip
+169.254.169.254 --linklocal_service_port 80 --ipfabric_service_ip
+--ipfabric_service_port 8775 </code></p><sw-prev-next> </sw-prev-next></p>

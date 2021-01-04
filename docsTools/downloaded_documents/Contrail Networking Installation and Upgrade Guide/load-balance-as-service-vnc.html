@@ -1,0 +1,103 @@
+<p id="topic-content"><h1 id="jd0e2">Configuring Load Balancing as a Service in Contrail</h1><sw-topic-details date="2020-05-26"> </sw-topic-details><h2 id="id-overview-load-balancing-as-a-service">Overview: Load Balancing as a Service</h2><p>Load Balancing as a Service (LBaaS) is a feature available through
+OpenStack Neutron. Contrail Release 1.20 and greater allows the use
+of the Neutron API for LBaaS to apply open source load balancing technologies
+to provision a load balancer in the Contrail system.  </p><p>The LBaaS load balancer enables the creation of a pool of virtual
+machines serving applications, all front-ended by a virtual-ip. The
+LBaaS implementation has the following features:</p><ul><li style=""><p>Load balancing of traffic from clients to a pool of backend
+servers. The load balancer proxies all connections to its virtual
+IP.</p></li><li style=""><p>Provides load balancing for HTTP, TCP, and HTTPS.</p></li><li style=""><p>Provides health monitoring capabilities for applications,
+including HTTP, TCP, and ping.</p></li><li style=""><p>Enables floating IP association to <code class="inline" v-pre="">virtual-ip</code> for public access to the backend pool.</p></li></ul><p>In <a href="load-balance-as-service-vnc.html#config-lbaas">Figure 1</a>, the load balancer is launched with the virtual IP address 198.51.100.2. The
+backend pool of virtual machine applications (App Pool) is on the
+subnet 203.0.113.0/24. Each of the application virtual machines gets an IP address (virtual-ip)
+from the pool subnet. When a client connects to the <code class="inline" v-pre="">virtual-ip</code> for accessing the application, the load balancer proxies the TCP
+connection on its <code class="inline" v-pre="">virtual-ip</code>, then creates
+a new TCP connection to one of the virtual machines in the pool. 
+ </p><p>The pool member is selected using one of following methods:
+ </p><ul><li style=""><p>weighted round robin (WRR), based on the weight assignment</p></li><li style=""><p>least connection, selects the member with the fewest connections</p></li><li style=""><p>source IP selects based on the <code class="inline" v-pre="">source-ip</code> of the packet</p></li></ul><figure id="config-lbaas"><figcaption>Figure 1: Load Balancing as a Service in Contrail</figcaption><div class="graphic"><img alt="Load Balancing as a Service in Contrail" src="documentation/images/g300523.png" style=""/></div></figure><p>Additionally, the load balancer monitors the health of each
+pool member using the following methods:  </p><ul><li style=""><p>Monitors TCP by creating a TCP connection at intervals.</p></li><li style=""><p>Monitors HTTP by creating a TCP connection and issuing
+an HTTP request at intervals.</p></li><li style=""><p>Monitors ping by checking if a member can be reached by
+pinging. </p></li></ul><h2 id="id-contrail-lbaas-implementation">Contrail LBaaS Implementation</h2><p>Contrail supports the OpenStack LBaaS Neutron APIs and creates
+relevant objects for LBaaS, including <code class="inline" v-pre="">virtual-ip</code>, <code class="inline" v-pre="">loadbalancer-pool, loadbalancer-member,</code> and <code class="inline" v-pre="">loadbalancer-healthmonitor</code>. Contrail
+creates a service instance when a <code class="inline" v-pre="">loadbalancer-pool</code> is associated with a <code class="inline" v-pre="">virtual-ip</code> object.
+The service scheduler then launches a namespace on a randomly selected
+virtual router and spawns HAProxy into that namespace. The configuration
+for HAProxy is picked up from the load balancer objects. Contrail
+supports high availability of namespaces and HAProxy by spawning active
+and standby on two different vrouters.</p><div class="example" dir="ltr" id="jd0e106"><p><b><h3 id="jd0e107">A Note on Installation</h3></b></p><p>To use the LBaaS feature, HAProxy, version 1.5 or greater
+and <code class="inline" v-pre="">iproute2</code>, version 3.10.0 or greater
+must both be installed on the Contrail compute nodes.  </p><p>If you are using fab commands for installation, the haproxy
+and iproute2 packages will be installed automatically with LBaaS if
+you set the following:</p><sw-code><template v-pre=""><pre>env.enable_lbaas=True</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e119"><p>Use the following to check the version of the <code class="inline" v-pre="">iproute2</code> package on your system:</p><sw-code><template v-pre=""><pre>root@nodeh5:/var/log# ip -V
+ip utility, iproute2-ss130716
+root@nodeh5:/var/log#</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e128"><p><b><h3 id="jd0e129">Limitations</h3></b></p><p>LBaaS currently has these limitations:</p><ul><li style=""><p>A pool should not be deleted before deleting the VIP.
+ </p></li><li style=""><p>Multiple VIPs cannot be associated with the same pool.
+If pool needs to be reused, create another pool with the same members
+and bind it to the second VIP. </p></li><li style=""><p>Members cannot be moved from one pool to another. If needed,
+first delete the members from one pool, then add to a different pool.
+ </p></li><li style=""><p>In case of active-standby failover, namespaces might not
+get cleaned up when the agent restarts. </p></li><li style=""><p>The floating-ip association needs to select the VIP port
+and not the service ports. ​</p></li></ul></div><h2 id="id-configuring-lbaas-using-cli">Configuring LBaaS Using CLI</h2><p>The LBaaS feature is enabled on Contrail through Neutron API
+calls. The following procedure shows how to create a pool network
+and a VIP network using CLI. The VIP network is created in the public
+network and members are added in the pool network.</p><div class="example" dir="ltr" id="jd0e157"><p><b><h3 id="jd0e158">Creating a Load Balancer</h3></b></p><p>Use the following steps to create a load balancer in
+Contrail.  </p><ol type="1"><li id="jd0e164" style="">Create a VIP network. <p><code class="inline" v-pre="">neutron net-create vipnet </code></p><p><code class="inline" v-pre="">neutron subnet-create –-name vipsubnet vipnet 198.51.100.2 </code></p></li><li id="jd0e173" style="">Create a pool network. <p><code class="inline" v-pre="">neutron net-create poolnet </code></p><p><code class="inline" v-pre="">neutron subnet-create --name poolsubnet poolnet 203.0.113.0/24 </code></p></li><li id="jd0e182" style="">Create a pool for HTTP. <p><code class="inline" v-pre="">neutron lb-pool-create --lb-method ROUND_ROBIN
+--name mypool --protocol HTTP --subnet-id poolsubnet </code> </p></li><li id="jd0e189" style="">Add members to the pool.  <p><code class="inline" v-pre="">neutron lb-member-create --address 203.0.113.3 --protocol-port
+80 mypool </code></p><p><code class="inline" v-pre="">neutron lb-member-create --address 203.0.113.4 --protocol-port
+80 mypool  </code></p></li><li id="jd0e198" style="">Create a VIP for HTTP and associate it to the pool. <p><code class="inline" v-pre="">neutron lb-vip-create --name myvip --protocol-port
+80 --protocol HTTP--subnet-id vipsubnet mypool </code></p></li></ol></div><div class="example" dir="ltr" id="jd0e204"><p><b><h3 id="jd0e205">Deleting a Load Balancer</h3></b></p><p>Use the following steps to delete a load balancer in
+Contrail.  </p><ol type="1"><li id="jd0e211" style="">Delete the VIP. <p><code class="inline" v-pre="">neutron lb-vip-delete <var v-pre="">&lt;vip-uuid&gt;</var></code></p></li><li id="jd0e219" style="">Delete members from the pool.<p><code class="inline" v-pre="">neutron lb-member-delete <var v-pre="">&lt;member-uuid&gt; </var></code></p></li><li id="jd0e227" style="">Delete the pool. <p><code class="inline" v-pre="">neutron lb-pool-delete <var v-pre="">&lt;pool-uuid&gt;</var> </code> </p></li></ol></div><div class="example" dir="ltr" id="jd0e237"><p><b><h3 id="jd0e238">Managing Healthmonitor for Load Balancer</h3></b></p><p>Use the following commands to create a healthmonitor,
+associate a healthmonitor to a pool, disassociate a healthmonitor,
+and delete a healthmonitor.   </p><ol type="1"><li id="jd0e244" style="">Create a healthmonitor.  <p><code class="inline" v-pre="">neutron lb-healthmonitor-create --delay 20 --timeout
+10 --max-retries 3 --type HTTP</code></p></li><li id="jd0e250" style="">Associate a healthmonitor to a pool.     <p><code class="inline" v-pre="">neutron lb-healthmonitor-associate <var v-pre="">&lt;healthmonitor-uuid&gt;</var> mypool </code></p></li><li id="jd0e259" style="">Disassociate a healthmonitor from a pool.  <p><code class="inline" v-pre="">neutron lb-healthmonitor-disassociate <var v-pre="">&lt;healthmonitor-uuid&gt;</var> mypool  </code> </p></li></ol></div><div class="example" dir="ltr" id="jd0e269"><p><b><h3 id="jd0e270">Configuring an SSL VIP with an HTTP Backend Pool</h3></b></p><p>Use the following steps to configure an SSL VIP with
+an HTTP backend pool.</p><ol type="1"><li id="jd0e276" style="">Copy an SSL certificate to all compute nodes. <p><code class="inline" v-pre="">scp ssl_certificate.pem <var v-pre="">&lt;compute-node-ip&gt;
+&lt;certificate-path&gt;</var></code></p></li><li id="jd0e284" style=""> Update the information in<code class="filepath">   /etc/contrail/contrail-vrouter-agent.conf</code>.<p><code class="inline" v-pre=""># SSL certificate path haproxy  </code></p><p><code class="inline" v-pre="">haproxy_ssl_cert_path=<var v-pre="">&lt;certificate-path&gt;</var> </code></p></li><li id="jd0e299" style="">Restart <code class="inline" v-pre="">contrail-vrouter-agent. </code><p><code class="inline" v-pre="">service contrail-vrouter-agent restart  </code> </p></li><li id="jd0e308" style="">Create a VIP for port 443 (SSL)​. <p><code class="inline" v-pre="">neutron lb-vip-create --name myvip --protocol-port
+443 --protocol HTTP --subnet-id vipsubnet mypool​   </code></p></li></ol></div><h2 id="id-configuring-lbaas-using-the-contrail-web-ui">Configuring LBaaS using the Contrail Command UI</h2><p>Create, edit, or delete load balancers using the Contrail Command UI. Use the following guidelines
+when creating load balancers:</p><ul><li style=""><p>Each load balancer consists of one or more listeners,
+pools, pool members, and health monitors.</p><ul><li style=""><p>Listener: Port that listens for traffic from a particular
+load balancer. Multiple listeners can be associated with a single
+load balancer.</p></li><li style=""><p>Pool: Group of hosts that serves traffic from the load
+balancer.</p></li><li style=""><p>Pool Member: Server that is specified by the IP address
+and port for which it uses to serve the traffic it receives from the
+load balancer.</p></li><li style=""><p>Health Monitor: Health monitors are associated with pools
+and help divert traffic away from pool members that are temporarily
+offline.</p></li></ul></li><li style=""><p>Each load balancer can have multiple pools with one or
+more listeners for each pool.</p></li><li style=""><p>The native load balancer has a single pool that is shared
+among multiple listeners.</p></li></ul><div class="example" dir="ltr" id="jd0e344"><p><b><h3 id="jd0e345">Creating a Load Balancer</h3></b></p><p>Use the following steps to create a load balancer with
+the load balancer wizard. </p><ol type="1"><li id="jd0e351" style="">Go to <strong v-pre="">Services &gt; Load Balancers</strong>.<figure id="lbui1"><figcaption>Figure 2: Create Load Balancers</figcaption><div class="graphic"><img alt="Create Load Balancers" src="documentation/images/s009589.png" style=""/></div></figure></li><li id="jd0e361" style="">To create a load balancer, click  <strong v-pre="">Create</strong>.<figure id="lbui2"><figcaption>Figure 3: Load Balancer Information</figcaption><div class="graphic"><img alt="Load Balancer Information" src="documentation/images/s009591.png" style=""/></div></figure><p>Add the load balancer information:</p><ul><li style=""><p><strong v-pre="">Name</strong>: Name of the load balancer.</p></li><li style=""><p><strong v-pre="">Description</strong>: (Optional) Description of the
+load balancer.</p></li><li style=""><p><strong v-pre="">Subnet</strong>: Drop-down menu displays all subnets from
+list of all available networks. The subnet is the network on which
+to allocate the IP address of the load balancer.</p></li><li style=""><p><strong v-pre="">Loadbalancer
+Provider</strong>: Drop-down menu includes available options. Default
+is opencontrail.</p></li><li style=""><p><strong v-pre="">Fixed IPs</strong>: (Optional) IPv4 or IPv6 address.</p></li><li style=""><p><strong v-pre="">Floating IP</strong>: (Optional) IPv4 or IPv6 address.</p></li><li style=""><p><strong v-pre="">Admin State</strong>: Check the checkbox for UP or uncheck
+the checkbox for DOWN. Default is UP.</p></li></ul></li><li id="jd0e409" style="">Click <strong v-pre="">Next</strong>. The Listener fields are displayed.<figure id="lbui3"><figcaption>Figure 4: Listener Information</figcaption><div class="graphic"><img alt="Listener Information" src="documentation/images/s009592.png" style=""/></div></figure><p>Add the listener information:</p><ul><li style=""><p><strong v-pre="">Name</strong>: Name of the listener.</p></li><li style=""><p><strong v-pre="">Description</strong>: (Optional) Description of the
+listener.</p></li><li style=""><p><strong v-pre="">Protocol</strong>: Dropdown menu includes HTTP and TCP.</p></li><li style=""><p><strong v-pre="">Port</strong>: Must be an integer in the range of 1
+to 65535.</p></li><li style=""><p><strong v-pre="">Connection Limit</strong>: (Optional).  -1indicates an infinite limit.</p></li><li style=""><p><strong v-pre="">Admin State</strong>: Check the checkbox for UP or uncheck
+the checkbox for DOWN. Default is UP.</p></li></ul></li><li id="jd0e452" style="">Click <strong v-pre="">Next</strong>. The Pool fields are displayed.<figure id="lbui4"><figcaption>Figure 5: Pool Information</figcaption><div class="graphic"><img alt="Pool Information" src="documentation/images/s009593.png" style=""/></div></figure><p>Add the pool information:</p><ul><li style=""><p><strong v-pre="">Name</strong>: Name of the pool.</p></li><li style=""><p><strong v-pre="">Description</strong>: (Optional) Description of the
+pool.</p></li><li style=""><p><strong v-pre="">Method</strong>: Load balancing method used to distribute
+incoming requests. Dropdown menu includes LEAST_CONNECTIONS, ROUND_ROBIN,
+and SOURCE_IP.</p></li><li style=""><p><strong v-pre="">Protocol</strong>: The protocol used by the pool and
+its members for the load balancer traffic. Dropdown menu includes
+TCP and
+HTTP.</p></li><li style=""><p><strong v-pre="">Session Persistence</strong>: (Optional) Default value
+is an empty dictionary.</p></li><li style=""><p><strong v-pre="">Admin State</strong>: Check the checkbox for UP or uncheck
+the checkbox for DOWN. Default is UP.</p></li></ul></li><li id="jd0e495" style="">Click <strong v-pre="">Next</strong>. The list of available pool member
+instances are displayed. To add an external member, click the <span class="graphic"><img alt="" src="documentation/images/s042494.png" style=""/></span> <strong v-pre="">Add</strong> icon. Each pool member must have a unique
+IP address and port combination.<figure id="lbui5"><figcaption>Figure 6: Pool Member Information</figcaption><div class="graphic"><img alt="Pool Member Information" src="documentation/images/s009594.png" style=""/></div></figure><p>The pool member information includes:</p><ul><li style=""><p><strong v-pre="">Name</strong>: Name of the pool member.</p></li><li style=""><p><strong v-pre="">Subnet</strong>: The subnet in which to access the member.</p></li><li style=""><p><strong v-pre="">IP Address</strong>: The IP address of the member that
+is used to receive traffic from the load balancer.</p></li><li style=""><p><strong v-pre="">Port</strong>: The port to which the member listens
+to receive traffic from the load balancer.</p></li><li style=""><p><strong v-pre="">Weight</strong>: The default value is 1.</p></li><li style=""><p><strong v-pre="">Admin State</strong>: Check the checkbox for UP or uncheck
+the checkbox for DOWN. Default is UP.</p></li></ul></li><li id="jd0e543" style="">Click <strong v-pre="">Next</strong>. The Monitor fields are displayed.<figure id="lbui6"><figcaption>Figure 7: Health Monitor Information</figcaption><div class="graphic"><img alt="Health Monitor Information" src="documentation/images/s009595.png" style=""/></div></figure><p>Add the health monitor information:</p><ul><li style=""><p><strong v-pre="">Monitor Type</strong>: Dropdown menu includes HTTP, PING, and TCP.</p></li><li style=""><p><strong v-pre="">HTTP Method</strong>: Required if monitor type is HTTP. Dropdown menu includes GET and
+HEAD. The default value is GET.</p></li><li style=""><p><strong v-pre="">Expected HTTP Status Code</strong>: Required
+if monitor type is HTTP. The default value is 200.</p></li><li style=""><p><strong v-pre="">URL Path</strong>: Required if monitor type is
+HTTP. The default value is “/.”</p></li><li style=""><p><strong v-pre="">Health check interval (sec)</strong>: The time interval,
+in seconds, between each health check. The default value is 5.</p></li><li style=""><p><strong v-pre="">Retry count before markdown</strong>: The maximum number
+of failed health checks before the state of a member is changed to
+OFFLINE. The default value
+is 3.</p></li><li style=""><p><strong v-pre="">Timeout (sec)</strong>: The maximum number of seconds
+allowed for any given health check to complete. The timeout value
+should always be less than the health check interval. The default value is 5.</p></li><li style=""><p><strong v-pre="">Admin State</strong>: Check the checkbox for UP or uncheck
+the checkbox for DOWN. Default is UP.</p></li></ul><p>Click <strong v-pre="">Finish</strong>.</p></li></ol></div><div class="example" dir="ltr" id="jd0e601"><p><b><h3 id="jd0e602">Viewing or Editing Load Balancers</h3></b></p><p>Use the following steps to view or edit existing load
+balancers.</p><ol type="1"><li id="jd0e608" style="">Go to <strong v-pre="">Services &gt; Load Balancers</strong>. A summary screen of the Load
+Balancers is displayed.<figure id="lbui7"><figcaption>Figure 8: Summary Screen of Load Balancers</figcaption><div class="graphic"><img alt="Summary Screen of Load Balancers" src="documentation/images/s009596.png" style=""/></div></figure></li><li id="jd0e618" style="">To view summary of
+a load balancer, click the drop down arrow next to a load balancer listed
+in the summary screen. The Load Balancer Info window is displayed.<figure id="lbui8"><figcaption>Figure 9: Load Balancer Info Window</figcaption><div class="graphic"><img alt="Load Balancer Info Window" src="documentation/images/s009598.png" style=""/></div></figure></li></ol></div><div class="example" dir="ltr" id="jd0e625"><p><b><h3 id="jd0e626">Deleting a Load Balancer</h3></b></p><p>To delete the load balancer,
+click the trash can icon.</p><figure id="jd0e631"><div class="graphic"></div><div class="graphic"><img alt="" src="documentation/images/s009590.png" style=""/></div></figure></div><sw-prev-next> </sw-prev-next></p>

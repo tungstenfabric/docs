@@ -1,0 +1,455 @@
+<p id="topic-content"><h1 id="jd0e2">Contrail Analytics Application Programming Interfaces (APIs)
+and User-Visible Entities (UVEs)</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><p>The Contrail <strong v-pre="">analytics-api </strong>server provides
+a REST API interface to extract the operational state of the Contrail
+system. </p><p>APIs are used by the Contrail Web user interface to present
+the operational state to users. Other applications might also use
+the server's REST APIs for analytics or other uses. </p><p>This section describes some of the more common APIs and their
+uses. To see all of the available APIs, navigate the URL tree at the
+REST interface, starting at the root <strong v-pre="">http://<var v-pre="">&lt;ip&gt;</var>:<var v-pre="">&lt;analytics-api-port&gt;</var> .</strong>You can also
+view Contrail API information at:<a href=" http://configuration-schema-documentation.s3-website-us-west-1.amazonaws.com/R3.2/"> http://configuration-schema-documentation.s3-website-us-west-1.amazonaws.com/R3.2/</a> .</p><h2 id="jd0e32">User-Visible Entities</h2><p>In Contrail, a User-Visible Entity (UVE) is an object entity
+that might span multiple components in Contrail and might require
+aggregation before the complete information of the UVE is presented.
+Examples of UVEs in Contrail are virtual network, virtual machine,
+vRouter, and similar objects. Complete operational information for
+a virtual network might span multiple vRouters, config nodes, control
+nodes, and the like. The analytics-api server aggregates all of this
+information through REST APIs.   </p><p>To get information about a UVE, you must have the UVE type and
+the UVE key. In Contrail, UVEs are identified by type, such as virtual
+network, virtual machine, vRouter, and so on. A system-wide unique
+key is associated with each UVE. The key type could be different,
+based on the UVE type. For example, perhaps a virtual network uses
+its name as its UVE key, and in the same system, a virtual machine
+uses its UUID as its key. </p><p>The URL <code class="inline" v-pre="">/analytics/uves</code> shows the
+list of all UVE types available in the system.   </p><p>The following is sample output from <code class="inline" v-pre="">/analytics/uves</code>: </p><div class="sample" dir="ltr" id="jd0e51"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/xmpp-peers",
+name: "xmpp-peers"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/service-instances",
+name: "service-instances"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/config-nodes",
+name: "config-nodes"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/virtual-machines",
+name: "virtual-machines"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/bgp-routers",
+name: "bgp-routers"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/collectors",
+name: "collectors"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/service-chains",
+name: "service-chains"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/generators",
+name: "generators"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/bgp-peers",
+name: "bgp-peers"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/virtual-networks",
+name: "virtual-networks"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/vrouters",
+name: "vrouters"
+},
+{
+href: "http://<var v-pre="">&lt;system IP&gt;</var>:8081/analytics/uves/dns-nodes",
+name: "dns-nodes"
+}
+]
+</pre></template></sw-code></div></div><h2 id="jd0e90">Common UVEs in Contrail</h2><p>This section presents descriptions of some common UVEs
+in Contrail. </p><h2 id="jd0e97">Virtual Network UVE</h2><p>This UVE provides information associated with a virtual network,
+such as:  </p><ul><li style=""><p>list of networks connected to this network </p></li><li style=""><p>list of virtual machines spawned in this network</p></li><li style=""><p>list of access control lists (ACLs) associated with this
+virtual network</p></li><li style=""><p>global input and output statistics</p></li><li style=""><p>input and output statistics per virtual network pair</p></li></ul><p>The REST API to get a UVE for a specific virtual network is
+through HTTP GET, using the URL:</p><p> <code class="inline" v-pre="">/analytics/uves/virtual-network/&lt;key&gt; </code></p><p>The REST API to get UVEs for all virtual machines is through
+HTTP GET, using the URL:</p><p><code class="inline" v-pre=""> /analytics/uves/virtual-networks </code></p><h2 id="jd0e130">Virtual Machine UVE</h2><p>This UVE provides information associated with a virtual machine,
+such as:  </p><ul><li style=""><p>list of interfaces in this virtual machine</p></li><li style=""><p>list of floating IPs associated with each interface</p></li><li style=""><p>input and output statistics</p></li></ul><p>The REST API to get a UVE for a specific virtual machine is
+through HTTP GET, using the URL:</p><p> <code class="inline" v-pre="">/analytics/uves/virtual-machine/&lt;key&gt; </code></p><p>The REST API to get UVEs for all virtual machines is through
+HTTP GET, using the URL:</p><p><code class="inline" v-pre=""> /analytics/uves/virtual-machines </code></p><h2 id="jd0e157">vRouter UVE</h2><p>This UVE provides information associated with a vRouter, such
+as:  </p><ul><li style=""><p>virtual networks present on this vRouter</p></li><li style=""><p>virtual machines spawned on the server of this vRouter</p></li><li style=""><p>statistics of the traffic flowing through this vRouter</p></li></ul><p>The REST API to get a UVE for a specific vRouter is through
+HTTP GET, using the URL:</p><p> <code class="inline" v-pre="">/analytics/uves/vrouter/&lt;key&gt;</code></p><p>The REST API to get UVEs for all virtual machines is through
+HTTP GET, using the URL:</p><p><code class="inline" v-pre=""> /analytics/uves/vrouters </code></p><h2 id="jd0e184">UVEs for Contrail Nodes</h2><p>There are multiple node types in Contrail (including the node
+type vRouter previously described). Other node types include control
+node, config node, analytics node, and compute node.</p><p>There is a UVE for each node type. The common information associated
+with each node UVE includes: </p><ul><li style=""><p>the IP address of the node</p></li><li style=""><p>a list of processes running on the node</p></li><li style=""><p>the CPU and memory utilization of the running processes</p></li></ul><p>Each UVE also has node-specific information, such as:</p><ul><li style=""><p>the control node UVE has information about its connectivity
+to the vRouter and other control nodes</p></li><li style=""><p>the analytics node UVE has information about the number
+of generators connected</p></li></ul><p>The REST API to get a UVE for a specific config node is through
+HTTP GET, using the URL:</p><p> <code class="inline" v-pre="">/analytics/uves/config-node/&lt;key&gt;</code></p><p>The REST API to get UVEs for all config nodes is through HTTP
+GET, using the URL:</p><p><code class="inline" v-pre=""> /analytics/uves/config-nodes </code></p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Use similar syntax to get UVES for each of the different
+types of nodes,  substituting the node type that you want in place
+of <code class="inline" v-pre="">config-node.</code></p></sw-admonition><h2 id="jd0e227">Wild Card Query of UVEs</h2><p>You can use wildcard queries when you want to get multiple UVEs
+at the same time. Example queries are the following:</p><p>The following HTTP GET with wildcard retrieves all virtual network
+UVEs:</p><p> <code class="inline" v-pre="">/analytics/uves/virtual-network/* </code></p><p>The following HTTP GET with wildcard retrieves all virtual network
+UVEs with name starting with <code class="inline" v-pre="">project1</code>:​</p><p><code class="inline" v-pre="">/analytics/uves/virtual-network/project1* </code></p><h2 id="jd0e247">Filtering UVE Information</h2><p>It is possible to retrieve filtered UVE information. The following
+flags enable you to retrieve partial, filtered information about UVEs.
+ </p><p>Supported filter flags include:</p><ul><li class="unmarked-list" style=""><p><code class="inline" v-pre="">sfilt</code> : filter by source (usually
+the hostname of the generator)</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">mfilt</code> : filter by module (the
+module name of the generator)</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">cfilt</code> : filter by content,
+useful when only part of a UVE needs to be retrieved</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">kfilt</code> : filter by UVE keys,
+useful to get multiple, but not all, UVEs of a particular type</p></li></ul><div class="example" dir="ltr" id="jd0e276"><p><b><h3 id="jd0e277">Examples</h3></b></p></div><p>The following HTTP GET with filter retrieves information about
+virtual network <code class="inline" v-pre="">vn1</code> as provided by the
+source <code class="inline" v-pre="">src1</code>:</p><p> <code class="inline" v-pre="">/analytics/uves/virtual-network/vn1?sfilt=src1 </code></p><p>The following HTTP GET with filter retrieves information about
+virtual network <code class="inline" v-pre="">vn1</code> as provided by all <code class="inline" v-pre="">ApiServer</code> modules:​</p><p> <code class="inline" v-pre=""> ​/analytics/uves/virtual-network/vn1?mfilt=ApiServer</code></p><div class="example" dir="ltr" id="jd0e303"><p><b><h3 id="jd0e304">Example Output: Virtual Network UVE</h3></b></p><p>Example output for a virtual network UVE:</p><sw-code><template v-pre=""><pre>[user@host ~]# curl <var v-pre="">&lt;system IP&gt;</var>:8081/analytics/virtual-network/default-domain:demo:front-end | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  2576  100  2576    0     0   152k      0 --:--:-- --:--:-- --:--:--  157k
+{
+    "UveVirtualNetworkAgent": {
+        "acl": [
+            [
+                {
+                    "@type": "string"
+                },
+                "a3s18:VRouterAgent"
+            ]
+        ],
+        "in_bytes": {
+            "#text": "2232972057",
+            "@aggtype": "counter",
+            "@type": "i64"
+        },
+        "in_stats": {
+            "@aggtype": "append",
+            "@type": "list",
+            "list": {
+                "@size": "3",
+                "@type": "struct",
+                "UveInterVnStats": [
+                    {
+                        "bytes": {
+                            "#text": "2114516371",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "default-domain:demo:back-end",
+                            "@aggtype": "listkey",
+                            "@type": "string"
+                        },
+                        "tpkts": {
+                            "#text": "5122001",
+                            "@type": "i64"
+                        }
+                    },
+                    {
+                        "bytes": {
+                            "#text": "1152123",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "__FABRIC__",
+                            "@aggtype": "listkey",
+                            "@type": "string"
+                        },
+                        "tpkts": {
+                            "#text": "11323",
+                            "@type": "i64"
+                        }
+                    },
+                    {
+                        "bytes": {
+                            "#text": "8192",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "default-domain:demo:front-end",
+                            "@aggtype": "listkey",
+                             "@type": "string"
+                        },
+                        "tpkts": {
+                            "#text": "50",
+                            "@type": "i64"
+                        }
+                    }
+                ]
+            }
+        },
+        "in_tpkts": {
+            "#text": "5156342",
+            "@aggtype": "counter",
+            "@type": "i64"
+        },
+        "interface_list": {
+            "@aggtype": "union",
+            "@type": "list",
+            "list": {
+                "@size": "1",
+                "@type": "string",
+                "element": [
+                    "tap2158f77c-ec"
+                ]
+            }
+        },
+        "out_bytes": {
+            "#text": "2187615961",
+            "@aggtype": "counter",
+            "@type": "i64"
+        },
+ "out_stats": {
+            "@aggtype": "append",
+            "@type": "list",
+            "list": {
+                "@size": "4",
+                "@type": "struct",
+                "UveInterVnStats": [
+                    {
+                        "bytes": {
+                            "#text": "2159083215",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "default-domain:demo:back-end",
+                            "@aggtype": "listkey",
+                            "@type": "string"
+                        },
+                        "tpkts": {
+                            "#text": "5143693",
+                            "@type": "i64"
+                        }
+                    },
+                    {
+                        "bytes": {
+                            "#text": "1603041",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "__FABRIC__",
+                            "@aggtype": "listkey",
+                            "@type": "string"
+                        },
+                         "tpkts": {
+                            "#text": "9595",
+                            "@type": "i64"
+                        }
+                    },
+                    {
+                        "bytes": {
+                            "#text": "24608",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "__UNKNOWN__",
+                            "@aggtype": "listkey",
+                            "@type": "string"
+                        },
+                        "tpkts": {
+                            "#text": "408",
+                            "@type": "i64"
+                        }
+                    },
+                    {
+                        "bytes": {
+                            "#text": "8192",
+                            "@type": "i64"
+                        },
+                        "other_vn": {
+                            "#text": "default-domain:demo:front-end",
+                            "@aggtype": "listkey",
+                            "@type": "string"
+                        },
+                          "tpkts": {
+                            "#text": "50",
+                            "@type": "i64"
+                        }
+                    }
+                ]
+            }
+        },
+        "out_tpkts": {
+            "#text": "5134830",
+            "@aggtype": "counter",
+            "@type": "i64"
+        },
+        "virtualmachine_list": {
+            "@aggtype": "union",
+            "@type": "list",
+            "list": {
+                "@size": "1",
+                "@type": "string",
+                "element": [
+                    "dd09f8c3-32a8-456f-b8cc-fab15189f50f"
+                ]
+            } }
+    },
+    "UveVirtualNetworkConfig": {
+        "connected_networks": {
+            "@aggtype": "union",
+            "@type": "list",
+            "list": {
+                "@size": "1",
+                "@type": "string",
+                "element": [
+                    "default-domain:demo:back-end"
+                ]
+            }
+        },
+        "routing_instance_list": {
+            "@aggtype": "union",
+            "@type": "list",
+            "list": {
+                "@size": "1",
+                "@type": "string",
+                "element": [
+                    "front-end"
+                ]
+            }
+        },
+        "total_acl_rules": [
+            [
+                { 
+                   "#text": "3",
+                    "@type": "i32"
+                },
+                ":",
+                "a3s14:Schema"
+            ]
+        ]
+    }
+}</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e314"><p><b><h3 id="jd0e315">Example Output: Virtual Machine UVE</h3></b></p><p>Example output for a virtual machine UVE:</p><sw-code><template v-pre=""><pre>[user@host ~]# curl <var v-pre="">&lt;system IP&gt;</var>:8081/analytics/virtual-machine/f38eb47e-63d2-4b39-80de-8fe68e6af1e4 | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   736  100   736    0     0   160k      0 --:--:-- --:--:-- --:--:--  179k
+{
+    "UveVirtualMachineAgent": {
+        "interface_list": [
+            [
+                {
+                    "@type": "list",
+                    "list": {
+                        "@size": "1",
+                        "@type": "struct",
+                        "VmInterfaceAgent": [
+                            {
+                                "in_bytes": {
+                                    "#text": "2188895907",
+                                    "@aggtype": "counter",
+                                    "@type": "i64"
+                                },
+                                "in_pkts": {
+                                    "#text": "5130901",
+                                    "@aggtype": "counter",
+                                    "@type": "i64"
+                                },
+                                "ip_address": {
+                                    "#text": "192.168.2.253",
+                                    "@type": "string"
+                                },
+                                "name": {
+                                    "#text": "f38eb47e-63d2-4b39-80de-8fe68e6af1e4:ccb085a0-c994-4034-be0f-6fd5ad08ce83",
+                                    "@type": "string"
+                                },
+                                "out_bytes": {
+                                    "#text": "2201821626",
+                                    "@aggtype": "counter",
+                                    "@type": "i64"
+                                },
+                                "out_pkts": {
+                                    "#text": "5153526",
+                                    "@aggtype": "counter",
+                                    "@type": "i64"
+                                },
+                                "virtual_network": {
+                                    "#text": "default-domain:demo:back-end",
+                                    "@aggtype": "listkey",
+                                    "@type": "string"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "a3s19:VRouterAgent"
+            ]
+        ]
+    }
+}</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e325"><p><b><h3 id="jd0e326">Example Output: vRouter UVE</h3></b></p><p>Example output for a vRouter UVE:</p><sw-code><template v-pre=""><pre>[user@host ~]# curl <var v-pre="">&lt;system IP&gt;</var>:8081/analytics/vrouter/a3s18 | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   706  100   706    0     0   142k      0 --:--:-- --:--:-- --:--:--  172k
+{
+    "VrouterAgent": {
+        "collector": [
+            [
+                {
+                    "#text": "10.xx.17.1",
+                    "@type": "string"
+                },
+                "a3s18:VRouterAgent"
+            ]
+        ],
+        "connected_networks": [
+            [
+                {
+                    "@type": "list",
+                    "list": {
+                        "@size": "1",
+                        "@type": "string",
+                        "element": [
+                            "default-domain:demo:front-end"
+                        ]
+                    }
+                },
+                "a3s18:VRouterAgent"
+            ]
+        ],
+        "interface_list": [
+            [
+                {
+                    "@type": "list",
+                    "list": {
+                        "@size": "1",
+                        "@type": "string",
+                        "element": [
+                            "tap2158f77c-ec"
+                        ]
+                    }
+                },
+                "a3s18:VRouterAgent"
+            ]
+        ],
+        "virtual_machine_list": [
+            [
+                {
+                    "@type": "list",
+                    "list": {
+                        "@size": "1",
+                        "@type": "string",
+                        "element": [
+                            "dd09f8c3-32a8-456f-b8cc-fab15189f50f"
+                        ]
+                    }
+                },
+                "a3s18:VRouterAgent"
+            ]
+        ],
+        "xmpp_peer_list": [
+            [
+                {
+                    "@type": "list",
+                    "list": {
+                        "@size": "2",
+                        "@type": "string",
+                        "element": [
+                            "10.xx.17.2",
+                            "10.xx.17.3"
+                        ]
+                    }
+                },
+                "a3s18:VRouterAgent"
+            ]
+        ]
+    }
+}
+
+</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

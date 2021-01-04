@@ -1,0 +1,124 @@
+<p id="topic-content"><h1 id="jd0e3">Multiple Network Interfaces for Containers</h1><sw-topic-details date="2020-11-10"> </sw-topic-details><p>Starting in Release 4.0, Contrail provides networking
+support for containers using Kubernetes Orchestration. You can allocate
+a network interface to every container that you create using standard
+Container Networking Interface (CNI plugin). For more information
+on Contrail Containers Networking, see <a href="../../concept/kubernetes-cni-contrail.html">Contrail Integration with Kubernetes</a>.</p><p>Starting in Contrail Release 5.1, you can allocate multiple
+network interfaces (multi-net) to a container to enable the container
+to connect to multiple networks. You can specify the networks the
+container can connect to. A network interface is either a physical
+interface or a virtual interface and is connected to the Linux network
+namespace. A network namespace is the network stack in the Linux kernel.
+More than one container can share the same network namespace.</p><p>Contrail multi-net support is based on the Kubernetes multi-net
+model. Kubernetes multi-net model has a specific design and construct,
+and can be extended to non-kubernetes models like Contrail multi-net.
+Contrail multi-net model does not require changes to the Kubernetes
+API and Kubernetes CNI driver. Contrail multi-net model, as in the
+case of Kubernetes multi-net model, does not change the existing cluster-wide
+network behavior. </p><p><kbd class="user-typing" v-pre="">The following limitations and caveats apply
+when you create multi-net interfaces:</kbd></p><ul><li style=""><p>You cannot add or remove sidecar networks while the pod
+is still running.</p></li><li style=""><p>The administrator is responsible for removing corresponding
+Contrail pods before deleting the network attachment definition from
+the Kubernetes API server.</p></li><li style=""><p>Contrail creates a default <span class="cli" v-pre="">cluster-wide-network</span> in addition to custom networks.</p></li><li style=""><p>Contrail CNI plugin is not a delegating plugin. It does
+not support specifications for delegating plugins that are provided
+in the Kubernetes Network Custom Resource Definition De Facto Standard
+Version 1. For more information, view <code class="filepath">[v1] Kubernetes
+Network Custom Resource Definition De-facto Standard.md</code> from the <a href="https://github.com/K8sNetworkPlumbingWG/multi-net-spec">https://github.com/K8sNetworkPlumbingWG/multi-net-spec</a> page.</p></li></ul><p><kbd class="user-typing" v-pre="">Creating Multi-Net Interfaces</kbd></p><p>Follow these steps to create multi-net interfaces.</p><ol type="1"><li id="jd0e53" style="">Create Network Object Model.<p>You create the network object model if the cluster does not
+support the model.</p><p>The object model of the container orchestration platform represents
+the network and attaches the network to a container. If the model
+does not support network objects by default, you can use extensions
+to represent the network.</p><div class="sample" dir="ltr" id="jd0e60"><p><b>Creating Network Object Model by using Kubernetes NetworkAttachmentDefinition
+CRD object</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  # name must match the spec fields below, and be in the form: &lt;plural&gt;.&lt;group&gt;
+  name: network-attachment-definitions.k8s.cni.cncf.io
+spec:
+  # group name to use for REST API: /apis/&lt;group&gt;/&lt;version&gt;
+  group: k8s.cni.cncf.io
+  # version name to use for REST API: /apis/&lt;group&gt;/&lt;version&gt;
+  version: v1
+  # either Namespaced or Cluster
+  scope: Namespaced
+  names:
+    # plural name to be used in the URL: /apis/&lt;group&gt;/&lt;version&gt;/&lt;plural&gt;
+    plural: network-attachment-definitions
+    # singular name to be used as an alias on the CLI and for display
+    singular: network-attachment-definition
+    # kind is normally the CamelCased singular type. Your resource manifests use this.
+    kind: NetworkAttachmentDefinition
+    # shortNames allow shorter string to match your resource on the CLI
+    shortNames:
+    - net-attach-def
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            config:
+              type: string</pre></template></sw-code></div></div><p>Kubernetes uses custom extensions to represent networks in its
+object model. CustomResourceDefinition(CRD) feature of Kubernetes
+helps support custom extensions.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>A CRD is created automatically when you install Contrail.
+	Networks specified by CRD are sidecars that are not recognized by
+Kubernetes. The interaction of additional pod network attachments
+with Kubernetes API and its objects, such as services, endpoints,
+proxies, etc. are not specified. Kubernetes does not recognize the
+association of these objects to any pod.</p></sw-admonition></li><li id="step-2" style="">Create networks.<p>You create networks in the cluster:</p><ul><li style=""><p>Through the API server.</p><div class="sample" dir="ltr" id="jd0e79"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  annotations:
+    opencontrail.org/cidr: "<var v-pre="">&lt;ip address&gt;</var>/24"
+    opencontrail.org/ip_fabric_forwarding: "false"
+    opencontrail.org/ip_fabric_snat: "false"
+  name: right-network
+  namespace: default
+spec:
+  config: '{ "cniVersion": "0.3.0", "type": "contrail-k8s-cni" }' 
+ 
+</pre></template></sw-code></div></div><p>Create a <code class="filepath">right-network.yaml</code> file.</p></li><li style=""><p>By mapping to an existing network created from the Contrail
+Web user interface or from the Contrail Command user interface.</p><div class="sample" dir="ltr" id="jd0e93"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: extns-network
+  annotations:
+    "opencontrail.org/network" : '{"domain":"default-domain", "project": "k8s-extns", "name":"k8s-extns-pod-network"}'
+spec:
+  config: '{
+    "cniVersion": "0.3.1",
+    "type": "contrail-k8s-cni"
+}'</pre></template></sw-code></div></div></li></ul><p>Command to create the network:</p><div class="sample" dir="ltr" id="jd0e98"><div dir="ltr" id="jd0e99"><code>kubectl apply -f right-network.yaml</code></div></div></li><li id="jd0e101" style="">Assign networks to pods.<p>You assign the networks that you created in Step <a href="multi-network-interfaces-containers.html#step-2">2</a> to pods. Each pod also has a default network
+assigned to it. Therefore, each pod will have the following networks
+assigned:</p><ul><li style=""><p>default network (assigned by Kubernetes)</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Contrail internally creates a default network called <code class="inline" v-pre="">cluster-wide-network</code>. This interface is the default
+interface for the pod</p></sw-admonition></li><li style=""><p>network that you created in Step <a href="multi-network-interfaces-containers.html#step-2">2</a></p></li></ul><p>Assigning networks to pods by using <em>k8s-semantics</em>:</p><p><kbd class="user-typing" v-pre="">Option 1</kbd></p><div class="sample" dir="ltr" id="jd0e131"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>apiVersion: v1
+kind: Pod
+metadata:
+  name: multiNetworkPod
+  annotations:
+    k8s.v1.cni.cncf.io/networks: '[
+      { "name": "network-a" },
+      { "name": "network-b" }
+    ]'
+spec:
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+    stdin: true
+    tty: true
+  restartPolicy: Always</pre></template></sw-code></div></div><p><kbd class="user-typing" v-pre="">Option 2</kbd></p><div class="sample" dir="ltr" id="jd0e137"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod-3
+  annotations:
+    k8s.v1.cni.cncf.io/networks: left-network,blue-network,right-network,extns/data-network
+spec:
+  containers:
+  - name: ubuntuapp
+    image: ubuntu-upstart
+    securityContext:
+      capabilities:
+        add:
+        - NET_ADMIN
+</pre></template></sw-code></div></div></li></ol><sw-prev-next> </sw-prev-next></p>

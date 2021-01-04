@@ -1,0 +1,465 @@
+<p id="topic-content"><h1 id="jd0e2">Underlay Overlay Mapping in Contrail</h1><sw-topic-details date="2020-09-28"> </sw-topic-details><h2 id="id-overview-underlay-overlay-mapping-using-contrail-analytics">Overview: Underlay Overlay Mapping using Contrail Analytics</h2><sw-admonition name="note" style=""><strong class="title">Note</strong><p>This topic applies to Contrail Networking Release 2005
+and earlier. Starting in Contrail Networking Release 2008, you can
+view the path a packet takes in a network. See <a href="../../concept/topology-view-packet-path.html">Viewing Packet Path in Topology View</a>.</p></sw-admonition><p>Today’s cloud data centers consist of large collections
+of interconnected servers that provide computing and storage capacity
+to run a variety of applications. The servers are connected with redundant
+TOR switches, which in turn, are connected to spine routers. The cloud
+deployment is typically shared by multiple tenants, each of whom usually
+needs multiple isolated networks. Multiple isolated networks can be
+provided by overlay networks that are created by forming tunnels (for
+example, gre, ip-in-ip, mac-in-mac) over the underlay or physical
+connectivity. </p><p>As data flows in the overlay network, Contrail can provide statistics
+and visualization of the traffic in the underlay network.</p><h2 id="id-underlay-overlay-analytics-available-in-contrail">Underlay Overlay Analytics Available in Contrail</h2><p>Contrail allows you to view a variety of analytics related to
+underlay and overlay traffic in the Contrail Web user interface. The
+following are some of the analytics that Contrail provides for statistics
+and visualization of overlay underlay traffic.</p><ul><li style=""><p>View the topology of the underlay network.</p><p>A user interface view of the physical underlay network with
+a drill down mechanism to show connected servers (contrail computes)
+and virtual machines on the servers.</p></li><li style=""><p>View the details of any element in the topology.</p><p>You can view details of a pRouter, vRouter, or virtual machine
+link between two elements. You can also view traffic statistics in
+a graphical view corresponding to the selected element.</p></li><li style=""><p>View the underlay path of an overlay flow. </p><p>Given an overlay flow, you can get the underlay path used for
+that flow and map the path in the topology view.</p></li></ul><h2 id="id-architecture-and-data-collection">Architecture and Data Collection</h2><p>Accumulation of the data to map an overlay flow to its underlay
+path is performed in several steps across Contrail modules. </p><p>The following outlines the essential steps: </p><ol type="1"><li id="jd0e61" style="">The SNMP collector module polls physical routers. <p>The SNMP collector module receives the authorizations and configurations
+of the physical routers from the Contrail config module, and polls
+all of the physical routers, using SNMP protocol. The collector uploads
+the data to the Contrail analytics collectors. The SNMP information
+is stored in the pRouter UVEs (physical router user visible entities). </p></li><li id="jd0e66" style="">IPFIX and sFlow protocols are used to collect the flow
+statistics. <p>The physical router is configured to send flow statistics to
+the collector, using one of the collection protocols: Internet Protocol
+Flow Information Export (IPFIX) or sFlow (an industry standard for
+sampled flow of packet export at Layer 2). </p></li><li id="jd0e71" style="">The topology module reads the SNMP information. <p>The Contrail topology module reads SNMP information from the
+pRouter UVEs from the analytics API, computes the neighbor list, and
+writes the neighbor information into the pRouter UVEs. This neighbor
+list is used by the Contrail WebUI to display the physical topology. </p></li><li id="jd0e76" style="">The Contrail user interface reads and displays the topology
+and statistics. <p>The Contrail user interface module reads the topology information
+from the Contrail analytics and displays the physical topology. It
+also uses information stored in the analytics to display graphs for
+link statistics, and to show the map of the overlay flows on the underlay
+network.</p></li></ol><h2 id="id-new-processesservices-for-underlay-overlay-mapping">New Processes/Services for Underlay Overlay Mapping</h2><p>The <code class="inline" v-pre="">contrail-snmp-collector</code> and the <code class="inline" v-pre="">contrail-topology</code> are new daemons that are both added
+to the <code class="inline" v-pre="">contrail-analytics</code> node. The <code class="inline" v-pre="">contrail-analytics</code> package contains these new features
+and their associated files. The contrail-status displays the new services. </p><div class="example" dir="ltr" id="jd0e99"><p><b><h3 id="jd0e100">Example: contrail-status</h3></b></p><p>The following is an example of using <code class="inline" v-pre="">contrail-status</code> to show the status of the new process and service for underlay overlay
+mapping.</p><sw-code><template v-pre=""><pre>user@host:~# contrail-status
+
+== Contrail Control ==
+
+supervisor-control:      active
+
+contrail-control       active
+
+…
+
+== Contrail Analytics ==
+
+supervisor-analytics:     active
+
+…
+
+contrail-query-engine     active
+
+contrail-snmp-collector    active
+
+contrail-topology       active</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e110"><p><b><h3 id="jd0e111">Example: Service Command</h3></b></p><p>The <code class="inline" v-pre="">service</code> command can be
+used to start, stop, and restart the new services. See the following
+example.</p><sw-code><template v-pre=""><pre>user@host:~# service contrail-snmp-collector status
+
+contrail-snmp-collector     RUNNING  pid 12179, uptime 1 day, 14:59:11</pre></template></sw-code></div><h2 id="id-external-interfaces-configuration-for-underlay-overlay-mapping">External Interfaces Configuration for Underlay Overlay Mapping</h2><p>This section outlines the external interface configurations
+necessary for successful underlay overlay mapping for Contrail analytics. </p><h2 id="id-physical-topology">Physical Topology</h2><p>The typical physical topology includes: </p><ul><li style=""><p>Servers connected to the ToR switches. </p></li><li style=""><p>ToR switches connected to spine switches. </p></li><li style=""><p>Spine switches connected to core switches. </p></li></ul><p>The following is an example of how the topology is depicted
+in the Contrail WebUI analytics.</p><figure id="jd0e149"><figcaption>Figure 1: Analytics Topology</figcaption><div class="graphic"><img alt="Analytics Topology" src="documentation/images/s042103.gif" style=""/></div></figure><h2 id="id-snmp-configuration">SNMP Configuration</h2><p>Configure SNMP on the physical devices so that the <code class="inline" v-pre="">contrail-snmp-collector</code> can read SNMP data. </p><p>The following shows an example SNMP configuration from a Juniper
+Networks device. </p><p><code class="inline" v-pre="">set snmp community public authorization read-only</code></p><h2 id="id-link-layer-discovery-protocol-lldp-configuration">Link Layer Discovery Protocol (LLDP) Configuration</h2><p>Configure LLDP on the physical device so that the <code class="inline" v-pre="">contrail-snmp-collector</code> can read the neighbor information
+of the routers. </p><p>The following is an example of LLDP configuration on a Juniper
+Networks device. </p><p><code class="inline" v-pre="">set protocols lldp interface all </code></p><p><code class="inline" v-pre="">set protocols lldp-med interface all</code></p><h2 id="id-ipfix-and-sflow-configuration">IPFIX and sFlow Configuration</h2><p>Flow samples are sent to the <code class="inline" v-pre="">contrail-collector</code> by the physical devices. Because the <code class="inline" v-pre="">contrail-collector</code> supports the sFlow and IPFIX protocols for receiving flow samples,
+the physical devices, such as MX Series devices or ToR switches, must
+be configured to send samples using one of those protocols. </p><div class="example" dir="ltr" id="jd0e202"><p><b><h3 id="jd0e203">Example: sFlow Configuration</h3></b></p><p>The following shows a sample sFlow configuration. In
+the sample, the IP variable <var v-pre="">&lt;source ip&gt;</var>refers
+to the loopback or IP that can be reachable of the device that acts
+as an sflow source, and the other IP variable <var v-pre="">&lt;collector_IP_data&gt;</var> is the address of the collector device. </p><sw-code><template v-pre=""><pre>root@host&gt; show configuration protocols sflow | display set
+
+set protocols sflow polling-interval 0
+
+set protocols sflow sample-rate ingress 10
+
+set protocols sflow source-ip &lt;source ip&gt;4
+
+set protocols sflow collector &lt;collector_IP_data&gt;  udp-port 6343
+
+set protocols sflow interfaces ge-0/0/0.0
+
+set protocols sflow interfaces ge-0/0/1.0
+
+set protocols sflow interfaces ge-0/0/2.0
+
+set protocols sflow interfaces ge-0/0/3.0
+
+set protocols sflow interfaces ge-0/0/4.0</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e216"><p><b><h3 id="jd0e217">Example: IPFIX Configuration</h3></b></p><p>The following is a sample IPFIX configuration from a
+Juniper Networks device. The IP address variable <var v-pre="">&lt;ip_sflow
+collector&gt;</var> represents the sflow collector (control-collector
+analytics node) and <var v-pre="">&lt;source ip&gt;</var> represents
+the source (outgoing) interface on the router/switch device used for
+sending flow data to the collector. This could also be the lo0 address,
+if it s reachable from the Contrail cluster.</p><sw-code><template v-pre=""><pre>root@host&gt; show configuration chassis | display set
+
+set chassis tfeb slot 0 sampling-instance sample-ins1
+
+set chassis network-services 
+
+
+
+root@host&gt; show configuration chassis tfeb | display set
+
+set chassis tfeb slot 0 sampling-instance sample-ins1
+
+
+
+root@host &gt; show configuration services flow-monitoring | display set
+
+set services flow-monitoring version-ipfix template t1 flow-active-timeout 30
+
+set services flow-monitoring version-ipfix template t1 flow-inactive-timeout 30
+
+set services flow-monitoring version-ipfix template t1 template-refresh-rate packets 10
+
+set services flow-monitoring version-ipfix template t1 ipv4-template
+
+
+
+root@host &gt; show configuration interfaces | display set | match sampling
+
+set interfaces ge-1/0/0 unit 0 family inet sampling input
+
+set interfaces ge-1/0/1 unit 0 family inet sampling input
+
+
+
+root@host&gt; show configuration forwarding-options sampling | display set
+
+set forwarding-options sampling instance sample-ins1 input rate 1
+
+set forwarding-options sampling instance sample-ins1 family inet output flow-server &lt;ip_sflow collector&gt; port 4739
+
+set forwarding-options sampling instance sample-ins1 family inet output flow-server &lt;ip_sflow collector&gt; version-ipfix template t1
+
+set forwarding-options sampling instance sample-ins1 family inet output inline-jflow source-address &lt;source ip&gt;</pre></template></sw-code></div><h2 id="id-sending-prouter-information-to-the-snmp-collector-in-contrail">Sending pRouter Information to the SNMP Collector in Contrail</h2><p>Information about the physical devices must be sent to the SNMP
+collector before the full analytics information can be read and displayed.
+Typically, the pRouter information is taken from the <code class="inline" v-pre="">contrail-config</code>.</p><p><em>SNMP collector getting pRouter information from contrail-config </em></p><p>The physical routers are added to the <code class="inline" v-pre="">contrail-config</code> by using the Contrail user interface or by using direct API, by
+means of provisioning or other scripts. Once the configuration is
+in the <code class="inline" v-pre="">contrail-config</code>, the <code class="inline" v-pre="">contrail-snmp-collector</code> gets the physical router information
+from <code class="inline" v-pre="">contrail-config</code>. The SNMP collector
+uses this list and the other configuration parameters to perform SNMP
+queries and to populate pRouter UVEs.</p><figure id="jd0e258"><figcaption>Figure 2: Add Physical Router Window</figcaption><div class="graphic"><img alt="Add Physical Router Window" src="documentation/images/s042440.gif" style=""/></div></figure><h2 id="id-prouter-uves">pRouter UVEs</h2><p>pRouter UVEs are accessed from the REST APIs on your system
+from <code class="inline" v-pre="">contrail-analytics-api</code>, using a URL
+of the form:</p><p><code class="inline" v-pre="">http://&lt;host ip&gt;:8081/analytics/uves/prouters</code></p><p>The following is sample output from a pRouter REST API:</p><figure id="jd0e278"><figcaption>Figure 3: Sample Output From a pRouter REST API</figcaption><div class="graphic"><img alt="Sample Output From a pRouter REST API" src="documentation/images/s042104.gif" style=""/></div></figure><p>Details of a pRouter UVE can be obtained from your system, using
+a URL of the following form: </p><p><code class="inline" v-pre="">http://&lt;host ip&gt;:8081/analytics/uves/prouter/a7-ex3?flat</code></p><p>The following is sample output of a pRouter UVE. </p><figure id="jd0e289"><figcaption>Figure 4: Sample Output From a pRouter UVE</figcaption><div class="graphic"><img alt="Sample Output From a pRouter UVE" src="documentation/images/s042435.gif" style=""/></div></figure><h2 id="id-contrail-user-interface-for-underlay-overlay-analytics">Contrail User Interface for Underlay Overlay Analytics</h2><p>The topology view and related functionality is accessed from
+the Contrail Web user interface, <strong v-pre="">Monitor &gt; Physical Topology</strong>.</p><h2 id="id-enabling-physical-topology-on-the-web-ui">Enabling Physical Topology on the Web UI</h2><p>To enable the <strong v-pre="">Physical Topology</strong> section in
+the Contrail Web UI:</p><ol type="1"><li id="jd0e316" style="">Add the following lines to the<code class="inline" v-pre=""> /etc/contrail/config.global.js</code> file of all the <code class="inline" v-pre="">contrail-webui </code>nodes:<div class="sample" dir="ltr" id="jd0e325"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>config.optFeatureList = {};
+config.optFeatureList.mon_infra_underlay = true;
+</pre></template></sw-code></div></div></li><li id="jd0e328" style="">Restart webui supervisor.<p><code class="inline" v-pre="">service supervisor-webui restart</code></p><p>The <strong v-pre="">Physical Topology</strong> section is now available on
+the Contrail Web UI.</p></li></ol><h2 id="id-viewing-topology-to-the-virtual-machine-level">Viewing Topology to the Virtual Machine Level</h2><p>In the Contrail user interface, it is possible to drill down
+through displayed topology to the virtual machine level. The following
+diagram shows the virtual machines instantiated on a7s36 vRouter and
+the full physical topology related to each. </p><figure id="jd0e347"><figcaption>Figure 5: Physical Topology Related to a vRouter</figcaption><div class="graphic"><img alt="Physical Topology Related to a vRouter" src="documentation/images/s042436.gif" style=""/></div></figure><h2 id="id-viewing-the-traffic-of-any-link">Viewing the Traffic of any Link</h2><p>At <strong v-pre="">Monitor &gt; Physical Topology</strong>, double click any
+link on the topology to display the traffic statistics graph for that
+link. The following is an example. </p><figure id="jd0e362"><figcaption>Figure 6: Traffic Statistics Graph</figcaption><div class="graphic"><img alt="Traffic Statistics Graph" src="documentation/images/s042437.gif" style=""/></div></figure><h2 id="id-trace-flows">Trace Flows</h2><p>Click the <strong v-pre="">Trace Flows</strong> tab to see a list of active
+flows. To see the path of a flow, click a flow in the active flows
+list, then click the <strong v-pre="">Trace Flow </strong>button. The path taken
+in the underlay by the selected flow displays. The following is an
+example. </p><figure id="jd0e380"><figcaption>Figure 7: List of Active Flows</figcaption><div class="graphic"><img alt="List of Active Flows" src="documentation/images/s042438.gif" style=""/></div></figure><p><em>Limitations of Trace Flow Feature </em></p><p>Because the Trace Flow feature uses ip traceroute to determine
+the path between the two vRouters involved in the flow, it has the
+same limitations as the ip traceroute, including that Layer 2 routers
+in the path are not listed, and therefore do not appear in the topology.</p><h2 id="id-search-flows-and-map-flows">Search Flows and Map Flows</h2><p>Click the <strong v-pre="">Search Flows</strong> tab to open a search dialog,
+then click the <strong v-pre="">Search</strong> button to list the flows that match
+the search criteria. You can select a flow from the list and click <strong v-pre="">Map Flow</strong> to display the underlay path taken by the selected
+flow in the topology. The following is an example. </p><figure id="jd0e406"><figcaption>Figure 8: Underlay Path</figcaption><div class="graphic"><img alt="Underlay Path" src="documentation/images/s042439.gif" style=""/></div></figure><h2 id="id-overlay-to-underlay-flow-map-schemas">Overlay to Underlay Flow Map Schemas</h2><p>The schema to query the underlay mapping information for an
+overlay flow is obtained from a REST API, which can be accessed on
+your system using a URL of the following form:</p><p><code class="inline" v-pre="">http://&lt;host ip&gt;:8081/analytics/table/OverlayToUnderlayFlowMap/schema</code> </p><div class="example" dir="ltr" id="jd0e422"><p><b><h3 id="jd0e423">Example: Overlay to Underlay Flow Map Schema</h3></b></p><sw-code><template v-pre=""><pre>{"type": "FLOW",
+
+"columns": [
+
+{"datatype": "string", "index": true, "name": "o_svn", "select": false, "suffixes": ["o_sip"]},
+
+{"datatype": "string", "index": false, "name": "o_sip", "select": false, "suffixes": null},
+
+{"datatype": "string", "index": true, "name": "o_dvn", "select": false, "suffixes": ["o_dip"]},
+
+{"datatype": "string", "index": false, "name": "o_dip", "select": false, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "o_sport", "select": false, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "o_dport", "select": false, "suffixes": null},
+
+{"datatype": "int", "index": true, "name": "o_protocol", "select": false, "suffixes": ["o_sport", "o_dport"]},
+
+{"datatype": "string", "index": true, "name": "o_vrouter", "select": false, "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "u_prouter", "select": null, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "u_pifindex", "select": null, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "u_vlan", "select": null, "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "u_sip", "select": null, "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "u_dip", "select": null, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "u_sport", "select": null, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "u_dport", "select": null, "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "u_protocol", "select": null, "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "u_flowtype", "select": null, "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "u_otherinfo", "select": null, "suffixes": null}]}
+
+</pre></template></sw-code></div><p>The schema for underlay data across pRouters is defined in the
+Contrail installation at: </p><p><code class="inline" v-pre="">http://&lt;host ip&gt;:8081/analytics/table/StatTable.UFlowData.flow/schema</code> </p><div class="example" dir="ltr" id="jd0e433"><p><b><h3 id="jd0e434">Example: Flow Data Schema for Underlay </h3></b></p><sw-code><template v-pre=""><pre>{"type": "STAT",
+
+"columns": [
+
+{"datatype": "string", "index": true, "name": "Source", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "T", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "CLASS(T)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "T=", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "CLASS(T=)", "suffixes": null},
+
+{"datatype": "uuid", "index": false, "name": "UUID", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "COUNT(flow)", "suffixes": null},
+
+{"datatype": "string", "index": true, "name": "name", "suffixes": ["flow.pifindex"]},
+
+{"datatype": "int", "index": false, "name": "flow.pifindex", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "SUM(flow.pifindex)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "CLASS(flow.pifindex)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "flow.sport", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "SUM(flow.sport)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "CLASS(flow.sport)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "flow.dport", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "SUM(flow.dport)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "CLASS(flow.dport)", "suffixes": null},
+
+{"datatype": "int", "index": true, "name": "flow.protocol", "suffixes": ["flow.sport", "flow.dport"]},
+
+{"datatype": "int", "index": false, "name": "SUM(flow.protocol)", "suffixes": null},
+
+{"datatype": "int", "index": false, "name": "CLASS(flow.protocol)", "suffixes": null},
+
+{"datatype": "string", "index": true, "name": "flow.sip", "suffixes": null},
+
+{"datatype": "string", "index": true, "name": "flow.dip", "suffixes": null},
+
+{"datatype": "string", "index": true, "name": "flow.vlan", "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "flow.flowtype", "suffixes": null},
+
+{"datatype": "string", "index": false, "name": "flow.otherinfo", "suffixes": null}]}
+
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e438"><p><b><h3 id="jd0e439">Example: Typical Query for Flow Map</h3></b></p><p>The following is a typical query. Internally, the <code class="inline" v-pre="">analytics-api</code> performs a query into the <code class="inline" v-pre="">FlowRecordTable</code>, then into the <code class="inline" v-pre="">StatTable.UFlowData.flow</code>, to return list of <code class="inline" v-pre="">(prouter, pifindex)</code> pairs that give the underlay path taken for the given overlay flow.</p><sw-code><template v-pre=""><pre>FROM
+
+OverlayToUnderlayFlowMap
+
+SELECT
+
+prouter, pifindex
+
+WHERE
+
+o_svn, o_sip, o_dvn, o_dip, o_sport, o_dport, o_protocol = &lt;overlay flow&gt;</pre></template></sw-code></div><h2 id="id-module-operations-for-overlay-underlay-mapping">Module Operations for Overlay Underlay Mapping</h2><h2 id="id-snmp-collector-operation">SNMP Collector Operation</h2><p>The Contrail SNMP collector uses a Net-SNMP library to talk
+to a physical router or any SNMP agent. Upon receiving SNMP packets,
+the data is translated to the Python dictionary, and corresponding
+UVE objects are created. The UVE objects are then posted to the SNMP
+collector. </p><p>The SNMP module sleeps for some configurable period, then forks
+a collector process and waits for the process to complete. The collector
+process goes through a list of devices to be queried. For each device,
+it forks a greenlet task (Python coroutine), accumulates SNMP data,
+writes the summary to a JSON file, and exits. The parent process then
+reads the JSON file, creates UVEs, sends the UVEs to the collector,
+then goes to sleep again. </p><p>The pRouter UVE sent by the SNMP collector carries only the
+raw MIB information.</p><div class="example" dir="ltr" id="jd0e474"><p><b><h3 id="jd0e475">Example: pRouter Entry Carried in pRouter UVE</h3></b></p><p>The definition below shows the <code class="inline" v-pre="">pRouterEntry</code> carried in the <code class="inline" v-pre="">pRouterUVE</code>. Additionally,
+an example <code class="inline" v-pre="">LldpTable </code>definition is shown. </p><p>The following create a virtual table as defined by:</p><sw-code><template v-pre=""><pre>http://&lt;host ip&gt;:8081/analytics/table/StatTable.UFlowData.flow/schema
+
+struct LldpTable {
+
+  1: LldpLocalSystemData lldpLocalSystemData
+
+  2: optional list&lt;LldpRemoteSystemsData&gt; lldpRemoteSystemsData
+
+}
+
+struct PRouterEntry {
+
+  1: string name (key="ObjectPRouter")
+
+  2: optional bool deleted
+
+  3: optional LldpTable lldpTable
+
+  4: optional list&lt;ArpTable&gt; arpTable
+
+  5: optional list&lt;IfTable&gt; ifTable
+
+  6: optional list&lt;IfXTable&gt; ifXTable
+
+  7: optional list&lt;IfStats&gt; ifStats (tags="name:.ifIndex")
+
+  8: optional list&lt;IpMib&gt; ipMib
+
+}
+
+uve sandesh PRouterUVE {
+
+  1: PRouterEntry data
+
+}
+
+</pre></template></sw-code></div><h2 id="id-topology-module-operation">Topology Module Operation</h2><p>The topology module reads UVEs posted by the SNMP collector
+and computes the neighbor table, populating the table with remote
+system name, local and remote interface names, the remote type (pRouter
+or vRouter) and local and remote ifindices. The topology module sleeps
+for a while, reads UVEs, then computes the neighbor table and posts
+the UVE to the collector. </p><p>The pRouter UVE sent by the topology module carries the neighbor
+list, so the clients can put together all of the pRouter neighbor
+lists to compute the full topology. </p><p>The corresponding pRouter UVE definition is the following.</p><div class="example" dir="ltr" id="jd0e505"><sw-code><template v-pre=""><pre>struct LinkEntry {
+
+  1: string remote_system_name
+
+  2: string local_interface_name
+
+  3: string remote_interface_name
+
+  4: RemoteType type
+
+  5: i32 local_interface_index
+
+  6: i32 remote_interface_index
+
+}
+
+struct PRouterLinkEntry {
+
+  1: string name (key="ObjectPRouter")
+
+  2: optional bool deleted
+
+  3: optional list&lt;LinkEntry&gt; link_table
+
+}
+
+uve sandesh PRouterLinkUVE {
+
+  1: PRouterLinkEntry data
+
+}
+
+
+
+</pre></template></sw-code></div><h2 id="id-ipfix-and-sflow-collector-operation">IPFIX and sFlow Collector Operation</h2><p>An IPFIX and sFlow collector has been implemented in the Contrail
+collector. The collector receives the IPFIX and sFlow samples and
+stores them as statistics samples in the analytics database.</p><div class="example" dir="ltr" id="jd0e516"><p><b><h3 id="jd0e517">Example: IPFIX sFlow Collector Data</h3></b></p><p>The following definition shows the data stored for the
+statistics samples and the indices that can be used to perform queries. </p><sw-code><template v-pre=""><pre>struct UFlowSample {
+
+  1: u64 pifindex
+
+  2: string sip
+
+  3: string dip
+
+  4: u16 sport
+
+  5: u16 dport
+
+  6: u16 protocol
+
+  7: u16 vlan
+
+  8: string flowtype
+
+  9: string otherinfo
+
+}
+
+struct UFlowData {
+
+  1: string name (key="ObjectPRouterIP")
+
+  2: optional bool deleted
+
+  3: optional list&lt;UFlowSample&gt; flow (tags="name:.pifindex, .sip, .dip, .protocol:.sport, .protocol:.dport, .vlan")
+
+}
+
+</pre></template></sw-code></div><h2 id="id-troubleshooting-underlay-overlay-mapping">Troubleshooting Underlay Overlay Mapping</h2><p>This section provides a variety of links where you can research
+errors that may occur with underlay overlay mapping. </p><div class="example" dir="ltr" id="jd0e532"><p><b><h3 id="jd0e533">System Logs</h3></b></p><p>Logs for <code class="inline" v-pre="">contrail-snmp-collector</code> and <code class="inline" v-pre="">contrail-topology</code> are in the following
+locations on an installed Contrail system: </p><p> <code class="inline" v-pre="">/var/log/contrail/contrail-snmp-collector-stdout.log</code></p><p> <code class="inline" v-pre="">/var/log/contrail/contrail-topology.log</code></p></div><div class="example" dir="ltr" id="jd0e552"><p><b><h3 id="jd0e553">Introspect Utility</h3></b></p><p>Use URLs of the following forms on your Contrail system
+to access the introspect utilities for SNMP data and for topology
+data. </p><ul><li style=""><p>SNMP data introspect</p><p><code class="inline" v-pre="">http://&lt;host ip&gt;:5920/Snh_SandeshUVECacheReq?x=PRouterEntry</code> </p></li><li style=""><p>Topology data introspect</p><p><code class="inline" v-pre="">http://&lt;host ip&gt;:5921/Snh_SandeshUVECacheReq?x=PRouterLinkEntry</code></p></li></ul></div><h2 id="id-script-to-add-prouter-objects">Script to add pRouter Objects</h2><p>The usual mechanism for adding pRouter objects to <code class="inline" v-pre="">contrail-config </code>is through Contrail UI. But you also
+have the ability to add these objects using the Contrail <code class="inline" v-pre="">vnc-api</code>. To add one pRouter, save the file with the
+name <code class="inline" v-pre="">cfg-snmp.py</code>, and then execute the
+command as shown:</p><p><code class="inline" v-pre="">python cfg-snmp.py </code></p><div class="example" dir="ltr" id="jd0e591"><p><b><h3 id="jd0e592">Example: Content for cfg-snmp.py</h3></b></p><sw-code><template v-pre=""><pre>#!python
+
+from vnc_api import vnc_api
+
+from vnc_api.gen.resource_xsd import SNMPCredentials
+
+
+
+vnc = vnc_api.VncApi('admin', 'abcde123', 'admin')
+
+apr = vnc_api.gen.resource_client.PhysicalRouter(name='a7-mx80-1')
+
+apr.set_physical_router_management_ip('ip_address')
+
+apr.set_physical_router_dataplane_ip(''ip_address')
+
+apr.set_physical_router_snmp_credentials(SNMPCredentials(version=2, v2_community='public'))
+
+vnc.physical_router_create(apr)
+
+#$ABC123
+
+apr = vnc_api.gen.resource_client.PhysicalRouter(name='a7-mx80-2')
+
+apr.set_physical_router_management_ip('ip_address')
+
+apr.set_physical_router_dataplane_ip('ip_address')
+
+apr.set_physical_router_snmp_credentials(SNMPCredentials(version=2, v2_community='public'))
+
+vnc.physical_router_create(apr)
+
+#$ABC123'
+
+apr = vnc_api.gen.resource_client.PhysicalRouter(name='a7-ex3')
+
+apr.set_physical_router_management_ip('source_ip')
+
+apr.set_physical_router_dataplane_ip('source_ip'')
+
+apr.set_physical_router_snmp_credentials(SNMPCredentials(version=2, v2_community='public'))
+
+vnc.physical_router_create(apr)
+
+#$ABC123'
+
+apr = vnc_api.gen.resource_client.PhysicalRouter(name='a7-ex2')
+
+apr.set_physical_router_management_ip('ip_address')
+
+apr.set_physical_router_dataplane_ip('ip_address')
+
+apr.set_physical_router_snmp_credentials(SNMPCredentials(version=2, v2_community='public'))
+
+vnc.physical_router_create(apr)
+
+#$ABC123'
+</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

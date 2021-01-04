@@ -1,0 +1,155 @@
+<p id="topic-content"><h1 id="jd0e3">Contrail Integration with Kubernetes</h1><sw-topic-details date="2020-09-02"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Starting in Release 4.0, Contrail supports the Container Network
+Interface (CNI) for integrating Contrail with the Kubernetes automation
+platform.</p></div></div><h2 id="jd0e14">What is Kubernetes?</h2><p>Kubernetes, also called K8s, is an open source platform for
+automating deployment, scaling, and operations of application containers
+across clusters of hosts, providing container-centric infrastructure.
+It provides a portable platform across public and private clouds.
+Kubernetes supports deployment, scaling, and auto-healing of applications.</p><p>Kubernetes supports a pluggable framework called Container Network
+Interface (CNI) for most of the basic network connectivity, including
+container pod addressing, network isolation, policy-based security,
+a gateway, SNAT, load-balancer, and service chaining capability for
+Kubernetes orchestration. Contrail Release 4.0 provides support for
+CNI for Kubernetes. </p><p>Kubernetes provides a flat networking model in which all container
+pods can talk to each other. Network policy is added to provide security
+between the pods. Contrail integrated with Kubernetes adds additional
+networking functionality, including multi-tenancy, network isolation,
+micro-segmentation with network policies, load-balancing, and more. </p><p><a href="kubernetes-cni-contrail.html#k8s-contrail">Table 1</a> lists the mapping between
+Kubernetes concepts and Tungsten Fabric resources.</p><sw-table><p class="SubTitle" id="k8s-contrail">Table 1:  Kubernetes to Tungsten Fabric Mapping</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><span class="CellHeading">Kubernetes</span></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><span class="CellHeading">Tungsten Fabric Resources</span></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Namespace</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Shared or single project</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Pod</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Virtual-machine, Interface, Instance-ip</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Service</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>ECMP-based native Loadbalancer</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Ingress</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>HAProxy-based L7 Loadbalancer for URL routing</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Network policy</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Security group based on namespace and pod selectors</p></td></tr></tbody></table></sw-table><h3 id="jd0e75">What is a Kubernetes Pod?</h3><p>A Kubernetes pod is a group of one or more containers (such
+as Docker containers), the shared storage for those containers, and
+options on how to run the containers. Pods are always co-located and
+co-scheduled, and run in a shared context. The shared context of a
+pod is a set of Linux namespaces, cgroups, and other facets of isolation.
+Within the context of a pod, individual applications might have further
+sub-isolations applied. </p><p>You can find more information about Kubernetes at: <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">http://kubernetes.io/docs/whatisk8s/</a>.</p><h2 id="jd0e85">Configuration Modes for Contrail Integrated with Kubernetes</h2><div class="mini-toc-intro"><p>Contrail can be configured in several different modes in Kubernetes.
+This section describes the various configuration modes.</p></div><ul><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e93">Default Mode</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e103">Namespace Isolation Mode</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e188">Custom Isolation Mode</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e201">Nested Mode</a></p></li></ul><h3 id="jd0e93">Default Mode</h3><p>In Kubernetes, all pods can communicate with all other pods
+without using network address translation (NAT).  This is the default
+mode of Contrail Kubernetes cluster. In the default mode, Contrail creates a virtual-network
+ that is shared by all namespaces, from which service and pod IP addresses
+are allocated.</p><p>All pods in all namespaces that are spawned in the Kubernetes
+cluster are able to communicate with one another. The IP addresses
+for all of the pods are allocated from a pod subnet that is configured
+in the Contrail Kubernetes manager. </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>System pods that are spawned in the kube-system namespace are
+not run in the Kubernetes cluster; they run in the underlay, and networking
+for these pods is not handled by Contrail.</p></sw-admonition><h3 id="jd0e103">Namespace Isolation Mode</h3><p>In addition to the default networking model mandated by Kubernetes,
+Contrail supports additional custom networking models that make available
+the many rich features of Contrail to the users of the Kubernetes
+cluster. One such feature is network isolation for Kubernetes namespaces.</p><p>For namespace isolation mode, the cluster administrator can
+configure a namespace annotation to turn on isolation. As a result,
+services in that namespace are not accessible from other namespaces,
+unless security groups or network policies are explicitly defined
+to allow access.  </p><p>A Kubernetes namespace can be configured as isolated by annotating
+the Kubernetes namespace metadata:</p><p><code class="inline" v-pre="">opencontrail.org/isolation : true</code></p><p>Namespace isolation provides network isolation to pods, because
+the pods in isolated namespaces are not reachable to pods in other
+namespaces in the cluster.  </p><p>Namespace isolation also provides service isolation to pods.
+If any Kubernetes service is implemented by pods in an isolated namespace,
+those pods are reachable only to pods in the same namespace through
+the Kubernetes service-ip.  </p><p>To make services remain reachable to other namespaces, service
+isolation can be disabled by the following additional annotation on
+the namespace:</p><p><code class="inline" v-pre="">opencontrail.org/isolation.service : false</code></p><p>Disabling service isolation makes the services reachable to
+pods in other namespaces, however pods in isolated namespaces still
+remain unreachable to pods in other namespaces.</p><p>A namespace annotated as “isolated” for both pod
+and service isolation has the following network behavior:</p><ul><li style=""><p>All pods created in an isolated namespace have network
+reachability with each other. </p></li><li style=""><p>Pods in other namespaces in the Kubernetes cluster <em>cannot</em> reach pods in the isolated namespace.</p></li><li style=""><p>Pods created in isolated namespaces <em>can</em> reach pods in non-isolated namespaces. </p></li><li style=""><p>Pods in isolated namespaces <em>can</em> reach
+non-isolated services in any namespace in the Kubernetes cluster.</p></li><li style=""><p>Pods from other namespaces <em>cannot </em> reach services in isolated namespaces.</p></li></ul><p>A namespace annotated as “isolated”, with service-isolation
+disabled and only pod isolation enabled, has the following network
+behavior:</p><ul><li style=""><p>All pods created in an isolated namespace have network
+reachability with each other. </p></li><li style=""><p>Pods in other namespaces in the Kubernetes cluster <em>cannot</em> reach pods in the isolated namespace.</p></li><li style=""><p>Pods created in isolated namespaces <em>can</em> reach pods in other namespaces. </p></li><li style=""><p>Pods in isolated namespaces <em>can</em> reach
+non-isolated services in any namespace in the Kubernetes cluster.</p></li><li style=""><p>Pods from other namespaces <em>can</em> reach
+services in isolated namespaces.</p></li></ul><h3 id="jd0e188">Custom Isolation Mode</h3><p>Administrators and application developers can add annotations
+to specify the virtual network in which a pod or all pods in a namespace
+are to be provisioned. The annotation to specify this custom virtual
+network is:</p><p><code class="inline" v-pre="">"opencontrail.org/network: &lt;fq_network_name&gt;"</code></p><p>If this annotation is configured on a pod spec then the pod
+is launched in that network. If the annotation is configured in the
+namespace spec then all the pods in the namespace are launched in
+the provided network. </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The virtual network must be created using Contrail VNC APIs
+or Contrail-UI prior to configuring it in the pod or namespace spec.</p></sw-admonition><h3 id="jd0e201">Nested Mode</h3><p>Contrail supports the provisioning of Kubernetes cluster inside
+an OpenStack cluster. While this nesting of clusters by itself is
+not unique, Contrail provides a <em>collapsed</em> control
+and data plane in which a single Contrail control plane and a single
+network stack manage and service both the OpenStack and Kubernetes
+clusters. With unified control and data planes, interworking and configuring
+these clusters is seamless, and the lack of replication and duplicity
+makes this a very efficient option.  </p><p>In nested mode, a Kubernetes cluster is provisioned in the virtual
+machine of an OpenStack cluster. The CNI-plugin and the Contrail-kubernetes
+manager of the Kubernetes cluster interface directly with Contrail
+components that manage the OpenStack cluster.  </p><p>In a nested-mode deployment, all Kubernetes features, functions,
+and specifications are supported as is. Nested deployment stretches
+the boundaries and limits of Kubernetes by allowing it to operate
+on the same plane as underlying OpenStack cluster.</p><p>For more information,
+see <a href="../task/installation/provisioning-k8s-cluster.html">Provisioning of Kubernetes Clusters</a>.</p><h2 id="jd0e217">Kubernetes Services</h2><p>A Kubernetes service is an abstraction that defines a logical
+set of pods and the policy used to access the pods. The set of pods
+implementing a service are selected based on the <strong v-pre="">LabelSelector</strong> field in the service definition. In Contrail, a Kubernetes service
+is implemented as an ECMP-native load-balancer.  </p><p>The Contrail Kubernetes integration supports the following <strong v-pre="">ServiceType</strong>s:</p><ul><li style=""><p><strong v-pre="">`clusterIP`</strong>: This is the default mode. Choosing
+this <strong v-pre="">ServiceType</strong> makes the service reachable through the
+cluster network.</p></li><li style=""><p><strong v-pre="">`LoadBalancer`</strong>: Designating a <strong v-pre="">ServiceType</strong> as <strong v-pre="">`LoadBalancer`</strong> enables the service to be accessed
+externally. The <strong v-pre="">`LoadBalancer` _Service_</strong> is assigned both
+CluserIP and ExternalIP addresses. This <strong v-pre="">ServiceType</strong> assumes
+that the user has configured the public network with a floating-ip
+pool.</p></li></ul><p>Contrail Kubernetes Service-integration supports TCP and UDP
+for protocols. Also, Service can expose more than one port where port
+and targetPort are different. For example:</p><div class="example" dir="ltr" id="jd0e259"><sw-code><template v-pre=""><pre>kind: Service
+apiVersion: v1
+metadata:
+  name: my-service
+spec:
+    selector:
+      app: MyApp
+    ports:
+      - name: http
+        protocol: TCP
+        port: 80
+        targetPort: 9376
+      - name: https
+        protocol: TCP
+        port: 443
+        targetPort: 9377</pre></template></sw-code></div><p>Kubernetes users can specify spec.clusterIP and spec.externalIPs
+for both <strong v-pre="">LoadBalancer</strong> and <strong v-pre="">clusterIP ServiceType</strong>s.  </p><p>If <strong v-pre="">ServiceType</strong> is <strong v-pre="">LoadBalancer</strong> and no
+spec.externalIP is specified by the user, then contrail-kube-manager
+allocates a floating-ip from the public pool and associates it to
+the ExternalIP address.</p><h2 id="jd0e278">Ingress</h2><p>Kubernetes services can be exposed externally or exposed outside
+of the cluster in many ways. See <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#alternatives">https://kubernetes.io/docs/concepts/services-networking/ingress/#alternatives</a> for a list of all methods of exposing Kubernetes services externally.
+Ingress is one such method. Ingress provides Layer 7 load-balancing
+whereas the other methods provide Layer 4 load-balancing. Contrail
+supports http-based single-service ingress, simple-fanout ingress,
+and name-based virtual hosting ingress.</p><h2 id="jd0e286">Contrail Kubernetes Solution</h2><div class="mini-toc-intro"><p>Contrail Kubernetes solution includes the following elements.</p></div><ul><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e295">Contrail Kubernetes Manager</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e302">ECMP Load-Balancers for Kubernetes Services</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e309">HAProxy Loadbalancer for Kubernetes Ingress</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e318">Security Groups for Kubernetes Network Policy</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e333">Kubernetes Support for Security Policy</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e338">Domain Name Server (DNS)</a></p></li><li style=""><p><a href="kubernetes-cni-contrail.html#jd0e343">Supported Kubernetes Annotations</a></p></li></ul><h3 id="jd0e295">Contrail Kubernetes Manager</h3><p>The Contrail Kubernetes implementation requires listening to
+the Kubernetes API messages and creating corresponding resources in
+the Contrail API database. </p><p>A new module, contrail-kube-manager, runs in a Docker container
+to listen to the messages from the Kubernetes API server.</p><h3 id="jd0e302">ECMP Load-Balancers for Kubernetes Services</h3><p>Each service in Kubernetes is represented by a load-balancer
+object. The service IP allocated by Kubernetes is used as the VIP
+for the load-balancer. Listeners are created for the port on which
+the service is listening. Each pod is added as a member of the listener
+pool. The contrail-kube-manager listens for any changes based on service
+labels or pod labels, and updates the member pool list with any added,
+updated, or deleted pods.  </p><p>Load-balancing for services is Layer 4 native, non-proxy load-balancing
+based on ECMP. The instance-ip (service-ip) is linked to the ports
+of each of the pods in the service. This creates an ECMP next-hop
+in Contrail and traffic is load-balanced directly from the source
+pod. </p><h3 id="jd0e309">HAProxy Loadbalancer for Kubernetes Ingress</h3><p>Kubernetes Ingress is implemented through the HAProxy load-balancer
+feature in Contrail. Whenever ingress is configured in Kubernetes,
+contrail-kube-manager creates the load-balancer object in contrail-controller.
+The Contrail service monitor listens for the load-balancer objects
+and launches the HAProxy with appropriate configuration, based on
+the ingress specification rules in active-standby mode.</p><p>See <a href="../task/configuration/lbaas-contrail3-F5.html">Using Load Balancers in Contrail </a> for more information on load balancers.</p><h3 id="jd0e318">Security Groups for Kubernetes Network Policy</h3><p>Kubernetes network policy is a specification of how groups of
+pods are allowed to communicate with each other and other network
+endpoints. <strong v-pre="">NetworkPolicy</strong> resources use labels to select
+pods and define allow list rules which allow traffic to the selected
+pods in addition to what is allowed by the isolation policy for a
+given namespace.</p><p>For more information about Kubernetes network policies, see <a href="https://kubernetes.io/docs/concepts/services-networking/networkpolicies/">https://kubernetes.io/docs/concepts/services-networking/networkpolicies/</a>. </p><p>The contrail-kube-manager listens to the Kubernetes network
+policy events for create, update, and delete, and translates the Kubernetes
+network policy to Contrail security group objects applied to virtual
+machine interfaces (VMIs). The VMIs are dynamically updated as pods
+and labels are added and deleted.</p><h3 id="jd0e333">Kubernetes Support for Security Policy</h3><p>Network policies created in a Kubernetes environment are implemented
+by using Contrail Security Policy framework. Labels from the Kubernetes
+environment are exposed as tags in Contrail. Starting in Contrail
+Release 5.0, you can define tags for a Kubernetes environment. Contrail
+security policy uses these tags to implement specified Kubernetes
+policies. You can define tags in the UI or upload configurations in
+JSON format. The newly-defined tags can be used to create and enforce
+policies in Contrail Security.</p><h3 id="jd0e338">Domain Name Server (DNS)</h3><p>Kubernetes implements DNS using SkyDNS, a small DNS application
+that responds to DNS requests for service name resolution from pods.
+SkyDNS runs as a pod in Kubernetes.</p><h3 id="jd0e343">Supported Kubernetes Annotations</h3><p>Currently, Contrail Networking supports the following Kubernetes
+annotations:</p><div class="sample" dir="ltr" id="jd0e348"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre> 
+'opencontrail.org/network': '{"domain":"default-domain", "project": "k8s-contrail", "name":"deu"}'
+'opencontrail.org/isolation': 'true'
+'opencontrail.org/fip-pool': '{"domain": "default-domain", "project": "k8s-default", "network": "k8s-default-svc-public", "name": "default"}'
+</pre></template></sw-code></div></div><p>For further details, refer to <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/">https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/</a>.</p><sw-prev-next> </sw-prev-next></p>

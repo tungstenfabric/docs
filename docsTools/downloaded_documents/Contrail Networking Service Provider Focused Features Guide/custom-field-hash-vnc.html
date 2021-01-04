@@ -1,0 +1,51 @@
+<p id="topic-content"><h1 id="jd0e3">Customized Hash Field Selection for ECMP Load Balancing</h1><sw-topic-details date="2020-11-11"> </sw-topic-details><h2 id="jd0e10">Overview: Custom Hash Feature</h2><p>Contrail Networking enables you to configure the set of fields
+used to hash upon during equal-cost multipath (ECMP) load balancing. </p><p>With the custom hash feature, users can configure an exact subset
+of fields to hash upon when choosing the forwarding path among a set
+of eligible ECMP candidates. </p><p>The custom hash configuration can be applied in the following
+ways:</p><ul><li style=""><p>globally</p></li><li style=""><p>per virtual network (VN)</p></li><li style=""><p>per virtual network interface (VMI)</p></li></ul><p>VMI configurations take precedence over VN configurations, and
+VN configurations take precedence over global level configuration
+(if present). </p><p>Custom hash is useful whenever packets originating from a particular
+source and addressed to a particular destination must go through the
+same set of service instances during transit. This might be required
+if source, destination, or transit nodes maintain a certain state
+based on the flow, and the state behavior could also be used for subsequent
+new flowsl, between the same pair of source and destination addresses.
+In such cases, subsequent flows must follow the same set of service
+nodes followed by the initial flow. </p><p>You can use the Contrail Web UI to identify specific fields
+in the network upon which to hash at the <strong v-pre="">Configure &gt; Networking
+&gt; Network, Create Network</strong> window, in the <strong v-pre="">ECMP Hashing Fields</strong> section as shown in the following figure. </p><figure id="jd0e41"><div class="graphic"><img alt="" src="documentation/images/S018553.png" style=""/></div></figure><p>If the hashing fields are configured for a virtual network,
+all traffic destined to that VN will be subject to the customized
+hash field selection during forwarding over ECMP paths by vRouters.
+This may not be desirable in all cases, as it could potentially skew
+all traffic to the destination network over a smaller set of paths
+across the IP fabric. </p><p>A more practical scenario is one in which flows between a source
+and destination must go through the same service instance in between,
+where one could configure customized ECMP fields for the virtual machine
+interface of the service instance. Then, each service chain route
+originating from that virtual machine interface would get the desired
+ECMP field selection applied as its path attribute, and eventually
+get propagated to the ingress vRouter node. See the following example.</p><figure id="jd0e47"><div class="graphic"><img alt="" src="documentation/images/s018740.png" style=""/></div></figure><h2 id="jd0e49">Using ECMP Hash Fields Selection</h2><p>Custom hash fields selection is most useful in scenarios where
+multiple ECMP paths exist for a destination. Typically, the multiple
+ECMP paths point to ingress service instance nodes, which could be
+running anywhere in the Contrail cloud. </p><h3 id="jd0e54">Configuring ECMP Hash Fields Over Service Chains</h3><p>Use the following steps to create customized hash fields with
+ECMP over service chains.</p><ol type="1"><li id="jd0e61" style="">Create the virtual networks needed to interconnect using
+service chaining, with ECMP load-balancing.</li><li id="jd0e64" style="">Create a service template and enable scaling.</li><li id="jd0e67" style="">Create a service instance, and using the service template,
+configure by selecting:<ul><li style=""><p>the desired number of instances for scale-out</p></li><li style=""><p>the left and right virtual network to connect</p></li><li style=""><p>the shared address space, to make sure that instantiated
+services come up with the same IP address for left and right, respectively</p></li></ul><p>This configuration enables ECMP among all those service instances
+during forwarding.</p></li><li id="jd0e82" style="">Create a policy, then select the service instance previously
+created and apply the policy to to the desired VMIs or VNs.</li><li id="jd0e85" style="">	After the service VMs are instantiated, the ports of
+the left and right interfaces are available for further configuration.
+At the Contrail Web UI Ports section under Networking, select the
+ports on the left interface (virtual machine interface) of the service
+instance and apply the desired ECMP hash field configuration.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>Currently the ECMP field selection configuration for the service
+instance left or right interface must be applied by using the Ports
+(VMIs) section under Networking and explicitly configuring the ECMP
+fields selection for each of the instantiated service instances' VMIs.
+This must be done for all service interfaces of the group, to ensure
+the end result is as expected, because the load balance attribute
+of only the best path is carried over to the ingress vRouter. If the
+load balance attribute is not configured, it is not propagated to
+the ingress vRouter, even if other paths have that configuration.</p></sw-admonition></li></ol><p>When the configuration is finished, the vRouters get programmed
+with routing tables with the ECMP paths to the various service instances.
+The vRouters are also programmed with the desired ECMP hash fields
+to be used during load balancing of the traffic. </p><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,54 @@
+<p id="topic-content"><h1 id="jd0e2">Contrail vRouter Next Hop Configuration</h1><sw-topic-details date="2020-07-28"> </sw-topic-details><p><span id="jd0e10">In Contrail Networking
+Release 1911, the next hop value in the vRouter is increased to 32
+bits. By default, the vRouter can now create 512K next hops and supports
+up to 1 million next hops.  Also, in release 1911 you can assign a
+high watermark limit in vRouter agent configuration file. If the number
+of next hops or Multiprotocol Label Switching (MPLS) labels exceed
+the watermark limit, the vRouter agent generates alarms.</span> These alarms are generated based on the usage of next hops and MPLS
+labels against the watermark limit and maximum limit of next hops
+and MPLS labels.</p><p>In releases prior to release 1911, Contrail supported 16 bits
+next hop value in the vRouter. As the next hop value was assigned
+a 16 bit value, the vRouter could create a maximum of 65,536 next
+hops. The vRouter agent did not generate alarms when the number of
+next hops increased. When the number of next hops exceeded the maximum
+limit, the vRouter agent failed to perform another next hop, which
+led to loss of traffic.</p><p>In the vRouter agent configuration file, <code class="inline" v-pre="">contrail-vrouter-agent.conf</code>, you can configure a high watermark limit according to your requirement.
+The watermark limit specifies the maximum percentage of next hops
+or MPLS labels that you can use. The vRouter agent generates alarms
+when the next hop usage or the MPLS labels usage exceeds the watermark
+limit. For example, the default watermark limit is set to 80 (80%
+of the maximum next hops or MPLS labels vRouter can create). If the
+maximum number of next hops possible on the compute node is 100, an
+alarm is raised after 80 next hops are created. If the maximum number
+of MPLS labels that can be created on the compute node is 50, the
+alarm is raised after 40 MPLS labels are created.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The low watermark limit is calculated to be 95% of the
+high watermark limit.</p></sw-admonition><p>To configure vRouter object watermark limit in a cluster at
+the time of provisioning, you must assign a value to <code class="inline" v-pre="">VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark</code> parameter either in the <code class="inline" v-pre="">roles: <code class="inline" v-pre="">vrouter: </code></code> section or in the <code class="inline" v-pre="">contrail_configuration</code> section of the <code class="filepath">instances.yml</code> file.
+You must assign a watermark limit in the range of 50–95 to the <code class="inline" v-pre="">VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark</code> parameter.</p><div class="example" dir="ltr" id="jd0e49"><p>For example, to configure watermark limit to 60%, you
+must assign a value 60 to the <code class="inline" v-pre="">VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark</code> parameter
+under the following sections:</p><sw-code><template v-pre=""><pre>roles:
+       vrouter:
+          VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark: 60</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e64"><sw-code><template v-pre=""><pre>contrail_configuration:
+            VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark: 60</pre></template></sw-code></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p>If you assign a value to <code class="inline" v-pre="">VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark</code> in the <code class="inline" v-pre="">contrail_configuration</code> section, the watermark limit
+for all vRouters that are configured using <code class="filepath">instances.yml</code> file will be the same.  To assign a different watermark limit to
+a vRouter, you have to assign the watermark limit to the <code class="inline" v-pre="">VROUTER_AGENT__<cite>DEFAULT</cite>__vr_object_high_watermark</code> parameter under the <code class="inline" v-pre="">roles: <code class="inline" v-pre=""> vrouter: </code></code> section of a vRouter.</p></sw-admonition><p>To change the watermark limit later, you must modify the <code class="inline" v-pre="">vr_object_high_watermark</code> parameter present in the <code class="inline" v-pre="">[DEFAULT]</code> section of the <code class="inline" v-pre="">entrypoint.sh</code> file. After you assign a watermark value to the <code class="inline" v-pre="">vr_object_high_watermark</code> parameter in the <code class="inline" v-pre="">entrypoint.sh</code> file,
+the <code class="inline" v-pre="">contrail-vrouter-agent.conf</code> configuration
+file is now updated with the <code class="inline" v-pre="">vr_object_high_watermark</code> parameter, which denotes the watermark limit.</p><div class="example" dir="ltr" id="jd0e119"><p>For example, to configure watermark limit to 75%, you
+must assign a value 75 to the <code class="inline" v-pre="">vr_object_high_watermark</code> parameter under the <code class="inline" v-pre="">[DEFAULT]</code> section:</p><sw-code><template v-pre=""><pre>[DEFAULT]
+     vr_object_high_watermark</pre></template></sw-code></div><p>Based on the next hops or MPLS labels usage, the vRouter agent
+generates system defined alarms with various severity. See <a href="next-hop-limit-increase.html#nh-usage-table">Table 1</a>.</p><sw-table><p class="SubTitle" id="nh-usage-table">Table 1: Alarms Generated by vRouter Agent</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next Hop and MPLS Label Usage Against the
+Watermark Limit and Maximum Limit</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Severity Level of Alarm</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next hop or MPLS labels usage exceeds the high watermark
+limit</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Major alarm is generated.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next hop or MPLS labels usage equals 100% of the maximum
+limit</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Critical alarm is generated, and high watermark alarm
+is also present.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next hop or MPLS labels usage reduces to 95% of the maximum
+limit</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Critical alarm is cleared, and high watermark alarm is
+present.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next hop or MPLS labels usage reduces to 95% of the high
+watermark limit</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>High watermark alarm is cleared.</p></td></tr></tbody></table></sw-table><h2 id="jd0e178">Benefits of Increasing Next Hop Limit</h2><ul><li style=""><p>Increase in next hop limit allows Contrail to scale more
+next hops than in earlier releases.</p></li><li style=""><p>The alarms generated by vRouter agent enables you to monitor
+the usage and availability of next hops and MPLS labels.</p></li></ul><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e10">1911</a></div><div class="table-cell">In Contrail Networking
+Release 1911, the next hop value in the vRouter is increased to 32
+bits. By default, the vRouter can now create 512K next hops and supports
+up to 1 million next hops.  Also, in release 1911 you can assign a
+high watermark limit in vRouter agent configuration file. If the number
+of next hops or Multiprotocol Label Switching (MPLS) labels exceed
+the watermark limit, the vRouter agent generates alarms.</div></div></div><sw-prev-next> </sw-prev-next></p>

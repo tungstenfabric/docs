@@ -1,0 +1,56 @@
+<p id="topic-content"><h1 id="jd0e2">Troubleshooting Link-Local Services in Contrail</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><p>Use the troubleshooting steps and guidelines in this
+topic when you have errors with Contrail link-local services. </p><h2 id="jd0e15">Overview of Link-Local Services</h2><p>Virtual machines might be set up to access specific services
+hosted on the fabric infrastructure. For example, a virtual machine
+might be a Nova client that requires access to the Nova API service
+running in the fabric network. Access to services hosted on the fabric
+network can be provided by configuring the services as link-local
+services.  </p><p>A link-local address and a service port is chosen for the specific
+service running on a TCP / UDP port on a server in the fabric. With
+the link-local service configured, virtual machines can access the
+service using the link-local address.  For link-local services, Contrail
+uses the address range 169.254.169.x.   </p><p>Link-local service can be configured using the Contrail WebUI: <strong v-pre="">Configure &gt; Infrastructure &gt; Link Local Services</strong>.</p><figure id="jd0e31"><div class="graphic"><img alt="" src="documentation/images/s041993.gif" style=""/></div></figure><h2 id="jd0e34">Troubleshooting Procedure for Link-Local Services</h2><p>Use the following steps when you are troubleshooting link-local
+services errors.</p><ol type="1"><li id="jd0e42" style="">Verify the reachability of the fabric server that is hosting
+the link-local service from the compute node.</li><li id="jd0e45" style=""> Check the state of the virtual machine and the interface:<ul><li style=""><p>Is the <strong v-pre="">Status</strong> of virtual machine <strong v-pre="">Up</strong>? </p></li><li style=""><p>Is the corresponding tap interface <strong v-pre="">Active</strong>? </p></li></ul><p>Checking the virtual machine status in the Contrail UI:</p><figure id="jd0e66"><div class="graphic"><img alt="" src="documentation/images/s041994.gif" style=""/></div></figure><p>Checking the tap interface status in the http agent introspect:</p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_ItfReq?name=</code></p><figure id="jd0e76"><div class="graphic"><img alt="" src="documentation/images/s041995.gif" style=""/></div></figure></li><li id="jd0e78" style="">Check the link-local configuration in the vrouter agent.
+Make sure the configured link-local service is displayed.  <p><code class="inline" v-pre="">http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_LinkLocalServiceInfo?</code></p><figure id="jd0e87"><div class="graphic"><img alt="" src="documentation/images/s041996.gif" style=""/></div></figure></li><li id="jd0e89" style="">Validate the BGP neighbor config and the BGP peering config
+object. When the virtual machine communicates with the configured
+link-local service, a forward and reverse flow for the communication
+ is set up. Check that the flow for this communication is created
+and the flow action is NAT.  <p><code class="inline" v-pre="">http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_KFlowReq?flow_idx=  </code></p><p>Check that all flow entries display NAT action programmed and
+display flags for the fields (source or destination IP and ports)
+that have NAT programmed. Also shown are the number of packets and
+bytes transmitted in the respective flows.</p><figure id="jd0e100"><div class="graphic"><img alt="" src="documentation/images/s041997.gif" style=""/></div></figure><p>The forward flow displays the source IP of the virtual machine
+and the destination IP of the link-local service. The reverse flow
+displays the source IP of the fabric host and the destination IP of
+the compute node’s vhost interface. If the service is hosted
+on the same compute node, the destination address of the reverse flow
+displays the metadata address allocated to the virtual machine.  </p><p>Note that the <strong v-pre="">index</strong> and <strong v-pre="">rflow</strong> index for
+the two flows are reversed.  </p><p>You can also view similar information in the vrouter agent introspect
+page, where you can see the policy and security group for the flow.
+Check that the flow actions display as <strong v-pre="">pass</strong>.  </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_FetchAllFlowRecords?  </code></p></li></ol><h2 id="jd0e124">Metadata Service</h2><p>OpenStack allows virtual instances to access metadata
+by sending an HTTP request to the link-local address 169.254.169.254.
+The metadata request from the instance is proxied to Nova, with additional
+HTTP header fields added, which Nova uses to identify the source instance.
+Then Nova responds with appropriate metadata.  </p><p>The Contrail vrouter acts as the proxy, trapping the metadata
+requests, adding the necessary header fields, and sending the requests
+to the Nova API server.</p><h2 id="jd0e136">Troubleshooting Procedure for Link-Local Metadata Service</h2><p>Metadata service is also a link-local service, with a
+fixed service name (metadata), a fixed service address (169.254.169.254:80),
+and a fabric address pointing to the server where the OpenStack Nova
+API server is running. All of the configuration and troubleshooting
+procedures for Contrail link-local services also apply to the metadata
+service.   </p><p>However, for metadata service, the flow is always set up to
+the compute node, so the vrouter agent will update and proxy the HTTP
+request. The vrouter agent listens on a local port to receive the
+metadata requests. Consequently, the reverse flow has the compute
+node as the source IP,  the local port on which the agent is listening
+is the source port, and the instance’s metadata IP is the destination
+IP address.  </p><p>After performing all of the troubleshooting procedures for link-local
+services, the following additional steps can be used to further troubleshoot
+metadata service.</p><ol type="1"><li id="jd0e149" style="">Check the metadata statistics for: the number of metadata
+requests received by the vrouter agent, the number of proxy sessions
+set up with the Nova API server, and number of internal errors encountered.
+ <p><code class="inline" v-pre=""> http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_MetadataInfo? </code> </p><p>The port on which the vrouter agent listens for metadata requests
+is also displayed.</p><figure id="jd0e161"><div class="graphic"><img alt="" src="documentation/images/s041998.gif" style=""/></div></figure></li><li id="jd0e163" style="">Check the metadata trace messages, which show the trail
+of metadata requests and responses.  <p><code class="inline" v-pre="">http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_SandeshTraceRequest?x=Metadata</code></p></li><li id="jd0e172" style="">Check the Nova configuration. On the server running the
+OpenStack service, inspect the <code class="inline" v-pre="">nova.conf</code> file.       <ul><li style=""><p> Ensure that the metadata proxy is enabled, as follows: </p><p><code class="inline" v-pre="">service_neutron_metadata_proxy = True </code> </p><p><code class="inline" v-pre="">service_quantum_metadata_proxy = True</code> (on older installations)</p></li><li style=""><p> Check to see if the metadata proxy shared secret is set: </p><p><code class="inline" v-pre="">neutron_metadata_proxy_shared_secret  </code></p><p><code class="inline" v-pre="">quantum_metadata_proxy_shared_secret </code> (on older installations)​  </p><p>If the shared secret is set in <code class="inline" v-pre="">nova.conf</code>, the same secret must be configured on each compute node in the
+file <code class="inline" v-pre="">/etc/contrail/contrail-vrouter-agent.conf</code>, and the same shared secret must be updated in the <code class="inline" v-pre="">METADATA</code> section as <code class="inline" v-pre="">metadata_proxy_secret=<var v-pre="">&lt;secret&gt;</var></code>.</p></li></ul></li><li id="jd0e216" style="">Restart the vrouter agent after modifying the shared secret:
+            <p><code class="inline" v-pre="">service contrail-vrouter restart</code></p></li></ol><sw-prev-next> </sw-prev-next></p>

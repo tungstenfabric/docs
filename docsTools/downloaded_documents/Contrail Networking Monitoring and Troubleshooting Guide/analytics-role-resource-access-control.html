@@ -1,0 +1,11 @@
+<p id="topic-content"><h1 id="jd0e2">Role- and Resource-Based Access Control for the Contrail Analytics
+API </h1><sw-topic-details date="2020-03-23"> </sw-topic-details><p>In previous releases of Contrail, any user can access the Contrail
+analytics API by using queries to get historical information and by
+using UVEs to get state information.</p><p>With Contrail, it is possible to restrict access such that only
+the <code class="inline" v-pre="">cloud-admin</code> user can access the Contrail
+analytics API.  </p><p>Implementation details are as follows: </p><ul><li style=""><p>An external user makes a REST API call to <code class="inline" v-pre="">contrail-analytics-api</code>, passing a token representing
+the user with the HTTP header X-Auth-Token. </p></li><li style=""><p>Based on the user role, <code class="inline" v-pre="">contrail-analytics-api</code> will only allow access for the <code class="inline" v-pre="">cloud-admin</code> user and reject the request (<code class="inline" v-pre="">HTTPUnauthorized</code>) for other users.</p></li></ul><p>To set the <code class="inline" v-pre="">cloud_admin</code> user,
+use the following fields in <code class="filepath">/etc/contrail/contrail-analytics-api.conf</code>: </p><ul><li style=""><p><code class="inline" v-pre="">aaa_mode</code>—Takes one of
+these values:</p><ul><li style=""><p><code class="inline" v-pre="">no-auth</code></p></li><li style=""><p><code class="inline" v-pre="">cloud-admin</code></p></li></ul></li><li style=""><p><code class="inline" v-pre="">cloud_admin_role</code>—The
+user with this role has full access to everything. By default, this
+is set to "admin". This role must be configured in Keystone.</p></li></ul><sw-prev-next> </sw-prev-next></p>

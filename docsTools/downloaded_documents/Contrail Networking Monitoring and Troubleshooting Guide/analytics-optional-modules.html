@@ -1,0 +1,356 @@
+<p id="topic-content"><h1 id="jd0e2">Contrail Analytics Optional Modules</h1><sw-topic-details date="2020-09-21"> </sw-topic-details><h2 id="jd0e11">Analytics Optional Components</h2><p>Contrail analytics is comprised of four building blocks. The
+last three listed are optional components.</p><ul><li style=""><p>Analytics collector</p></li><li style=""><p>Analytics alarm</p></li><li style=""><p>Analytics SNMP</p></li><li style=""><p>Analytics database</p></li></ul><figure id="jd0e29"><figcaption>Figure 1: Contrail Analytics Components</figcaption><div class="graphic"><img alt="Contrail Analytics Components" src="documentation/images/g301071.png" style=""/></div></figure><p>Regardless that the alarm, SNMP, and database analytics roles
+have not been installed and if installed are disabled, these components
+show as active when you run the Linux $sudo commands or view in Contrail
+Command. For more information, see the section “TripleO Provisioning”
+below. </p><h3 id="jd0e35">Contrail Infrastructure Installed without Optional Analytics
+Components</h3><p>Two topologies are considered in this example: multi-nodes or
+single node.</p><div class="definitionList"><div><span class="defTerm" style="">Multi-nodes</span><span class="defSep">—</span><span class="defItem" style="">Contrail controller components are split onto three servers
+(Contrail controller, Contrail analytics, and Contrail analytics database).
+Only the first two servers are mandatory since Contrail analytics
+database is an optional component. This type of topology is used in
+production deployments.</span></div><div><span class="defTerm" style="">Single node</span><span class="defSep">—</span><span class="defItem" style="">This type of topology is used in test deployments.</span></div></div><h3 id="jd0e53">Multi-Nodes Contrail Controller</h3><h4 id="jd0e56">Contrail Controller Node</h4><p>Following is an example of the Contrail status on the Contrail
+controller node:</p><div class="example" dir="ltr" id="jd0e61"><sw-code><template v-pre=""><pre>$ sudo contrail-status
+== Contrail control ==
+control: active
+nodemgr: active
+named: active
+dns: active
+
+== Contrail config-database ==
+nodemgr: active
+zookeeper: active
+rabbitmq: active
+cassandra: active
+
+== Contrail config ==
+svc-monitor: active
+nodemgr: active
+device-manager: active
+api: active
+schema: active
+
+== Contrail webui ==
+web: active
+job: active</pre></template></sw-code></div><h4 id="jd0e64">Contrail Analytics Node (with All Optional Components)</h4><p>Following is the Contrail status on Contrail analytics node
+when Contrail analytics SNMP and Contrail analytics alarm have both
+been deployed:</p><div class="example" dir="ltr" id="jd0e69"><sw-code><template v-pre=""><pre>$ sudo contrail-status
+Pod Service Original Name
+Original Version State Id Status
+analytics api contrail-analytics-api rhel-
+queens-1910-23 running 62980f3e6479 Up 2 weeks
+analytics collector contrail-analytics-collector rhel-
+queens-1910-23 running b777437946c2 Up 2 weeks
+analytics nodemgr contrail-nodemgr rhel-
+queens-1910-23 running aeeb744a5b5e Up 2 weeks
+analytics redis contrail-external-redis rhel-
+queens-1910-23 running 150b6225bd93 Up 2 weeks
+analytics-alarm alarm-gen contrail-analytics-alarm-gen rhel-
+queens-1910-23 running d655146cb8d0 Up 2 weeks
+analytics-alarm kafka contrail-external-kafka rhel-
+queens-1910-23 running 8cfa8c7da4bd Up 2 weeks
+analytics-alarm nodemgr contrail-nodemgr rhel-
+queens-1910-23 running 685a5f817f0b Up 2 weeks
+analytics-alarm zookeeper contrail-external-zookeeper rhel-
+queens-1910-23 running a41dc5658c72 Up 2 weeks
+analytics-snmp nodemgr contrail-nodemgr rhel-
+queens-1910-23 running 0afd301ccbd8 Up 2 weeks
+analytics-snmp snmp-collector contrail-analytics-snmp-collector rhel-
+queens-1910-23 running 2bde6aa39250 Up 2 weeks
+analytics-snmp topology contrail-analytics-snmp-topology rhel-
+queens-1910-23 running a16f983ed162 Up 2 weeks
+
+== Contrail analytics ==
+nodemgr: active
+api: active
+collector: active
+
+== Contrail analytics-alarm ==
+nodemgr: active
+kafka: active
+alarm-gen: active
+
+== Contrail analytics-snmp ==
+snmp-collector: active
+nodemgr: active
+topology: active</pre></template></sw-code></div><p>Contrail analytics alarm and SNMP are deployed and active.</p><h4 id="jd0e74">Contrail Analytics Node (without Analytics Optional Components)</h4><p>Following is an example of the Contrail status on Contrail analytics
+node when Contrail analytics SNMP and Contrail analytics alarm have
+not been deployed:</p><div class="example" dir="ltr" id="jd0e79"><sw-code><template v-pre=""><pre>$ sudo contrail-status
+Pod Service Original Name Original Version
+State Id Status
+analytics api contrail-analytics-api rhel-queens-2005-62
+running 489b07cbbbef Up 18 hours
+analytics collector contrail-analytics-collector rhel-queens-2005-62
+running 5da4f99b045f Up 18 hours
+analytics nodemgr contrail-nodemgr rhel-queens-2005-62
+running 28053f64f1bc Up 18 hours
+analytics provisioner contrail-provisioner rhel-queens-2005-62
+running faa8de6d17e4 Up 18 hours
+analytics redis contrail-external-redis rhel-queens-2005-62
+running 3e29dcc475d1 Up 18 hours
+analytics stunnel contrail-external-stunnel rhel-queens-2005-62
+running 11a30f0f5e3b Up 18 hours
+
+== Contrail analytics ==
+nodemgr: active
+api: active
+collector: active</pre></template></sw-code></div><p>Only Contrail analytics collector is deployed and active.</p><h4 id="jd0e84">Contrail Analytics Database Node</h4><p>Contrail analytics database is only deployed when the analytics
+database component is enabled. The following example shows the Contrail
+status on the Contrail analytics database node:</p><div class="example" dir="ltr" id="jd0e89"><sw-code><template v-pre=""><pre>$ sudo contrail-status
+Pod Service Original Name Original Version
+State Id Status
+database cassandra contrail-external-cassandra rhel-queens-1910-
+23 running ec05bd8c34c4 Up 2 weeks
+database nodemgr contrail-nodemgr rhel-queens-1910-
+23 running 25a6c58d5144 Up 2 weeks
+database query-engine contrail-analytics-query-engine rhel-queens-1910-
+23 running f90f7ae16b48 Up 2 weeks
+
+== Contrail database ==
+nodemgr: active
+query-engine: active
+cassandra: active</pre></template></sw-code></div><h3 id="jd0e92">Single Node Contrail Controller</h3><h4 id="jd0e95">Contrail Controller Node (with All Analytics Optional Components)</h4><p>Following is the Contrail status on Contrail controller node
+when Contrail analytics SNMP, Contrail analytics alarm, and Contrail
+analytics database have been deployed:</p><div class="example" dir="ltr" id="jd0e100"><sw-code><template v-pre=""><pre>$ sudo contrail-status
+Pod Service Original Name
+Original Version State Id Status
+analytics api contrail-analytics-api
+rhel-queens-1912-46 running bf87cc51fb36 Up 8 weeks
+analytics collector contrail-analytics-collector
+rhel-queens-1912-46 running 0ae1ca0fb1f2 Up 8 weeks
+analytics nodemgr contrail-nodemgr
+rhel-queens-1912-46 running 24e9174056d0 Up 8 weeks
+analytics redis contrail-external-redis
+rhel-queens-1912-46 running 9d7135b6b9d8 Up 8 weeks
+analytics stunnel contrail-external-stunnel
+rhel-queens-1912-46 running 30d413bad4f1 Up 8 weeks
+analytics-alarm alarm-gen contrail-analytics-alarm-gen
+rhel-queens-1912-46 running 2f40aeb42154 Up 8 weeks
+analytics-alarm kafka contrail-external-kafka
+rhel-queens-1912-46 running 8cd54b9520af Up 8 weeks
+analytics-alarm nodemgr contrail-nodemgr
+rhel-queens-1912-46 running afeadd231273 Up 8 weeks
+analytics-alarm zookeeper contrail-external-zookeeper
+rhel-queens-1912-46 running 118b116b2721 Up 8 weeks
+analytics-snmp nodemgr contrail-nodemgr
+rhel-queens-1912-46 running f623346fff53 Up 8 weeks
+analytics-snmp snmp-collector contrail-analytics-snmp-collector
+rhel-queens-1912-46 running 152b037af72d Up 8 weeks
+analytics-snmp topology contrail-analytics-snmp-topology
+rhel-queens-1912-46 running 5226847e74f3 Up 8 weeks
+config api contrail-controller-config-api
+rhel-queens-1912-46 running b8ba22697cfe Up 8 weeks
+config device-manager contrail-controller-config-devicemgr
+rhel-queens-1912-46 running 29f9b248f850 Up 8 weeks
+config nodemgr contrail-nodemgr
+rhel-queens-1912-46 running 2f3f84d5d2b4 Up 8 weeks
+config schema contrail-controller-config-schema
+rhel-queens-1912-46 running 334906b962fb Up 8 weeks
+config svc-monitor contrail-controller-config-svcmonitor
+rhel-queens-1912-46 running a8581c37f9ab Up 8 weeks
+config-database cassandra contrail-external-cassandra
+rhel-queens-1912-46 running e47a3e430fe6 Up 8 weeks
+config-database nodemgr contrail-nodemgr
+rhel-queens-1912-46 running 4798399f0ec5 Up 8 weeks
+config-database rabbitmq contrail-external-rabbitmq
+rhel-queens-1912-46 running d80a5e8e8801 Up 8 weeks
+config-database zookeeper contrail-external-zookeeper
+rhel-queens-1912-46 running b1c430201497 Up 8 weeks
+control control contrail-controller-control-control
+rhel-queens-1912-46 running e478128385f7 Up 8 weeks
+control dns contrail-controller-control-dns
+rhel-queens-1912-46 running f9752a324d71 Up 8 weeks
+control named contrail-controller-control-named
+rhel-queens-1912-46 running 66c992adced5 Up 8 weeks
+control nodemgr contrail-nodemgr
+rhel-queens-1912-46 running 3c9a0270ab1a Up 8 weeks
+database cassandra contrail-external-cassandra
+rhel-queens-1912-46 running f85ead18fb26 Up 8 weeks
+database nodemgr contrail-nodemgr
+rhel-queens-1912-46 running 0d9f471003ea Up 8 weeks
+database query-engine contrail-analytics-query-engine
+rhel-queens-1912-46 running 40a092abbccf Up 8 weeks
+webui job contrail-controller-webui-job
+rhel-queens-1912-46 running 432f686a8abf Up 8 weeks
+webui web contrail-controller-webui-web
+rhel-queens-1912-46 running 4341432ce9a4 Up 8 weeks
+
+== Contrail control ==
+control: active
+nodemgr: active
+named: active
+dns: active
+
+== Contrail analytics-alarm ==
+nodemgr: active
+kafka: active
+alarm-gen: active
+
+== Contrail database ==
+nodemgr: active
+query-engine: active
+cassandra: active
+
+== Contrail analytics ==
+nodemgr: active
+api: active
+collector: active
+
+== Contrail config-database ==
+nodemgr: active
+zookeeper: active
+rabbitmq: active
+cassandra: active
+
+== Contrail webui ==
+web: active
+job: active
+
+== Contrail analytics-snmp ==
+snmp-collector: active
+nodemgr: active
+topology: active
+
+== Contrail config ==
+svc-monitor: active
+nodemgr: active
+device-manager: active
+api: active
+schema: active
+</pre></template></sw-code></div><p>Contrail database (query), analytics alarm, and SNMP are deployed
+and active.</p><h4 id="jd0e105">Contrail Controller Node (without Analytics Optional Components)</h4><p>Following is an example of the Contrail status on Contrail controller
+node when Contrail analytics SNMP, Contrail analytics alarm, and Contrail
+analytics database have not been deployed:</p><div class="example" dir="ltr" id="jd0e110"><sw-code><template v-pre=""><pre>$ sudo contrail-status
+Pod Service Original Name
+Original Version State Id Status
+analytics api contrail-analytics-api
+rhel-queens-2005-62 running b1ddca562595 Up 10 hours
+analytics collector contrail-analytics-collector
+rhel-queens-2005-62 running f6860911ee16 Up 10 hours
+analytics nodemgr contrail-nodemgr
+rhel-queens-2005-62 running 37a0d8744e31 Up 10 hours
+analytics provisioner contrail-provisioner
+rhel-queens-2005-62 running e2f9a4605d63 Up 10 hours
+analytics redis contrail-external-redis
+rhel-queens-2005-62 running 1d0a193983b0 Up 10 hours
+analytics stunnel contrail-external-stunnel
+rhel-queens-2005-62 running 695d61045e63 Up 10 hours
+config api contrail-controller-config-api
+rhel-queens-2005-62 running 41eb0caef12d Up 10 hours
+config device-manager contrail-controller-config-devicemgr
+rhel-queens-2005-62 running f3158c67d792 Up 10 hours
+config nodemgr contrail-nodemgr
+rhel-queens-2005-62 running 4138cc386e69 Up 10 hours
+config provisioner contrail-provisioner
+rhel-queens-2005-62 running 45aae86bb41a Up 10 hours
+config schema contrail-controller-config-schema
+rhel-queens-2005-62 running 2497392980d0 Up 10 hours
+config svc-monitor contrail-controller-config-svcmonitor
+rhel-queens-2005-62 running b2ed20209aa7 Up 10 hours
+config-database cassandra contrail-external-cassandra
+rhel-queens-2005-62 running abd3efad8075 Up 10 hours
+config-database nodemgr contrail-nodemgr
+rhel-queens-2005-62 running bcc74ecb37cc Up 10 hours
+config-database provisioner contrail-provisioner
+rhel-queens-2005-62 running 9de114119be5 Up 10 hours
+config-database rabbitmq contrail-external-rabbitmq
+rhel-queens-2005-62 running d623f5d3da79 Up 10 hours
+config-database zookeeper contrail-external-zookeeper
+rhel-queens-2005-62 running 2c4f47c2fdc1 Up 10 hours
+control control contrail-controller-control-control
+rhel-queens-2005-62 running 56e238791c60 Up 10 hours
+control dns contrail-controller-control-dns
+rhel-queens-2005-62 running 6cfc801451f9 Up 10 hours
+control named contrail-controller-control-named
+rhel-queens-2005-62 running f033a8bf5b88 Up 10 hours
+control nodemgr contrail-nodemgr
+rhel-queens-2005-62 running 7381053ff80f Up 10 hours
+control provisioner contrail-provisioner
+rhel-queens-2005-62 running a3851c25f427 Up 10 hours
+webui job contrail-controller-webui-job
+rhel-queens-2005-62 running 80cd5c06ff39 Up 10 hours
+webui web contrail-controller-webui-web
+rhel-queens-2005-62 running 51a2f164a259 Up 10 hours
+
+== Contrail control ==
+control: active
+nodemgr: active
+named: active
+dns: active
+
+== Contrail analytics ==
+nodemgr: active
+api: active
+collector: active
+
+== Contrail config-database ==
+nodemgr: active
+zookeeper: active
+rabbitmq: active
+cassandra: active
+
+== Contrail config ==
+svc-monitor: active
+nodemgr: active
+device-manager: active
+api: active
+schema: active
+
+== Contrail webui ==
+web: active
+job: active
+</pre></template></sw-code></div><p>Contrail database (query), analytics alarm, and SNMP are not
+deployed.</p><h2 id="jd0e115">Contrail Web UI</h2><h3 id="jd0e118">Web UI with Optional Components</h3><p><a href="analytics-optional-modules.html#all-analytics-deployed">Figure 2</a> displays the Contrail
+Web UI dashboard with all optional analytics components deployed.</p><figure id="all-analytics-deployed"><figcaption>Figure 2: Web UI - All Optional Analytics
+Components Deployed</figcaption><div class="graphic"><img alt="Web UI - All Optional Analytics
+Components Deployed" src="documentation/images/s008309.PNG" style=""/></div></figure><p>A database node is visible in the infrastructure dashboard. </p><figure id="database-node"><figcaption>Figure 3: Web UI - Database Node in Dashboard</figcaption><div class="graphic"><img alt="Web UI - Database Node in Dashboard" src="documentation/images/s008310.PNG" style=""/></div></figure><h3 id="jd0e134">Web UI without Optional Components</h3><p><a href="analytics-optional-modules.html#analytics-not-deployed">Figure 4</a> displays the Contrail
+Web UI dashboard without optional analytics components deployed.</p><figure id="analytics-not-deployed"><figcaption>Figure 4: Web UI - Optional Analytics
+Components Not Deployed</figcaption><div class="graphic"><img alt="Web UI - Optional Analytics
+Components Not Deployed" src="documentation/images/s008311.PNG" style=""/></div></figure><p>No database node is visible in the infrastructure dashboard:</p><figure id="jd0e146"><figcaption>Figure 5: Web UI - Database Node Not Visible in Dashboard</figcaption><div class="graphic"><img alt="Web UI - Database Node Not Visible in Dashboard" src="documentation/images/s008312.PNG" style=""/></div></figure><h3 id="jd0e150">Analytics Alarm Feature Enabled</h3><p><a href="analytics-optional-modules.html#monitor-alarm-menu">Figure 6</a> displays the <strong v-pre="">Monitor
+&gt; Alarms</strong> menu.</p><figure id="monitor-alarm-menu"><figcaption>Figure 6: Web UI - Monitor &gt; Alarms Menu</figcaption><div class="graphic"><img alt="Web UI - Monitor &gt; Alarms Menu" src="documentation/images/s008313.PNG" style=""/></div></figure><p><a href="analytics-optional-modules.html#configure-alarm-menu">Figure 7</a> displays the <strong v-pre="">Configure &gt; Alarms</strong> menu.</p><figure id="configure-alarm-menu"><figcaption>Figure 7: Web UI - Configure &gt; Alarms
+Menu</figcaption><div class="graphic"><img alt="Web UI - Configure &gt; Alarms
+Menu" src="documentation/images/s008314.PNG" style=""/></div></figure><p><a href="analytics-optional-modules.html#global-alarm-settings">Figure 8</a> displays the dialog
+box which appears when <strong v-pre="">Global Alarm</strong>, next to Logged in
+User in the upper right, is selected.</p><figure id="global-alarm-settings"><figcaption>Figure 8: Web UI - Global Alarm Settings</figcaption><div class="graphic"><img alt="Web UI - Global Alarm Settings" src="documentation/images/s008315.PNG" style=""/></div></figure><h3 id="jd0e183">Analytics Alarm Feature Disabled</h3><p>If the alarm analytics component is not deployed, then Contrail
+Web UI should not display the following alarm references:</p><ul><li style=""><p>Global Alarm (Next to Logged in User)</p></li><li style=""><p>Monitor &gt; Alarms</p></li><li style=""><p>Configure &gt; Alarms</p></li></ul><p>There is not an appearance of Global Alarm or <strong v-pre="">Alarms</strong> entry in the Monitor menu:</p><figure id="jd0e203"><figcaption>Figure 9: Analytics Alarm Disabled - Global Alarm and Alarm Not
+Available</figcaption><div class="graphic"><img alt="Analytics Alarm Disabled - Global Alarm and Alarm Not
+Available" src="documentation/images/s008316.PNG" style=""/></div></figure><p>Alarms menu still available in Configure menu.</p><figure id="jd0e209"><figcaption>Figure 10: Analytics Alarm Disabled - Configure &gt; Alarms </figcaption><div class="graphic"><img alt="Analytics Alarm Disabled - Configure &gt; Alarms " src="documentation/images/s008317.PNG" style=""/></div></figure><h3 id="jd0e213">Analytics SNMP Feature Enabled</h3><p><a href="analytics-optional-modules.html#analytics-snmp-enabled">Figure 11</a> displays the Physical
+Topology option in the Monitor menu.</p><figure id="analytics-snmp-enabled"><figcaption>Figure 11: Analytics SNMP Feature
+Enabled - Physical Topology Menu Available</figcaption><div class="graphic"><img alt="Analytics SNMP Feature
+Enabled - Physical Topology Menu Available" src="documentation/images/s008318.PNG" style=""/></div></figure><h3 id="jd0e223">Analytics SNMP Feature Disabled</h3><p>If the alarm analytics component is not provisioned, then Contrail
+Web UI does not display the Physical Topology menu option.</p><figure id="jd0e228"><figcaption>Figure 12: Analytics SNMP Feature Disabled - Physical Topology
+Menu Not Available</figcaption><div class="graphic"><img alt="Analytics SNMP Feature Disabled - Physical Topology
+Menu Not Available" src="documentation/images/s008319.PNG" style=""/></div></figure><h3 id="jd0e232">Analytics Database Enabled</h3><p>If analytics database is provisioned, then Contrail Web UI displays
+the Query page.</p><figure id="jd0e237"><figcaption>Figure 13: Analytics Database Enabled - Query Page Available</figcaption><div class="graphic"><img alt="Analytics Database Enabled - Query Page Available" src="documentation/images/s008320.PNG" style=""/></div></figure><h3 id="jd0e241">Analytics Database Disabled</h3><p>If analytics database is not provisioned, then Contrail Web
+UI should not display the Query page. Query page logo is unavailable
+to launch Query page.</p><figure id="jd0e246"><figcaption>Figure 14: Analytics Database Disabled - Query Page Logo Not Available</figcaption><div class="graphic"><img alt="Analytics Database Disabled - Query Page Logo Not Available" src="documentation/images/s008329.PNG" style=""/></div></figure><h2 id="jd0e250">Tripleo Provisioning</h2><h3 id="jd0e253">Multi-Nodes Contrail Controller Topology</h3><p>In order to enable or disable the Contrail analytics optional
+components, TripleO templates have to be modified.</p><ul><li style=""><p>In ContrailAnalytics role, <strong v-pre="">ContrailAnalyticsSnmp</strong>, and <strong v-pre="">ContrailAnalyticsAlarm</strong> resources can be removed:</p><div class="example" dir="ltr" id="jd0e268"><sw-code><template v-pre=""><pre> - OS::TripleO::Services::ContrailAnalytics
+<strong v-pre=""> - OS::TripleO::Services::ContrailAnalyticsSnmp</strong>
+<strong v-pre=""> - OS::TripleO::Services::ContrailAnalyticsAlarm</strong></pre></template></sw-code></div></li><li style=""><p>ContrailAnalyticsDatabase role can also be removed (not
+selected using ContrailAnalyticsDatabaseCount = 0) into a rollout
+as this role is deploying only <strong v-pre="">ContrailAnalyticsDatabase</strong> resource:</p><div class="example" dir="ltr" id="jd0e282"><sw-code><template v-pre=""><pre><strong v-pre="">- OS::TripleO::Services::ContrailAnalyticsDatabase</strong></pre></template></sw-code></div></li><li style=""><p>ContrailController role is kept unchanged.</p></li></ul><h3 id="jd0e289">Single Node Contrail Controller Topology</h3><p>In order to enable or disable the Contrail analytics optional
+components, TripleO templates have to be modified. In ContrailController
+role, <strong v-pre="">ContrailAnalyticsSnmp</strong>, <strong v-pre="">ContrailAnalyticsAlarm</strong>, and <strong v-pre="">ContrailAnalyticsDatabase</strong> resources can be removed,
+other contrail resources are kept:</p><div class="example" dir="ltr" id="jd0e303"><sw-code><template v-pre=""><pre>- name: ContrailController
+    - OS::TripleO::Services::ContrailAnalytics
+    <strong v-pre="">- OS::TripleO::Services::ContrailAnalyticsAlarm</strong>
+    <strong v-pre="">- OS::TripleO::Services::ContrailAnalyticsDatabase</strong>
+    <strong v-pre="">- OS::TripleO::Services::ContrailAnalyticsSnmp</strong>
+    - OS::TripleO::Services::ContrailCertmongerUser
+    - OS::TripleO::Services::ContrailConfig
+    - OS::TripleO::Services::ContrailConfigDatabase
+    - OS::TripleO::Services::ContrailControl
+    - OS::TripleO::Services::ContrailWebui
+</pre></template></sw-code></div><h3 id="jd0e315">TripleO Template Update</h3><p><span id="jd0e319">TripleO templates were
+updated in June 2020 to allow disabling the provisioning of Contrail
+analytics components.</span></p><p>Earlier Contrail TripleO templates have to be patched in order
+to replace <code class="inline" v-pre="">docker/services/contrail/contrail-base.yaml</code> file in which optional analytics component provision is hardcoded:</p><div class="example" dir="ltr" id="jd0e326"><sw-code><template v-pre=""><pre>...
+                ANALYTICS_ALARM_ENABLE: 'False'
+                ANALYTICS_SNMP_ENABLE: 'True'
+                ANALYTICSDB_ENABLE: 'True'
+...
+</pre></template></sw-code></div><h2 id="jd0e329">Appendix </h2><h3 id="jd0e332">Contrail Command UI</h3><p>The disabled roles and charts are visible on the Query page
+but they are not operational.</p><figure id="jd0e337"><figcaption>Figure 15: Query Page Visible in Dashboard</figcaption><div class="graphic"><img alt="Query Page Visible in Dashboard" src="documentation/images/s008321.PNG" style=""/></div></figure><p>Regardless that the alarm, SNMP, and database analytics roles
+have been disabled, they are still reported by Contrail Command.</p><figure id="jd0e343"><figcaption>Figure 16: Disabled Roles Still Visible in Contrail Command</figcaption><div class="graphic"><img alt="Disabled Roles Still Visible in Contrail Command" src="documentation/images/s008322.PNG" style=""/></div></figure><p>The following five charts will always display empty.</p><figure id="jd0e349"><figcaption>Figure 17: Empty Charts in Compute Nodes</figcaption><div class="graphic"><img alt="Empty Charts in Compute Nodes" src="documentation/images/s008323.PNG" style=""/></div></figure><figure id="jd0e353"><figcaption>Figure 18: Empty Charts in Config Nodes</figcaption><div class="graphic"><img alt="Empty Charts in Config Nodes" src="documentation/images/s008324.PNG" style=""/></div></figure><figure id="jd0e357"><figcaption>Figure 19: Empty Charts in Analytics Nodes</figcaption><div class="graphic"><img alt="Empty Charts in Analytics Nodes" src="documentation/images/s008325.PNG" style=""/></div></figure><figure id="jd0e361"><figcaption>Figure 20: Empty Charts in Control Nodes</figcaption><div class="graphic"><img alt="Empty Charts in Control Nodes" src="documentation/images/s008326.PNG" style=""/></div></figure><figure id="jd0e365"><figcaption>Figure 21: Empty Charts in Database Nodes</figcaption><div class="graphic"><img alt="Empty Charts in Database Nodes" src="documentation/images/s008327.PNG" style=""/></div></figure><p>The Alarms page displays alarms pulled from the Contrail <code class="inline" v-pre="">analytics_alarm</code> component. When the <code class="inline" v-pre="">analytics_alarm</code> component is disabled, the Alarms page will always display no data.</p><figure id="jd0e377"><figcaption>Figure 22: Empty Alarms Page</figcaption><div class="graphic"><img alt="Empty Alarms Page" src="documentation/images/s008328.PNG" style=""/></div></figure><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e319">2008</a></div><div class="table-cell">TripleO templates were
+updated in June 2020 to allow disabling the provisioning of Contrail
+analytics components.</div></div></div><sw-prev-next> </sw-prev-next></p>

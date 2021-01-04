@@ -1,0 +1,49 @@
+<p id="topic-content"><h1 id="jd0e2">Security Policy Features in OpenStack</h1><sw-topic-details date="2019-02-28"> </sw-topic-details><h2 id="jd0e12">Overview of Existing Network Policy and Security Groups in
+OpenStack</h2><p>Contrail virtual networks are isolated by default. Workloads
+in a virtual network cannot communicate with workloads in other virtual
+networks, by default. A neutron router or a Contrail network policy
+may be used to connect two virtual networks. In addition, Contrail
+network policy also provides security between two virtual networks
+by allowing or denying specified traffic.</p><p>OpenStack security groups allow access between workloads and
+instances for specified traffic types and any other types are denied. </p><p>A security policy model for any given customer first needs to
+map to the OpenStack network policy framework and security group constructs. </p><p>In modern cloud environments, workloads are moving from one
+server to another, one rack to another and so on. Therefore, users
+must rely less on using IP addresses or other network coordinates
+to identify the endpoints to be protected. Instead users must leverage
+application attributes to author policies, so that the policies don't
+need to be updated on account of workload mobility. </p><p>You might want to segregate traffic based on the different categories
+of data origination, such as: </p><ul><li style=""><p>Protecting the application itself</p></li><li style=""><p>Segregating traffic for specific component tiers within
+the application</p></li><li style=""><p>Segregating traffic based on the deployment environment
+for the application instance</p></li><li style=""><p>Segregating traffic based on the specific geographic location
+where the application is deployed</p></li></ul><p>There are many other possible scenarios where traffic needs
+to be segregated.</p><p>Additionally, you might need to group workloads based on combinations
+of tags. These intents are hard to express with existing network policy
+constructs or Security Group constructs. Besides, existing policy
+constructs leveraging the network coordinates, must continually be
+rewritten or updated each time workloads move and their associated
+network coordinates change. </p><h2 id="jd0e43">Security Policy Enhancements</h2><p>As the Contrail environment has grown and become more complex,
+it has become harder to achieve desired security results with the
+existing network policy and security group constructs. The Contrail
+network policies have been tied to routing, making it difficult to
+express security policies for environments such as cross sectioning
+between categories, or having a multi-tier application supporting
+development and production environment workloads with no cross environment
+traffic.</p><p>Starting with Release 5.1, Contrail Networking supports the
+OpenStack Neutron Firewall version 2 API extension known as Neutron
+FWaaS (Firewall as a Service). The Neutron API enhancements make the
+existing FWaaS more granular by giving you the ability to apply the
+firewall rules at the port level rather than at the router level,
+and to have different firewall policies with different rules applied
+to inbound versus outbound connections. Support is extended to various
+types of Neutron ports, including VM ports and SFC ports as well as
+router ports. It also provides better grouping mechanisms (firewall
+groups, address groups and service groups). Finally, the Firewall
+Group enables firewall policies to be bound to Neutron ports.</p><p>Related enhancements to the OpenStack Neutron and Contrail security
+groups API include:</p><ul><li style=""><p>Firewall rules support deny, reject, description, and
+admin status attributes</p></li><li style=""><p>A share attribute for firewall rules allow them to be
+shared between different projects</p></li><li style=""><p>Filtering based on the source and destination address
+prefix and port rather than just the remote destination</p></li><li style=""><p>Firewall groups reference firewall rules through a firewall
+policy, allowing reuse of shareable firewall policies that are referenced
+by multiple firewall groups</p></li></ul><h2 id="jd0e65">Configuration Objects</h2><p>The following are the configuration objects for the new security
+features.</p><ul><li style=""><p>firewall-policy</p></li><li style=""><p>firewall-rule </p></li><li style=""><p>policy-management</p></li><li style=""><p>application-policy </p></li><li style=""><p>service-group</p></li><li style=""><p>address-group</p></li><li style=""><p>tag</p></li><li style=""><p>global-application-policy</p></li></ul><p>For more information
+on security policies in Contrail, see <a href="security-policy-enhancements.html">Security Policy Features</a>.</p><sw-prev-next> </sw-prev-next></p>

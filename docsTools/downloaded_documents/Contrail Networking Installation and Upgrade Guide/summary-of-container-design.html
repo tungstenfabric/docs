@@ -1,0 +1,10 @@
+<p id="topic-content"><h1 id="jd0e2">Understanding Contrail Containers</h1><sw-topic-details date="2019-05-23"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Some subsystems of Contrail Networking solution are
+delivered as Docker containers.</p></div></div><h2 id="jd0e14">Contrail Containers</h2><p>The following are key features of the new architecture of Contrail
+containers:</p><ul><li style=""><p>All of the Contrail containers are multiprocess Docker
+containers. </p></li><li style=""><p>Each container has an INI-based configuration file that
+has the configurations for all of the applications running in that
+container. </p></li><li style=""><p>Each container is self-contained, with minimal external
+orchestration needs. </p></li><li style=""><p>A single tool, <em>Ansible</em>, is used for all levels of building,
+deploying, and provisioning the containers. The <em>Ansible</em> code for
+the Contrail system is named <code class="inline" v-pre="">contrail-ansible</code> and kept in a separate repository. The  <em>Contrail Ansible</em> code is responsible for all aspects of Contrail container build,
+deployment, and basic container orchestration.</p></li></ul><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,54 @@
+<p id="topic-content"><h1 id="jd0e3">Service Chain Version 2 with Port Tuple</h1><sw-topic-details date="2020-05-27"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Starting with Contrail 3.0, the user can create
+a port-tuple object for binding service instances to ports.</p></div></div><h2 id="jd0e15">Overview of Port Tuple</h2><p>In previous versions of Contrail, when a service instance is
+created for a virtual machine (VM)-based service, the service monitor
+creates one or more VM objects and creates a port for each VM object.
+Each VM object is a placeholder for binding a service instance to
+a port. The VM object also acts as a placeholder for the instance
+ID when using equal-cost multipath (ECMP). </p><p>Using the VM object as a placeholder doesn't add value beyond
+binding information between the service instance object and the port
+objects. By using a port-tuple object, the service instance can be
+linked directly to the port objects, eliminating the need to create
+a VM object. This simplifies the implementation of service instance
+objects, and also allows integration with Heat templates.</p><p>With a port-tuple object, the user can create ports and pass
+the port information when creating a service instance. The ports can
+be created as part of a VM launch from Nova or without using a VM
+launch. The ports are linked to a port-tuple object that is a child
+of a service instance. This functionality can also be leveraged in
+Heat stacks. See <a href="service-chain-port-tuple.html#tuple1">Figure 1</a>.</p><figure id="tuple1"><figcaption>Figure 1: Port Tuple Overview</figcaption><div class="graphic"><img alt="Port Tuple Overview" src="documentation/images/s018749.png" style=""/></div></figure><h2 id="jd0e30">Service Chain Version 2 Sample Workflow</h2><p>With Contrail service templates Version 2, the user can create
+ports and bind them to a VM-based or container-based service instance,
+by means of a port-tuple object. All objects created with the Version
+2 service template are visible to the Contrail Heat engine, and are
+managed by Heat. </p><p>The following shows the basic workflow steps for creating a
+port tuple and service instance that will be managed by Heat:</p><ol type="1"><li id="jd0e39" style="">Create a service template. Select 2 in the Version field. </li><li id="jd0e42" style="">Create a service instance for the service template just
+created.</li><li id="jd0e45" style="">Create a port-tuple object.</li><li id="jd0e48" style="">Create ports, using Nova VM launch or without a VM launch. </li><li id="jd0e51" style="">Label each port as <code class="inline" v-pre="">left, right, mgmt</code>, and so on, and add the ports to the port-tuple object.<p>Use a unique label for each of the ports in a single port tuple.
+The labels <code class="inline" v-pre="">left</code> and <code class="inline" v-pre="">right</code> are used for forwarding.</p></li><li id="jd0e65" style="">Link the port tuple to a service instance.</li><li id="jd0e68" style="">Launch the service instance. This creates the necessary
+objects in the Contrail database.</li></ol><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Port-tuple is <em>not</em> supported on transparent
+service instance, whether active/active, active/standby, or scale-out.</p></sw-admonition><h3 id="jd0e77">Service Chain with Equal-Cost Multipath in Active-Active Mode</h3><p>Equal-cost multipath (ECMP) can be used to distribute traffic
+across VMs. To support ECMP in the service chain, create multiple
+port tuples within the same service instance. The labels should be
+the same for the VM ports in each port tuple. For example, if port
+tuple 1 uses the labels <code class="inline" v-pre="">left</code> and <code class="inline" v-pre="">right</code>, then port tuple 2 in the same service instance
+should also use the labels <code class="inline" v-pre="">left</code> and <code class="inline" v-pre="">right</code> for its ports. </p><p>When there are multiple port tuples, the default mode of operation
+is <code class="inline" v-pre="">active-active</code>. </p><h3 id="jd0e99">Service Chain Active-Standby Mode with Allowed Address Pair</h3><p>To support <code class="inline" v-pre="">active-standby</code> mode, you
+must configure an allowed address pair on the interfaces. The <code class="inline" v-pre="">active-standby</code> is used as the high availability mode
+in the allowed address pair. The allowed address pair is configured
+as part of the service instance for a particular VM port label. For
+example, if the allowed address pair is configured in a service instance
+for the port with the label <code class="inline" v-pre="">left</code>, then
+all of the port-tuple VM ports with the label <code class="inline" v-pre="">left</code> will use the allowed address pair high availability mode. </p><h4 id="jd0e116">Allowed Address Pair</h4><p>An allowed address pair extension is an OpenStack feature supported
+by Contrail. </p><p>By default, there is no way to specify additional MAC/IP address
+pairs that are allowed to pass through a port in Neutron, because
+ports are locked down to their MAC address and the fixed IPs associated
+with their port for anti-spoofing reasons. This locking can sometimes
+prevent protocols such as VRRP from providing a high availability
+failover strategy. Using the allowed address pair extension enables
+additional IP/MAC pairs to be allowed through ports in Neutron. </p><p>In Contrail, you can configure allowed address pairs in the
+service instance configuration, using <strong v-pre="">Configure &gt; Services &gt;
+Service Instances &gt; Allowed Address Pair</strong>, see <a href="service-chain-port-tuple.html#aap">Figure 2</a>.</p><figure id="aap"><figcaption>Figure 2: Edit Service Instance, Allowed Address Pair</figcaption><div class="graphic"><img alt="Edit Service Instance, Allowed Address Pair" src="documentation/images/s019908.png" style=""/></div></figure><p>For more information about OpenStack allowed address pairs,
+see <a href="https://docs.openstack.org/dragonflow/latest/specs/allowed_address_pairs.html">https://docs.openstack.org/dragonflow/latest/specs/allowed_address_pairs.html</a>.</p><h3 id="jd0e139">Service Chain with Static Route Table</h3><p>The service chain Version 2 also supports static route tables.
+A static route table is configured similar to how the allowed address
+pair is configured, except with using the label <code class="inline" v-pre="">right</code>. The route table will be attached to the correct VM ports of the
+port tuples, based on the configuration of the port with the label <code class="inline" v-pre="">right</code>. </p><h2 id="jd0e150">Service Chain with Health Check</h2><p>Service chain Version 2 also allows service instance health
+check configuration on a per interface label. This is used to monitor
+the health of the service. </p><p>For more information about the service instance health check,
+see <a href="../topic-map/service-instance-health-check.html">Service Instance Health Checks</a>.</p><sw-prev-next> </sw-prev-next></p>

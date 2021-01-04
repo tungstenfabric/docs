@@ -1,0 +1,384 @@
+<p id="topic-content"><h1 id="jd0e3">Getting Contrail Node Status</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><h2 id="jd0e11">Overview </h2><p>This topic describes how to view the status of a Contrail node
+on a physical server. Contrail nodes include config, control, analytics,
+compute, and so on.</p><h2 id="jd0e19">UVE for NodeStatus</h2><p>The User-Visible Entity (UVE) mechanism is used to aggregate
+and send the status information. All node types send a NodeStatus
+structure in their respective node UVEs. The following is a control
+node UVE of NodeStatus:</p><div class="example" dir="ltr" id="jd0e25"><sw-code><template v-pre=""><pre>struct NodeStatus {
+
+    1: string name (key="ObjectBgpRouter")
+
+    2: optional bool deleted
+
+    3: optional string status
+
+    // Sent by process
+
+    4: optional list&lt;process_info.ProcessStatus&gt; process_status (aggtype="union")
+
+    // Sent by node manager
+
+    5: optional list&lt;process_info.ProcessInfo&gt; process_info (aggtype="union")
+
+    6: optional string description
+
+}
+
+ 
+
+uve sandesh NodeStatusUVE {
+
+    1: NodeStatus data
+
+}</pre></template></sw-code></div><h2 id="jd0e29">Node Status Features</h2><p>The most important features of NodeStatus include:  </p><p>ProcessStatus </p><p>ProcessInfo </p><div class="example" dir="ltr" id="jd0e39"><p><b><h3 id="jd0e40">ProcessStatus</h3></b></p><p>Also process_status, is sent by the processes corresponding
+to the virtual node, and displays the status of the process and an
+aggregate state indicating if the process is functional or non-functional.
+The process_status includes the state of the process connections (ConnectionInfo)
+to important services and other information necessary for the process
+to be functional. Each process sends its NodeStatus information, which
+is aggregated as union (aggtype="union") at the analytics node. The
+following is the ProcessStatus structure:</p><sw-code><template v-pre=""><pre>1.   struct ProcessStatus {
+
+2.       1: string module_id
+
+3.       2: string instance_id
+
+4.       3: string state
+
+5.       4: optional list&lt;ConnectionInfo&gt; connection_infos
+
+6.       5: optional string description
+
+7.   }
+
+8.    
+
+9.   struct ConnectionInfo {
+
+10.      1: string type
+
+11.      2: string name
+
+12.      3: optional list&lt;string&gt; server_addrs
+
+13.      4: string status
+
+14.      5: optional string description
+
+15.  }</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e47"><p><b><h3 id="jd0e48">ProcessInfo </h3></b></p><p>Sent by the node manager, /usr/bin/contrail-nodemgr.
+Node manager is a monitor process per contrail virtual node that tracks
+the running state of the processes. The following is the ProcessInfo
+structure:</p><sw-code><template v-pre=""><pre>16.  struct ProcessInfo {
+
+17.       1: string                              process_name
+
+18.       2: string                              process_state
+
+19.       3: u32                                 start_count
+
+20.       4: u32                                 stop_count
+
+21.       5: u32                                 exit_count
+
+22.       // time when the process last entered running stage
+
+23.       6: optional string                     last_start_time
+
+24.       7: optional string                     last_stop_time
+
+25.       8: optional string                     last_exit_time
+
+26.       9: optional list&lt;string&gt;               core_file_list
+
+27.   }</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e55"><p><b><h3 id="jd0e56">Example: NodeStatus</h3></b></p><p>The following is an example output of NodeStatus obtained
+from the Rest API:</p><sw-code><template v-pre=""><pre>http://:8081/analytics/uves/control-...ilt=NodeStatus .
+
+{
+
+    NodeStatus:  {
+
+    process_info:  [
+
+     {
+
+    process_name: "contrail-control",
+
+    process_state: "PROCESS_STATE_RUNNING",
+
+    last_stop_time: null,
+
+    start_count: 1,
+
+    core_file_list: [ ],
+
+    last_start_time: "1409002143776558",
+
+    stop_count: 0,
+
+    last_exit_time: null,
+
+    exit_count: 0
+
+    },
+
+     {
+
+    process_name: "contrail-control-nodemgr",
+
+    process_state: "PROCESS_STATE_RUNNING",
+
+    last_stop_time: null,
+
+    start_count: 1,
+
+    core_file_list: [ ],
+
+    last_start_time: "1409002141773481",
+
+    stop_count: 0,
+
+    last_exit_time: null,
+
+    exit_count: 0
+
+    },
+
+     {
+
+    process_name: "contrail-dns",
+
+    process_state: "PROCESS_STATE_RUNNING",
+
+    last_stop_time: null,
+
+    start_count: 1,
+
+    core_file_list: [ ],
+
+    last_start_time: "1409002145778383",
+
+    stop_count: 0,
+
+    last_exit_time: null,
+
+    exit_count: 0
+
+    },
+
+     {
+
+    process_name: "contrail-named",
+
+    process_state: "PROCESS_STATE_RUNNING",
+
+    last_stop_time: null,
+
+    start_count: 1,
+
+    core_file_list: [ ],
+
+    last_start_time: "1409002147780118",
+
+    stop_count: 0,
+
+    last_exit_time: null,
+
+    exit_count: 0
+
+    }
+
+    ],
+
+    process_status:  [
+
+     {
+
+    instance_id: "0",
+
+    module_id: "ControlNode",
+
+    state: "Functional",
+
+    description: null,
+
+    connection_infos:  [
+
+     {
+
+    server_addrs:  [
+
+    "10.84.13.45:8443"
+
+    ],
+
+     {
+
+    server_addrs:  [
+
+    "10.84.13.45:8086"
+
+    ],
+
+    status: "Up",
+
+    type: "Collector",
+
+    name: null,
+
+    description: "Established"
+
+    },
+
+     {
+
+    server_addrs:  [
+
+    "10.84.13.45:5998"
+
+    ],
+
+    status: "Up",
+
+    type: "Discovery",
+
+    name: "Collector",
+
+    description: "SubscribeResponse"
+
+    },
+
+     {
+
+    server_addrs:  [
+
+    "10.84.13.45:5998"
+
+    ],
+
+    status: "Up",
+
+    type: "Discovery",
+
+    name: "IfmapServer",
+
+    description: "SubscribeResponse"
+
+    },
+
+     {
+
+    server_addrs:  [
+
+    "10.84.13.45:5998"
+
+    ],
+
+    status: "Up",
+
+    type: "Discovery",
+
+    name: "xmpp-server",
+
+    description: "Publish Response - HeartBeat"
+
+    }
+
+    ]
+
+    }
+
+    ]
+
+    }
+
+}</pre></template></sw-code></div><h2 id="jd0e64">Using Introspect to Get Process Status</h2><p>The user can also view the state of a specific process by using
+the introspect mechanism.</p><div class="example" dir="ltr" id="jd0e70"><p><b><h3 id="jd0e71">Example: Introspect of NodeStatus</h3></b></p><p>The following is an example of the process state of contrail-control
+that is obtained by using  </p><p><code class="inline" v-pre="">http://server-ip:8083/Snh_SandeshUVECacheReq?x=NodeStatus
+ </code></p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The example output is the ProcessStatus of only one process
+of contrail-control. It does not show the full aggregated status of
+the control node through its UVE (as in the previous example).</p></sw-admonition><sw-code><template v-pre=""><pre>root@a6s45:~# curl http://10.84.13.45:8083/Snh_SandeshU...q?x=NodeStatus
+
+&lt;?xml-stylesheet type="text/xsl" href="/universal_parse.xsl"?&gt;&lt;__NodeStatusUVE_list type="slist"&gt;&lt;NodeStatusUVE type="sandesh"&gt;&lt;data type="struct" identifier="1"&gt;&lt;NodeStatus&gt;&lt;name type="string" identifier="1" key="ObjectBgpRouter"&gt;a6s45&lt;/name&gt;&lt;process_status type="list" identifier="4" aggtype="union"&gt;&lt;list type="struct" size="1"&gt;&lt;ProcessStatus&gt;&lt;module_id type="string" identifier="1"&gt;ControlNode&lt;/module_id&gt;&lt;instance_id type="string" identifier="2"&gt;0&lt;/instance_id&gt;&lt;state type="string" identifier="3"&gt;Functional&lt;/state&gt;&lt;connection_infos type="list" identifier="4"&gt;&lt;list type="struct" size="5"&gt;&lt;ConnectionInfo&gt;&lt;type type="string" identifier="1"&gt;IFMap&lt;/type&gt;&lt;name type="string" identifier="2"&gt;IFMapServer&lt;/name&gt;&lt;server_addrs type="list" identifier="3"&gt;&lt;list type="string" size="1"&gt;&lt;element&gt;10.84.13.45:8443&lt;/element&gt;&lt;/list&gt;&lt;/server_addrs&gt;&lt;status type="string" identifier="4"&gt;Up&lt;/status&gt;&lt;description type="string" identifier="5"&gt;Connection with IFMap Server (irond)&lt;/description&gt;&lt;/ConnectionInfo&gt;&lt;ConnectionInfo&gt;&lt;type type="string" identifier="1"&gt;Collector&lt;/type&gt;&lt;name type="string" identifier="2"&gt;&lt;/name&gt;&lt;server_addrs type="list" identifier="3"&gt;&lt;list type="string" size="1"&gt;&lt;element&gt;10.84.13.45:8086&lt;/element&gt;&lt;/list&gt;&lt;/server_addrs&gt;&lt;status type="string" identifier="4"&gt;Up&lt;/status&gt;&lt;description type="string" identifier="5"&gt;Established&lt;/description&gt;&lt;/ConnectionInfo&gt;&lt;ConnectionInfo&gt;&lt;type type="string" identifier="1"&gt;Discovery&lt;/type&gt;&lt;name type="string" identifier="2"&gt;Collector&lt;/name&gt;&lt;server_addrs type="list" identifier="3"&gt;&lt;list type="string" size="1"&gt;&lt;element&gt;10.84.13.45:5998&lt;/element&gt;&lt;/list&gt;&lt;/server_addrs&gt;&lt;status type="string" identifier="4"&gt;Up&lt;/status&gt;&lt;description type="string" identifier="5"&gt;SubscribeResponse&lt;/description&gt;&lt;/ConnectionInfo&gt;&lt;ConnectionInfo&gt;&lt;type type="string" identifier="1"&gt;Discovery&lt;/type&gt;&lt;name type="string" identifier="2"&gt;IfmapServer&lt;/name&gt;&lt;server_addrs type="list" identifier="3"&gt;&lt;list type="string" size="1"&gt;&lt;element&gt;10.84.13.45:5998&lt;/element&gt;&lt;/list&gt;&lt;/server_addrs&gt;&lt;status type="string" identifier="4"&gt;Up&lt;/status&gt;&lt;description type="string" identifier="5"&gt;SubscribeResponse&lt;/description&gt;&lt;/ConnectionInfo&gt;&lt;ConnectionInfo&gt;&lt;type type="string" identifier="1"&gt;Discovery&lt;/type&gt;&lt;name type="string" identifier="2"&gt;xmpp-server&lt;/name&gt;&lt;server_addrs type="list" identifier="3"&gt;&lt;list type="string" size="1"&gt;&lt;element&gt;10.84.13.45:5998&lt;/element&gt;&lt;/list&gt;&lt;/server_addrs&gt;&lt;status type="string" identifier="4"&gt;Up&lt;/status&gt;&lt;description type="string" identifier="5"&gt;Publish Response - HeartBeat&lt;/description&gt;&lt;/ConnectionInfo&gt;&lt;/list&gt;&lt;/connection_infos&gt;&lt;description type="string" identifier="5"&gt;&lt;/description&gt;&lt;/ProcessStatus&gt;&lt;/list&gt;&lt;/process_status&gt;&lt;/NodeStatus&gt;&lt;/data&gt;&lt;/NodeStatusUVE&gt;&lt;SandeshUVECacheResp type="sandesh"&gt;&lt;returned type="u32" identifier="1"&gt;1&lt;/returned&gt;&lt;more type="bool" identifier="0"&gt;false&lt;/more&gt;&lt;/SandeshUVECacheResp&gt;&lt;/__NodeStatusUVE_list&gt;</pre></template></sw-code></div><h2 id="jd0e85">contrail-status script</h2><p>The contrail-status script is used to give the status of the
+Contrail processes on a server.  </p><p>The contrail-status script first checks if a process is running,
+and if it is, performs introspect into the process to get its functionality
+status, then outputs the aggregate status.  </p><p>The possible states to display include:  </p><ul><li style=""><p>active - the process is running and functional; the internal
+state is good</p></li><li style=""><p>inactive - not started or stopped by user </p></li><li style=""><p>failed – the process exited too quickly and has
+not restarted</p></li><li style=""><p>initializing - the process is running, but the internal
+state is not yet functional.</p></li></ul><div class="example" dir="ltr" id="jd0e108"><p><b><h3 id="jd0e109">Example Output: Contrail-Status Script</h3></b></p><p>The following is an example output from the contrail-status
+script.</p><sw-code><template v-pre=""><pre>root@a6s45:~# contrail-status
+
+== Contrail vRouter ==
+
+supervisor-vrouter:           active
+
+contrail-vrouter-agent        active
+
+contrail-vrouter-nodemgr      active
+
+ 
+
+== Contrail Control ==
+
+supervisor-control:           active
+
+contrail-control              active
+
+contrail-control-nodemgr      active
+
+contrail-dns                  active
+
+contrail-named                active
+
+ 
+
+== Contrail Analytics ==
+
+supervisor-analytics:         active
+
+contrail-analytics-api        active
+
+contrail-analytics-nodemgr    active
+
+contrail-collector            active
+
+contrail-query-engine         active
+
+ 
+
+== Contrail Config ==
+
+supervisor-config:            active
+
+contrail-api:0                active
+
+contrail-config-nodemgr       active
+
+contrail-schema               active
+
+contrail-svc-monitor          active
+
+
+rabbitmq-server               active
+
+ 
+
+== Contrail Web UI ==
+
+supervisor-webui:             active
+
+contrail-webui                active
+
+contrail-webui-middleware     active
+
+redis-webui                   active
+
+ 
+
+== Contrail Database ==
+
+supervisord-contrail-database:active
+
+contrail-database             active
+
+contrail-database-nodemgr     active
+
+</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,71 @@
+<p id="topic-content"><h1 id="jd0e2">Installing OpenStack Octavia LBaaS with RHOSP in Contrail Networking</h1><sw-topic-details date="2020-06-08"> </sw-topic-details><p><span id="jd0e11">Contrail
+Networking Release 2005 supports Octavia as LBaaS.</span> The deployment supports RHOSP and Juju platforms.</p><p>With Octavia as LBaaS, Contrail Networking is only maintaining
+network connectivity and is not involved in any load balancing functions.</p><p>For each OpenStack load balancer creation, Octavia launches
+a VM known as <em>amphora VM</em>. The VM starts the HAPROXY
+when listener is created for the load balancer in OpenStack. Whenever
+the load balancer gets updated in OpenStack, <em>amphora VM</em> updates the running HAPROXY configuration. The <em>amphora
+VM</em> is deleted on deleting the load balancer.</p><p>Contrail Networking provides connectivity to <em>amphora
+VM</em> interfaces. <em>Amphora VM</em> has two
+interfaces; one for management and the other for data. The management
+interface is used by the Octavia services for the management communication.
+Since, Octavia services are running in the underlay network and <em>amphora VM</em> is running in the overlay network, SDN gateway
+is needed to reach the overlay network. The data interface is used
+for load balancing.</p><p>Follow the procedure to install OpenStack Octavia LBaaS
+with Contrail Networking:</p><ol type="1"><li id="jd0e42" style="">Deploy RHOSP13 with Contrail Networking without Octavia.<div class="sample" dir="ltr" id="jd0e45"><div dir="ltr" id="jd0e46"><code>openstack overcloud deploy --templates tripleo-heat-templates/
+\<br/>--roles-file tripleo-heat-templates/roles_data_contrail_aio.yaml
+\<br/>-e environment-rhel-registration.yaml \<br/>-e tripleo-heat-templates/extraconfig/pre_deploy/rhel-registration/rhel-registration-resource-registry.yaml
+\<br/>-e tripleo-heat-templates/environments/contrail/contrail-services.yaml
+\<br/>-e tripleo-heat-templates/environments/contrail/contrail-net-single.yaml
+\<br/>-e tripleo-heat-templates/environments/contrail/contrail-plugins.yaml
+\<br/>-e misc_opts.yaml \<br/>-e contrail-parameters.yaml
+\<br/>-e docker_registry.yaml</code></div></div></li><li id="jd0e66" style="">Make a copy of <code class="filepath">tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.yaml</code> file.<div class="sample" dir="ltr" id="jd0e72"><div dir="ltr" id="jd0e73"><code>cp tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.yaml
+tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.bak</code></div></div></li><li id="jd0e75" style="">Make the following changes in <em>generate_certs</em> section of the <code class="filepath">tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.yaml</code> file.<div class="sample" dir="ltr" id="jd0e84"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>conditions:
+
+  generate_certs:
+      and:
+      - get_param: OctaviaGenerateCerts
+      - or:
+        - equals:
+          - get_param: StackAction
+          - CREATE
+        - equals:
+          - get_param: StackAction
+          - UPDATE</pre></template></sw-code></div></div></li><li id="jd0e87" style="">Deploy RHOSP13 with Octavia services.<div class="sample" dir="ltr" id="jd0e90"><div dir="ltr" id="jd0e91"><code>openstack overcloud deploy --templates tripleo-heat-templates/
+\ --roles-file tripleo-heat-templates/roles_data_contrail_aio.yaml
+\<br/>-e environment-rhel-registration.yaml \<br/>-e tripleo-heat-templates/extraconfig/pre_deploy/rhel-registration/rhel-registration-resource-registry.yaml
+\<br/>-e tripleo-heat-templates/environments/contrail/contrail-services.yaml
+\<br/>-e tripleo-heat-templates/environments/contrail/contrail-net-single.yaml
+\<br/>-e tripleo-heat-templates/environments/contrail/contrail-plugins.yaml
+\<br/>-e tripleo-heat-templates/environments/services/octavia.yaml
+\<br/>-e misc_opts.yaml \<br/>-e contrail-parameters.yaml
+\<br/>-e docker_registry.yaml</code></div></div></li><li id="jd0e111" style="">Rollback changes in <code class="filepath">tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.yaml</code> file.<div class="sample" dir="ltr" id="jd0e117"><div dir="ltr" id="jd0e118"><code>cp tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.bak
+tripleo-heat-templates/docker/services/octavia/octavia-deployment-config.yaml</code></div></div></li></ol><p>Here is an example for creating and testing load balancer:</p><p>Prerequisites:</p><ul><li style=""><p>You must have connectivity between Octavia controller
+and amphora instances,</p></li><li style=""><p>You must have OpenStack services into LXD containers.</p></li><li style=""><p>You must have separate interfaces for control plane and
+data plane.</p></li></ul><ol type="1"><li id="jd0e138" style="">Create private network.<div class="sample" dir="ltr" id="jd0e141"><div dir="ltr" id="jd0e142"><code>openstack network create private<br/>openstack
+subnet create private --network private --subnet-range 10.10.10.0/24
+--allocation-pool<br/>start=10.10.10.50,end=10.10.10.70
+--gateway none</code></div></div></li><li id="jd0e148" style="">Create security group.<div class="sample" dir="ltr" id="jd0e151"><div dir="ltr" id="jd0e152"><code>openstack security group create allow_all<br/>openstack
+security group rule create --ingress --protocol any --prefix '0.0.0.0/0'
+allow_all</code></div></div></li><li id="jd0e156" style="">Check available flavors and images. You can create them,
+if needed.<div class="sample" dir="ltr" id="jd0e159"><div dir="ltr" id="jd0e160"><code>openstack flavor list<br/>openstack image list</code></div></div></li><li id="jd0e164" style="">Create two servers for load balancer.<div class="sample" dir="ltr" id="jd0e167"><div dir="ltr" id="jd0e168"><code>openstack server create --flavor test_flavor --image cirros
+--security-group allow_all --network private cirros1<br/>openstack server create --flavor test_flavor --image cirros --security-group
+allow_all --network private cirros2</code></div></div></li><li id="jd0e172" style="">Create additional server to test load balancer.<div class="sample" dir="ltr" id="jd0e175"><div dir="ltr" id="jd0e176"><code>openstack server create --flavor test_flavor --image cirros
+--security-group allow_all --network private cirros-test</code></div></div></li><li id="jd0e178" style="">Check status and IP addresses.<div class="sample" dir="ltr" id="jd0e181"><div dir="ltr" id="jd0e182"><code>openstack server list --long</code></div></div></li><li id="CreateSimpleHTTPServerOnEveryCirros" style="">Create simple
+HTTP server on every cirros. Login on both the cirros instances and
+run following commands:<div class="sample" dir="ltr" id="jd0e187"><div dir="ltr" id="jd0e188"><code>MYIP=$(ifconfig eth0|grep 'inet addr'|awk -F: '{print $2}'|
+awk '{print $1}') while true; do echo -e "HTTP/1.0 200 OK\r\n\r\nWelcome
+to $MYIP" | sudo nc -l -p 80 ; done&amp;</code></div></div></li><li id="jd0e190" style="">Create load balancer<div class="sample" dir="ltr" id="jd0e193"><div dir="ltr" id="jd0e194"><code>openstack loadbalancer create --name lb1 --vip-subnet-id
+private</code></div></div><p>Make sure <em>provisioning_status</em> is <em>Active</em>.</p><div class="sample" dir="ltr" id="jd0e204"><div dir="ltr" id="jd0e205"><code>openstack loadbalancer show lb1</code></div></div></li><li id="jd0e207" style="">Setup load balancer<div class="sample" dir="ltr" id="jd0e210"><div dir="ltr" id="jd0e211"><code>openstack loadbalancer listener create --protocol HTTP --protocol-port
+80 --name listener1 lb1<br/>openstack loadbalancer show
+lb1  # Wait for the provisioning_status to be ACTIVE.<br/>openstack loadbalancer pool create --lb-algorithm ROUND_ROBIN --listener
+listener1 --protocol HTTP --name pool1<br/>openstack loadbalancer
+healthmonitor create --delay 5 --timeout 2 --max-retries 1 --type
+HTTP pool1<br/>openstack loadbalancer member create --subnet-id
+private --address 10.10.10.50 --protocol-port 80 pool1<br/>openstack loadbalancer member create --subnet-id private --address
+10.10.10.51 --protocol-port 80 pool1</code></div><p>IP addresses 10.10.10.50 and 10.10.10.51 belong to VMs created
+with test http server in step <a href="rhosp-octavia.html#CreateSimpleHTTPServerOnEveryCirros">7</a>.</p></div></li><li id="jd0e227" style="">Check the status of load balancer.<div class="sample" dir="ltr" id="jd0e230"><div dir="ltr" id="jd0e231"><code>openstack loadbalancer show lb1  # Wait for the provisioning_status
+to be ACTIVE. <br/>openstack loadbalancer pool list<br/>openstack loadbalancer pool show pool1<br/>openstack
+loadbalancer member list pool1<br/>openstack loadbalancer
+listener list</code></div></div></li><li id="jd0e241" style="">Login to load balancer client and verify if round robin
+works.<div class="sample" dir="ltr" id="jd0e244"><div dir="ltr" id="jd0e245"><code>cirros@169.x.0.9's password:<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.52<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.53<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.52<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.53<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.52<br/>$ curl 10.10.10.50<br/>Welcome to 10.10.10.53</code></div></div></li></ol><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e11">2005</a></div><div class="table-cell">Contrail
+Networking Release 2005 supports Octavia as LBaaS.</div></div></div><sw-prev-next> </sw-prev-next></p>

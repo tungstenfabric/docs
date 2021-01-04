@@ -1,0 +1,36 @@
+<p id="topic-content"><h1 id="jd0e2">Debugging Processes Using the Contrail Introspect Feature</h1><sw-topic-details date="2020-09-15"> </sw-topic-details><p>This topic describes how to use the Sandesh infrastructure
+and the Contrail Introspect feature to debug processes.</p><p>Introspect is a mechanism for taking a program object and querying
+information about it.</p><p>Sandesh is the name of a unified infrastructure in the Contrail
+Virtual Networking solution.</p><p>Sandesh is a way for the Contrail daemons to provide a request-response
+mechanism. Requests and responses are defined in Sandesh format and
+the Sandesh compiler generates code to process the requests and send
+responses.</p><p>Sandesh also provides a way to use a Web browser to send Sandesh
+requests to a Contrail daemon and get the Sandesh responses. This
+feature is used to debug processes by looking into the operational
+status of the daemons.</p><p>Each Contrail daemon starts an HTTP server, with the
+following page types:</p><ul><li style=""><p>The main index.html listing all Sandesh modules and the
+links to them.</p></li><li style=""><p>Sandesh module pages that present HTML forms for each
+Sandesh request.</p></li><li style=""><p>XML-based dynamically-generated pages that display Sandesh
+responses.</p></li><li style=""><p>An automatically generated page that shows all code needed
+for rendering and all HTTP server-client interactions.</p></li></ul><p>You can display the HTTP introspect of a Contrail daemon
+directly by accessing the following Introspect ports:</p><ul><li style=""><p><var v-pre="">&lt;controller-ip&gt;</var>:8083. This port
+displays the <em>contrail-control</em> introspect port.</p></li><li style=""><p><var v-pre="">&lt;compute-ip&gt;</var>:8085 This port displays
+the <em>contrail-vrouter-agent</em> introspect port.</p></li><li style=""><p><var v-pre="">&lt;controller-ip&gt;</var>:8087 This port
+displays the <em>contrail-schema</em> introspect port.</p></li><li style=""><p><var v-pre="">&lt;controller-ip&gt;</var>:8088 This port
+displays the <em>contrail-svc-monitor</em> introspect
+port.</p></li><li style=""><p><var v-pre="">&lt;controller-ip&gt;</var>:8092 This port
+displays the <em>contrail-dns</em> introspect port.</p></li><li style=""><p><var v-pre="">&lt;controller-ip&gt;</var>:8084 This port
+displays the <em>contrail-api</em> introspect port. (:8084/Snh_SandeshTraceRequest?x=RestApiTraceBuf)</p></li></ul><p>You can use the config editor to review configured objects.</p><p>Another way to launch the Introspect page is by browsing to
+a particular node page using the Contrail Web user interface. </p><p><a href="introspect-process-debugging.html#con-node-detail-win">Figure 1</a> shows the contrail-control
+infrastructure page. Notice the Introspect link at the bottom of the
+Control Nodes Details tab window.</p><figure id="con-node-detail-win"><figcaption>Figure 1: Control Nodes Details Tab
+Window</figcaption><div class="graphic"><img alt="Control Nodes Details Tab
+Window" src="documentation/images/s042485.png" style=""/></div></figure><p>The following are the Sandesh modules for the Contrail
+control process (contrail-control) Introspect port. </p><ul><li style=""><p>bgp_peer.xml</p></li><li style=""><p>control_node.xml</p></li><li style=""><p>cpuinfo.xml</p></li><li style=""><p>discovery_client_stats.xml</p></li><li style=""><p>ifmap_log.xml</p></li><li style=""><p>ifmap_server_show.xml</p></li><li style=""><p>rtarget_group.xml</p></li><li style=""><p>sandesh_trace.xml</p></li><li style=""><p>sandesh_uve.xml</p></li><li style=""><p>service_chaining.xml</p></li><li style=""><p>static_route.xml</p></li><li style=""><p>task.xml</p></li><li style=""><p>xmpp_server.xml</p></li></ul><p><a href="introspect-process-debugging.html#cont-intro-win">Figure 2</a> shows the Controller Introspect
+window.</p><figure id="cont-intro-win"><figcaption>Figure 2: Controller Introspect Window</figcaption><div class="graphic"><img alt="Controller Introspect Window" src="documentation/images/s042488.png" style=""/></div></figure><p><a href="introspect-process-debugging.html#bgp-peer-neigh-sum">Figure 3</a> shows an example of
+the BGP Peer (bgp_peer.xml) Introspect page.</p><figure id="bgp-peer-neigh-sum"><figcaption>Figure 3: BGP Peer Introspect Page</figcaption><div class="graphic"><img alt="BGP Peer Introspect Page" src="documentation/images/s042486.png" style=""/></div></figure><p><a href="introspect-process-debugging.html#bgp-neigh-sum">Figure 4</a> shows an example of the
+BGP Neighbor Summary Introspect page.</p><figure id="bgp-neigh-sum"><figcaption>Figure 4: BGP Neighbor Summary Introspect
+Page</figcaption><div class="graphic"><img alt="BGP Neighbor Summary Introspect
+Page" src="documentation/images/s042487.png" style=""/></div></figure><p>The following are the Sandesh modules for the Contrail
+vRouter agent (<code class="filepath">contrail-vrouter-agent</code>) Introspect port.</p><ul><li style=""><p>agent.xml</p></li><li style=""><p>agent_stats_interval.xml</p></li><li style=""><p>cfg.xml</p></li><li style=""><p>controller.xml</p></li><li style=""><p>cpuinfo.xml</p></li><li style=""><p>diag.xml</p></li><li style=""><p>discovery_client_stats.xml</p></li><li style=""><p>flow_stats_interval.xml</p></li><li style=""><p>ifmap_agent.xml</p></li><li style=""><p>kstate.xml</p></li><li style=""><p>multicast.xml</p></li><li style=""><p>pkt.xml</p></li><li style=""><p>port_ipc.xml</p></li><li style=""><p>sandesh_trace.xml</p></li><li style=""><p>sandesh_uve.xml</p></li><li style=""><p>services.xml</p></li><li style=""><p>stats_interval.xml</p></li><li style=""><p>task.xml</p></li><li style=""><p>xmpp_server.xml</p></li></ul><p><a href="introspect-process-debugging.html#agent-introspect">Figure 5</a> shows an example of the
+Agent (agent.xml) Introspect page.</p><figure id="agent-introspect"><figcaption>Figure 5: Agent Introspect Page</figcaption><div class="graphic"><img alt="Agent Introspect Page" src="documentation/images/s042489.png" style=""/></div></figure><sw-prev-next> </sw-prev-next></p>

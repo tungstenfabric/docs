@@ -1,0 +1,22 @@
+<p id="topic-content"><h1 id="jd0e3">Multiqueue Virtio Interfaces in Virtual Machines</h1><sw-topic-details date="2017-02-24"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Contrail 3.2 adds support for multiqueue for
+the DPDK-based vrouter. </p><p>Contrail 3.1 supports multiqueue virtio interfaces for Ubuntu
+kernel-based router, only. </p></div></div><h2 id="jd0e16">Multiqueue Virtio Overview</h2><p>OpenStack Liberty supports the ability to create VMs with multiple
+queues on their virtio interfaces. Virtio is a Linux platform for
+I/O virtualization, providing a common set of I/O virtualization drivers.
+Multiqueue virtio is an approach that enables the processing of packet
+sending and receiving to be scaled to the number of available virtual
+CPUs (vCPUs) of a guest, through the use of multiple queues. </p><h2 id="jd0e21">Requirements and Setup for Multiqueue Virtio Interfaces </h2><p>To use multiqueue virtio interfaces, ensure your system meets
+the following requirements:</p><ul><li style=""><p>The OpenStack version must be Liberty or greater. </p></li><li style=""><p>The maximum number of queues in the VM interface is set
+to the same value as the number of vCPUs in the guest. </p></li><li style=""><p>The VM image metadata property is set to enable multiple
+queues inside the VM. </p></li></ul><h3 id="jd0e36">Setting Virtual Machine Metadata for Multiple Queues</h3><p>Use the following command on the OpenStack node to enable multiple
+queues on a VM:</p><div class="example" dir="ltr" id="jd0e41"><sw-code><template v-pre=""><pre>source /etc/contrail/openstackrc
+nova image-meta &lt;image_name&gt; set hw_vif_multiqueue_enabled="true"
+</pre></template></sw-code></div><p>After the VM is spawned, use the following command on the virtio
+interface in the guest to enable multiple queues inside the VM:</p><p><code class="inline" v-pre="">ethtool –L &lt;interface_name&gt; combined &lt;#queues&gt;
+ </code></p><p>Packets will now be forwarded on all queues in the VM to and
+from the vRouter running on the host.  </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Multiple queues in the VM are only supported with the kernel
+mode vRouter in Contrail 3.1. </p><p>Contrail 3.2 adds support for multiple queues with the DPDK-based
+vrouter, using OpenStack Mitaka. The DPDK vrouter has the same setup
+requirements as the kernel mode vrouter. However, in the <code class="inline" v-pre="">ethtool –L</code> setup command, the number of queues
+cannot be higher than the number of CPU cores assigned to vrouter
+in the testbed file.</p></sw-admonition><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,267 @@
+<p id="topic-content"><h1 id="jd0e2">Service Chain Route Reorigination</h1><sw-topic-details date="2019-07-15"> </sw-topic-details><h2 id="jd0e10">Overview: Service Chaining in Contrail</h2><p>In Contrail, the service chaining feature allows the operator
+to insert dynamic services to control the traffic between two virtual
+networks. The service chaining works on a basic rule of next-hop stitching. </p><p> In <a href="service-chain-route-reorig-vnc.html#rr1">Figure 1</a>, the service chain is inserted
+between the Left VN and the Right VN.  The service chain contains
+one or more service instances to achieve a required network policy.
+  </p><p>In the example, the route for the VM in the Right VN is added
+to the routing table for the Left VN, with the next hop modified to
+ensure that the traffic is sent by means of the left interface of
+the service chain. This is an example of route reorigination.</p><figure id="rr1"><figcaption>Figure 1: Route Reorigination</figcaption><div class="graphic"><img alt="Route Reorigination" src="documentation/images/S018557.png" style=""/></div></figure><p>Using reorigination of routes for service chaining (for example,
+putting the route for the right network in the left routing table)
+requires the following features:</p><ul><li style=""><p><strong v-pre="">Route aggregation</strong></p><p>For scaling purposes, it is useful to publish an aggregated
+route as the service chain route, rather than publishing every route
+of each VM (/32). This reduces the memory footprint for the route
+table in the gateway router and also reduces route exchanges between
+control nodes and the gateway router. The route can be aggregated
+to the default route (0/0), to the VN subnet prefix, or to any arbitrary
+route prefix. </p></li><li style=""><p><strong v-pre="">Path attribute modification for reoriginated routes</strong></p><p>There are cases where the <code class="inline" v-pre="">BgpPath</code> attribute for the service chain route needs to be modified. An example
+is the case of service chain failover, in which there are two service
+chains with identical services that are connected between the same
+two VNs. The operator needs to control which service chain is used
+for traffic between two networks, in addition to ensuring redundancy
+and high availability by providing failover support. Path attribute
+modification for reoriginated routes is implemented by means of routing
+policy, by providing an option to alter the MED (multi-exit discriminator)
+or <code class="inline" v-pre="">local-pref</code> of the reoriginated service
+chain route.</p></li><li style=""><p><strong v-pre="">Control to enable and disable reorigination of the
+route</strong></p><p>In some scenarios, the operator needs a control to stop reorigination
+of the route as the service chain route, for example, when static
+routes are configured on service VM interfaces. Control to enable
+or disable reorigination of the route is implemented by tagging the
+routes with the <code class="inline" v-pre="">no-reoriginate</code> community.
+Routes with the <code class="inline" v-pre="">no-reoriginate</code> community
+tag are skipped for route reorigination.</p></li></ul><p>Starting in Contrail Release 5.0, when one or more than one
+service instance in a service chain fails, reorigination of routes
+on both sides of the service chain is stopped and routes automatically
+converge to a backup service chain that is part of another Contrail
+cluster. For more information, see <a href="../../topic-map/service-instance-health-check.html">Service Instance Health Checks</a>.</p><h2 id="jd0e62">Route Aggregation</h2><p>The route aggregation configuration object contains a list of
+prefixes to aggregate. The next-hop field in the route aggregate object
+contains the address of the route whose next hop is stitched as a
+next hop of the aggregate route.</p><p>Route aggregation is configured on the service instance. The
+operator can attach multiple route aggregation objects to a service
+instance. For example, if routes from the Right VN need to be aggregated
+and reoriginated in the route table of the Left VN, the route aggregate
+object is created with a prefix of the Right VN’s subnet prefix
+and attached to the left interface of the service instance.   </p><p>If the service chain has multiple service instances, the route
+aggregate object is attached to the left interface of the left-most
+service instance and to the right interface of the right-most service
+instance.</p><p>The relationships are shown in <a href="service-chain-route-reorig-vnc.html#rr2">Figure 2</a>.</p><figure id="rr2"><figcaption>Figure 2: Route Aggregate Relationships</figcaption><div class="graphic"><img alt="Route Aggregate Relationships" src="documentation/images/s018718.png" style=""/></div></figure><p>The schema transformer sets the next-hop field of the route
+aggregate object to the service chain interface address. The schema
+transformer also links the route aggregate object to the internal
+routing instance created for the service instance.  </p><p>Using the configuration as described, the Contrail control service
+reads the route aggregation object on the routing instance. When the
+first, more specific route or contributing route is launched (when
+the first VM is launched on the right VN), the aggregate route is
+published. Similarly, the aggregated route is deleted when the last,
+more specific route or contributing route is deleted (when the last
+VM is deleted in the right VN). The aggregated route is published
+when the next hop for the aggregated route gets resolved.  </p><p>By default, in BGP or XMPP route exchanges, the control node
+will not publish contributing routes of an aggregate route. </p><h3 id="jd0e85">Schema for Route Aggregation</h3><ul><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e90">Route Aggregate Object </a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e98">Service Instance Link to Route Aggregate Object</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e106">Routing Instance Link to Route Aggregate Object </a></p></li></ul><h4 id="jd0e90">Route Aggregate Object </h4><p>The following is the schema for route aggregate objects. Multiple
+prefixes can be specified in a single route aggregate object.</p><div class="example" dir="ltr" id="jd0e95"><sw-code><template v-pre=""><pre>&lt;xsd:element name="route-aggregate" type="ifmap:IdentityType"/&gt;
+&lt;xsd:complexType name="RouteListType"&gt;
+    &lt;xsd:element name="route" type="xsd:string" maxOccurs="unbounded"/&gt;
+&lt;/xsd:complexType&gt;
+
+&lt;xsd:element name='aggregate-route-entries' type='RouteListType'/&gt;
+&lt;!--#IFMAP-SEMANTICS-IDL
+    Property('aggregate-route-entries', 'route-aggregate') --&gt;
+
+&lt;xsd:element name='aggregate-route-nexthop' type='xsd:string'/&gt;
+&lt;!--#IFMAP-SEMANTICS-IDL
+        Property('aggregate-route-nexthop', 'route-aggregate') --&gt;
+
+</pre></template></sw-code></div><h4 id="jd0e98">Service Instance Link to Route Aggregate Object</h4><p>The following is the schema for the service instance link to
+route aggregation objects. The operator can link multiple route aggregate
+objects to a single service interface.</p><div class="example" dir="ltr" id="jd0e103"><sw-code><template v-pre=""><pre>&lt;xsd:element name="route-aggregate" type="ifmap:IdentityType"/&gt;
+&lt;xsd:complexType name="RouteListType"&gt;
+    &lt;xsd:element name="route" type="xsd:string" maxOccurs="unbounded"/&gt;
+&lt;/xsd:complexType&gt;
+
+&lt;xsd:element name='aggregate-route-entries' type='RouteListType'/&gt;
+&lt;!--#IFMAP-SEMANTICS-IDL
+    Property('aggregate-route-entries', 'route-aggregate') --&gt;
+
+&lt;xsd:element name='aggregate-route-nexthop' type='xsd:string'/&gt;
+&lt;!--#IFMAP-SEMANTICS-IDL
+        Property('aggregate-route-nexthop', 'route-aggregate') --&gt;
+
+&lt;xsd:simpleType name="ServiceInterfaceType"&gt;
+        &lt;xsd:restriction base="xsd:string"&gt;
+        &lt;xsd:pattern value="management|left|right|other[0-9]*"/&gt;
+        &lt;/xsd:restriction&gt;
+&lt;/xsd:simpleType&gt;
+&lt;xsd:complexType name='ServiceInterfaceTag'&gt;
+        &lt;xsd:element name="interface-type" type="ServiceInterfaceType"/&gt;
+&lt;/xsd:complexType&gt;
+
+&lt;xsd:element name="route-aggregate-service-instance" type="ServiceInterfaceTag"/&gt;
+&lt;!--#IFMAP-SEMANTICS-IDL
+        Link('route-aggregate-service-instance',
+                   'bgp:route-aggregate', 'service-instance', ['ref']) --&gt;
+
+</pre></template></sw-code></div><h4 id="jd0e106">Routing Instance Link to Route Aggregate Object </h4><p>The following is the schema for the routing instance link to
+the route aggregation object. A routing instance can be linked to
+multiple route aggregate objects to perform route aggregation for
+multiple route prefixes.</p><div class="example" dir="ltr" id="jd0e111"><sw-code><template v-pre=""><pre>&lt;xsd:element name="route-aggregate-routing-instance"/&gt;
+&lt;!--#IFMAP-SEMANTICS-IDL
+        Link('route-aggregate-routing-instance',
+                  'route-aggregate', 'routing-instance', ['ref']) --&gt;
+
+</pre></template></sw-code></div><h3 id="jd0e114">Configuring and Troubleshooting Route Aggregation</h3><ul><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e119">Configure Route Aggregate Object</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e141">Configuring a Service Instance</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e152">Create a Virtual Network and Network Policy</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e163">Validate the Route Aggregate Object in the API Server</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e173">Validate the Route Aggregate Object in the Control Node</a></p></li></ul><h4 id="jd0e119">Configure Route Aggregate Object</h4><p>You can use the Contrail UI, <strong v-pre="">Configure &gt; Networking &gt; Routing
+&gt; Create &gt;Route Aggregate</strong> screen to name the route aggregate
+object and identify the routes to aggregate. See <a href="service-chain-route-reorig-vnc.html#rr3">Figure 3</a>.</p><figure id="rr3"><figcaption>Figure 3: Create Route Aggregate</figcaption><div class="graphic"><img alt="Create Route Aggregate" src="documentation/images/s018719.png" style=""/></div></figure><h5 class="Head5" id="jd0e133">Example VNC Script to Create a Route Aggregate Object</h5><p>You can use a VNC script to create a route aggregate object,
+as in the following example:</p><div class="sample" dir="ltr" id="jd0e138"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>from vnc_api.vnc_api import *
+vnc_lib = VncApi("admin", "&lt;password&gt;.", "admin")
+project=vnc_lib.project_read(fq_name=["default-domain", "admin"])
+route_aggregate=RouteAggregate(name="left_to_right", parent_obj=project)
+route_list=RouteListType(["&lt;ip address&gt;"])
+route_aggregate.set_aggregate_route_entries(route_list)
+vnc_lib.route_aggregate_create(route_aggregate)
+</pre></template></sw-code></div></div><h4 id="jd0e141">Configuring a Service Instance</h4><p>Create a service instance with the route aggregate object linked
+to the aggregate left network subnet prefix in the right virtual network.
+See the example in <a href="service-chain-route-reorig-vnc.html#si1">Figure 4</a>.</p><figure id="si1"><figcaption>Figure 4: Create Service Instance</figcaption><div class="graphic"><img alt="Create Service Instance" src="documentation/images/s018720.png" style=""/></div></figure><h4 id="jd0e152">Create a Virtual Network and Network Policy</h4><p>Create a left and right virtual network with the subnets 1.1.1/24
+and 2.2.2/24, respectively. Create a network policy to apply a service
+chain between the left VN and the right VN. See the following example.</p><figure id="jd0e157"><div class="graphic"><img alt="" src="documentation/images/s018721.png" style=""/></div></figure><p>Attach the network policy to create the service chain between
+the left and right VNs. See the following example.</p><figure id="jd0e161"><div class="graphic"><img alt="" src="documentation/images/s018722.png" style=""/></div></figure><h4 id="jd0e163">Validate the Route Aggregate Object in the API Server</h4><p>Validate the route aggregate object in the API server configuration
+database. Verify the routing instance reference and the service instance
+reference for the aggregate object. The <code class="inline" v-pre="">aggregate_route_nexthop</code> field in the route aggregate object is initialized by the schema
+transformer to the service chain address. See the following example.</p><figure id="jd0e171"><div class="graphic"><img alt="" src="documentation/images/s018723.png" style=""/></div></figure><h4 id="jd0e173">Validate the Route Aggregate Object in the Control Node</h4><p>Validate the instance configurations of the route aggregate
+by checking the control node introspect for the service instance internal
+routing instance. For example:</p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowBgpInstanceConfigReq?search_string=default-<br/>domain:admin:right:service-ace7ae00-56e3-42d1-96ec-7fe77088d97f-default-<br/>domain_admin_si-aggregate</code></p><p>See the following example.</p><figure id="jd0e190"><div class="graphic"><img alt="" src="documentation/images/s018724.png" style=""/></div></figure><p>To check the state of the route aggregate object on the control
+node, point your browser to: </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowRouteAggregateReq</code></p><p>See the following example.</p><figure id="jd0e202"><div class="graphic"><img alt="" src="documentation/images/s018725.png" style=""/></div></figure><p>You can also check the route table for the aggregate route in
+the right VN BGP table. For example:  </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowRouteReq?x=default-domain:admin:right:right.inet.0</code></p><p>See the following example.</p><figure id="jd0e214"><div class="graphic"><img alt="" src="documentation/images/s018726.png" style=""/></div></figure><h2 id="jd0e216">Routing Policy</h2><p>Contrail uses routing policy infrastructure to manipulate the
+route and path attribute dynamically. Contrail also supports attaching
+the import routing policy on the service instances.  </p><p>The routing policy contains list terms. A term can be a terminal
+rule, meaning that upon a match on the specified term, no further
+terms are evaluated and the route is dropped or accepted, based on
+the action in that term.  </p><p>If the term is not a terminal rule, subsequent terms are evaluated
+for the given route.</p><p>The list terms are structured as in the following example. </p><div class="example" dir="ltr" id="jd0e227"><sw-code><template v-pre=""><pre>Policy {
+     Term-1
+     Term-2
+}
+</pre></template></sw-code></div><p>The matches and actions of the policy term lists operate similarly
+to the Junos language match and actions operations. </p><p>Each term is represented as in the following:</p><div class="example" dir="ltr" id="jd0e234"><sw-code><template v-pre=""><pre>from {
+    match-condition-1
+    match-condition-2
+    ..
+    ..
+}
+then {
+    action
+    update-action-1
+    update-action-2
+    ..
+    ..
+}
+</pre></template></sw-code></div><p>The term should not contain an <code class="inline" v-pre="">any</code> match condition, for example, an empty <code class="inline" v-pre="">from</code> should not be present. </p><p>If an <code class="inline" v-pre="">any</code> match condition is present,
+all routes are considered as matching the term.</p><p>However, the <code class="inline" v-pre="">then</code> condition can be
+empty or the action can be unspecified. </p><h3 id="jd0e255">Applying Routing Policy</h3><p>The routing policy evaluation has the following key points:</p><ul><li style=""><p>If the term of a routing policy consists of multiple match
+conditions, a route must satisfy all match conditions to apply the
+action specified in the term.</p></li><li style=""><p>If a term in the policy does not specify a match condition,
+all routes are evaluated against the match. </p></li><li style=""><p>If a match occurs but the policy does not specify an accept,
+reject, or next term action, one of the following occurs:</p><ul><li style=""><p>The next term, if present, is evaluated.</p></li><li style=""><p>If no other terms are present, the next policy is evaluated.</p></li><li style=""><p>If no other policies are present, the route is accepted.
+The default routing policy action is “accept”.</p></li></ul></li><li style=""><p>If a match does not occur with a term in a policy, and
+subsequent terms in the same policy exist, the next term is evaluated.</p></li><li style=""><p>If a match does not occur with any terms in a policy,
+and subsequent policies exist, the next policy is evaluated.</p></li><li style=""><p>If a match does not occur by the end of a policy or all
+policies, the route is accepted.</p></li></ul><p>A routing policy can consist of multiple terms. Each term consists
+of match conditions and actions to apply to matching routes. </p><p>Each route is evaluated against the policy as follows:</p><ol><li style=""><p>The route is evaluated against the first term. If it matches,
+the specified action is taken. If the action is to accept or reject
+the route, that action is taken and the evaluation of the route ends.
+If the next term action is specified or if no action is specified,
+or if the route does not match, the evaluation continues as described
+above to subsequent terms.</p></li><li style=""><p>Upon hitting the last non-terminal term of the given routing
+policy, the route is evaluated against the next policy, if present,
+in the same manner as described in step 1.</p></li></ol><h4 id="jd0e301">Match Condition: From</h4><p>The match condition <code class="inline" v-pre="">from</code> contains
+a list of match conditions to be satisfied for applying the action
+specified in the term. It is possible that the term doesn’t
+have any match condition. This indicates that all routes match this
+term and action is applied according to  the action specified in the
+term.  </p><p>The following table describes the match conditions supported
+by Contrail.</p><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Match Condition</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>User Input</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Prefix</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>List of prefixes to match</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Each prefix in the list is represented as prefix and match type,
+where the prefix match type can be:</p><ul><li style=""><p><code class="inline" v-pre="">exact</code> </p></li><li style=""><p><code class="inline" v-pre="">orlonger</code> </p></li><li style=""><p><code class="inline" v-pre="">longer</code> </p></li></ul><p>Example: 1.1.0.0/16 <code class="inline" v-pre="">orlonger</code></p><p>A route matches this condition if its prefix matches any of
+the prefixes in the list.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Community</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Community string to match</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Represented as either a well-known community string with <code class="inline" v-pre="">no export</code> or <code class="inline" v-pre="">no reoriginate</code>, or a string representation of a community (64512:11).</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Protocol</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Array of path source or path protocol to match</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>BGP | XMPP | StaticRoute | ServiceChain | Aggregate. A path
+is considered as matching this condition if the path protocol is one
+of protocols in the list.</p></td></tr></tbody></table></sw-table><h4 id="jd0e386">Routing Policy Action and Update Action</h4><p>The policy action contains two parts, action and update action.
+ </p><p>The following table describes <code class="inline" v-pre="">action</code> as supported by Contrail.</p><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Action</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Terminal?</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Reject</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Reject the route that matches this term. No more terms are evaluated
+after hitting this term.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Accept</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Yes</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Accept the route that matches this term. No more terms are evaluated
+after hitting this term. The route is updated using the update specified
+in the policy action.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next Term</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>No</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>This is the default action taken upon matching the policy term.
+The route is updated according to the update specified in the policy
+action. Next terms present in the routing policy are processed on
+the route. If there are no more terms in the policy, the next routing
+policy is processed, if present. </p></td></tr></tbody></table></sw-table><p>The update action section specifies the route modification to
+be performed on the matching route. </p><p>The following table describes <code class="inline" v-pre="">update action</code> as supported by Contrail.</p><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Update Action</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>User Input</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Community</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>List of community</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>As part of the policy update, the following actions can be taken
+for community:</p><ul><li style=""><p>Add a list of community to the existing community.</p></li><li style=""><p>Set a list of community.</p></li><li style=""><p>Remove a list of community (if present) from the existing
+community.</p></li></ul></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>MED</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Update the MED of the BgpPath</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Unsigned integer representing the MED</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>local-pref</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Update the local-pref of the BgpPath</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Unsigned integer representing local-pref </p></td></tr></tbody></table></sw-table><h3 id="jd0e507">Routing Policy Configuration</h3><p>Routing policy is configured on the service instance. Multiple
+routing policies can be attached to a single service instance interface.
+   </p><p>When the policy is applied on the left interface, the policy
+is evaluated for all the routes that are reoriginated in the left
+VN for routes belonging to the right VN. Similarly, the routing policy
+attached to the right interface influences the route reorigination
+in the right VN, for routes belonging to the left VN. </p><p>The following figure illustrates a routing policy configuration.</p><figure id="jd0e516"><div class="graphic"><img alt="" src="documentation/images/s018728.png" style=""/></div></figure><p>The policy sequence number specified in the routing policy link
+data determines the order in which the routing policy is evaluated.
+The routing policy link data on the service instance also specifies
+whether the policy needs to be applied to the left service interface,
+to the right service interface, or to both interfaces.  </p><p>It is possible to attach the same routing policy to both the
+left and right interfaces for a service instance, in a different order
+of policy evaluation. Consequently, the routing policy link data contains
+the sequence number for policy evaluation separately for the left
+and right interfaces.</p><p>The schema transformer links the routing policy object to the
+internal routing instance created for the service instance. The transformer
+also copies the routing policy link data to ensure the same policy
+order.</p><h3 id="jd0e524">Configuring and Troubleshooting Routing Policy</h3><div class="mini-toc-intro"><p>This section shows how to create a routing policy for service
+chains and how to validate the policy.</p></div><ul><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e532">Create Routing Policy</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e545">Configure Service Instance</a></p></li><li style=""><p><a href="service-chain-route-reorig-vnc.html#jd0e552">Configure the Network Policy for the Service Chain</a></p></li></ul><h4 id="jd0e532">Create Routing Policy</h4><p>First, create the routing policy, <strong v-pre="">Configure &gt; Networking
+&gt; Routing &gt; Create &gt;Routing Policy</strong>. See the following example.</p><figure id="jd0e540"><div class="graphic"><img alt="" src="documentation/images/s018729.png" style=""/></div></figure><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The Contrail UI and REST APIs enable you to configure a BGP
+routing policy and then assign it to a virtual network, but the routing
+policy will not be applied if the virtual network is attached to an
+L3VPN.</p></sw-admonition><h4 id="jd0e545">Configure Service Instance</h4><p>Create a service instance and attach the routing policy to both
+the left and right interfaces. The order of the policy is calculated
+by the UI, based on the order of the policy specified in the list.</p><figure id="jd0e550"><div class="graphic"><img alt="" src="documentation/images/s018730.png" style=""/></div></figure><h4 id="jd0e552">Configure the Network Policy for the Service Chain</h4><p>At <strong v-pre="">Edit Policy</strong>, create a policy for the service chain,
+see the following example.</p><figure id="jd0e560"><div class="graphic"><img alt="" src="documentation/images/s018731.png" style=""/></div></figure><h3 id="jd0e562">Using a VNC Script to Create Routing Policy</h3><p>The following example shows use of a VNC API script to create
+a routing policy.</p><div class="example" dir="ltr" id="jd0e567"><sw-code><template v-pre=""><pre>from vnc_api.vnc_api import *
+vnc_lib = VncApi("admin", "&lt;password&gt;", "admin")
+project=vnc_lib.project_read(fq_name=["default-domain", "admin"])
+routing_policy=RoutingPolicy(name="vnc_3", parent_obj=project)
+policy_term=PolicyTermType()
+policy_statement=PolicyStatementType()
+
+match_condition=TermMatchConditionType(protocol=["bgp"], community="22:33")
+prefix_match=PrefixMatchType(prefix="1.1.1.0/24", prefix_type="orlonger")
+match_condition.set_prefix([prefix_match])
+
+term_action=TermActionListType(action="accept")
+action_update=ActionUpdateType(local_pref=101, med=10)
+add_community=ActionCommunityType()
+comm_list=CommunityListType(["11:22"])
+add_community.set_add(comm_list)
+action_update.set_community(add_community)
+term_action.set_update(action_update)
+
+policy_term.set_term_action_list(term_action)
+policy_term.set_term_match_condition(match_condition)
+
+policy_statement.add_term(policy_term)
+routing_policy.set_routing_policy_entries(policy_statement)
+vnc_lib.routing_policy_create(routing_policy)
+</pre></template></sw-code></div><h3 id="jd0e570">Verify Routing Policy in API Server </h3><p>You can verify the service instance references and the routing
+instance references for the routing policy by looking in the API server
+configuration database. See the following example.</p><figure id="jd0e575"><div class="graphic"><img alt="" src="documentation/images/s018732.png" style=""/></div></figure><h3 id="jd0e577">Verify Routing Policy in the Control Node </h3><p>You can verify the routing policy in the control node.  </p><p>Point your browser to:  </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowRoutingPolicyReq?search_string=failover
+ </code></p><p>See the following example. </p><figure id="jd0e592"><div class="graphic"><img alt="" src="documentation/images/s018745.png" style=""/></div></figure><h3 id="jd0e594">Verify Routing Policy Configuration in the Control Node </h3><p>You can verify the routing policy configuration in the control
+node.  </p><p>Point your browser to:  </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowBgpRoutingPolicyConfigReq?search_string=failover
+ </code></p><p>See the following example. </p><figure id="jd0e609"><div class="graphic"><img alt="" src="documentation/images/s018733.png" style=""/></div></figure><h3 id="jd0e611">Verify Routing Policy Configuration on the Routing Instance</h3><p>You can verify the routing policy configuration on the internal
+routing instance. </p><p>Point your browser to:  </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowBgpInstanceConfigReq?search_string=<var v-pre="">&lt;name-of-internal-vrf&gt;</var> </code></p><p>See the following example. </p><figure id="jd0e629"><div class="graphic"><img alt="" src="documentation/images/s018734.png" style=""/></div></figure><p>You can also verify the routing policy on the routing instance
+operational object.  </p><p>Point your browser to:  </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;control-node&gt;</var>:8083/Snh_ShowRoutingInstanceReq?x=<var v-pre="">&lt;name-of-internal-vrf&gt;</var> </code></p><p>See the following example. </p><figure id="jd0e646"><div class="graphic"><img alt="" src="documentation/images/s018735.png" style=""/></div></figure><h2 id="jd0e648">Control for Route Reorigination</h2><p>The ability to prevent reorigination of interface static routes
+is typically required when routes are configured on an interface that
+belongs  to a service VM. </p><p>As an example, the following image shows a service chain that
+has multiple service instances, with an <code class="inline" v-pre="">in-net-nat</code> service instance as the last service VM, also with the right VN
+as the public VN. </p><p>The last service instance performs NAT by using a NAT pool.
+The right interface of the service VM must  be configured with an
+interface static route for the NAT pool so that the destination in
+the right VN knows how to reach addresses in the NAT pool. However,
+the NAT pool prefix should not be reoriginated into the left VN.  </p><p>To prevent route reorigination, the interface static route is
+tagged with a well-known BGP community called <code class="inline" v-pre="">no-reoriginate</code>.  </p><p>When the control node is reoriginating the route, it skips the
+routes that are tagged with the BGP community.</p><figure id="jd0e667"><div class="graphic"><img alt="" src="documentation/images/s018736.png" style=""/></div></figure><h3 id="jd0e669">Configuring and Troubleshooting Reorigination Control</h3><p>The community attribute on the static routes for the interface
+static route of the service instance is specified during creation
+of  the service instance. See the following example.</p><figure id="jd0e674"><div class="graphic"><img alt="" src="documentation/images/s018737.png" style=""/></div></figure><p>Use the following example to verify that the service instance
+configuration object in the API server has the correct community set
+for the static route. See the following example.</p><figure id="jd0e678"><div class="graphic"><img alt="" src="documentation/images/s018738.png" style=""/></div></figure><sw-prev-next> </sw-prev-next></p>

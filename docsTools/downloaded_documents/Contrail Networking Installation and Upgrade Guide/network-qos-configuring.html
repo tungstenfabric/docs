@@ -1,0 +1,51 @@
+<p id="topic-content"><h1 id="jd0e3">Configuring Network QoS Parameters</h1><sw-topic-details date="2020-03-31"> </sw-topic-details><h2 id="jd0e13">Overview</h2><p>You can use the OpenStack Nova command-line interface (CLI)
+to specify a quality of service (QoS) setting for a virtual machine’s
+network interface, by setting the <code class="inline" v-pre="">quota</code> of a Nova flavor. Any virtual machine created with that Nova flavor
+will inherit all of the specified QoS settings. Additionally, if the
+virtual machine that was created with the QoS settings has multiple
+interfaces in different virtual networks, the same QoS settings will
+be applied to all of the network interfaces associated with the virtual
+machine. The QoS settings can be specified in unidirectional or bidirectional
+mode.</p><p>The <code class="inline" v-pre="">quota</code> driver in Neutron converts
+QoS parameters into <code class="inline" v-pre="">libvirt</code> network settings
+of the virtual machine.</p><p>The QoS parameters available in the quota driver only cover
+rate limiting the network interface. There are no specifications available
+for policy-based QoS at this time. </p><h2 id="jd0e32">QoS Configuration Examples</h2><p>Although the QoS setting can be specified in quota by using
+either Horizon or CLI, quota creation using CLI is more robust and
+stable, therefore, creating by CLI is the recommended method.  </p><div class="example" dir="ltr" id="jd0e38"><p><b><h3 id="jd0e39">Example</h3></b></p><p>CLI for Nova flavor has the following format:</p><sw-code><template v-pre=""><pre>nova flavor-key <var v-pre="">&lt;flavor_name&gt;</var> set quota:vif_<var v-pre="">&lt;direction&gt; </var>_<var v-pre="">&lt;param_name&gt;</var> = value</pre></template></sw-code></div><p>where:  </p><p><code class="inline" v-pre=""><var v-pre="">&lt;flavor_name&gt;</var></code> is the name of an existing Nova flavor. </p><p><code class="inline" v-pre="">vif_<var v-pre="">&lt;direction&gt;</var>_<var v-pre="">&lt;param_name&gt;</var></code> is the inbound or outbound
+QoS data name.  </p><p>QoS <code class="inline" v-pre="">vif</code> types include the following: </p><ul><li style=""><p><code class="inline" v-pre="">vif_inbound_average</code> lets you
+specify the average rate of inbound (receive) traffic, in kilobytes/sec. </p></li><li style=""><p><code class="inline" v-pre="">vif_outbound_average</code> lets you
+specify the average rate of outbound (transmit) traffic, in kilobytes/sec. </p></li><li style=""><p>Optional: <code class="inline" v-pre="">vif_inbound_peak </code>and <code class="inline" v-pre="">vif_outbound_peak</code> specify the maximum
+rate of inbound and outbound traffic, respectively, in kilobytes/sec. </p></li><li style=""><p>Optional: <code class="inline" v-pre="">vif_inbound_burst</code> and <code class="inline" v-pre="">vif_outbound_peak</code> specify the amount
+of kilobytes that can be received or transmitted, respectively, in
+a single burst at the peak rate.</p></li></ul><p>Details for various QoS parameters for <code class="inline" v-pre="">libvirt</code> can be found at <a href="http://libvirt.org/formatnetwork.html">http://libvirt.org/formatnetwork.html</a>.   </p><p>The following example shows an inbound average of 800 kilobytes/sec,
+a peak of 1000 kilobytes/sec, and a burst amount of 30 kilobytes. </p><div class="example" dir="ltr" id="jd0e115"><sw-code><template v-pre=""><pre>nova flavor-key m1.small set quota:vif_inbound_average=800
+nova flavor-key m1.small set quota:vif_inbound_peak=1000
+nova flavor-key m1.small set quota:vif_inbound_burst=30</pre></template></sw-code></div><p>The following is an example of specified outbound parameters: </p><div class="example" dir="ltr" id="jd0e120"><sw-code><template v-pre=""><pre>nova flavor-key m1.small set quota:vif_outbound_average=800
+nova flavor-key m1.small set quota:vif_outbound_peak=1000
+nova flavor-key m1.small set quota:vif_outbound_burst=30</pre></template></sw-code></div><p>After the Nova flavor is configured for QoS, a virtual machine
+instance can be created, using either Horizon or CLI. The instance
+will have network settings corresponding to the nova flavor-key, as
+in the following:</p><div class="example" dir="ltr" id="jd0e125"><sw-code><template v-pre=""><pre>&lt;interface type="ethernet"&gt;
+      &lt;mac address="02:a3:a0:87:7f:61"/&gt;
+      &lt;model type="virtio"/&gt;
+      &lt;script path=""/&gt;
+      &lt;target dev="tapa3a0877f-61"/&gt;
+      &lt;bandwidth&gt;
+        &lt;inbound average="800" peak="1000" burst="30"/&gt;
+        &lt;outbound average="800" peak="1000" burst="30"/&gt;
+      &lt;/bandwidth&gt;
+    &lt;/interface&gt;</pre></template></sw-code></div><h2 id="jd0e128">Limitations</h2><ul><li style=""><p>The stock <code class="inline" v-pre="">libvirt</code> does not
+support rate limiting of  <code class="inline" v-pre="">ethernet</code> interface
+types.  Consequently, settings like those in the example for the guest
+interface will not result in any <code class="inline" v-pre="">tc qdisc</code> settings for the corresponding tap device in the host.</p></li><li style=""><p>The <code class="inline" v-pre="">nova flavor-key rxtx_factor</code> takes a float as an input and acts as a scaling factor for receive
+(inbound) and transmit (outbound) throughputs. This key is only available
+to Neutron extensions (private extensions). The Contrail Neutron plugin
+doesn’t implement this private extension. Consequently, setting
+the <code class="inline" v-pre="">nova flavor-key rxtx_factor </code>will not
+have any effect on the QoS setting of the network interface(s) of
+any virtual machine created with that nova flavor.</p></li><li style=""><p>The outbound rate limits of a virtual machine interface
+are not strictly achieved. The outbound throughput of a virtual machine
+network interface is always less than the average outbound limit specified
+in the virtual machine's libvirt configuration file. The same behavior
+is also seen when using a Linux bridge.</p></li></ul><sw-prev-next> </sw-prev-next></p>

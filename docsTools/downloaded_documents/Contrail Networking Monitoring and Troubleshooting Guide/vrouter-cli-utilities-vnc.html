@@ -1,0 +1,911 @@
+<p id="topic-content"><h1 id="jd0e2">vRouter Command Line Utilities</h1><sw-topic-details date="2020-12-07"> </sw-topic-details><h2 id="id-overview">Overview</h2><p>vRouter is the component that takes packets from VMs and forwards
+them to their destinations. In this effort, vRouter depends on the
+vRouter agent to make sense of the overall topology, understand the
+various policies that govern the communication between VMs, and program
+them in vRouter in a way vRouter understands.</p><p>vRouter has a few fundamental data structures that abstracts
+out the various communication paths. There is "interface," "flow,"
+"route," and "nexthop" that enables vRouter to push packets to their
+eventual destinations. In addition, vRouter also has good statistics
+that can help understand and debug packet paths. Various command line
+utilities provided by the vRouter can be used to display these data
+structures and better understand the behavior that one sees in a compute
+node.</p><p>This section describes the shell prompt utilities available
+for examining the state of the vRouter kernel module in Contrail.
+ </p><p>The most useful commands for inspecting the Contrail vRouter
+module are summarized in the following table.</p><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Command</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">vif</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Inspect vRouter interfaces associated with the vRouter
+module.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">flow</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display active flows in a system. </p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">vrfstats</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display next hop statistics for a particular VRF.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">rt</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display routes in a VRF.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">dropstats</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Inspect packet drop counters in the vRouter.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">mpls</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display the input label map programmed into the vRouter.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">mirror</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display the mirror table entries.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">vxlan</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display the VXLAN table entries.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">nh</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display the next hops that the vRouter knows.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">  --help</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display all command options available for the current
+command.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><span class="cli" v-pre="">dpdkinfo</span></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays internal data structure details of a DPDK enabled
+vRouter.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><span class="cli" v-pre="">dpdkconf</span></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Use this command to add or delete a DDP profile.</p></td></tr></tbody></table></sw-table><p>The following sections describe each of the vRouter utilities
+in detail.</p><h2 id="id-vif-command">vif Command </h2><p>The vRouter requires vRouter interfaces (<code class="inline" v-pre="">vif</code>) to forward traffic. Use the <code class="inline" v-pre="">vif</code> command
+to see the interfaces that are known by the vRouter.  </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Having interfaces only in the OS (Linux) is not sufficient
+for forwarding. The relevant interfaces must be added to vRouter.
+Typically, the set up of interfaces is handled by components like <code class="inline" v-pre="">nova-compute</code> or vRouter agent.</p><p>The <code class="inline" v-pre="">vif</code> command can be used to see
+the interfaces that the vRouter is aware of by including the <code class="inline" v-pre="">--list</code> option.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e162"><p><b>Example: vif --list </b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>bash$ vif --list
+Vrouter Interface Table
+
+Flags: P=Policy, X=Cross Connect, S=Service Chain, Mr=Receive Mirror
+       Mt=Transmit Mirror, Tc=Transmit Checksum Offload, L3=Layer 3, L2=Layer 2
+       D=DHCP, Vp=Vhost Physical, Pr=Promiscuous, Vnt=Native Vlan Tagged
+       Mnp=No MAC Proxy
+
+vif0/0      OS: eth0 (Speed 1000, Duplex 1)
+            Type:Physical HWaddr:00:25:90:c3:08:68 IPaddr:0
+            Vrf:0 Flags:L3L2Vp MTU:1514 Ref:22
+            RX packets:2664341  bytes:702708970 errors:0
+            TX packets:1141456  bytes:234609942 errors:0
+
+vif0/1      OS: vhost0
+            Type:Host HWaddr:00:25:90:c3:08:68 IPaddr:0
+            Vrf:0 Flags:L3L2 MTU:1514 Ref:3
+            RX packets:716612  bytes:155442906 errors:0
+            TX packets:2248399  bytes:552491888 errors:0
+
+vif0/2      OS: pkt0
+            Type:Agent HWaddr:00:00:5e:00:01:00 IPaddr:0
+            Vrf:65535 Flags:L3 MTU:1514 Ref:2
+            RX packets:450524  bytes:94618532 errors:0
+            TX packets:437968  bytes:66753290 errors:0
+
+vif0/3      OS: tap519615d8-a2
+            Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0
+            Vrf:1 Flags:PL3L2 MTU:9160 Ref:6
+            RX packets:134  bytes:15697 errors:0
+            TX packets:8568  bytes:945944 errors:0</pre></template></sw-code></div></div><sw-table><p class="SubTitle" id="jd0e167">Table 1: vif Fields</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>vif Output Field</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">vif0/X</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The vRouter assigned name, where 0 is the router ID and
+X is the index allocated to the interface within the vRouter.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">OS: pkt0</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The <code class="inline" v-pre="">pkt0</code> (in this case) is
+the name of the actual OS (Linux) visible interface name. For physical
+interfaces, the speed and the duplex settings are also displayed. </p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Type:xxxxx</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0 </code> </p><p>The type of interface and its IP address, as defined by vRouter.
+The values can be different from what is seen in the OS. Types defined
+by vRouter include:  </p><ul><li style=""><p>Virtual – Interface of a virtual machine (VM). </p></li><li style=""><p>Physical – Physical interface (NIC) in the system.</p></li><li style=""><p>Host – An interface toward the host. </p></li><li style=""><p>Agent – An interface used to trap packets to the
+vRouter agent when decisions need to be made for the forwarding path.</p></li></ul></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Vrf:xxxxx</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre=""> Vrf:65535 Flags:L3 MTU:1514 Ref:2 </code> </p><p>The identifier of the <code class="inline" v-pre="">vrf</code> to which
+the interface is assigned, the flags set on the interface, the MTU
+as understood by vRouter, and a reference count of how many individual
+entities actually hold reference to the interface (mainly of debugging
+value). </p><p>Flag options identify that the following are enabled for the
+interface:  </p><ul><li style=""><p>P - ​Policy. All traffic that comes to vRouter from this
+interface are subjected to policy.</p></li><li style=""><p>L3 - ​Layer 3 forwarding </p></li><li style=""><p>L2 - ​Layer 2 bridging </p></li><li style=""><p>X - Cross connect mode, only set on physical and host
+interfaces, indicating that packets are moved between physical and
+host directly, with minimal intervention by vRouter. Typically set
+when the agent is not alive or not in good shape. </p></li><li style=""><p>​Mt - Mirroring transmit direction. All packets that egresses
+this interface are mirrored.</p></li><li style=""><p>​ Mr - Mirroring receive direction​. All packets that
+ingresses this interface will be mirrored.</p></li><li style=""><p>Tc - ​Checksum offload on the transmit side. Valid only
+on the physical interface.</p></li></ul></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Rx</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">RX packets:60  bytes:4873 errors:0 </code> </p><p>Packets received by vRouter from this interface.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Tx</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">TX packets:21  bytes:2158 errors:0</code> </p><p>Packets transmitted out by vRouter on this interface.</p></td></tr></tbody></table></sw-table><div class="example" dir="ltr" id="jd0e289"><p><b><h3 id="jd0e290">vif Options</h3></b></p><p>Use<code class="inline" v-pre=""> vif –-help </code> to display
+all options available for the vif command. Following is a brief description
+of each option.  </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>It is not recommended to use the following options unless
+you are very experienced with the system utilities. </p></sw-admonition><sw-code><template v-pre=""><pre># vif --help
+Usage: vif [--create &lt;intf_name&gt; --mac &lt; --mac  &lt;C&gt;]
+           [--add &lt;C&gt;&gt; --mac &lt;mac&gt; --vrf &lt;vrf&gt;
+                 --type [vhost|agent|physical|virtual|monitoring]
+                 --transport [eth|pmd|virtual|socket]
+                 --xconnect &lt;physical interface name&gt;
+                 --policy, --vhost-phys, --dhcp-enable]
+                 --vif &lt;vif ID&gt; --id &lt;intf_id&gt; --pmd --pci]
+           [--delete &lt;intf_id&gt;|&lt;intf_name&gt;]
+           [--get &lt;intf_id&gt;][--kernel]
+           [--set &lt;intf_id&gt; --vlan &lt;vlan_id&gt; --vrf &lt;vrf_id&gt;]
+           [--list][--core &lt;core number&gt;][--rate]
+           [--sock-dir &lt;sock dir&gt;]
+           [--clear][--id &lt;intf_id&gt;][--core &lt;core_number&gt;]
+           [--help}
+</pre></template></sw-code></div><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Option</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--create</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Creates a “host” interface with name <code class="inline" v-pre="">&lt;intf_name&gt; </code>and mac <code class="inline" v-pre="">&lt;mac&gt; </code>on the host kernel. The <code class="inline" v-pre="">vhost0</code> interface
+that you see on Linux is a typical example of invocation of this command.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--add</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Adds the existing interfaces in the host OS to vRouter,
+with type and flag options.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--delete</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Deletes the interface from vRouter. The <code class="inline" v-pre="">&lt;intf_id&gt; i</code> is the vRouter interface ID as given
+by <code class="inline" v-pre="">vif0/X</code>, where <code class="inline" v-pre="">X</code> is the ID. So, in <code class="inline" v-pre="">vif0/1</code>, <code class="inline" v-pre="">1</code> is the interface index of that vif inside the vRouter
+module.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--get</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays a specific interface. The <code class="inline" v-pre="">&lt;intf_id&gt; </code>is the vRouter interface ID, unless the command is appended by the <code class="inline" v-pre="">—kernel</code> option, in which case the ID is the kernel
+ID.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--set</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Set working parameters of an interface. The ones supported
+are the <code class="inline" v-pre="">vlan id</code> and the <code class="inline" v-pre="">vrf</code>. The <code class="inline" v-pre="">vlan id</code> as understood by vRouter
+differs from what one typically expects and is relevant for interfaces
+of service instances.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--list	</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display all of the interfaces of which the vRouter is
+aware.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--help</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Display all options available for the current command. </p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--clear</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Clears statistics for all interfaces on all cores. For
+more information, see <a href="vrouter-cli-utilities-vnc.html#id-clear-command">clear Command</a>.</p></td></tr></tbody></table></sw-table><h2 id="id-clear-command">clear Command</h2><p><span id="jd0e427">Contrail Networking Release
+2008 supports clearing of vif statistics counters for all interfaces
+by using the <code class="inline" v-pre="">--clear</code> command.</span> For more information on <code class="inline" v-pre="">--clear</code> command
+options, see <a href="vrouter-cli-utilities-vnc.html#clear-command">Table 2</a>.</p><sw-table><p class="SubTitle" id="clear-command">Table 2: clear Command Options</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Option</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--clear</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Clears statistics for all interfaces on all cores.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--clear --id &lt;vif-id&gt;</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Clears statistics for a specific interface.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--clear --core &lt;core-id&gt; </code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Clears statistics on a specific core for all interfaces.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--clear --id &lt;vif-id&gt; --core &lt;core-id&gt; </code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Clears statistics for a specific interface on a specific
+core.</p></td></tr></tbody></table></sw-table><h2 id="id-flow-command">flow Command</h2><p>Use the <code class="inline" v-pre="">flow</code> command to display all
+active flows in a system.   </p><div class="example" dir="ltr" id="jd0e495"><p><b><h3 id="jd0e496">Example: flow -l </h3></b></p><p>Use <code class="inline" v-pre="">-l </code>to list everything
+in the flow table. The -1 is the only relevant debugging option.</p><sw-code><template v-pre=""><pre>  # flow –l  
+Flow table
+   Index        Source:Port                   Destination:Port   Proto(V)
+  ------------------------------------------------------------------------------------------------- 
+ 263484          1.1.1.252:1203            1.1.1.253:0        1 (3)
+                    (Action:F, S(nh):91,  Statistics:22/1848)
+     379480          1.1.1.253:1203            1.1.1.252:0        1 (3) 
+                    (Action:F, S(nh):75,  Statistics:22/1848)     </pre></template></sw-code></div><p>​Each record in the flow table listing displays the index of
+the record, the source IP: source port, the destination ip: destination
+port, the inet protocol, and the source VRF (V) to which the flow
+belongs.  </p><p>Each new flow has to be approved by the vRouter agent. The agent
+does this by setting actions for each flow.  There are three main
+actions associated with a flow table entry: Forward (‘F’),
+Drop (‘D’), and Nat (‘N’).  </p><p>For NAT, there are additional flags indicating the type of NAT
+to which the flow is subject, including: SNAT (S), DNAT (D), source
+port translation (Ps), and destination port translation (Pd).</p><p>S(nh) indicates the source nexthop index used for the RPF check
+to validate that the traffic is from a known source. If the packet
+must go to an ECMP destination, E:X is also displayed, where ‘X’
+indicates the destination to be used through the index within the
+ECMP next hop.  </p><p>The Statistics field indicates the Packets/Bytes that hit this
+flow entry.  </p><p>There is a Mirror Index field if the  traffic is mirrored, listing
+the indices into the mirror table (which can be dumped by using <code class="inline" v-pre="">mirror –-dump</code>).  </p><p>If there is an explicit association between the forward and
+the reverse flows, as is the case with NAT, you will see a double
+arrow in each of the records with either side of the arrow displaying
+the flow index for that direction.</p><div class="example" dir="ltr" id="jd0e523"><p><b><h3 id="jd0e524">Example: flow -r</h3></b></p><p>Use <code class="inline" v-pre="">-r</code> to view all of the
+flow setup rates.</p><sw-code><template v-pre=""><pre># flow –r  
+New =    2, Flow setup rate =    3 flows/sec, Flow rate =    3 flows/sec, for last  548 ms  
+New =    2, Flow setup rate =    3 flows/sec, Flow rate =    3 flows/sec, for last  543 ms  
+New =   -2, Flow setup rate =   -3 flows/sec, Flow rate =   -3 flows/sec, for last  541 ms  
+New =    2, Flow setup rate =    3 flows/sec, Flow rate =    3 flows/sec, for last  544 ms  
+New =   -2, Flow setup rate =   -3 flows/sec, Flow rate =   -3 flows/sec, for last  542 ms  </pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e534"><p><b><h3 id="jd0e535">Example: flow --help</h3></b></p><p>Use <code class="inline" v-pre="">--help</code> to display all
+options available for the flow command.</p><sw-code><template v-pre=""><pre># flow –-help  
+Usage:flow [-f flow_index][-d flow_index][-i flow_index]
+                        [--mirror=mirror table index]
+                        [-l]
+   -f &lt;flow_index&gt;	Set forward action for flow at flow_index &lt;flow_index&gt;
+  -d &lt;flow_index&gt;	Set drop action for flow at flow_index &lt;flow_index&gt;
+  -i &lt;flow_index&gt;		Invalidate flow at flow_index &lt;flow_index&gt;
+  --mirror               	mirror index to mirror to
+  -l                         	List  all flows
+  -r                        	Start dumping flow setup rate
+  --help                 	Print this help     </pre></template></sw-code></div><h2 id="id-vrfstats-command">vrfstats Command </h2><p>Use <code class="inline" v-pre="">vrfstats</code> to display statistics
+per next hop for a <code class="inline" v-pre="">vrf</code>. It is typically
+used to determine if packets are hitting the expected next hop.  </p><div class="example" dir="ltr" id="jd0e559"><p><b><h3 id="jd0e560">Example: vrfstats --dump </h3></b></p><p>The <code class="inline" v-pre="">—dump</code> option displays
+the statistics for all VRFs that have seen traffic. In the following
+example, there was traffic only in <code class="inline" v-pre="">Vrf 0 </code>(the public VRF).  <code class="inline" v-pre="">Receives</code> shows the
+number of packets that came in the fabric destined to this location. <code class="inline" v-pre="">Encaps</code> shows the number of packets destined to the
+fabric. </p><p>If there is VM traffic going out on the fabric, the respective
+tunnel counters will increment. ​ </p><sw-code><template v-pre=""><pre> # vrfstats --dump
+  Vrf: 0
+  Discards 414, Resolves 3, Receives 165334
+  Ecmp Composites 0, L3 Mcast Composites 0, L2 Mcast Composites 0, Fabric Composites 0, Multi Proto Composites 0
+  Udp Tunnels 0, Udp Mpls Tunnels 0, Gre Mpls Tunnels 0
+  L2 Encaps 0, Encaps 130955</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e581"><p><b><h3 id="jd0e582">Example: vrfstats --get  0​</h3></b></p><p>Use <code class="inline" v-pre="">--get 0</code> to retrieve statistics
+for a particular <code class="inline" v-pre="">vrf</code>.</p><sw-code><template v-pre=""><pre> # vrfstats --get 0
+  Vrf: 0
+  Discards 418, Resolves 3, Receives 166929
+  Ecmp Composites 0, L3 Mcast Composites 0, L2 Mcast Composites 0, Fabric Composites 0, Multi Proto Composites 0
+  Udp Tunnels 0, Udp Mpls Tunnels 0, Gre Mpls Tunnels 0
+  L2 Encaps 0, Encaps 132179 </pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e595"><p><b><h3 id="jd0e596">​Example: ​vrfstats --help</h3></b></p><sw-code><template v-pre=""><pre>Usage: vrfstats --get &lt;vrf&gt;
+                                   --dump
+                                   --help
+
+--get &lt;vrf&gt;    		Displays packet statistics for the vrf &lt;vrf&gt;
+
+--dump         	Displays packet statistics for all vrfs
+
+--help           	Displays this help message</pre></template></sw-code></div><h2 id="id-rt-command">rt Command</h2><p>Use the rt command to display all routes in a VRF.</p><div class="example" dir="ltr" id="jd0e608"><p><b><h3 id="jd0e609">Example: rt --dump</h3></b></p><p>The following example displays <code class="inline" v-pre="">inet</code> family routes for <code class="inline" v-pre="">vrf 0</code>.</p><sw-code><template v-pre=""><pre># rt --dump 0
+
+Kernel IP routing table 0/0/unicast
+
+Destination             PPL        Flags        Label        Nexthop
+
+0.0.0.0/8                0                        -              5
+
+1.0.0.0/8                0                        -              5
+
+2.0.0.0/8                0                        -              5
+
+3.0.0.0/8                0                        -              5
+
+4.0.0.0/8                0                        -              5
+
+5.0.0.0/8                0                        -              5</pre></template></sw-code></div><p>In this example output, the first line displays the routing
+table that is being dumped. In <code class="inline" v-pre="">0/0/unicast</code>, the first 0 is for the router ID, the next 0 is for the VRF ID,
+and unicast identifies the unicast table. The vRouter maintains separate
+tables for unicast and multicast routes. ​ By default, if the <code class="inline" v-pre="">—table </code>option is not specified, only the unicast
+table is dumped.  </p><p>Each record in the table output specifies the destination prefix
+length, the parent route prefix length from which this route has been
+expanded, the flags for the route, the MPLS label if the destination
+is a VM in another location, and the next hop ID. To understand the
+second field “PPL”, it is good to keep in mind that the
+unicast routing table is internally implemented as an ‘mtrie’.
+ </p><p>The <code class="inline" v-pre="">Flags</code> field can have two values. <code class="inline" v-pre="">L</code> indicates that the label field is valid, and <code class="inline" v-pre="">H</code> indicates that <code class="inline" v-pre="">vroute</code> should
+proxy arp for this IP.  </p><p>The <code class="inline" v-pre="">Nexthop</code> field indicates the next
+hop ID to which the route points.</p><div class="example" dir="ltr" id="jd0e651"><p><b><h3 id="jd0e652">Example: rt --dump --table mcst</h3></b></p><p>To dump the multicast table, use the <code class="inline" v-pre="">—table</code> option with <code class="inline" v-pre="">mcst</code> as the argument.</p><sw-code><template v-pre=""><pre># rt --dump 0 --table mcst
+
+Kernel IP routing table 0/0/multicast
+
+(Src,Group)                                  Nexthop
+
+0.0.0.0,255.255.255.255  </pre></template></sw-code></div><h2 id="id-dropstats-command">dropstats Command</h2><p>Use the <span class="cli" v-pre="">dropstats</span> command to see packet drop counters
+in vRouter. Use the <span class="cli" v-pre="">dropstats --debug</span> command to view the <span class="cli" v-pre="">Cloned Original</span> counters.</p><div class="example" dir="ltr" id="jd0e682"><p><b><h3 id="jd0e683">Example: dropstats</h3></b></p><sw-code><template v-pre=""><pre>
+(vrouter-agent-dpdk)[root@nodec56 /]$ dropstats
+Invalid IF                    0
+Trap No IF                    0
+IF TX Discard                 0
+IF Drop                       0
+IF RX Discard                 0
+
+Flow Unusable                 0
+Flow No Memory                0
+Flow Table Full               0
+Flow NAT no rflow             0
+Flow Action Drop              0
+Flow Action Invalid           0
+Flow Invalid Protocol         0
+Flow Queue Limit Exceeded     0
+New Flow Drops                0
+Flow Unusable (Eviction)      0
+
+Original Packet Trapped       0
+
+Discards                      0
+TTL Exceeded                  0
+Mcast Clone Fail              0
+
+Invalid NH                    2
+Invalid Label                 0
+Invalid Protocol              0
+Etree Leaf to Leaf            0
+Bmac/ISID Mismatch            0
+Rewrite Fail                  0
+Invalid Mcast Source          0
+Packet Loop                   0
+
+Push Fails                    0
+Pull Fails                    0
+Duplicated                    0
+Head Alloc Fails              0
+PCOW fails                    0
+Invalid Packets               0
+
+Misc                          0
+Nowhere to go                 0
+Checksum errors               0
+No Fmd                        0
+Invalid VNID                  0
+Fragment errors               0
+Invalid Source                0
+Jumbo Mcast Pkt with DF Bit   0
+No L2 Route                   0
+Memory Failures               0
+Fragment Queueing Failures    0
+No Encrypt Path Failures      0
+Invalid HBS received packet   0
+
+VLAN fwd intf failed TX       0
+VLAN fwd intf failed enq      0
+
+(vrouter-agent-dpdk)[root@nodec56 /]$ dropstats --debug
+Cloned Original               0
+</pre></template></sw-code></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p><span class="cli" v-pre="">Cloned Original</span> drops are still included in
+the <span class="cli" v-pre="">Drops</span> section in the output of the <span class="cli" v-pre="">vif --list</span> command.</p></sw-admonition><div class="example" dir="ltr" id="jd0e698"><p><b><h3 id="jd0e699">dropstats ARP Block</h3></b></p><p>GARP packets from VMs are dropped by vRouter, an expected
+behavior. In the example output, the first counter GARP indicates
+how many packets were dropped.   </p><p>ARP requests that are not handled by vRouter are dropped, for
+example, requests for a system that is not a host. These drops are
+counted by<code class="inline" v-pre=""> ARP notme </code>counters.  </p><p>The <code class="inline" v-pre="">Invalid ARPs</code> counter is incremented
+when the Ethernet protocol is ARP, but the ARP operation was neither
+a request nor a response.</p></div><div class="example" dir="ltr" id="jd0e714"><p><b><h3 id="jd0e715">dropstats Interface Block</h3></b></p><p><code class="inline" v-pre="">Invalid IF</code> counters are incremented
+normally during transient conditions, and should not be a concern.
+ </p><p><code class="inline" v-pre="">Trap No IF</code> counters are incremented
+when vRouter is not able to find the interface to trap the packets
+to vRouter agent, and should not happen in a working system.  </p><p><code class="inline" v-pre="">IF TX Discard</code> and <code class="inline" v-pre="">IF
+RX Discard</code> counters are incremented when vRouter is
+not in a state to transmit and receive packets, and typically happens
+when vRouter goes through a reset state or when the module is unloaded.
+ </p><p><code class="inline" v-pre="">IF Drop </code>counters indicate packets
+that are dropped in the interface layer. The increase can typically
+happen when interface settings are wrong.</p></div><div class="example" dir="ltr" id="jd0e737"><p><b><h3 id="jd0e738">dropstats Flow Block</h3></b></p><p>When packets go through flow processing, the first packet
+in a flow is cached and the vRouter agent is notified so it can take
+actions on the packet according to the policies configured. If more
+packets arrive after the first packet but before the agent makes a
+decision on the first packet, then those new packets are dropped.
+The dropped packets are tracked by the Flow unusable counter.   </p><p>The <code class="inline" v-pre="">Flow No Memory</code> counter increments
+when the flow block doesn't have enough memory to perform internal
+operations.  </p><p>The <code class="inline" v-pre="">Flow Table Full</code> counter increments
+when the vRouter cannot install a new flow due to lack of available
+slots. A particular flow can only go in certain slots, and if all
+those slots are occupied, packets are dropped. It is possible that
+the flow table is not full, but the counter might increment.   </p><p>The <code class="inline" v-pre="">Flow NAT no rflow</code> counter tracks
+packets that are dropped when there is no reverse flow associated
+with a forward flow that had action set as NAT. For NAT, the vRouter
+needs both forward and reverse flows to be set properly. If they are
+not set, packets are dropped.  </p><p>The <code class="inline" v-pre="">Flow Action Drop</code> counter tracks
+packets that are dropped due to policies that prohibit a flow.  </p><p>The <code class="inline" v-pre="">Flow Action Invalid</code> counter usually
+does not increment in the normal course of time, and can be ignored.
+ </p><p>The <code class="inline" v-pre="">Flow Invalid Protocol</code> usually
+does not increment in the normal course of time, and can be ignored.
+ </p><p>The <code class="inline" v-pre="">Flow Queue Limit Exceeded</code> usually
+does not increment in the normal course of time, and can be ignored.</p></div><div class="example" dir="ltr" id="jd0e778"><p><b><h3 id="jd0e779">dropstats Miscellaneous Operational Block</h3></b></p><p>The <code class="inline" v-pre="">Discard</code> counter tracks
+packets that hit a discard next hop. For various reasons interpreted
+by the agent and during some transient conditions, a route can point
+to a discard next hop. When packets hit that route, they are dropped.
+ </p><p>The <code class="inline" v-pre="">TTL Exceeded</code> counter increments
+when the MPLS time-to-live goes to zero.  </p><p>The <code class="inline" v-pre="">Mcast Clone Fail</code> happens when
+the vRouter is not able to replicate a packet for flooding.  </p><p>The <code class="inline" v-pre="">Cloned Original </code>is an internal
+tracking counter. It is harmless and can be ignored.  </p><p>The <code class="inline" v-pre="">Invalid NH </code>counter tracks the
+number of packets that hit a next hop that was not in a state to be
+used (usually in transient conditions) or a next hop that was not
+expected, or no next hops when there was a next hop expected. Such
+increments happen rarely, and should not continuously increment.  </p><p>The <code class="inline" v-pre="">Invalid Label </code>counter tracks
+packets with an MPLS label unusable by vRouter because the value is
+not in the expected range.  </p><p>The <code class="inline" v-pre="">Invalid Protocol </code>​typically increments
+when the IP header is corrupt.  </p><p>The <code class="inline" v-pre="">Rewrite Fail </code>counter tracks the
+number of times vRouter was not able to write next hop rewrite data
+to the packet.  </p><p>The <code class="inline" v-pre="">Invalid Mcast Source</code> tracks the
+multicast packets that came from an unknown or unexpected source and
+thus were dropped. </p><p>The <code class="inline" v-pre="">Duplicated</code> counter tracks the
+number of duplicate packets that are created after dropping the original
+packets. An original packet is duplicated when generic send offload
+(GSO) is enabled in the vRouter or the original packet is unable to
+include the header information of the vRouter agent.</p><p>The <code class="inline" v-pre="">Invalid Source </code>counter tracks
+the number of packets that came from an invalid or unexpected source
+and thus were dropped.  </p><p>The remaining counters are of value only to developers.</p></div><h2 id="id-mpls-command">mpls Command</h2><p>The <code class="inline" v-pre="">mpls</code> utility command displays
+the input label map that has been programmed in the vRouter.</p><div class="example" dir="ltr" id="jd0e850"><p><b><h3 id="jd0e851">Example: mpls --dump</h3></b></p><p>The <code class="inline" v-pre="">—dump</code> command dumps
+the complete label map. The output is divided into two columns. The
+first field is the label and the second is the next hop corresponding
+to the label. When an MPLS packet with the specified label arrives
+in the vRouter, it uses the next hop corresponding to the label to
+forward the packet. </p><sw-code><template v-pre=""><pre># mpls –dump
+
+MPLS Input Label Map
+
+
+
+   Label    NextHop
+
+  ----------------------
+
+    16          9
+
+    17          11</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e861"><p>You can inspect the operation on <code class="inline" v-pre="">nh 9 </code>as follows:</p><sw-code><template v-pre=""><pre># nh --get 9
+
+Id:009  Type:Encap     Fmly: AF_INET  Flags:Valid, Policy,   Rid:0  Ref_cnt:4
+
+        EncapFmly:0806 Oif:3 Len:14 Data:02 d0 60 aa 50 57 00 25 90 c3 08 69 08 00</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e870"><p>The nh output shows that the next hop directs the packet
+to go out on the interface with index 3 (<code class="inline" v-pre="">Oif:3</code>) with the given rewrite data.   </p><p>To check the index of 3, use the following:</p><sw-code><template v-pre=""><pre># vif –get 3
+
+vif0/3  OS: tapd060aa50-57
+
+        Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0
+
+        Vrf:1 Flags:PL3L2 MTU:9160 Ref:6
+
+        RX packets:1056  bytes:103471 errors:0
+
+        TX packets:1041  bytes:102372 errors:0</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e881"><p>The<code class="inline" v-pre=""> -get 3</code> output shows that
+the index of 3 corresponds to a tap interface that goes to a VM.  </p><p>You can also dump individual entries in the map using the <code class="inline" v-pre="">—get</code> option, as follows:</p><sw-code><template v-pre=""><pre># mpls –get 16
+
+MPLS Input Label Map
+
+
+
+   Label    NextHop
+
+-----------------------
+
+     16         9</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e895"><p><b><h3 id="jd0e896">Example: mpls -help</h3></b></p><sw-code><template v-pre=""><pre># mpls –help
+
+Usage: mpls --dump
+
+           mpls --get &lt;label&gt;
+
+           mpls --help
+
+
+--dump  Dumps the mpls incoming label map
+
+--get       Dumps the entry corresponding to label &lt;label&gt;
+              in the label map
+
+--help     Prints this help message</pre></template></sw-code></div><h2 id="id-mirror-command">mirror Command </h2><p> Use the <code class="inline" v-pre="">mirror</code> command to dump the
+mirror table entries.  </p><div class="example" dir="ltr" id="jd0e911"><p><b><h3 id="jd0e912">Example: Inspect Mirroring</h3></b></p><p> The following example inspects a mirror configuration
+where traffic is mirrored from network<code class="inline" v-pre=""> vn1 (1.1.1.0/24) </code>to network <code class="inline" v-pre="">vn2 (2.2.2.0/24)</code>. A ping is
+run from 1.1.1.253 to 2.2.2.253, where both IPs are valid VM IPs,
+then the flow table is listed:</p><sw-code><template v-pre=""><pre># flow -l
+
+Flow table
+
+Index              Source:Port        Destination:Port    Proto(V)
+
+-------------------------------------------------------------------------
+
+135024               2.2.2.253:1208            1.1.1.253:0        1 (1)
+
+                 (Action:F, S(nh):17,  Statistics:208/17472 Mirror Index : 0)
+
+
+
+387324               1.1.1.253:1208            2.2.2.253:0        1 (1)
+
+                  (Action:F, S(nh):8,  Statistics:208/17472 Mirror Index : 0)</pre></template></sw-code></div><p>In the example output, <code class="inline" v-pre="">Mirror Index:0</code> is listed, it is the index to the mirror table. The mirror table
+can be dumped with the<code class="inline" v-pre=""> —dump</code> option,
+as follows:  </p><div class="example" dir="ltr" id="jd0e933"><sw-code><template v-pre=""><pre># mirror --dump
+
+Mirror Table
+
+Index    NextHop    Flags    References
+
+------------------------------------------------
+
+   0       		18                     3</pre></template></sw-code></div><p>The mirror table entries point to next hops. In the example,
+the index 0 points to next hop 18. The <code class="inline" v-pre="">References</code> indicate the number of flow entries that point to this entry.  </p><p>A next hop get operation on ID 18 is performed as follows:  </p><div class="example" dir="ltr" id="jd0e943"><sw-code><template v-pre=""><pre># nh --get 18
+
+Id:018  Type:Tunnel    Fmly: AF_INET  Flags:Valid, Udp,   Rid:0  Ref_cnt:2
+
+        Oif:0 Len:14 Flags Valid, Udp,  Data:00 00 00 00 00 00 00 25 90 c3 08 69 08 00
+
+        Vrf:-1  Sip:192.168.1.10  Dip:250.250.2.253
+
+        Sport:58818 Dport:8099</pre></template></sw-code></div><p>The <code class="inline" v-pre="">nh --get</code> output shows that mirrored
+packets go to a system with IP 250.250.2.253. The packets are tunneled
+as a UDP datagram and sent to the destination. <code class="inline" v-pre="">Vrf:-1</code> indicates that a lookup has to be done in the source <code class="inline" v-pre="">Vrf</code> for the destination.  </p><p>You can also get an individual mirror table entry using the <code class="inline" v-pre="">—get</code> option, as follows:</p><div class="example" dir="ltr" id="jd0e962"><sw-code><template v-pre=""><pre># mirror --get 10
+
+Mirror Table
+
+Index    NextHop    Flags    References
+
+-----------------------------------------------
+
+ 10    	    1          		            1
+
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e965"><p><b><h3 id="jd0e966">Example: mirror --help </h3></b></p><sw-code><template v-pre=""><pre># mirror --help
+
+Usage:  mirror --dump
+
+        mirror --get &lt;index&gt;
+
+        mirror --help
+
+--dump  Dumps the mirror table
+
+--get       Dumps the mirror entry corresponding to index &lt;index&gt;
+
+--help     Prints this help message</pre></template></sw-code></div><h2 id="id-vxlan-command">vxlan Command </h2><p>The vxlan command can be used to dump the VXLAN table. The vxlan
+table maps a network ID to a next hop, similar to an MPLS table. 
+ </p><p>If a packet comes with a VXLAN header and if the VNID is one
+of those in the table, the vRouter will use the next hop identified
+to forward the packet.</p><div class="example" dir="ltr" id="jd0e980"><p><b><h3 id="jd0e981">Example: vxlan --dump​</h3></b></p><sw-code><template v-pre=""><pre># vxlan --dump
+
+VXLAN Table
+
+VNID    NextHop
+
+---------------------
+
+  4         16
+
+  5         16</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e985"><p><b><h3 id="jd0e986">Example: vxlan --get</h3></b></p><p>You can use the <code class="inline" v-pre="">—get</code> option to dump a specific entry, as follows:</p><sw-code><template v-pre=""><pre># vxlan --get 4
+
+VXLAN Table
+
+ VNID    NextHop
+
+----------------------
+
+  4         16</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e996"><p><b><h3 id="jd0e997">Example: vxlan --help</h3></b></p><sw-code><template v-pre=""><pre># vxlan --help
+
+Usage:  vxlan --dump
+
+        vxlan --get &lt;vnid&gt;
+
+        vxlan --help
+
+--dump  Dumps the vxlan table
+
+--get   Dumps the entry corresponding to &lt;vnid&gt;
+
+--help  Prints this help message</pre></template></sw-code></div><h2 id="id-nh-command">nh Command </h2><p>The <code class="inline" v-pre="">nh</code> command enables you to inspect
+the next hops that are known by the vRouter. Next hops tell the vRouter
+the next location to send a packet in the path to its final destination.
+The processing of the packet differs based on the type of the next
+hop.  The next hop types are described in the following table. </p><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Next Hop Type</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Receive</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Indicates that the packet is destined for itself and
+the vRouter should perform Layer 4 protocol processing. As an example,
+all packets destined to the host IP will hit the receive next hop
+in the default VRF. Similarly, all traffic destined to the VMs hosted
+by the server and tunneled inside a GRE will hit the receive next
+hop in the default VRF first, because the outer packet that carries
+the traffic to the VM is that of the server.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Encap (Interface)</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Used only to determine the outgoing interface and the
+Layer 2 information. As an example, when two VMs on the same server
+communicate with each other, the routes for each of them point to
+an encap next hop, because the only information needed is the Layer
+2 information to send the packet to the tap interface of the destination
+VM. A packet destined to a VM hosted on one server from a VM on a
+different server will also hit an encap next hop, after tunnel processing.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Tunnel</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Encapsulates VM traffic in a tunnel and sends it to the
+server that hosts the destination VM. There are different types of
+tunnel next hops, based on the type of tunnels used. vRouter supports
+two main tunnel types for Layer 3 traffic: MPLSoGRE and MPLSoUDP.
+ For Layer 2 traffic, a VXLAN tunnel is used.  A typical tunnel next
+hop indicates the kind of tunnel, the rewrite information, the outgoing
+interface, and the source and destination server IPs.  </p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Discard</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>A catch-all next hop. If there is no route for a destination,
+the packet hits the discard next hop, which drops the packet.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Resolve</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Used by the agent to lazy install Layer 2 rewrite information.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Composite</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Groups a set of next hops, called component next hops
+or sub next hops.  Typically used when multi-destination distribution
+is needed, for example for multicast, ECMP, and so on.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">Vxlan</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>A VXLAN tunnel is used for Layer 2 traffic.  A typical
+tunnel next hop indicates the kind of tunnel, the rewrite information,
+the outgoing interface, and the source and destination server IPs.</p></td></tr></tbody></table></sw-table><div class="example" dir="ltr" id="jd0e1081"><p><b><h3 id="jd0e1082">Example: nh --list </h3></b></p><sw-code><template v-pre=""><pre>
+Id:000  Type:Drop      Fmly: AF_INET  Flags:Valid,   Rid:0  Ref_cnt:1781
+
+Id:001  Type:Resolve   Fmly: AF_INET  Flags:Valid,   Rid:0  Ref_cnt:244
+
+Id:004  Type:Receive  Fmly: AF_INET  Flags:Valid, Policy,   Rid:0
+
+               Ref_cnt:2 Oif:1
+
+Id:007  Type:Encap     Fmly: AF_INET  Flags:Valid, Multicast,   Rid:0  Ref_cnt:3
+
+        EncapFmly:0806 Oif:3 Len:14 Data:ff ff ff ff ff ff 00 25 90 c4 82 2c 08 00
+
+Id:010  Type:Encap     Fmly:AF_BRIDGE  Flags:Valid, L2,   Rid:0  Ref_cnt:3
+
+        EncapFmly:0000 Oif:3 Len:0 Data:
+
+Id:012  Type:Vxlan Vrf  Fmly: AF_INET  Flags:Valid,   Rid:0  Ref_cnt:2
+
+        Vrf:1
+
+Id:013  Type:Composite  Fmly: AF_INET  Flags:Valid, Fabric,   Rid:0  Ref_cnt:3
+
+        Sub NH(label): 19(1027)
+
+Id:014  Type:Composite  Fmly: AF_INET  Flags:Valid, Multicast, L3,   Rid:0  Ref_cnt:3
+
+        Sub NH(label): 13(0) 7(0)
+
+Id:015  Type:Composite  Fmly:AF_BRIDGE  Flags:Valid, Multicast, L2,   Rid:0  Ref_cnt:3
+
+        Sub NH(label): 13(0) 10(0)
+
+Id:016  Type:Tunnel    Fmly: AF_INET  Flags:Valid, MPLSoGRE,   Rid:0  Ref_cnt:1
+
+        Oif:2 Len:14 Flags Valid, MPLSoGRE,  Data:00 25 90 aa 09 a6 00 25 90 c4 82 2c 08 00
+
+        Vrf:0  Sip:10.204.216.72  Dip:10.204.216.21
+
+Id:019  Type:Tunnel    Fmly: AF_INET  Flags:Valid, MPLSoUDP,   Rid:0  Ref_cnt:7
+
+        Oif:2 Len:14 Flags Valid, MPLSoUDP,  Data:00 25 90 aa 09 a6 00 25 90 c4 82 2c 08 00
+
+        Vrf:0  Sip:10.204.216.72  Dip:10.204.216.21
+
+Id:020  Type:Composite  Fmly:AF_UNSPEC  Flags:Valid, Multi Proto,   Rid:0  Ref_cnt:2
+
+        Sub NH(label): 14(0) 15(0)
+
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1086"><p><b><h3 id="jd0e1087">Example: nh --get </h3></b></p><p> Use the<code class="inline" v-pre=""> --get </code>option to display
+information for a single next hop.  </p><sw-code><template v-pre=""><pre># nh –get 9
+
+Id:009  Type:Encap     Fmly:AF_BRIDGE  Flags:Valid, L2,   Rid:0  Ref_cnt:4
+
+        EncapFmly:0000 Oif:3 Len:0 Data:</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1097"><p><b><h3 id="jd0e1098">Example: nh  --help</h3></b></p><sw-code><template v-pre=""><pre># nh –help
+
+Usage: nh --list
+
+       nh --get &lt;nh_id&gt;
+
+       nh --help
+
+--list  Lists All Nexthops
+
+--get   &lt;nh_id&gt; Displays nexthop corresponding to &lt;nh_id&gt;
+
+--help  Displays this help message
+</pre></template></sw-code></div><h2 id="id-dpdkinfo-command">dpdkinfo Command</h2><p><span id="jd0e1109">In Contrail Networking
+Release 2008, the <code class="inline" v-pre="">dpdkinfo</code> command enables
+you to see the details of the internal data structures of a DPDK enabled
+vRouter.</span></p><div class="example" dir="ltr" id="jd0e1114"><p><b><h3 id="jd0e1115">dpdkinfo Options</h3></b></p><p>Use<code class="inline" v-pre=""> dpdkinfo –-help </code> to display all options available for the <span class="cli" v-pre="">dpdkinfo</span> command.
+The <span class="cli" v-pre="">dpdkinfo</span> command options are described in the following
+table:</p></div><sw-table><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Option</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre=""> --bond</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays the bond interface information for primary and
+backup devices in a bond interface.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--lacp all</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays the Link Aggregation Control Protocol (LACP)
+configuration for Slow and Fast LACP timers along with port details
+of actor and partner interfaces in a LACP exchange.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--mempool all</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays summary of used and available memory buffers
+from all memory pools.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--mempool &lt;mempool_name&gt;</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays information about the specified memory pool.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre=""> --stats eth</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays NIC statistics information for the packets received
+(Rx) and transmitted (Tx) by the vRouter.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--xstats all</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays extended NIC statistics information from NIC
+cards.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--xstats=&lt;interface-id&gt;</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays extended NIC information of the primary and
+backup devices for the given interface-id ( Primary-&gt;0, Slave_0-&gt;1, Slave_1 -&gt;2 ).</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--lcore</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays  the Rx queue mapped interfaces along with Queue
+ID.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">--app</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays the overall application information like actual
+physical interface name, number of cores, VLAN, queues, and so on.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><span class="cli" v-pre="">dpdkinfo --ddp list</span></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Displays the list of DDP profiles added in the vRouter.</p></td></tr></tbody></table></sw-table><div class="example" dir="ltr" id="jd0e1223"><p><b><h3 id="jd0e1224">Example: dpdkinfo --bond</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --bond</span> displays the following
+information for primary and backup devices: actor/partner status,
+actor/partner key, actor/partner system priority, actor/partner MAC
+address, actor/partner port priority, actor/partner port number, and
+so on.</p><sw-code><template v-pre=""><pre>dpdkinfo --bond
+No. of bond slaves: 2
+Bonding Mode: 802.3AD Dynamic Link Aggregation
+Transmit Hash Policy: Layer 3+4 (IP Addresses + UDP Ports) transmit load balancing
+MII status: UP
+MII Link Speed: 1000 Mbps
+MII Polling Interval (ms): 10
+Up Delay (ms): 0
+Down Delay (ms): 0
+Driver: net_bonding
+
+802.3ad info :
+LACP Rate: slow
+Aggregator selection policy (ad_select): Stable
+System priority: 32512
+System MAC address:00:50:00:00:00:00
+Active Aggregator Info: 
+        Aggregator ID: 0
+        Number of ports: 2 
+        Actor Key: 4096
+        Partner Key: 0
+        Partner Mac Address: 00:00:80:7a:9b:05
+
+Slave Interface(0): 0000:02:00.0 
+Slave Interface Driver: net_ixgbe
+MII status: DOWN
+MII Link Speed: 0 Mbps
+Permanent HW addr:00:aa:7b:93:00:00
+Aggregator ID: 13215
+Duplex: half
+Bond MAC addr:ac:1f:6b:a5:0f:de
+Details actor lacp pdu: 
+        system priority: 0
+        system mac address:00:aa:7b:93:00:00
+        port key: 0
+        port priority: 0
+        port number: 63368
+        port state: 0 () 
+
+Details partner lacp pdu: 
+        system priority: 15743
+        system mac address:00:00:80:01:9c:05
+        port key: 0
+        port priority: 0
+        port number: 28836
+        port state: 117 (ACT AGG COL DIST DEF ) 
+
+Slave Interface(1): 0000:02:00.1 
+Slave Interface Driver: net_ixgbe
+MII status: UP
+MII Link Speed: 1000 Mbps
+Permanent HW addr:ac:1f:6b:a5:0f:df
+Aggregator ID: 1
+Duplex: full
+Bond MAC addr:ac:1f:6b:a5:0f:df
+Details actor lacp pdu: 
+        system priority: 65535
+        system mac address:ac:1f:6b:a5:0f:df
+        port key: 17
+        port priority: 255
+        port number: 2
+        port state: 61 (ACT AGG SYNC COL DIST ) 
+
+Details partner lacp pdu: 
+        system priority: 127
+        system mac address:ec:3e:f7:5f:f0:40
+        port key: 3
+        port priority: 127
+        port number: 10
+        port state: 63 (ACT TIMEOUT AGG SYNC COL DIST )</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1235"><p><b><h3 id="jd0e1236">Example: dpdkinfo --lacp all</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --lacp all</span> command displays the
+following information for primary devices: LACP rate and LACP configuration
+details, which include Fast periodic (ms), Slow periodic (ms), Short
+timeout (ms), Long timeout (ms), LACP packet statistics for Tx and
+Rx counters, and so on. Also, <span class="cli" v-pre="">dpdkinfo --lacp all</span> displays
+actor and partner port status details of all the backup devices.</p><sw-code><template v-pre=""><pre>dpdkinfo --lacp all
+LACP Rate: fast
+
+Fast periodic (ms): 900
+Slow periodic (ms): 29000
+Short timeout (ms): 3000
+Long timeout (ms): 90000
+Aggregate wait timeout (ms): 2000
+Tx period (ms): 500
+Update timeout (ms): 100
+Rx marker period (ms): 2000
+
+Slave Interface(0): 0000:04:00.0 
+Details actor lacp pdu: 
+       port state: 63 (ACT TIMEOUT AGG SYNC COL DIST ) 
+
+Details partner lacp pdu: 
+       port state: 61 (ACT AGG SYNC COL DIST ) 
+
+Slave Interface(1): 0000:04:00.1 
+Details actor lacp pdu: 
+       port state: 63 (ACT TIMEOUT AGG SYNC COL DIST ) 
+
+Details partner lacp pdu: 
+       port state: 61 (ACT AGG SYNC COL DIST ) 
+
+LACP Packet Statistics:
+              Tx     Rx
+0000:04:00.0  6      28
+0000:04:00.1  7      30
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1249"><p><b><h3 id="jd0e1250">Example: dpdkinfo --mempool all and dpdk --mempool &lt;mempool-name&gt;</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --mempool all</span> displays a summary
+of the memory pool information of the primary and backup devices,
+which include number of available memory pools, size of the memory
+pool, and so on.</p><p>The <span class="cli" v-pre="">dpdk --mempool &lt;mempool-name&gt;</span> displays detailed
+information of the memory pool you have specified in the command.</p><sw-code><template v-pre=""><pre>dpdkinfo --mempool all
+
+---------------------------------------------------
+Name                 Size       Used     Available
+---------------------------------------------------
+rss_mempool          16384       620       15765
+frag_direct_mempool   4096        0         4096
+frag_indirect_mempool 4096        0         4096
+slave_port0_pool      8193        0         8193
+packet_mbuf_pool      8192        4         8188
+slave_port1_pool      8193       125        8068</pre><pre> dpdkinfo --mempool rss_mempool
+rss_mempool
+flags = 10
+nb_mem_chunks = 77
+size = 16384
+populated_size = 16384
+header_size = 64
+elt_size = 9648
+trailer_size = 80
+total_obj_size = 9792
+private_data_size = 64
+avg bytes/object = 9856.000000
+Internal cache infos:
+        cache_size=256
+        cache_count[0]=65
+        cache_count[8]=219
+        cache_count[9]=2
+        cache_count[10]=156
+        cache_count[11]=195
+total_cache_count=637
+common_pool_count=15137</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1268"><p><b><h3 id="jd0e1269">Example: dpdkinfo --stats eth</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --stats eth</span> command reads Rx
+and Tx packets statistics from the NIC card and displays the information.</p><sw-code><template v-pre=""><pre>dpdkinfo --stats eth
+Master Info: 
+RX Device Packets:1289, Bytes:148651, Errors:0, Nombufs:0
+Dropped RX Packets:0
+TX Device Packets:2051, Bytes:237989, Errors:0
+Queue Rx: [0]1289 
+      Tx: [0]2051 
+      Rx Bytes: [0]148651 
+      Tx Bytes: [0]234429 
+      Errors:
+---------------------------------------------------------------------
+
+Slave Info(0000:02:00.0): 
+RX Device Packets:0, Bytes:0, Errors:0, Nombufs:0
+Dropped RX Packets:0
+TX Device Packets:0, Bytes:0, Errors:0
+Queue Rx:
+      Tx:
+      Rx Bytes:
+      Tx Bytes:
+      Errors:
+---------------------------------------------------------------------
+
+Slave Info(0000:02:00.1): 
+RX Device Packets:1289, Bytes:148651, Errors:0, Nombufs:0
+Dropped RX Packets:0
+TX Device Packets:2051, Bytes:237989, Errors:0
+Queue Rx: [0]1289 
+      Tx: [0]2051 
+      Rx Bytes: [0]148651 
+      Tx Bytes: [0]234429 
+      Errors:</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1279"><p><b><h3 id="jd0e1280">Example: dpdkinfo --xstats</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --xstats</span> command reads the Rx
+and Tx from the NIC cards and displays the packet statistics in detail.</p><sw-code><template v-pre=""><pre>dpdkinfo --xstats
+Master Info: 
+Rx Packets: 
+        rx_good_packets: 1459
+        rx_q0packets: 1459
+Tx Packets: 
+        tx_good_packets: 2316
+        tx_q0packets: 2316
+Rx Bytes: 
+        rx_good_bytes: 161175
+        rx_q0bytes: 161175
+Tx Bytes: 
+        tx_good_bytes: 265755
+        tx_q0bytes: 261915
+Errors: 
+Others: 
+---------------------------------------------------------------------
+
+Slave Info(0):0000:02:00.0 
+Rx Packets: 
+Tx Packets: 
+Rx Bytes: 
+Tx Bytes: 
+Errors: 
+        mac_local_errors: 2
+Others: 
+---------------------------------------------------------------------
+
+Slave Info(1):0000:02:00.1 
+Rx Packets: 
+        rx_good_packets: 1459
+        rx_q0packets: 1459
+        rx_size_64_packets: 677
+        rx_size_65_to_127_packets: 641
+        rx_size_128_to_255_packets: 54
+        rx_size_256_to_511_packets: 48
+        rx_size_512_to_1023_packets: 3
+        rx_size_1024_to_max_packets: 36
+        rx_broadcast_packets: 3 
+        rx_multicast_packets: 772
+        rx_total_packets: 1461
+Tx Packets: 
+        tx_good_packets: 2316
+        tx_q0packets: 2316
+        tx_total_packets: 2316
+        tx_size_64_packets: 276
+        tx_size_65_to_127_packets: 582
+        tx_size_128_to_255_packets: 1433  
+        tx_size_256_to_511_packets: 4
+        tx_size_512_to_1023_packets: 3 
+        tx_size_1024_to_max_packets: 18
+        tx_multicast_packets: 1431
+        tx_broadcast_packets: 9
+Rx Bytes: 
+        rx_good_bytes: 161175
+        rx_q0bytes: 161175
+        rx_total_bytes: 161567
+Tx Bytes: 
+        tx_good_bytes: 265755
+        tx_q0bytes: 261915
+Errors: 
+        mac_local_errors: 2
+Others: 
+        out_pkts_untagged: 2316</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1290"><p><b><h3 id="jd0e1291">Example: dpdkinfo --lcore</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --lcore</span> displays Logical core
+(lcore) information, which includes number of forwarding lcores, the
+interfaces mapped to the lcore, and queue-ID of the interfaces.</p><sw-code><template v-pre=""><pre>dpdkinfo --lcore
+No. of forwarding lcores: 2 
+No. of interfaces: 4 
+Lcore 0: 
+        Interface: bond0.102           Queue ID: 0 
+        Interface: vhost0              Queue ID: 0 
+
+Lcore 1: 
+        Interface: bond0.102           Queue ID: 1 
+        Interface: tapd1b53efb-9e      Queue ID: 0</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1302"><p><b><h3 id="jd0e1303">dpdkinfo --app</h3></b></p><p>The <span class="cli" v-pre="">dpdkinfo --app</span> command displays the following
+information:</p><ul><li style=""><p>Application related information about number of lcores,
+the names of the existing​ backup interfaces, and so on.</p></li><li style=""><p>For VLAN configured devices the command displays VLAN​ name,
+tag, and vlan_vif name.</p></li><li style=""><p>For bond interfaces the command displays ethdev information,
+which include Max rx queues, Max tx queues, Reta size, Port id, number
+of ethdev slaves, Tapdev information, and so on.</p></li><li style=""><p>Monitoring interface names (if available) and SR-IOV information,
+which includes logical core, ethdev port ID, and driver name.</p></li></ul><sw-code><template v-pre=""><pre>dpdkinfo --app
+No. of lcores: 12 
+No. of forwarding lcores: 2 
+Fabric interface: bond0.102
+Slave interface(0): enp2s0f0 
+Slave interface(1): enp2s0f1 
+Vlan name: bond0 
+Vlan tag: 102 
+Vlan vif: bond0 
+Ethdev (Master):
+        Max rx queues: 128
+        Max tx queues: 64
+        Ethdev nb rx queues: 2
+        Ethdev nb tx queues: 64
+        Ethdev nb rss queues: 2 
+        Ethdev reta size: 128
+        Ethdev port id: 2
+        Ethdev nb slaves: 2 
+        Ethdev slaves: 0 1 0 0 0 0 
+
+Ethdev (Slave 0): 0000:02:00.0
+        Nb rx queues: 2
+        Nb tx queues: 64
+        Ethdev reta size: 128
+
+Ethdev (Slave 1): 0000:02:00.1
+        Nb rx queues: 2
+        Nb tx queues: 64
+        Ethdev reta size: 128
+
+Tapdev:
+        fd: 39 vif name: bond0 
+        fd: 48 vif name: vhost0</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1326"><p><b><h3 id="jd0e1327">Example: dpdkinfo --ddp list</h3></b></p><p><span id="jd0e1331">In Contrail Networking Release
+2011, you can use the <span class="cli" v-pre="">dpdkinfo --ddp list</span> command to display
+the list of DDP profiles added in the vRouter.</span></p><p>The <span class="cli" v-pre="">dpdkinfo
+--ddp list</span> displays a summary of the DDP profile added in the
+vRouter. The summary of the profile information includes tracking
+ID of the profile, version number, and profile name.</p><sw-code><template v-pre=""><pre>(contrail-tools)[root@cs-scale-02 /]$ dpdkinfo --ddp list
+Profile count is: 1
+ 
+Profile 0:
+Track id:     0x8000000c
+Version:      1.0.0.0
+Profile name: L2/L3 over MPLSoGRE/MPLSoUDP
+</pre></template></sw-code></div><h2 id="jd0e1343">dpdkconf Command</h2><p><span id="jd0e1349">In Contrail Networking
+Release 2011, the <code class="inline" v-pre="">dpdkconf</code> command enables
+you to configure
+a DPDK enabled vRouter. In release 2011, you can use the <code class="inline" v-pre="">dpdkconf</code> command to enable or delete
+a DDP profile in vRouter.</span></p><div class="example" dir="ltr" id="jd0e1357"><p><b><h3 id="jd0e1358">Example: dpdkconf --ddp add</h3></b></p><p>Use the <span class="cli" v-pre="">dpdkconf --ddp add</span> command during runtime to enable a DDP profile
+in a DPDK enabled vRouter. </p><sw-code><template v-pre=""><pre>(contrail-tools)[root@cs-scale-02 /]$ dpdkconf --ddp add
+Programming DDP image mplsogreudp - success
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e1368"><p><b><h3 id="jd0e1369">Example: dpdkconf --ddp delete</h3></b></p><p>Use the <span class="cli" v-pre="">dpdkconf --ddp delete</span> command
+to delete a DDP profile, which is already loaded in the vRouter.</p><sw-code><template v-pre=""><pre>(contrail-tools)[root@cs-scale-02 /]$ dpdkconf --ddp delete
+vr_dpdk_ddp_del: Removed DDP image mplsogreudp - success</pre></template></sw-code></div><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e1331">2011</a></div><div class="table-cell">In Contrail Networking Release
+2011, you can use the <span class="cli" v-pre="">dpdkinfo --ddp list</span> command to display
+the list of DDP profiles added in the vRouter.</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e1349">2011</a></div><div class="table-cell">In Contrail Networking
+Release 2011, the <code class="inline" v-pre="">dpdkconf</code> command enables
+you to configure
+a DPDK enabled vRouter. In release 2011, you can use the <code class="inline" v-pre="">dpdkconf</code> command to enable or delete
+a DDP profile in vRouter.</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e427">2008</a></div><div class="table-cell">Contrail Networking Release
+2008 supports clearing of vif statistics counters for all interfaces
+by using the <code class="inline" v-pre="">--clear</code> command.</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e1109">2008</a></div><div class="table-cell">In Contrail Networking
+Release 2008, the <code class="inline" v-pre="">dpdkinfo</code> command enables
+you to see the details of the internal data structures of a DPDK enabled
+vRouter.</div></div></div><sw-prev-next> </sw-prev-next></p>
