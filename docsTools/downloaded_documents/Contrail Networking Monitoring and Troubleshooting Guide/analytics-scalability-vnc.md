@@ -35,7 +35,7 @@ the nodes configured for roles as recommended above. The analytics load
 is distributed between the two analytics nodes. This configuration can
 be extended to any number of analytics nodes.
 
-![Figure 1: Analytics Scalability](documentation/images/s041520.gif)
+![Figure 1: Analytics Scalability](images/s041520.gif)
 
 The analytics nodes collect and store data and provide this data through
 various REST API queries. Scalability is provided for the control nodes,

@@ -175,6 +175,6 @@ Table 3: Individual Config Node-Console Tab Fields
 
  
 
-.. |Figure 1: Config Nodes Summary| image:: documentation/images/s041557.gif
-.. |Figure 2: Individual Config Nodes— Details Tab| image:: documentation/images/s041558.gif
-.. |Figure 3: Individual Config Node—Console Tab| image:: documentation/images/s041565.gif
+.. |Figure 1: Config Nodes Summary| image:: images/s041557.gif
+.. |Figure 2: Individual Config Nodes— Details Tab| image:: images/s041558.gif
+.. |Figure 3: Individual Config Node—Console Tab| image:: images/s041565.gif

@@ -938,4 +938,4 @@ cluster along with Contrail Networking using Contrail Ansible deployer.
 
  
 
-.. |image1| image:: documentation/images/s008143.PNG
+.. |image1| image:: images/s008143.PNG

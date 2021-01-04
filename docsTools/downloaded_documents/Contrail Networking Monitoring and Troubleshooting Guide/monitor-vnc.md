@@ -16,7 +16,7 @@ and view the statistics you need for better understanding of the
 activities in your system. See
 [Figure 1](monitor-vnc.html#monitor-tab-screen)
 
-![Figure 1: Monitor Menu](documentation/images/s041506.gif)
+![Figure 1: Monitor Menu](images/s041506.gif)
 
 See [Table 1](monitor-vnc.html#monitor-tab) for descriptions of the
 items available under each of the menu options from the **Monitor**

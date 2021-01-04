@@ -38,16 +38,14 @@ This topic focuses on troubleshooting reachability for the first method
 
     Check the virtual machine status in the Contrail UI:
 
-    ![Figure 1: Virtual Machine Status
-    Window](documentation/images/s041980.gif)
+    ![Figure 1: Virtual Machine Status Window](images/s041980.gif)
 
     Check the tap interface status in the http agent introspect, for
     example:
 
     `https://<host ip address>:8085/Snh_ItfReq?name=`
 
-    ![Figure 2: Tap Interface Status
-    Window](documentation/images/s041981.gif)
+    ![Figure 2: Tap Interface Status Window](images/s041981.gif)
 
     When the virtual machine status is verified **Up**, and the tap
     interface is **Active**, you can focus on other factors that affect
@@ -89,18 +87,18 @@ This topic focuses on troubleshooting reachability for the first method
     Check VN1-VN2 ACL information from the compute node:
 
     ![Figure 3: Policies, Attachments, and Traffic Rule Status
-    Window](documentation/images/s041982.gif)
+    Window](images/s041982.gif)
 
     Check the virtual network policy configuration with route
     information:
 
     ![Figure 4: Virtual Network Policy Configuration
-    Window](documentation/images/s041983.gif)
+    Window](images/s041983.gif)
 
     Check the VN1 route information for VN2 routes:
 
     ![Figure 5: Virtual Network Route Information
-    Window](documentation/images/s041984.gif)
+    Window](images/s041984.gif)
 
     If a route is missing, ping fails. Flow inspection in the compute
     node displays **Action: D(rop)**.
@@ -110,8 +108,7 @@ This topic focuses on troubleshooting reachability for the first method
 
     Flow and dropstats commands issued at the compute node:
 
-    ![Figure 6: Flow and Dropstats Command
-    List](documentation/images/s041985.gif)
+    ![Figure 6: Flow and Dropstats Command List](images/s041985.gif)
 
     To help in debugging flows, you can use the detailed flow query from
     the agent introspect page for the compute node.
@@ -126,24 +123,20 @@ This topic focuses on troubleshooting reachability for the first method
 
     Flow command output:
 
-    ![Figure 7: Flow Command Output
-    Window](documentation/images/S041986.gif)
+    ![Figure 7: Flow Command Output Window](images/S041986.gif)
 
     Fetching details of a single flow:
 
-    ![Figure 8: Fetch Flow Record
-    Window](documentation/images/S041987.gif)
+    ![Figure 8: Fetch Flow Record Window](images/S041987.gif)
 
     Output from **FetchFlowRecord** shows unresolved IP addresses:
 
-    ![Figure 9: Unresolved IP Address
-    Window](documentation/images/S041988.gif)
+    ![Figure 9: Unresolved IP Address Window](images/S041988.gif)
 
     You can also retrieve information about unresolved flows from the
     Contrail UI, as shown in the following:
 
-    ![Figure 10: Unresolved Flow Details
-    Window](documentation/images/S041989.gif)
+    ![Figure 10: Unresolved Flow Details Window](images/S041989.gif)
 
 3.  <span id="jd0e192">Check for protocol-specific network policy
     action.</span>
@@ -155,14 +148,13 @@ This topic focuses on troubleshooting reachability for the first method
     The following shows a sample query on a protocol-specific flow in
     the agent introspect:
 
-    ![Figure 11: Protocol-Specific Flow
-    Sample](documentation/images/S041991.gif)
+    ![Figure 11: Protocol-Specific Flow Sample](images/S041991.gif)
 
     The following shows that the policy action clearly displays **deny**
     as the action.
 
     ![Figure 12: Protocol-Specific Flow Sample With Deny
-    Action](documentation/images/S041992.gif)
+    Action](images/S041992.gif)
 
 *Summary*
 

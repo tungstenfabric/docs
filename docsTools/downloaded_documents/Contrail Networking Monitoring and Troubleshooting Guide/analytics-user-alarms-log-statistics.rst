@@ -386,11 +386,11 @@ The following is the schema for the user-defined statistic table:
 
  
 
-.. |image1| image:: documentation/images/s018752.png
-.. |image2| image:: documentation/images/s018753.png
-.. |image3| image:: documentation/images/s018754.png
-.. |image4| image:: documentation/images/s018755.png
-.. |image5| image:: documentation/images/s018756.png
-.. |image6| image:: documentation/images/s018757.png
-.. |image7| image:: documentation/images/s018758.png
-.. |image8| image:: documentation/images/s018759.png
+.. |image1| image:: images/s018752.png
+.. |image2| image:: images/s018753.png
+.. |image3| image:: images/s018754.png
+.. |image4| image:: images/s018755.png
+.. |image5| image:: images/s018756.png
+.. |image6| image:: images/s018757.png
+.. |image7| image:: images/s018758.png
+.. |image8| image:: images/s018759.png

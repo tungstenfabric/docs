@@ -22,7 +22,7 @@ summary of activities for the analytics nodes; see
 [Table 1](monitor-analytics-vnc.html#analytics-summary-fields) for
 descriptions of the fields on the analytics summary.
 
-![Figure 1: Analytics Nodes Summary](documentation/images/s041517.gif)
+![Figure 1: Analytics Nodes Summary](images/s041517.gif)
 
 Table 1: Fields on Analytics Nodes Summary
 
@@ -46,7 +46,7 @@ See [Table 2](monitor-analytics-vnc.html#analytics-details-fields) for
 descriptions of the fields on this screen.
 
 ![Figure 2: Monitor Analytics Individual Node Details
-Tab](documentation/images/s041518.gif)
+Tab](images/s041518.gif)
 
 Table 2: Monitor Analytics Individual Node Details Tab Fields
 
@@ -73,7 +73,7 @@ expansion arrow next to any generator name to reveal more details. See
 descriptions of the fields on the **Peers** tab screen.
 
 ![Figure 3: Individual Analytics Node—Generators
-Tab](documentation/images/s041523.gif)
+Tab](images/s041523.gif)
 
 Table 3: Monitor Analytics Individual Node Generators Tab Fields
 
@@ -93,8 +93,7 @@ messages that are in the queue for this analytics node. See
 See [Table 4](monitor-analytics-vnc.html#analytics-qe-fields) for
 descriptions of the fields on the **QE Queries** tab screen.
 
-![Figure 4: Individual Analytics Node—QE
-QueriesTab](documentation/images/s041524.gif)
+![Figure 4: Individual Analytics Node—QE QueriesTab](images/s041524.gif)
 
 Table 4: Analytics Node QE Queries Tab Fields
 
@@ -112,8 +111,7 @@ system logging information for a defined time period. See
 [Table 5](monitor-analytics-vnc.html#analytics-console-tab-fields) for
 descriptions of the fields on the **Console** tab screen.
 
-![Figure 5: Analytics Individual Node—Console
-Tab](documentation/images/s041519.png)
+![Figure 5: Analytics Individual Node—Console Tab](images/s041519.png)
 
 Table 5: Monitor Analytics Individual Node Console Tab Fields
 

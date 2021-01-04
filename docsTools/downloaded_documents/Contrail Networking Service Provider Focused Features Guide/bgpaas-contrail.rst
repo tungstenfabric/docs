@@ -362,6 +362,6 @@ To configure BGPaaS within a tenant:
 
  
 
-.. |Figure 1: Dynamic Tunnel Insertion| image:: documentation/images/g300441.png
-.. |Figure 2: Create BGP as a Service| image:: documentation/images/S018555.png
-.. |Figure 3: Create BGPaaS| image:: documentation/images/s008077.PNG
+.. |Figure 1: Dynamic Tunnel Insertion| image:: images/g300441.png
+.. |Figure 2: Create BGP as a Service| image:: images/S018555.png
+.. |Figure 3: Create BGPaaS| image:: images/s008077.PNG

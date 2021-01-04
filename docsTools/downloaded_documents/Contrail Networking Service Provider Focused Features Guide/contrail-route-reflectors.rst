@@ -42,4 +42,4 @@ Benefits of RRs in Contrail
 
  
 
-.. |Figure 1: Advantage of BGP Route Reflector over Full-mesh Topology| image:: documentation/images/g300492.png
+.. |Figure 1: Advantage of BGP Route Reflector over Full-mesh Topology| image:: images/g300492.png

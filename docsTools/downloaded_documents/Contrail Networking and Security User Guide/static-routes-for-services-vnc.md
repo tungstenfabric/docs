@@ -38,7 +38,7 @@ To enable the static route option in a service template:
     interface on a service instance that is based on the service
     template shown.
 
-![](documentation/images/s041915.gif)
+![](images/s041915.gif)
 
 ## Configuring Static Routes on Service Instance Interfaces
 
@@ -68,13 +68,13 @@ configured to be VN2 (11.1.1.0/24). The static route 11.1.1.0/24 is
 configured on the left interface, so that all traffic from VN1 that is
 destined to VN2 reaches the left interface of the service instance.
 
-![](documentation/images/s041916.gif)
+![](images/s041916.gif)
 
 The following figure shows static route 10.1.1.0/24 configured on the
 right interface, so that all traffic from VN2 that is destined to VN1
 reaches the right interface of the service virtual machine.
 
-![](documentation/images/s041917.gif)
+![](images/s041917.gif)
 
 When the static routes are configured for both the left and the right
 interfaces, all inter-virtual network traffic is forwarded through the
@@ -100,6 +100,6 @@ To configure static routes as host routes:
 
     An example is shown in the following figure.
 
-![](documentation/images/s041918.gif)
+![](images/s041918.gif)
 
  

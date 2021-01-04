@@ -165,9 +165,9 @@ troubleshoot metadata service.
 
  
 
-.. |image1| image:: documentation/images/s041993.gif
-.. |image2| image:: documentation/images/s041994.gif
-.. |image3| image:: documentation/images/s041995.gif
-.. |image4| image:: documentation/images/s041996.gif
-.. |image5| image:: documentation/images/s041997.gif
-.. |image6| image:: documentation/images/s041998.gif
+.. |image1| image:: images/s041993.gif
+.. |image2| image:: images/s041994.gif
+.. |image3| image:: images/s041995.gif
+.. |image4| image:: images/s041996.gif
+.. |image5| image:: images/s041997.gif
+.. |image6| image:: images/s041998.gif

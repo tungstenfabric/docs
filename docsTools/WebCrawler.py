@@ -1085,13 +1085,11 @@ class AllDocuments(object):
             pages=[] #list of pages in that document
             print('\nAnalyzing '+document['name'])
             
-            #create folder for that document and images
+            #create one folder for that images used on all pages of that document
             if not os.path.exists(args.outputFolder+"/"+document['name']):
                 os.mkdir(args.outputFolder+"/"+document['name']) 
-            if not os.path.exists(args.outputFolder+"/"+document['name']+"/documentation"):
-                os.mkdir(args.outputFolder+"/"+document['name']+"/documentation") 
-            if not os.path.exists(args.outputFolder+"/"+document['name']+"/documentation/images"):
-                os.mkdir(args.outputFolder+"/"+document['name']+"/documentation/images") 
+            if not os.path.exists(args.outputFolder+"/"+document['name']+"/images"):
+                os.mkdir(args.outputFolder+"/"+document['name']+"/images") 
             #analyze pages
             for page in document['pages']: 
                 if page['juniperAgreesToCopy']:
@@ -1162,13 +1160,13 @@ class AllDocuments(object):
                             
                             imageFileName=os.path.basename(urlparse(image['src']).path)
                             #if file exists show warning 
-                            if os.path.isfile(args.outputFolder+"/"+document['name']+"/documentation/images/"+imageFileName):
+                            if os.path.isfile(args.outputFolder+"/"+document['name']+"/images/"+imageFileName):
                                 print("        \033[93mImage already exist and will be overwritten: "+image['src']+"\033[0m")
-                            imageFile = open(args.outputFolder+"/"+document['name']+"/documentation/images/"+imageFileName, "wb")
+                            imageFile = open(args.outputFolder+"/"+document['name']+"/images/"+imageFileName, "wb")
                             imageContent = urllib.request.urlopen("https://www.juniper.net"+image['src']).read()
                             imageFile.write(imageContent)
                             #always change path of file as it needs to be inside document folder
-                            image['src']="documentation/images/"+str(imageFileName)
+                            image['src']="images/"+str(imageFileName)
                             #image['src']="LOLA"
                             #newSrc="documentation/images/"+str(imageFileName)
                             #content=content.replace(image['src'],newSrc)

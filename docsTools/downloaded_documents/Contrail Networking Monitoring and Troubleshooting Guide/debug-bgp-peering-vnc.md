@@ -48,8 +48,7 @@ the BGP routers in your system.
     Throughout this procedure, replace `<host ip address>` with the
     correct location for your system to see the setup in your system.​
 
-    ![Figure 1: Sample Output, BGP
-    Routers](documentation/images/s041946.gif)
+    ![Figure 1: Sample Output, BGP Routers](images/s041946.gif)
 
 2.  <span id="jd0e61">Verify the BGP peering.</span>
 
@@ -60,7 +59,7 @@ the BGP routers in your system.
     ` http: //<host ip address>:8082/bgp-router/1da579c5-0907-4c98-a7ad-37671f00cf60`
 
     ![Figure 2: Sample Output, BGP Router
-    References](documentation/images/s041947.gif)
+    References](images/s041947.gif)
 
 3.  <span id="jd0e76">Verify the command line arguments that are passed
     to the control-node.</span>
@@ -87,13 +86,11 @@ the BGP routers in your system.
 
     `http: //<host ip address>:8083/Snh_ShowBgpNeighborConfigReq? `
 
-    ![Figure 3: Sample Output, BGP Neighbor
-    Config](documentation/images/s041922.gif)
+    ![Figure 3: Sample Output, BGP Neighbor Config](images/s041922.gif)
 
     `http: //<host ip address>:8083/Snh_ShowBgpPeeringConfigReq? `
 
-    ![Figure 4: Sample Output, BGP Peering
-    Config](documentation/images/s041923.gif)
+    ![Figure 4: Sample Output, BGP Peering Config](images/s041923.gif)
 
 5.  <span id="jd0e113">Check the BGP neighbor states on the control
     node.</span>
@@ -126,7 +123,7 @@ session for route exchange.
     correct location for the control node on your system.
 
     ![Figure 5: Sample Output, Show Routing
-    Instance](documentation/images/s041925.gif)
+    Instance](images/s041925.gif)
 
     In the sample output, you can see the **import\_target** and the
     **export\_target** configured on the routing instance. Also shown
@@ -150,15 +147,13 @@ session for route exchange.
     an MX Series router. BGP paths are displayed in the order of path
     selection.
 
-    ![Figure 6: Sample Output, Validate
-    Route](documentation/images/s041926.gif)
+    ![Figure 6: Sample Output, Validate Route](images/s041926.gif)
 
 3.  <span id="jd0e187">Validate the **l3vpn** table.</span>
 
     `http: //<host ip address>:8083/Snh_ShowRouteReq?x=bgp.l3vpn.0`
 
-    ![Figure 7: Sample Output, Validate L3vpn
-    Table](documentation/images/s041927.gif)
+    ![Figure 7: Sample Output, Validate L3vpn Table](images/s041927.gif)
 
     The following sample output has been scrolled horizontally to
     display the BGP path attributes of each route’s. policies.
@@ -172,7 +167,7 @@ session for route exchange.
     data path issues.
 
     ![Figure 8: Sample Output, Validate L3vpn Table,
-    Scrolled](documentation/images/s041928.gif)
+    Scrolled](images/s041928.gif)
 
 ## Debugging Route Exchange with Policies
 
@@ -182,7 +177,7 @@ demonstrate methods of debugging route exchange with policies.
 1.  <span id="jd0e223">Create a network policy to allow vn1 and vn2
     traffic and associate the policy to the virtual networks.</span>
 
-    ![Figure 9: Create Policy Window](documentation/images/s041929.gif)
+    ![Figure 9: Create Policy Window](images/s041929.gif)
 
 2.  <span id="jd0e230">Validate that the routing instances have the
     correct import\_target configuration.</span>
@@ -190,7 +185,7 @@ demonstrate methods of debugging route exchange with policies.
     `http: //<host ip address>:8083/Snh_ShowRoutingInstanceReq?name=  `
 
     ![Figure 10: Sample Output, Validate Import
-    Target](documentation/images/s041930.gif)
+    Target](images/s041930.gif)
 
 3.  <span id="jd0e240">Validate that the routes are imported from
     VRF.</span>
@@ -199,8 +194,7 @@ demonstrate methods of debugging route exchange with policies.
     path. The route from the destination VRF should be replicated and
     validate the origin-vn.
 
-    ![Figure 11: Sample Output, Route
-    Import](documentation/images/s041931.gif)
+    ![Figure 11: Sample Output, Route Import](images/s041931.gif)
 
 ## Debugging Peering with an MX Series Router
 
@@ -210,14 +204,12 @@ troubleshooting scenarios.
 1.  <span id="jd0e259">Set the Global AS number of the control-node for
     an MX Series BGP peer, using the Contrail WebUI (eBGP).</span>
 
-    ![Figure 12: Edit Global ASN
-    Window](documentation/images/s041932.gif)
+    ![Figure 12: Edit Global ASN Window](images/s041932.gif)
 
 2.  <span id="jd0e266">Configure the eBGP peer for the MX Series router.
     Use the Contrail Web UI or Python provisioning.</span>
 
-    ![Figure 13: Create BGP Peer
-    Window](documentation/images/s041933.gif)
+    ![Figure 13: Create BGP Peer Window](images/s041933.gif)
 
     <div id="jd0e273" class="example" dir="ltr">
 
@@ -272,7 +264,7 @@ environment.
     thus the peer doesn’t move to an established state. You can verify
     it in the peer UVE.
 
-    ![Figure 14: Sample BGP Peer UVE](documentation/images/s041934.gif)
+    ![Figure 14: Sample BGP Peer UVE](images/s041934.gif)
 
 3.  <span id="jd0e328">Fix the `families` mismatch in the sample by
     updating the configuration on the MX Series router, using Junos
@@ -285,8 +277,7 @@ environment.
 
     `http: //<host ip address>:8081/analytics/uves/bgp-peers`
 
-    ![Figure 15: Sample Established BGP Peer
-    UVE](documentation/images/s041935.gif)
+    ![Figure 15: Sample Established BGP Peer UVE](images/s041935.gif)
 
 5.  <span id="jd0e347">Verify the peer status on the MX Series router,
     using Junos CLI:</span>
@@ -352,14 +343,12 @@ environment.
 
 1.  <span id="jd0e364">Edit the Global ASN.</span>
 
-    ![Figure 16: Edit Global ASN
-    Window](documentation/images/s041936.gif)
+    ![Figure 16: Edit Global ASN Window](images/s041936.gif)
 
 2.  <span id="jd0e371">Configure the MX Series IBGP peer, using Contrail
     WebUI or Python provisioning.</span>
 
-    ![Figure 17: Create BGP Peer
-    Window](documentation/images/s041937.gif)
+    ![Figure 17: Create BGP Peer Window](images/s041937.gif)
 
     Configuring the MX Series BGP peer with the Python provision
     utility:
@@ -370,8 +359,7 @@ environment.
 
     `http ://<host ip address>:8081/analytics/uves/bgp-peers`
 
-    ![Figure 18: Sample Established IBGP Peer
-    UVE](documentation/images/s041938.gif)
+    ![Figure 18: Sample Established IBGP Peer UVE](images/s041938.gif)
 
 4.  <span id="jd0e393">You can verify the same information at the HTTP
     introspect page of the control node (8443 in this example).</span>
@@ -379,20 +367,18 @@ environment.
     `http: //<host ip address>:8083/Snh_BgpNeighborReq?ip_address=&domain=`
 
     ![Figure 19: Sample Established IBGP Peer Introspect
-    Window](documentation/images/s041939.gif)
+    Window](images/s041939.gif)
 
 ## Checking Route Exchange with an MX Series Peer
 
 1.  <span id="jd0e410">Check the route table in the bgp.l3vpn.0
     table.</span>
 
-    ![Figure 20: Routing Instance Route
-    Table](documentation/images/s041940.gif)
+    ![Figure 20: Routing Instance Route Table](images/s041940.gif)
 
 2.  <span id="jd0e417">Configure a public virtual network.</span>
 
-    ![Figure 21: Routing Instance Route
-    Table](documentation/images/s041940.gif)
+    ![Figure 21: Routing Instance Route Table](images/s041940.gif)
 
 3.  <span id="jd0e424">Verify the routes in the public.inet.0
     table.</span>
@@ -400,7 +386,7 @@ environment.
     `http: //<host ip address>:8083/Snh_ShowRouteReq?x=default-domain:admin:public:public.inet.0`
 
     ![Figure 22: Routing Instance Public IPv4 Route
-    Table](documentation/images/s041942.gif)
+    Table](images/s041942.gif)
 
 4.  <span id="jd0e434">Launch a virtual machine in the public network
     and verify the route in the public.inet.0 table.</span>
@@ -408,14 +394,13 @@ environment.
     `http: //<host ip address>:8083/ Snh_ShowRouteReq?x=default-domain:admin:public:public.inet.0`
 
     ![Figure 23: Virtual Machine Routing Instance Public IPv4 Route
-    Table](documentation/images/s041943.gif)
+    Table](images/s041943.gif)
 
 5.  <span id="jd0e444">Verify the route in the bgp.l3vpn.0 table.</span>
 
     `http: //<host ip address>:8083/Snh_ShowRouteReq?x=bgp.l3vpn.0`
 
-    ![Figure 24: BGP Routing Instance Route
-    Table](documentation/images/s041945.gif)
+    ![Figure 24: BGP Routing Instance Route Table](images/s041945.gif)
 
 ## Checking the Route in the MX Series Router
 

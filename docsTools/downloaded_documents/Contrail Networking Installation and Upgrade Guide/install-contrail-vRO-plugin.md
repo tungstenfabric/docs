@@ -55,8 +55,7 @@ Follow the steps given below to access and log in to vRO Control Center:
 
     The **vCenter SSO** service page is displayed.
 
-    ![Figure 1: vCenter SSO service
-    page](documentation/images/s007052.png)
+    ![Figure 1: vCenter SSO service page](images/s007052.png)
 
 2.  On the vCenter SSO service page, enter the **User name** and
     **Password** in the respective fields and click **Login**. See
@@ -64,8 +63,7 @@ Follow the steps given below to access and log in to vRO Control Center:
 
     The **Orchestrator Control Center** home page is displayed.
 
-    ![Figure 2: Orchestrator Control
-    Center](documentation/images/s007053.png)
+    ![Figure 2: Orchestrator Control Center](images/s007053.png)
 
 ## Installing vRO Plugin
 
@@ -80,8 +78,7 @@ Perform the following steps to install the vRO plugin:
 
         The **Manage Plug-Ins** page is displayed.
 
-        ![Figure 3: Manage Plug-Ins
-        page](documentation/images/s007054.png)
+        ![Figure 3: Manage Plug-Ins page](images/s007054.png)
 
         **Note**
 
@@ -102,7 +99,7 @@ Perform the following steps to install the vRO plugin:
 
         The **EULA** page is displayed.
 
-        ![Figure 4: EULA page](documentation/images/s007055.png)
+        ![Figure 4: EULA page](images/s007055.png)
 
 2.  Install vRO plugin.
 
@@ -134,7 +131,7 @@ Replace *{vRO}* given in the URL with the *host name* of the deployed
 vRO Appliance.
 
 ![Figure 5: Getting Started with vRealize
-Orchestrator](documentation/images/s007056.png)
+Orchestrator](images/s007056.png)
 
 You can download vRO desktop client applications for Windows, Mac OS X,
 and Linux operating systems.
@@ -148,7 +145,7 @@ You connect to the vRO server by using the vRO desktop client.
     The **VMware vRealize Orchestrator Login** page is displayed.
 
     ![Figure 6: VMware vRealize Orchestrator Login
-    page](documentation/images/s007057.png)
+    page](images/s007057.png)
 
 2.  In the VMware vRealize Orchestrator Login page, enter **Host name**,
     **User name**, and **Password**.
@@ -171,7 +168,7 @@ To connect Contrail vRO to the Contrail Controller:
 
 2.  Select **Create Contrail controller connection**.
 
-    ![Figure 7: Workflow Library](documentation/images/s007058.png)
+    ![Figure 7: Workflow Library](images/s007058.png)
 
 3.  Click the **Controller** tab and enter the following information:
 
@@ -181,7 +178,7 @@ To connect Contrail vRO to the Contrail Controller:
 
     -   **Controller port**—port used to access the Contrail Controller
 
-    ![Figure 8: Controller Tab](documentation/images/s007059.png)
+    ![Figure 8: Controller Tab](images/s007059.png)
 
 4.  Click the **Credentials** tab and enter the following credentials to
     manage the Contrail Controller:
@@ -192,13 +189,13 @@ To connect Contrail vRO to the Contrail Controller:
 
     -   **Authentication server**—URL of the authentication server
 
-    ![Figure 9: Credentials Tab](documentation/images/s007060.png)
+    ![Figure 9: Credentials Tab](images/s007060.png)
 
 5.  Click the **Tenant** tab to define tenant information.
 
     In the **Tenant** field, enter the name of the Contrail tenant.
 
-    ![Figure 10: Tenant Tab](documentation/images/s007061.png)
+    ![Figure 10: Tenant Tab](images/s007061.png)
 
 6.  Click **Submit** to establish connection.
 

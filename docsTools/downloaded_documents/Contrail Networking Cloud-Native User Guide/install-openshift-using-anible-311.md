@@ -6,8 +6,7 @@ You can install Contrail Networking together with a standalone Red Hat
 OpenShift Container Platform 3.11 cluster using Contrail OpenShift
 deployer. Consider the topology illustrated here.
 
-![Figure 1: Sample installation
-topology](documentation/images/g300780.png)
+![Figure 1: Sample installation topology](images/g300780.png)
 
 <span class="kbd user-typing" v-pre="">Prerequisites</span>
 

@@ -34,7 +34,7 @@ The matches and actions of the policy term lists operate similarly to
 the Junos language match and actions operations. A visual representation
 is the following.
 
-![](documentation/images/g300536.png)
+![](images/g300536.png)
 
 Each term is represented as in the following:
 
@@ -243,7 +243,7 @@ VN, for routes belonging to the left VN.
 
 The following figure illustrates a routing policy configuration.
 
-![](documentation/images/g300443.png)
+![](images/g300443.png)
 
 The policy sequence number specified in the routing policy link data
 determines the order in which the routing policy is evaluated. The
@@ -275,7 +275,7 @@ how to validate the policy.
 First, create the routing policy, **Configure &gt; Networking &gt;
 Routing &gt; Create &gt;Routing Policy**. See the following example.
 
-![](documentation/images/s018729.png)
+![](images/s018729.png)
 
 **Note**
 
@@ -289,14 +289,14 @@ Create a service instance and attach the routing policy to both the left
 and right interfaces. The order of the policy is calculated by the UI,
 based on the order of the policy specified in the list.
 
-![](documentation/images/s018730.png)
+![](images/s018730.png)
 
 ### Configure the Network Policy for the Service Chain
 
 At **Edit Policy**, create a policy for the service chain, see the
 following example.
 
-![](documentation/images/s018731.png)
+![](images/s018731.png)
 
 ## Using a VNC Script to Create Routing Policy
 
@@ -339,7 +339,7 @@ You can verify the service instance references and the routing instance
 references for the routing policy by looking in the API server
 configuration database. See the following example.
 
-![](documentation/images/s018732.png)
+![](images/s018732.png)
 
 ## Verify Routing Policy in the Control Node
 
@@ -351,7 +351,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018745.png)
+![](images/s018745.png)
 
 ## Verify Routing Policy Configuration in the Control Node
 
@@ -363,7 +363,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018733.png)
+![](images/s018733.png)
 
 ## Verify Routing Policy Configuration on the Routing Instance
 
@@ -376,7 +376,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018734.png)
+![](images/s018734.png)
 
 You can also verify the routing policy on the routing instance
 operational object.
@@ -387,7 +387,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018735.png)
+![](images/s018735.png)
 
 ## Control for Route Reorigination
 
@@ -411,7 +411,7 @@ with a well-known BGP community called `no-reoriginate`.
 When the control node is reoriginating the route, it skips the routes
 that are tagged with the BGP community.
 
-![](documentation/images/g300444.png)
+![](images/g300444.png)
 
 ## Configuring and Troubleshooting Reorigination Control
 
@@ -419,13 +419,13 @@ The community attribute on the static routes for the interface static
 route of the service instance is specified during creation of the
 service instance. See the following example.
 
-![](documentation/images/s018737.png)
+![](images/s018737.png)
 
 Use the following example to verify that the service instance
 configuration object in the API server has the correct community set for
 the static route. See the following example.
 
-![](documentation/images/s018738.png)
+![](images/s018738.png)
 
 <div class="table">
 

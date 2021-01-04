@@ -438,10 +438,10 @@ The following are the limitations of fat flow.
 
  
 
-.. |Figure 1: Ports Page| image:: documentation/images/s007828.PNG
-.. |Figure 2: Edit Port Page| image:: documentation/images/s007829.PNG
-.. |Figure 3: Ignore Address—Destination| image:: documentation/images/s051790.PNG
-.. |Figure 4: Ignore Address—None| image:: documentation/images/s051792.PNG
-.. |Figure 5: Ignore Address—Source| image:: documentation/images/s051791.PNG
-.. |Figure 6: Virtual Networks Page| image:: documentation/images/s007830.PNG
-.. |Figure 7: Edit Virtual Network Page| image:: documentation/images/s007831.PNG
+.. |Figure 1: Ports Page| image:: images/s007828.PNG
+.. |Figure 2: Edit Port Page| image:: images/s007829.PNG
+.. |Figure 3: Ignore Address—Destination| image:: images/s051790.PNG
+.. |Figure 4: Ignore Address—None| image:: images/s051792.PNG
+.. |Figure 5: Ignore Address—Source| image:: images/s051791.PNG
+.. |Figure 6: Virtual Networks Page| image:: images/s007830.PNG
+.. |Figure 7: Edit Virtual Network Page| image:: images/s007831.PNG

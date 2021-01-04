@@ -48,7 +48,7 @@ is an authoritative server for the DNS domain configured.
 DNS servers defined in **default-domain**, providing the name service
 for the DNS domains indicated.
 
-![Figure 1: DNS Servers Examples](documentation/images/s041847.gif)
+![Figure 1: DNS Servers Examples](images/s041847.gif)
 
 ## IPAM and Virtual DNS
 
@@ -59,7 +59,7 @@ corresponding IPAM. When the VMs are configured with DHCP, they receive
 the domain assignment in the DHCP **domain-name** option. Examples are
 shown in [Figure 2](configure-dns-vnc.html#ipam-example)
 
-![Figure 2: IPAM and Virtual DNS](documentation/images/s041848.gif)
+![Figure 2: IPAM and Virtual DNS](images/s041848.gif)
 
 ## DNS Record Types
 
@@ -81,8 +81,7 @@ Table 1: DNS Record Types Supported
 [Figure 3](configure-dns-vnc.html#ns-example) shows an example usage for
 the DNS record type of **NS**.
 
-![Figure 3: Example Usage for NS Record
-Type](documentation/images/s041849.gif)
+![Figure 3: Example Usage for NS Record Type](images/s041849.gif)
 
 ## Configuring DNS on the User Interface
 
@@ -96,7 +95,7 @@ Networks Contrail interface.
     The **Configure DNS Records** page appears; see
     [Figure 4](configure-dns-vnc.html#config-dns-record).
 
-    ![Figure 4: Configure DNS Records](documentation/images/s041850.gif)
+    ![Figure 4: Configure DNS Records](images/s041850.gif)
 
 2.  <span id="jd0e221">To add a new DNS server, click the **Create**
     button.</span>
@@ -104,7 +103,7 @@ Networks Contrail interface.
     Enter DNS server information in the **Add DNS** window; see
     [Figure 5](configure-dns-vnc.html#add-dns-svr)
 
-    ![Figure 5: Add DNS](documentation/images/s041864.gif)
+    ![Figure 5: Add DNS](images/s041864.gif)
 
     Complete the fields for the new server; see
     [Table 2](configure-dns-vnc.html#add-dns-fields).
@@ -128,7 +127,7 @@ Networks Contrail interface.
     The **Add DNS Record** window appears; see
     [Figure 6](configure-dns-vnc.html#add-dns-record).
 
-    ![Figure 6: Add DNS Record](documentation/images/s041853.gif)
+    ![Figure 6: Add DNS Record](images/s041853.gif)
 
 4.  <span id="jd0e356">Complete the fields for the new record; see
     [Table 3](configure-dns-vnc.html#add-dns-record-fields).</span>
@@ -153,8 +152,7 @@ Networks Contrail interface.
     The **Associate IPAMs to DNS** window appears; see
     [Figure 7](configure-dns-vnc.html#associate-IPAM).
 
-    ![Figure 7: Associate IPAMs to
-    DNS](documentation/images/s041854.gif)
+    ![Figure 7: Associate IPAMs to DNS](images/s041854.gif)
 
     Complete the IPAM associations, using the field descriptions in
     [Table 4](configure-dns-vnc.html#ipams-fields).
@@ -177,8 +175,7 @@ Networks Contrail interface.
     mode for any DNS server and to associate an IPAM to DNS servers of
     any mode or to tenants’ IP addresses.</span>
 
-    ![Figure 8: Configure IP Address
-    Management](documentation/images/s041855.gif)
+    ![Figure 8: Configure IP Address Management](images/s041855.gif)
 
 7.  <span id="jd0e565">To associate an IPAM to a virtual DNS server or
     to tenant’s IP addresses, at the **IP Address Management** page,
@@ -188,7 +185,7 @@ Networks Contrail interface.
     The **Edit IP Address Management** window appears; see
     [Figure 9](configure-dns-vnc.html#dns-window).
 
-    ![Figure 9: DNS Server](documentation/images/s041857.gif)
+    ![Figure 9: DNS Server](images/s041857.gif)
 
 8.  <span id="jd0e588">In the first field, select the **DNS Method**
     from a list (**None, Default DNS, Tenant DNS, Virtual DNS**; see

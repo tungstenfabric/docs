@@ -383,12 +383,12 @@ To set the priority of encapsulation methods to VXLAN:
 
  
 
-.. |Figure 1: Global Config Window for VXLAN ID| image:: documentation/images/s018533.png
-.. |image1| image:: documentation/images/s018510.png
-.. |Figure 2: Edit Global Config Window for VXLAN Identifier Mode| image:: documentation/images/s018508.png
-.. |image2| image:: documentation/images/s018509.png
-.. |Figure 3: Edit Network Window| image:: documentation/images/s042518.png
-.. |image3| image:: documentation/images/s018509.png
-.. |Figure 4: Edit Network Window for VXLAN Identifier| image:: documentation/images/s018534.png
-.. |image4| image:: documentation/images/s018510.png
-.. |Figure 5: Edit Global Config Window for Encapsulation Priority Order| image:: documentation/images/s018508.png
+.. |Figure 1: Global Config Window for VXLAN ID| image:: images/s018533.png
+.. |image1| image:: images/s018510.png
+.. |Figure 2: Edit Global Config Window for VXLAN Identifier Mode| image:: images/s018508.png
+.. |image2| image:: images/s018509.png
+.. |Figure 3: Edit Network Window| image:: images/s042518.png
+.. |image3| image:: images/s018509.png
+.. |Figure 4: Edit Network Window for VXLAN Identifier| image:: images/s018534.png
+.. |image4| image:: images/s018510.png
+.. |Figure 5: Edit Global Config Window for Encapsulation Priority Order| image:: images/s018508.png

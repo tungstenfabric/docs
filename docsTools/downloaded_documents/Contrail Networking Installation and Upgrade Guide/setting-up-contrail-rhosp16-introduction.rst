@@ -309,4 +309,4 @@ supports using Contrail with Red Hat OpenStack Platform Director 16.1.
 
  
 
-.. |Figure 1: Undercloud and Overcloud with Roles| image:: documentation/images/g300376.png
+.. |Figure 1: Undercloud and Overcloud with Roles| image:: images/g300376.png

@@ -92,8 +92,7 @@ the control node, which recognizes that the gateway router has failed.
 This leads to a silent packet drop for 90 seconds until the routing
 table in the control node is updated and convergence achieved.
 
-![Figure 1: Tunnel Endpoint failure: SDN
-Gateway](documentation/images/g301196.png)
+![Figure 1: Tunnel Endpoint failure: SDN Gateway](images/g301196.png)
 
 [Figure 2](fast-routing-convergence.html#vrouter-failure) shows a
 scenario where the vRouter fails. The control node comes to know about
@@ -105,7 +104,7 @@ Figure 2: Tunnel Endpoint Failure: vRouter
 
 <div class="graphic">
 
-![](documentation/images/g301197.png)
+![](images/g301197.png)
 
 </div>
 
@@ -142,7 +141,7 @@ Figure 3: Fast Convergence in a Contrail-managed Network
 
 <div class="graphic">
 
-![](documentation/images/g301198.png)
+![](images/g301198.png)
 
 </div>
 

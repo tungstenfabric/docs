@@ -56,7 +56,7 @@ The *Neutron* LBaaS plugin is not supported in OpenStack Train release.
 of the Contrail LBaaS components.
 
 ![Figure 1: Contrail LBaaS components with
-neutron-lbaas](documentation/images/g300524.png)
+neutron-lbaas](images/g300524.png)
 
 ## Using a Service Appliance Set as the LBaaS Provider
 
@@ -291,8 +291,7 @@ traffic to the chosen member.
 [Figure 2](lbaas-contrail3-F5.html#lbaas-contrail-2) shows the traffic
 flow in global routed mode.
 
-![Figure 2: Global Routed Traffic
-Flow](documentation/images/g300525.png)
+![Figure 2: Global Routed Traffic Flow](images/g300525.png)
 
 A similar result can also be achieved on the switch to which the F5 is
 attached, by publishing the VIP subnet in IGP and using a static route

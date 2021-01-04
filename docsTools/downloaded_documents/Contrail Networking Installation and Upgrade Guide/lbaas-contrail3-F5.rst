@@ -829,5 +829,5 @@ Configuring the Avi Controller
 
  
 
-.. |Figure 1: Contrail LBaaS components with neutron-lbaas| image:: documentation/images/g300524.png
-.. |Figure 2: Global Routed Traffic Flow| image:: documentation/images/g300525.png
+.. |Figure 1: Contrail LBaaS components with neutron-lbaas| image:: images/g300524.png
+.. |Figure 2: Global Routed Traffic Flow| image:: images/g300525.png

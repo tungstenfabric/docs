@@ -256,16 +256,16 @@ to define this network -–the User Virtual Environment (UVE) code.
 
  
 
-.. |Figure 1: Monitor Networking Menu Options| image:: documentation/images/64512.gif
-.. |Figure 2: Traffic Statistics for Domain Window| image:: documentation/images/s041588.gif
-.. |Figure 3: Monitor > Networking > Projects| image:: documentation/images/s041589.gif
-.. |Figure 4: Monitor Projects Connectivity Details| image:: documentation/images/s041846.gif
-.. |Figure 5: Traffic Statistics Between Networks| image:: documentation/images/s041590.gif
-.. |Figure 6: Projects Instances Summary| image:: documentation/images/s041593.gif
-.. |Figure 7: Instance Traffic Statistics| image:: documentation/images/s041595.gif
-.. |Figure 8: Network Summary| image:: documentation/images/s041873.gif
-.. |Figure 9: Individual Network Connectivity Details—Summary Tab| image:: documentation/images/s041874.gif
-.. |Figure 10: Individual Network-– Port Map Tab| image:: documentation/images/s041875.gif
-.. |Figure 11: Individual Network-– Port Distribution Tab| image:: documentation/images/s041876.gif
-.. |Figure 12: Individual Network Instances Tab| image:: documentation/images/s041877.gif
-.. |Figure 13: Individual Network Details Tab| image:: documentation/images/s041878.gif
+.. |Figure 1: Monitor Networking Menu Options| image:: images/64512.gif
+.. |Figure 2: Traffic Statistics for Domain Window| image:: images/s041588.gif
+.. |Figure 3: Monitor > Networking > Projects| image:: images/s041589.gif
+.. |Figure 4: Monitor Projects Connectivity Details| image:: images/s041846.gif
+.. |Figure 5: Traffic Statistics Between Networks| image:: images/s041590.gif
+.. |Figure 6: Projects Instances Summary| image:: images/s041593.gif
+.. |Figure 7: Instance Traffic Statistics| image:: images/s041595.gif
+.. |Figure 8: Network Summary| image:: images/s041873.gif
+.. |Figure 9: Individual Network Connectivity Details—Summary Tab| image:: images/s041874.gif
+.. |Figure 10: Individual Network-– Port Map Tab| image:: images/s041875.gif
+.. |Figure 11: Individual Network-– Port Distribution Tab| image:: images/s041876.gif
+.. |Figure 12: Individual Network Instances Tab| image:: images/s041877.gif
+.. |Figure 13: Individual Network Details Tab| image:: images/s041878.gif

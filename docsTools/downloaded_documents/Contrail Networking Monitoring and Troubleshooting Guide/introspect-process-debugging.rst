@@ -160,8 +160,8 @@ an example of the Agent (agent.xml) Introspect page.
 
  
 
-.. |Figure 1: Control Nodes Details Tab Window| image:: documentation/images/s042485.png
-.. |Figure 2: Controller Introspect Window| image:: documentation/images/s042488.png
-.. |Figure 3: BGP Peer Introspect Page| image:: documentation/images/s042486.png
-.. |Figure 4: BGP Neighbor Summary Introspect Page| image:: documentation/images/s042487.png
-.. |Figure 5: Agent Introspect Page| image:: documentation/images/s042489.png
+.. |Figure 1: Control Nodes Details Tab Window| image:: images/s042485.png
+.. |Figure 2: Controller Introspect Window| image:: images/s042488.png
+.. |Figure 3: BGP Peer Introspect Page| image:: images/s042486.png
+.. |Figure 4: BGP Neighbor Summary Introspect Page| image:: images/s042487.png
+.. |Figure 5: Agent Introspect Page| image:: images/s042489.png

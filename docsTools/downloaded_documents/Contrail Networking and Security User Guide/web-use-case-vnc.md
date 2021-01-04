@@ -20,8 +20,7 @@ web server on the front-end network. The client is not allowed to
 communicate directly with any other parts of the infrastructure. See
 [Figure 1](web-use-case-vnc.html#tier-web).
 
-![Figure 1: Simple Tiered Web Use
-Case](documentation/images/s041840.gif)
+![Figure 1: Simple Tiered Web Use Case](images/s041840.gif)
 
 ## Example: Setting Up Virtual Networks for a Simple Tiered Web Application
 
@@ -71,14 +70,13 @@ links any time you need more information about completing a step.
     for the **public** network within the **demo** project; see
     [Figure 2](web-use-case-vnc.html#floating-pool).</span>
 
-    ![Figure 2: Create Floating IP
-    Pool](documentation/images/s041841.gif)
+    ![Figure 2: Create Floating IP Pool](images/s041841.gif)
 
 4.  <span id="jd0e112">Allocate the floating IP pool **public\_pool** to
     the **demo** project; see
     [Figure 3](web-use-case-vnc.html#allo).</span>
 
-    ![Figure 3: Allocate Floating IP](documentation/images/s041842.gif)
+    ![Figure 3: Allocate Floating IP](images/s041842.gif)
 
 5.  <span id="jd0e127">Verify that the floating IP pool has been
     allocated; see **Configure &gt; Networking &gt; Allocate Floating
@@ -206,7 +204,7 @@ diagram for the physical topology for the simple tiered web application
 example.
 
 ![Figure 4: Sample Physical Topology for Simple Tiered Web
-Application](documentation/images/s041844.gif)
+Application](images/s041844.gif)
 
 ## Sample Physical Topology Addressing
 
@@ -214,7 +212,6 @@ Application](documentation/images/s041844.gif)
 diagram for addressing the physical topology for the simple tiered web
 application example.
 
-![Figure 5: Sample Physical Topology
-Addressing](documentation/images/s041845.gif)
+![Figure 5: Sample Physical Topology Addressing](images/s041845.gif)
 
  

@@ -13,8 +13,7 @@ encapsulated using MPLS.
 the connectivity and the roles of different components in this
 architecture.
 
-![Figure 1: L3VPN Inter AS Option C
-Architecture](documentation/images/g300379.png)
+![Figure 1: L3VPN Inter AS Option C Architecture](images/g300379.png)
 
 The controller maintains an eBGP session with the SDN-GW router and an
 iBGP session with the ASBR router. The controller exchanges labeled
@@ -43,13 +42,13 @@ Contrail Command UI.
     sure you include <span class="cli" v-pre="">inet-labeled</span> to
     the **Address Family** field.</span>
 
-    ![](documentation/images/s008004.png)
+    ![](images/s008004.png)
 
 4.  <span id="jd0e51">Configure the iBGP session with the ASBR router.
     Address family must be set to <span class="cli"
     v-pre="">inet-labeled</span>.</span>
 
-    ![](documentation/images/s008002.png)
+    ![](images/s008002.png)
 
 5.  <span id="jd0e59">Navigate to **Infrastructure &gt; Cluster &gt;
     Advanced**.</span>
@@ -63,7 +62,7 @@ Contrail Command UI.
 
 7.  <span id="jd0e73">Set the Encapsulation priority order.</span>
 
-    ![](documentation/images/s008003.png)
+    ![](images/s008003.png)
 
 8.  <span id="jd0e78">Click **Save**.</span>
 

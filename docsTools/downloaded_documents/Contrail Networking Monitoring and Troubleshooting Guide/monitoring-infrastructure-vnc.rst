@@ -409,8 +409,8 @@ Table 5: Control Node: Routes Tab Fields
 
  
 
-.. |Figure 1: Control Nodes Summary| image:: documentation/images/s041574.gif
-.. |Figure 2: Individual Control Node—Details Tab| image:: documentation/images/s041577.gif
-.. |Figure 3: Individual Control Node—Console Tab| image:: documentation/images/s041578.gif
-.. |Figure 4: Individual Control Node—Peers Tab| image:: documentation/images/s041579.gif
-.. |Figure 5: Individual Control Node—Routes Tab| image:: documentation/images/s041580.gif
+.. |Figure 1: Control Nodes Summary| image:: images/s041574.gif
+.. |Figure 2: Individual Control Node—Details Tab| image:: images/s041577.gif
+.. |Figure 3: Individual Control Node—Console Tab| image:: images/s041578.gif
+.. |Figure 4: Individual Control Node—Peers Tab| image:: images/s041579.gif
+.. |Figure 5: Individual Control Node—Routes Tab| image:: images/s041580.gif

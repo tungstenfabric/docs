@@ -345,10 +345,9 @@ Follow these steps to monitor and manage Contrail VM from EAM:
     by bringing the ContrailVM back online or by spawning a ContrailVM
     from the OVF on the ESXi host.
 
-    ![Figure 1: vCenter Server
-    Extensions](documentation/images/s051766.png)
+    ![Figure 1: vCenter Server Extensions](images/s051766.png)
 
-    ![Figure 2: ESX Agencies](documentation/images/s051767.png)
+    ![Figure 2: ESX Agencies](images/s051767.png)
 
 2.  <span id="jd0e272">Add host.</span>
     1.  <span id="jd0e276">Add ESXi host to the cluster.</span>
@@ -356,8 +355,7 @@ Follow these steps to monitor and manage Contrail VM from EAM:
     2.  <span id="jd0e279">Configure **Agent VM Settings** for the ESXI
         host.</span>
 
-        ![Figure 3: Configure Agent VM
-        Settings](documentation/images/s051768.png)
+        ![Figure 3: Configure Agent VM Settings](images/s051768.png)
 
         For more information on configuring Agent VM, network, and
         datastore settings, see [Configure Agent VM

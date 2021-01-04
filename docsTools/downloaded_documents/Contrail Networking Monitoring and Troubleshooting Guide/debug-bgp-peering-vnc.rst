@@ -517,27 +517,27 @@ by using Device Manager.
 
  
 
-.. |Figure 1: Sample Output, BGP Routers| image:: documentation/images/s041946.gif
-.. |Figure 2: Sample Output, BGP Router References| image:: documentation/images/s041947.gif
-.. |Figure 3: Sample Output, BGP Neighbor Config| image:: documentation/images/s041922.gif
-.. |Figure 4: Sample Output, BGP Peering Config| image:: documentation/images/s041923.gif
-.. |Figure 5: Sample Output, Show Routing Instance| image:: documentation/images/s041925.gif
-.. |Figure 6: Sample Output, Validate Route| image:: documentation/images/s041926.gif
-.. |Figure 7: Sample Output, Validate L3vpn Table| image:: documentation/images/s041927.gif
-.. |Figure 8: Sample Output, Validate L3vpn Table, Scrolled| image:: documentation/images/s041928.gif
-.. |Figure 9: Create Policy Window| image:: documentation/images/s041929.gif
-.. |Figure 10: Sample Output, Validate Import Target| image:: documentation/images/s041930.gif
-.. |Figure 11: Sample Output, Route Import| image:: documentation/images/s041931.gif
-.. |Figure 12: Edit Global ASN Window| image:: documentation/images/s041932.gif
-.. |Figure 13: Create BGP Peer Window| image:: documentation/images/s041933.gif
-.. |Figure 14: Sample BGP Peer UVE| image:: documentation/images/s041934.gif
-.. |Figure 15: Sample Established BGP Peer UVE| image:: documentation/images/s041935.gif
-.. |Figure 16: Edit Global ASN Window| image:: documentation/images/s041936.gif
-.. |Figure 17: Create BGP Peer Window| image:: documentation/images/s041937.gif
-.. |Figure 18: Sample Established IBGP Peer UVE| image:: documentation/images/s041938.gif
-.. |Figure 19: Sample Established IBGP Peer Introspect Window| image:: documentation/images/s041939.gif
-.. |Figure 20: Routing Instance Route Table| image:: documentation/images/s041940.gif
-.. |Figure 21: Routing Instance Route Table| image:: documentation/images/s041940.gif
-.. |Figure 22: Routing Instance Public IPv4 Route Table| image:: documentation/images/s041942.gif
-.. |Figure 23: Virtual Machine Routing Instance Public IPv4 Route Table| image:: documentation/images/s041943.gif
-.. |Figure 24: BGP Routing Instance Route Table| image:: documentation/images/s041945.gif
+.. |Figure 1: Sample Output, BGP Routers| image:: images/s041946.gif
+.. |Figure 2: Sample Output, BGP Router References| image:: images/s041947.gif
+.. |Figure 3: Sample Output, BGP Neighbor Config| image:: images/s041922.gif
+.. |Figure 4: Sample Output, BGP Peering Config| image:: images/s041923.gif
+.. |Figure 5: Sample Output, Show Routing Instance| image:: images/s041925.gif
+.. |Figure 6: Sample Output, Validate Route| image:: images/s041926.gif
+.. |Figure 7: Sample Output, Validate L3vpn Table| image:: images/s041927.gif
+.. |Figure 8: Sample Output, Validate L3vpn Table, Scrolled| image:: images/s041928.gif
+.. |Figure 9: Create Policy Window| image:: images/s041929.gif
+.. |Figure 10: Sample Output, Validate Import Target| image:: images/s041930.gif
+.. |Figure 11: Sample Output, Route Import| image:: images/s041931.gif
+.. |Figure 12: Edit Global ASN Window| image:: images/s041932.gif
+.. |Figure 13: Create BGP Peer Window| image:: images/s041933.gif
+.. |Figure 14: Sample BGP Peer UVE| image:: images/s041934.gif
+.. |Figure 15: Sample Established BGP Peer UVE| image:: images/s041935.gif
+.. |Figure 16: Edit Global ASN Window| image:: images/s041936.gif
+.. |Figure 17: Create BGP Peer Window| image:: images/s041937.gif
+.. |Figure 18: Sample Established IBGP Peer UVE| image:: images/s041938.gif
+.. |Figure 19: Sample Established IBGP Peer Introspect Window| image:: images/s041939.gif
+.. |Figure 20: Routing Instance Route Table| image:: images/s041940.gif
+.. |Figure 21: Routing Instance Route Table| image:: images/s041940.gif
+.. |Figure 22: Routing Instance Public IPv4 Route Table| image:: images/s041942.gif
+.. |Figure 23: Virtual Machine Routing Instance Public IPv4 Route Table| image:: images/s041943.gif
+.. |Figure 24: BGP Routing Instance Route Table| image:: images/s041945.gif

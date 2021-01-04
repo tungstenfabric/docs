@@ -106,7 +106,7 @@ To configure static routes as host routes:
 
  
 
-.. |image1| image:: documentation/images/s041915.gif
-.. |image2| image:: documentation/images/s041916.gif
-.. |image3| image:: documentation/images/s041917.gif
-.. |image4| image:: documentation/images/s041918.gif
+.. |image1| image:: images/s041915.gif
+.. |image2| image:: images/s041916.gif
+.. |image3| image:: images/s041917.gif
+.. |image4| image:: images/s041918.gif

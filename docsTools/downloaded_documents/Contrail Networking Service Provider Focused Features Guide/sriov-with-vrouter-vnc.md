@@ -304,7 +304,7 @@ To use the Contrail Web UI to enable and launch an SR-IOV VM:
     and its VLAN ID. See
     [Figure 1](sriov-with-vrouter-vnc.html#sriov1).</span>
 
-    ![Figure 1: Edit Network](documentation/images/S018550.png)
+    ![Figure 1: Edit Network](images/S018550.png)
 
 2.  <span id="jd0e209">On the virtual network, create a Neutron port
     (**Configure &gt; Networking &gt; Ports**), and in the **Port
@@ -312,7 +312,7 @@ To use the Contrail Web UI to enable and launch an SR-IOV VM:
     of direct. See
     [Figure 2](sriov-with-vrouter-vnc.html#sriov2).</span>
 
-    ![Figure 2: Create Port](documentation/images/S018551.png)
+    ![Figure 2: Create Port](images/S018551.png)
 
 3.  <span id="jd0e230">Using the UUID of the Neutron port you created,
     use the `nova boot` command to launch the VM from that port.</span>

@@ -408,5 +408,5 @@ compute nodes running Niantic NICs and running kernel based vrouter.
 
  
 
-.. |Figure 1: Processing of QoS Packets| image:: documentation/images/g300445.png
-.. |Figure 2: Referring to the QoS Object| image:: documentation/images/g300442.png
+.. |Figure 1: Processing of QoS Packets| image:: images/g300445.png
+.. |Figure 2: Referring to the QoS Object| image:: images/g300442.png

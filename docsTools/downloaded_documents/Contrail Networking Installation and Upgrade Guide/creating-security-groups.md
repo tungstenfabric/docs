@@ -32,7 +32,7 @@ To add rules to a security group:
     Groups** tab, including the default security group; see
     [Figure 1](creating-security-groups.html#secur-grps).
 
-    ![Figure 1: Security Groups](documentation/images/s041610.gif)
+    ![Figure 1: Security Groups](images/s041610.gif)
 
 2.  <span id="jd0e61">Select the **default-security-group** and click
     **Edit Rules** in the **Actions** column.</span>
@@ -41,13 +41,12 @@ To add rules to a security group:
     [Figure 2](creating-security-groups.html#edit-sec-rules). Any rules
     already associated with the security group are listed.
 
-    ![Figure 2: Edit Security Group
-    Rules](documentation/images/s041860.gif)
+    ![Figure 2: Edit Security Group Rules](images/s041860.gif)
 
 3.  <span id="jd0e84">Click **Add Rule** to add a new rule; see
     [Figure 3](creating-security-groups.html#add-rule-sg).</span>
 
-    ![Figure 3: Add Rule](documentation/images/s041862.gif)
+    ![Figure 3: Add Rule](images/s041862.gif)
 
     Table 1: Add Rule Fields
 
@@ -67,7 +66,7 @@ To add rules to a security group:
     Each new security group has a unique 32-bit security group ID and an
     ACL is associated with the configured rules.
 
-    ![Figure 4: Create Security Group](documentation/images/s041861.gif)
+    ![Figure 4: Create Security Group](images/s041861.gif)
 
 5.  <span id="jd0e165">When an instance is launched, there is an
     opportunity to associate a security group; see
@@ -77,7 +76,7 @@ To add rules to a security group:
     associate with the instance.
 
     ![Figure 5: Associate Security Group at Launch
-    Instance](documentation/images/s041863.gif)
+    Instance](images/s041863.gif)
 
 6.  <span id="jd0e179">You can verify that security groups are attached
     by viewing the `SgListReq` and `IntfReq` associated with the

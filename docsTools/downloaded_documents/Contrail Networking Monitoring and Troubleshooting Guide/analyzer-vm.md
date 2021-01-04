@@ -100,7 +100,7 @@ A plugin is added to the Wireshark code. The plugin parses the metadata
 and displays the packet fields; see example in
 [Figure 1](analyzer-vm.html#wireshark1).
 
-![Figure 1: Wireshark Packet Display](documentation/images/s041872.gif)
+![Figure 1: Wireshark Packet Display](images/s041872.gif)
 
 ## Troubleshooting Packet Display
 

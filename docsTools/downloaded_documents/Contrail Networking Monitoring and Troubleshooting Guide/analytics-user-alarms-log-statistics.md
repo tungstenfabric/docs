@@ -23,7 +23,7 @@ To configure and monitor alarms using the Contrail UI:
     and select the desired project to access the **Alarm Rules**
     page.</span>
 
-    ![](documentation/images/s018752.png)
+    ![](images/s018752.png)
 
 2.  <span id="jd0e43">Click the Gear icon to add a new alarm
     configuration or to edit an existing alarm configuration. Use the
@@ -31,7 +31,7 @@ To configure and monitor alarms using the Contrail UI:
     See [Table 1](analytics-user-alarms-log-statistics.html#table1) for
     field descriptions.</span>
 
-    ![](documentation/images/s018753.png)
+    ![](images/s018753.png)
 
     Table 1: Alarm Rules Fields
 
@@ -47,7 +47,7 @@ To configure and monitor alarms using the Contrail UI:
     Alarms&gt; Dashboard**. The **Dashboard** screen lists the active
     alarms in the system.</span>
 
-    ![](documentation/images/s018754.png)
+    ![](images/s018754.png)
 
 ## Examples: Detecting Anomalies
 
@@ -104,7 +104,7 @@ The following shows part of the UVE that lists the raw metric
 `phy_band_out_bps` and the derived statistic `out_bps_ewm`. The user can
 define an alarm based on the values in `sigma` or in `stddev`.
 
-![](documentation/images/s018755.png)
+![](images/s018755.png)
 
 ## Configuring the User-Defined Log Statistic
 
@@ -134,26 +134,26 @@ To configure the user-defined log statistic from the Contrail UI:
 1.  <span id="jd0e183">Navigate to **Configure &gt; Infrastructure &gt;
     Global Config** and select **Log Statistic**.</span>
 
-    ![](documentation/images/s018756.png)
+    ![](images/s018756.png)
 
 2.  <span id="jd0e194">To create a log statistic, click the plus (+)
     icon to access the **Create Log Statistic** screen. Enter a name for
     the user-defined log statistic, and in the **RegExp Pattern** field,
     enter the Perl-type expression to look for and count.</span>
 
-    ![](documentation/images/s018757.png)
+    ![](images/s018757.png)
 
 3.  <span id="jd0e205">To edit an existing log statistic, select the
     name of the statistic and click the Gear icon, then select **Edit**
     to access the **Edit Log Statistic** screen.</span>
 
-    ![](documentation/images/s018758.png)
+    ![](images/s018758.png)
 
 4.  <span id="jd0e216">To delete a log statistic, select the name of the
     statistic and click the gear icon, then select the **Delete**
     option.</span>
 
-    ![](documentation/images/s018759.png)
+    ![](images/s018759.png)
 
 <div id="jd0e224" class="example" dir="ltr">
 

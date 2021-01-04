@@ -27,13 +27,13 @@ virtual network-level, or at VMI-level. Configuring <span class="cli"
 v-pre="">ERB-UCAST-Gateway</span> role enables IGMP snooping on the QFX
 device.
 
-![Figure 1: Configure IGMP](documentation/images/s008005.png)
+![Figure 1: Configure IGMP](images/s008005.png)
 
 You can allow or deny multicast traffic by attaching a policy at the
 virtual network-level as shown in
 [Figure 2](evpn-type-6-selective-multicast-ethernet-tag-route.html#define-multicast-policy).
 
-![Figure 2: Define Multicast Policy](documentation/images/s008006.png)
+![Figure 2: Define Multicast Policy](images/s008006.png)
 
 In Contrail Release 5.1, the receivers are always inside the contrail
 cluster and sender is always outside the cluster. This feature is

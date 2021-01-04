@@ -452,11 +452,11 @@ This column lists the log message for each log displayed.
 
  
 
-.. |Figure 1: vRouters Summary| image:: documentation/images/s041581.gif
-.. |Figure 2: Individual vRouters—Details Tab| image:: documentation/images/s041582.gif
-.. |Figure 3: Individual vRouters—Interfaces Tab| image:: documentation/images/s041583.gif
-.. |Figure 4: Individual vRouters—Networks Tab| image:: documentation/images/s041584.gif
-.. |Figure 5: Individual vRouters—ACL Tab| image:: documentation/images/s041585.gif
-.. |Figure 6: Individual vRouters—Flows Tab| image:: documentation/images/s041586.gif
-.. |Figure 7: Individual vRouters—Routes Tab| image:: documentation/images/s041587.gif
-.. |Figure 8: Individual vRouter—Console Tab| image:: documentation/images/s041591.gif
+.. |Figure 1: vRouters Summary| image:: images/s041581.gif
+.. |Figure 2: Individual vRouters—Details Tab| image:: images/s041582.gif
+.. |Figure 3: Individual vRouters—Interfaces Tab| image:: images/s041583.gif
+.. |Figure 4: Individual vRouters—Networks Tab| image:: images/s041584.gif
+.. |Figure 5: Individual vRouters—ACL Tab| image:: images/s041585.gif
+.. |Figure 6: Individual vRouters—Flows Tab| image:: images/s041586.gif
+.. |Figure 7: Individual vRouters—Routes Tab| image:: images/s041587.gif
+.. |Figure 8: Individual vRouter—Console Tab| image:: images/s041591.gif

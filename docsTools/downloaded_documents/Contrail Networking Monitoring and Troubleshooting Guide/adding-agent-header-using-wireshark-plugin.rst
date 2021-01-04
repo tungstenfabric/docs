@@ -227,7 +227,7 @@ the packets exchanged between a vRouter data plane and vRouter agent.
 
  
 
-.. |Figure 1: The Plugin is Loaded in Wireshark| image:: documentation/images/s060265.png
-.. |Figure 2: Edit Encapsulation Table| image:: documentation/images/s060266.png
-.. |Figure 3: Add Agent Header to a Packet| image:: documentation/images/s060267.png
-.. |Figure 4: Packets Expanded Using the Wireshark Plugin| image:: documentation/images/s060268.png
+.. |Figure 1: The Plugin is Loaded in Wireshark| image:: images/s060265.png
+.. |Figure 2: Edit Encapsulation Table| image:: images/s060266.png
+.. |Figure 3: Add Agent Header to a Packet| image:: images/s060267.png
+.. |Figure 4: Packets Expanded Using the Wireshark Plugin| image:: images/s060268.png

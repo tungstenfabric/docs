@@ -315,5 +315,5 @@ targets for ``hub-vn`` and ``spoke-vns``, by invoking
 
  
 
-.. |Figure 1: Hub-and-Spoke Topology| image:: documentation/images/g300884.png
-.. |Figure 2: Contrail Introspect| image:: documentation/images/S018552.png
+.. |Figure 1: Hub-and-Spoke Topology| image:: images/g300884.png
+.. |Figure 2: Contrail Introspect| image:: images/S018552.png

@@ -10,7 +10,7 @@ subnet of 10.1.1.0/24. The default route for the virtual network points
 to the SNAT gateway. The gateway replaces the source-ip from 10.1.1.0/24
 and uses its public address 172.21.1.1 for outgoing packets. To maintain
 unique NAT sessions the source port of the traffic also needs to be
-replaced.</p><figure id="jd0e20"><figcaption>Figure 1: Virtual Network With a Private Subnet</figcaption><div class="graphic"><img alt="Virtual Network With a Private Subnet" src="documentation/images/s042005.gif" style=""/></div></figure><h2 id="id-neutron-apis-for-routers">Neutron APIs for Routers</h2><p>OpenStack supports SNAT gateway implementation through its Neutron
+replaced.</p><figure id="jd0e20"><figcaption>Figure 1: Virtual Network With a Private Subnet</figcaption><div class="graphic"><img alt="Virtual Network With a Private Subnet" src="images/s042005.gif" style=""/></div></figure><h2 id="id-neutron-apis-for-routers">Neutron APIs for Routers</h2><p>OpenStack supports SNAT gateway implementation through its Neutron
 APIs for routers. The SNAT flag can be enabled or disabled on the
 external gateway of the router. The default is True (enabled).  </p><p>The Tungsten Fabric plugin supports the Neutron APIs for routers
 and creates the relevant service-template and service-instance objects
@@ -27,12 +27,12 @@ for SNAT and to check the SNAT status of routers.  </p><p>To enable SNAT for a r
 &gt; Routers</strong>. In the list of routers, select the router for which
 SNAT should be enabled. Click the Edit cog to reveal the <strong v-pre="">Edit
 Routers</strong> window. Click the check box for SNAT to enable SNAT
-on the router.  </p><p>The following shows a router for which SNAT has been <strong v-pre="">Enabled</strong>.  </p><figure id="jd0e113"><figcaption>Figure 2: Edit Router Window to Enable SNAT</figcaption><div class="graphic"><img alt="Edit Router Window to Enable SNAT" src="documentation/images/s042100.gif" style=""/></div></figure><p>When a router has been <strong v-pre="">Enabled</strong> for SNAT, the configuration
+on the router.  </p><p>The following shows a router for which SNAT has been <strong v-pre="">Enabled</strong>.  </p><figure id="jd0e113"><figcaption>Figure 2: Edit Router Window to Enable SNAT</figcaption><div class="graphic"><img alt="Edit Router Window to Enable SNAT" src="images/s042100.gif" style=""/></div></figure><p>When a router has been <strong v-pre="">Enabled</strong> for SNAT, the configuration
 can be seen by selecting <strong v-pre="">Configure &gt; Networking &gt; Routers</strong>. In the list of routers, click open the router of interest. In the
 list of features for that router, the status of SNAT is listed. The
 following shows a router that has been opened in the list. The status
-of the router shows that SNAT is <strong v-pre="">Enabled</strong>. </p><figure id="jd0e128"><figcaption>Figure 3: Router Status for SNAT</figcaption><div class="graphic"><img alt="Router Status for SNAT" src="documentation/images/s042101.gif" style=""/></div></figure><p> You can view the real time status of a router with SNAT by
-viewing the instance console, as in the following.  </p><figure id="jd0e134"><figcaption>Figure 4: Instance Details Window</figcaption><div class="graphic"><img alt="Instance Details Window" src="documentation/images/s042102.gif" style=""/></div></figure><h2 id="id-using-web-ui-to-configure-distributed-snat">Using the Web UI to Configure Distributed SNAT</h2><p>The distributed SNAT feature allows virtual machines to communicate
+of the router shows that SNAT is <strong v-pre="">Enabled</strong>. </p><figure id="jd0e128"><figcaption>Figure 3: Router Status for SNAT</figcaption><div class="graphic"><img alt="Router Status for SNAT" src="images/s042101.gif" style=""/></div></figure><p> You can view the real time status of a router with SNAT by
+viewing the instance console, as in the following.  </p><figure id="jd0e134"><figcaption>Figure 4: Instance Details Window</figcaption><div class="graphic"><img alt="Instance Details Window" src="images/s042102.gif" style=""/></div></figure><h2 id="id-using-web-ui-to-configure-distributed-snat">Using the Web UI to Configure Distributed SNAT</h2><p>The distributed SNAT feature allows virtual machines to communicate
 with the IP fabric network using the existing forwarding infrastructure
 for compute node connectivity. This functionality is achieved through
 port address translation of virtual machine traffic using the IP address
@@ -41,7 +41,7 @@ with the IP fabric network. The session must be initiated from a virtual
 machine. Sessions initiated from the external network are not supported.</p></li></ul><p>Distributed SNAT is supported only for TCP and UDP, and you
 can configure discrete port ranges for both protocols.</p><p>A pool of ports is used for distributed SNAT. To create a pool
 of ports, go to <strong v-pre="">Configure &gt; Infrastructure &gt; Global Config</strong>. The following shows an example of a port range used for port address
-translation.</p><figure id="jd0e158"><figcaption>Figure 5: Edit Forwarding Options Window</figcaption><div class="graphic"><img alt="Edit Forwarding Options Window" src="documentation/images/s007013.png" style=""/></div></figure><p>To use distributed SNAT, you must enable SNAT on the virtual
+translation.</p><figure id="jd0e158"><figcaption>Figure 5: Edit Forwarding Options Window</figcaption><div class="graphic"><img alt="Edit Forwarding Options Window" src="images/s007013.png" style=""/></div></figure><p>To use distributed SNAT, you must enable SNAT on the virtual
 network. To enable SNAT on the virtual network, go to <strong v-pre="">Configure
 &gt; Networking &gt; Networks</strong>. The following shows a virtual network
-for which SNAT has been enabled under Advanced Options.</p><figure id="jd0e167"><figcaption>Figure 6: Create Window</figcaption><div class="graphic"><img alt="Create Window" src="documentation/images/s007014.png" style=""/></div></figure><sw-prev-next> </sw-prev-next></p>
+for which SNAT has been enabled under Advanced Options.</p><figure id="jd0e167"><figcaption>Figure 6: Create Window</figcaption><div class="graphic"><img alt="Create Window" src="images/s007014.png" style=""/></div></figure><sw-prev-next> </sw-prev-next></p>

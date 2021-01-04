@@ -13,7 +13,7 @@ new flowsl, between the same pair of source and destination addresses.
 In such cases, subsequent flows must follow the same set of service
 nodes followed by the initial flow. </p><p>You can use the Contrail Web UI to identify specific fields
 in the network upon which to hash at the <strong v-pre="">Configure &gt; Networking
-&gt; Network, Create Network</strong> window, in the <strong v-pre="">ECMP Hashing Fields</strong> section as shown in the following figure. </p><figure id="jd0e41"><div class="graphic"><img alt="" src="documentation/images/S018553.png" style=""/></div></figure><p>If the hashing fields are configured for a virtual network,
+&gt; Network, Create Network</strong> window, in the <strong v-pre="">ECMP Hashing Fields</strong> section as shown in the following figure. </p><figure id="jd0e41"><div class="graphic"><img alt="" src="images/S018553.png" style=""/></div></figure><p>If the hashing fields are configured for a virtual network,
 all traffic destined to that VN will be subject to the customized
 hash field selection during forwarding over ECMP paths by vRouters.
 This may not be desirable in all cases, as it could potentially skew
@@ -24,7 +24,7 @@ where one could configure customized ECMP fields for the virtual machine
 interface of the service instance. Then, each service chain route
 originating from that virtual machine interface would get the desired
 ECMP field selection applied as its path attribute, and eventually
-get propagated to the ingress vRouter node. See the following example.</p><figure id="jd0e47"><div class="graphic"><img alt="" src="documentation/images/s018740.png" style=""/></div></figure><h2 id="jd0e49">Using ECMP Hash Fields Selection</h2><p>Custom hash fields selection is most useful in scenarios where
+get propagated to the ingress vRouter node. See the following example.</p><figure id="jd0e47"><div class="graphic"><img alt="" src="images/s018740.png" style=""/></div></figure><h2 id="jd0e49">Using ECMP Hash Fields Selection</h2><p>Custom hash fields selection is most useful in scenarios where
 multiple ECMP paths exist for a destination. Typically, the multiple
 ECMP paths point to ingress service instance nodes, which could be
 running anywhere in the Contrail cloud. </p><h3 id="jd0e54">Configuring ECMP Hash Fields Over Service Chains</h3><p>Use the following steps to create customized hash fields with

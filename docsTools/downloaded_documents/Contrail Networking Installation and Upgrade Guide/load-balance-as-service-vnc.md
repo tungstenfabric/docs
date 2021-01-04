@@ -41,8 +41,7 @@ The pool member is selected using one of following methods:
 
 -   source IP selects based on the `source-ip` of the packet
 
-![Figure 1: Load Balancing as a Service in
-Contrail](documentation/images/g300523.png)
+![Figure 1: Load Balancing as a Service in Contrail](images/g300523.png)
 
 Additionally, the load balancer monitors the health of each pool member
 using the following methods:
@@ -267,13 +266,12 @@ wizard.
 
 1.  <span id="jd0e351">Go to **Services &gt; Load Balancers**.</span>
 
-    ![Figure 2: Create Load Balancers](documentation/images/s009589.png)
+    ![Figure 2: Create Load Balancers](images/s009589.png)
 
 2.  <span id="jd0e361">To create a load balancer, click
     **Create**.</span>
 
-    ![Figure 3: Load Balancer
-    Information](documentation/images/s009591.png)
+    ![Figure 3: Load Balancer Information](images/s009591.png)
 
     Add the load balancer information:
 
@@ -298,7 +296,7 @@ wizard.
 3.  <span id="jd0e409">Click **Next**. The Listener fields are
     displayed.</span>
 
-    ![Figure 4: Listener Information](documentation/images/s009592.png)
+    ![Figure 4: Listener Information](images/s009592.png)
 
     Add the listener information:
 
@@ -318,7 +316,7 @@ wizard.
 4.  <span id="jd0e452">Click **Next**. The Pool fields are
     displayed.</span>
 
-    ![Figure 5: Pool Information](documentation/images/s009593.png)
+    ![Figure 5: Pool Information](images/s009593.png)
 
     Add the pool information:
 
@@ -341,12 +339,11 @@ wizard.
 
 5.  <span id="jd0e495">Click **Next**. The list of available pool member
     instances are displayed. To add an external member, click the <span
-    class="graphic">![](documentation/images/s042494.png)</span> **Add**
-    icon. Each pool member must have a unique IP address and port
+    class="graphic">![](images/s042494.png)</span> **Add** icon. Each
+    pool member must have a unique IP address and port
     combination.</span>
 
-    ![Figure 6: Pool Member
-    Information](documentation/images/s009594.png)
+    ![Figure 6: Pool Member Information](images/s009594.png)
 
     The pool member information includes:
 
@@ -368,8 +365,7 @@ wizard.
 6.  <span id="jd0e543">Click **Next**. The Monitor fields are
     displayed.</span>
 
-    ![Figure 7: Health Monitor
-    Information](documentation/images/s009595.png)
+    ![Figure 7: Health Monitor Information](images/s009595.png)
 
     Add the health monitor information:
 
@@ -411,15 +407,13 @@ Use the following steps to view or edit existing load balancers.
 1.  <span id="jd0e608">Go to **Services &gt; Load Balancers**. A summary
     screen of the Load Balancers is displayed.</span>
 
-    ![Figure 8: Summary Screen of Load
-    Balancers](documentation/images/s009596.png)
+    ![Figure 8: Summary Screen of Load Balancers](images/s009596.png)
 
 2.  <span id="jd0e618">To view summary of a load balancer, click the
     drop down arrow next to a load balancer listed in the summary
     screen. The Load Balancer Info window is displayed.</span>
 
-    ![Figure 9: Load Balancer Info
-    Window](documentation/images/s009598.png)
+    ![Figure 9: Load Balancer Info Window](images/s009598.png)
 
 </div>
 
@@ -429,7 +423,7 @@ Use the following steps to view or edit existing load balancers.
 
 To delete the load balancer, click the trash can icon.
 
-![](documentation/images/s009590.png)
+![](images/s009590.png)
 
 </div>
 

@@ -466,5 +466,5 @@ the undercloud VM definition and to start the undercloud VM.
 
  
 
-.. |Figure 1: Physical View| image:: documentation/images/g200475.png
-.. |Figure 2: Logical View| image:: documentation/images/g200476.png
+.. |Figure 1: Physical View| image:: images/g200475.png
+.. |Figure 2: Logical View| image:: images/g200476.png

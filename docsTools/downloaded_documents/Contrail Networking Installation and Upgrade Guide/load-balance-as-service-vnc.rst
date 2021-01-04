@@ -484,14 +484,14 @@ To delete the load balancer, click the trash can icon.
 
  
 
-.. |Figure 1: Load Balancing as a Service in Contrail| image:: documentation/images/g300523.png
-.. |Figure 2: Create Load Balancers| image:: documentation/images/s009589.png
-.. |Figure 3: Load Balancer Information| image:: documentation/images/s009591.png
-.. |Figure 4: Listener Information| image:: documentation/images/s009592.png
-.. |Figure 5: Pool Information| image:: documentation/images/s009593.png
-.. |image1| image:: documentation/images/s042494.png
-.. |Figure 6: Pool Member Information| image:: documentation/images/s009594.png
-.. |Figure 7: Health Monitor Information| image:: documentation/images/s009595.png
-.. |Figure 8: Summary Screen of Load Balancers| image:: documentation/images/s009596.png
-.. |Figure 9: Load Balancer Info Window| image:: documentation/images/s009598.png
-.. |image2| image:: documentation/images/s009590.png
+.. |Figure 1: Load Balancing as a Service in Contrail| image:: images/g300523.png
+.. |Figure 2: Create Load Balancers| image:: images/s009589.png
+.. |Figure 3: Load Balancer Information| image:: images/s009591.png
+.. |Figure 4: Listener Information| image:: images/s009592.png
+.. |Figure 5: Pool Information| image:: images/s009593.png
+.. |image1| image:: images/s042494.png
+.. |Figure 6: Pool Member Information| image:: images/s009594.png
+.. |Figure 7: Health Monitor Information| image:: images/s009595.png
+.. |Figure 8: Summary Screen of Load Balancers| image:: images/s009596.png
+.. |Figure 9: Load Balancer Info Window| image:: images/s009598.png
+.. |image2| image:: images/s009590.png

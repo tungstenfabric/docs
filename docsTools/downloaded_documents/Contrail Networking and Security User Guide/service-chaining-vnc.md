@@ -24,7 +24,7 @@ service chain schema, with a single service. The service VM spawns the
 service, using the convention of left interface (left IF) and right
 interface (right IF). Multiple services can also be chained together.
 
-![Figure 1: Service Chaining](documentation/images/s041619.gif)
+![Figure 1: Service Chaining](images/s041619.gif)
 
 When you create a service chain, the Contrail software creates tunnels
 across the underlay network that span through all services in the chain.
@@ -32,7 +32,7 @@ across the underlay network that span through all services in the chain.
 two compute nodes, each with one service instance and traffic going to
 and from one end point to the other.
 
-![Figure 2: Contrail Service Chain](documentation/images/s041901.gif)
+![Figure 2: Contrail Service Chain](images/s041901.gif)
 
 The following are the modes of services that can be configured.
 

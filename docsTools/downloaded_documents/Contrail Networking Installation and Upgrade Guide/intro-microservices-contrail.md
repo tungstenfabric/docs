@@ -28,7 +28,7 @@ Contrail containers and microservices are grouped into a pod structure
 upon installation.
 
 ![Figure 1: Contrail Containers, Pods, and
-Microservices](documentation/images/g300352.png)
+Microservices](images/g300352.png)
 
 ## Installing Contrail with Microservices Architecture
 

@@ -217,8 +217,8 @@ Table 2: Object Logs Query Fields
 
  
 
-.. |Figure 1: Query > Logs| image:: documentation/images/s041893.gif
-.. |Figure 2: Query > Logs > System Logs| image:: documentation/images/s041894.gif
-.. |Figure 3: Edit Where Clause| image:: documentation/images/s041895.gif
-.. |Figure 4: Sample Query System Logs| image:: documentation/images/s041896.gif
-.. |Figure 5: Query > Logs > Object Logs| image:: documentation/images/s041897.gif
+.. |Figure 1: Query > Logs| image:: images/s041893.gif
+.. |Figure 2: Query > Logs > System Logs| image:: images/s041894.gif
+.. |Figure 3: Edit Where Clause| image:: images/s041895.gif
+.. |Figure 4: Sample Query System Logs| image:: images/s041896.gif
+.. |Figure 5: Query > Logs > Object Logs| image:: images/s041897.gif

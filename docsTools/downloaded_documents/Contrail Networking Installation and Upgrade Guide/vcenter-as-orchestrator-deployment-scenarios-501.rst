@@ -438,10 +438,10 @@ The server configuration:
 
  
 
-.. |Figure 1: Standard Switch Setup| image:: documentation/images/g300460.png
-.. |Figure 2: Distributed Switch Setup| image:: documentation/images/g300461.png
-.. |Figure 3: PCI Pass-Through with Single Control Data Interface| image:: documentation/images/g300462.png
-.. |Figure 4: PCI Pass-Through Setup with Bond Control Interface| image:: documentation/images/g300463.png
-.. |Figure 5: SR-IOV Setup| image:: documentation/images/g300464.png
-.. |Figure 6: SR-IOV With Single Control Data Interface| image:: documentation/images/g300464.png
-.. |Figure 7: SR-IOV With Bond Control Data Interface| image:: documentation/images/g300465.png
+.. |Figure 1: Standard Switch Setup| image:: images/g300460.png
+.. |Figure 2: Distributed Switch Setup| image:: images/g300461.png
+.. |Figure 3: PCI Pass-Through with Single Control Data Interface| image:: images/g300462.png
+.. |Figure 4: PCI Pass-Through Setup with Bond Control Interface| image:: images/g300463.png
+.. |Figure 5: SR-IOV Setup| image:: images/g300464.png
+.. |Figure 6: SR-IOV With Single Control Data Interface| image:: images/g300464.png
+.. |Figure 7: SR-IOV With Bond Control Data Interface| image:: images/g300465.png

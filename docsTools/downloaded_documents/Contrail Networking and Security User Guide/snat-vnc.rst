@@ -153,9 +153,9 @@ been enabled under Advanced Options.
 
  
 
-.. |Figure 1: Virtual Network With a Private Subnet| image:: documentation/images/s042005.gif
-.. |Figure 2: Edit Router Window to Enable SNAT| image:: documentation/images/s042100.gif
-.. |Figure 3: Router Status for SNAT| image:: documentation/images/s042101.gif
-.. |Figure 4: Instance Details Window| image:: documentation/images/s042102.gif
-.. |Figure 5: Edit Forwarding Options Window| image:: documentation/images/s007013.png
-.. |Figure 6: Create Window| image:: documentation/images/s007014.png
+.. |Figure 1: Virtual Network With a Private Subnet| image:: images/s042005.gif
+.. |Figure 2: Edit Router Window to Enable SNAT| image:: images/s042100.gif
+.. |Figure 3: Router Status for SNAT| image:: images/s042101.gif
+.. |Figure 4: Instance Details Window| image:: images/s042102.gif
+.. |Figure 5: Edit Forwarding Options Window| image:: images/s007013.png
+.. |Figure 6: Create Window| image:: images/s007014.png

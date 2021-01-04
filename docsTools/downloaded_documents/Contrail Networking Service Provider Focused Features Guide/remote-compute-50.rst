@@ -601,4 +601,4 @@ filtering (Beta).
 
  
 
-.. |Figure 1: Example Multi-Cluster Topology| image:: documentation/images/g200469.png
+.. |Figure 1: Example Multi-Cluster Topology| image:: images/g200469.png

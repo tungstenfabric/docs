@@ -9,8 +9,7 @@ system by using the OpenStack dashboard:
     Images**. The Images window is displayed. See
     [Figure 1](creating-image-vnc.html#images).</span>
 
-    ![Figure 1: OpenStack Images
-    Window](documentation/images/s018516.png)
+    ![Figure 1: OpenStack Images Window](images/s018516.png)
 
 2.  <span id="jd0e31">Make sure you have selected the correct project to
     which you are associating an image.</span>
@@ -20,8 +19,7 @@ system by using the OpenStack dashboard:
     The **Create An Image** window is displayed. See
     [Figure 2](creating-image-vnc.html#create-image).
 
-    ![Figure 2: OpenStack Create An Image
-    Window](documentation/images/s018515.png)
+    ![Figure 2: OpenStack Create An Image Window](images/s018515.png)
 
 4.  <span id="jd0e51">Complete the fields to specify your image.
     [Table 1](creating-image-vnc.html#images-fields) describes each of

@@ -67,7 +67,7 @@ Contrail Command UI.
 
  
 
-.. |Figure 1: L3VPN Inter AS Option C Architecture| image:: documentation/images/g300379.png
-.. |image1| image:: documentation/images/s008004.png
-.. |image2| image:: documentation/images/s008002.png
-.. |image3| image:: documentation/images/s008003.png
+.. |Figure 1: L3VPN Inter AS Option C Architecture| image:: images/g300379.png
+.. |image1| image:: images/s008004.png
+.. |image2| image:: images/s008002.png
+.. |image3| image:: images/s008003.png

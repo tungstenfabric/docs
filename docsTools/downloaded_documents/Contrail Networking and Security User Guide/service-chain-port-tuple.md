@@ -36,7 +36,7 @@ are linked to a port-tuple object that is a child of a service instance.
 This functionality can also be leveraged in Heat stacks. See
 [Figure 1](service-chain-port-tuple.html#tuple1).
 
-![Figure 1: Port Tuple Overview](documentation/images/s018749.png)
+![Figure 1: Port Tuple Overview](images/s018749.png)
 
 ## Service Chain Version 2 Sample Workflow
 
@@ -118,7 +118,7 @@ Instances &gt; Allowed Address Pair**, see
 [Figure 2](service-chain-port-tuple.html#aap).
 
 ![Figure 2: Edit Service Instance, Allowed Address
-Pair](documentation/images/s019908.png)
+Pair](images/s019908.png)
 
 For more information about OpenStack allowed address pairs, see
 <https://docs.openstack.org/dragonflow/latest/specs/allowed_address_pairs.html>.

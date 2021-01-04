@@ -72,8 +72,7 @@ into the overcloud:
 the relationship and components of an undercloud and overcloud
 architecture for Contrail Networking.
 
-![Figure 1: Undercloud and Overcloud with
-Roles](documentation/images/g300376.png)
+![Figure 1: Undercloud and Overcloud with Roles](images/g300376.png)
 
 ## Undercloud Requirements
 

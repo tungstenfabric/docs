@@ -159,7 +159,7 @@ The typical physical topology includes:
 The following is an example of how the topology is depicted in the
 Contrail WebUI analytics.
 
-![Figure 1: Analytics Topology](documentation/images/s042103.gif)
+![Figure 1: Analytics Topology](images/s042103.gif)
 
 ## SNMP Configuration
 
@@ -297,8 +297,7 @@ the `contrail-snmp-collector` gets the physical router information from
 configuration parameters to perform SNMP queries and to populate pRouter
 UVEs.
 
-![Figure 2: Add Physical Router
-Window](documentation/images/s042440.gif)
+![Figure 2: Add Physical Router Window](images/s042440.gif)
 
 ## pRouter UVEs
 
@@ -309,8 +308,7 @@ pRouter UVEs are accessed from the REST APIs on your system from
 
 The following is sample output from a pRouter REST API:
 
-![Figure 3: Sample Output From a pRouter REST
-API](documentation/images/s042104.gif)
+![Figure 3: Sample Output From a pRouter REST API](images/s042104.gif)
 
 Details of a pRouter UVE can be obtained from your system, using a URL
 of the following form:
@@ -319,8 +317,7 @@ of the following form:
 
 The following is sample output of a pRouter UVE.
 
-![Figure 4: Sample Output From a pRouter
-UVE](documentation/images/s042435.gif)
+![Figure 4: Sample Output From a pRouter UVE](images/s042435.gif)
 
 ## Contrail User Interface for Underlay Overlay Analytics
 
@@ -359,8 +356,7 @@ displayed topology to the virtual machine level. The following diagram
 shows the virtual machines instantiated on a7s36 vRouter and the full
 physical topology related to each.
 
-![Figure 5: Physical Topology Related to a
-vRouter](documentation/images/s042436.gif)
+![Figure 5: Physical Topology Related to a vRouter](images/s042436.gif)
 
 ## Viewing the Traffic of any Link
 
@@ -368,7 +364,7 @@ At **Monitor &gt; Physical Topology**, double click any link on the
 topology to display the traffic statistics graph for that link. The
 following is an example.
 
-![Figure 6: Traffic Statistics Graph](documentation/images/s042437.gif)
+![Figure 6: Traffic Statistics Graph](images/s042437.gif)
 
 ## Trace Flows
 
@@ -377,7 +373,7 @@ path of a flow, click a flow in the active flows list, then click the
 **Trace Flow** button. The path taken in the underlay by the selected
 flow displays. The following is an example.
 
-![Figure 7: List of Active Flows](documentation/images/s042438.gif)
+![Figure 7: List of Active Flows](images/s042438.gif)
 
 *Limitations of Trace Flow Feature*
 
@@ -394,7 +390,7 @@ can select a flow from the list and click **Map Flow** to display the
 underlay path taken by the selected flow in the topology. The following
 is an example.
 
-![Figure 8: Underlay Path](documentation/images/s042439.gif)
+![Figure 8: Underlay Path](images/s042439.gif)
 
 ## Overlay to Underlay Flow Map Schemas
 

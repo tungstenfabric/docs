@@ -15,8 +15,7 @@ listed are optional components.
 
 -   Analytics database
 
-![Figure 1: Contrail Analytics
-Components](documentation/images/g301071.png)
+![Figure 1: Contrail Analytics Components](images/g301071.png)
 
 Regardless that the alarm, SNMP, and database analytics roles have not
 been installed and if installed are disabled, these components show as
@@ -422,12 +421,11 @@ displays the Contrail Web UI dashboard with all optional analytics
 components deployed.
 
 ![Figure 2: Web UI - All Optional Analytics Components
-Deployed](documentation/images/s008309.PNG)
+Deployed](images/s008309.PNG)
 
 A database node is visible in the infrastructure dashboard.
 
-![Figure 3: Web UI - Database Node in
-Dashboard](documentation/images/s008310.PNG)
+![Figure 3: Web UI - Database Node in Dashboard](images/s008310.PNG)
 
 ### Web UI without Optional Components
 
@@ -436,33 +434,30 @@ displays the Contrail Web UI dashboard without optional analytics
 components deployed.
 
 ![Figure 4: Web UI - Optional Analytics Components Not
-Deployed](documentation/images/s008311.PNG)
+Deployed](images/s008311.PNG)
 
 No database node is visible in the infrastructure dashboard:
 
 ![Figure 5: Web UI - Database Node Not Visible in
-Dashboard](documentation/images/s008312.PNG)
+Dashboard](images/s008312.PNG)
 
 ### Analytics Alarm Feature Enabled
 
 [Figure 6](analytics-optional-modules.html#monitor-alarm-menu) displays
 the **Monitor &gt; Alarms** menu.
 
-![Figure 6: Web UI - Monitor &gt; Alarms
-Menu](documentation/images/s008313.PNG)
+![Figure 6: Web UI - Monitor &gt; Alarms Menu](images/s008313.PNG)
 
 [Figure 7](analytics-optional-modules.html#configure-alarm-menu)
 displays the **Configure &gt; Alarms** menu.
 
-![Figure 7: Web UI - Configure &gt; Alarms
-Menu](documentation/images/s008314.PNG)
+![Figure 7: Web UI - Configure &gt; Alarms Menu](images/s008314.PNG)
 
 [Figure 8](analytics-optional-modules.html#global-alarm-settings)
 displays the dialog box which appears when **Global Alarm**, next to
 Logged in User in the upper right, is selected.
 
-![Figure 8: Web UI - Global Alarm
-Settings](documentation/images/s008315.PNG)
+![Figure 8: Web UI - Global Alarm Settings](images/s008315.PNG)
 
 ### Analytics Alarm Feature Disabled
 
@@ -479,12 +474,12 @@ There is not an appearance of Global Alarm or **Alarms** entry in the
 Monitor menu:
 
 ![Figure 9: Analytics Alarm Disabled - Global Alarm and Alarm Not
-Available](documentation/images/s008316.PNG)
+Available](images/s008316.PNG)
 
 Alarms menu still available in Configure menu.
 
 ![Figure 10: Analytics Alarm Disabled - Configure &gt;
-Alarms](documentation/images/s008317.PNG)
+Alarms](images/s008317.PNG)
 
 ### Analytics SNMP Feature Enabled
 
@@ -492,7 +487,7 @@ Alarms](documentation/images/s008317.PNG)
 displays the Physical Topology option in the Monitor menu.
 
 ![Figure 11: Analytics SNMP Feature Enabled - Physical Topology Menu
-Available](documentation/images/s008318.PNG)
+Available](images/s008318.PNG)
 
 ### Analytics SNMP Feature Disabled
 
@@ -500,7 +495,7 @@ If the alarm analytics component is not provisioned, then Contrail Web
 UI does not display the Physical Topology menu option.
 
 ![Figure 12: Analytics SNMP Feature Disabled - Physical Topology Menu
-Not Available](documentation/images/s008319.PNG)
+Not Available](images/s008319.PNG)
 
 ### Analytics Database Enabled
 
@@ -508,7 +503,7 @@ If analytics database is provisioned, then Contrail Web UI displays the
 Query page.
 
 ![Figure 13: Analytics Database Enabled - Query Page
-Available](documentation/images/s008320.PNG)
+Available](images/s008320.PNG)
 
 ### Analytics Database Disabled
 
@@ -517,7 +512,7 @@ not display the Query page. Query page logo is unavailable to launch
 Query page.
 
 ![Figure 14: Analytics Database Disabled - Query Page Logo Not
-Available](documentation/images/s008329.PNG)
+Available](images/s008329.PNG)
 
 ## Tripleo Provisioning
 
@@ -598,37 +593,31 @@ optional analytics component provision is hardcoded:
 The disabled roles and charts are visible on the Query page but they are
 not operational.
 
-![Figure 15: Query Page Visible in
-Dashboard](documentation/images/s008321.PNG)
+![Figure 15: Query Page Visible in Dashboard](images/s008321.PNG)
 
 Regardless that the alarm, SNMP, and database analytics roles have been
 disabled, they are still reported by Contrail Command.
 
 ![Figure 16: Disabled Roles Still Visible in Contrail
-Command](documentation/images/s008322.PNG)
+Command](images/s008322.PNG)
 
 The following five charts will always display empty.
 
-![Figure 17: Empty Charts in Compute
-Nodes](documentation/images/s008323.PNG)
+![Figure 17: Empty Charts in Compute Nodes](images/s008323.PNG)
 
-![Figure 18: Empty Charts in Config
-Nodes](documentation/images/s008324.PNG)
+![Figure 18: Empty Charts in Config Nodes](images/s008324.PNG)
 
-![Figure 19: Empty Charts in Analytics
-Nodes](documentation/images/s008325.PNG)
+![Figure 19: Empty Charts in Analytics Nodes](images/s008325.PNG)
 
-![Figure 20: Empty Charts in Control
-Nodes](documentation/images/s008326.PNG)
+![Figure 20: Empty Charts in Control Nodes](images/s008326.PNG)
 
-![Figure 21: Empty Charts in Database
-Nodes](documentation/images/s008327.PNG)
+![Figure 21: Empty Charts in Database Nodes](images/s008327.PNG)
 
 The Alarms page displays alarms pulled from the Contrail
 `analytics_alarm` component. When the `analytics_alarm` component is
 disabled, the Alarms page will always display no data.
 
-![Figure 22: Empty Alarms Page](documentation/images/s008328.PNG)
+![Figure 22: Empty Alarms Page](images/s008328.PNG)
 
 <div class="table">
 

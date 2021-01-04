@@ -303,12 +303,12 @@ To configure BGP peering in the control node:
 
  
 
-.. |Figure 1: Configure> Infrastructure > BGP Routers| image:: documentation/images/s042497.png
-.. |Figure 2: BGP Routers Summary| image:: documentation/images/s042498.png
-.. |image1| image:: documentation/images/s042494.png
-.. |Figure 3: Create BGP Router| image:: documentation/images/s042496.png
-.. |Figure 4: Control Nodes| image:: documentation/images/s042499.png
-.. |Figure 5: Control Node Details| image:: documentation/images/s042500.png
-.. |Figure 6: Control Node Peers Tab| image:: documentation/images/s042501.png
-.. |Figure 7: Infrastructure > Cluster > Advanced > BGP Routers| image:: documentation/images/s009220.png
-.. |Figure 8: Create BGP Router| image:: documentation/images/s009221.png
+.. |Figure 1: Configure> Infrastructure > BGP Routers| image:: images/s042497.png
+.. |Figure 2: BGP Routers Summary| image:: images/s042498.png
+.. |image1| image:: images/s042494.png
+.. |Figure 3: Create BGP Router| image:: images/s042496.png
+.. |Figure 4: Control Nodes| image:: images/s042499.png
+.. |Figure 5: Control Node Details| image:: images/s042500.png
+.. |Figure 6: Control Node Peers Tab| image:: images/s042501.png
+.. |Figure 7: Infrastructure > Cluster > Advanced > BGP Routers| image:: images/s009220.png
+.. |Figure 8: Create BGP Router| image:: images/s009221.png

@@ -14,13 +14,13 @@ page.
     **Projects** page; see
     [Figure 1](creating-projects-vnc.html#projects).</span>
 
-    ![Figure 1: OpenStack Projects](documentation/images/s041521.gif)
+    ![Figure 1: OpenStack Projects](images/s041521.gif)
 
 2.  <span id="jd0e45">In the upper right, click the **Create Project**
     button to access the **Add Project** window; see
     [Figure 2](creating-projects-vnc.html#add-project).</span>
 
-    ![Figure 2: Add Project](documentation/images/s041522.gif)
+    ![Figure 2: Add Project](images/s041522.gif)
 
 3.  <span id="jd0e60">In the **Add Project** window, on the **Project
     Info** tab, enter a **Name** and a **Description** for the new

@@ -218,8 +218,8 @@ tiered web application example.
 
  
 
-.. |Figure 1: Simple Tiered Web Use Case| image:: documentation/images/s041840.gif
-.. |Figure 2: Create Floating IP Pool| image:: documentation/images/s041841.gif
-.. |Figure 3: Allocate Floating IP| image:: documentation/images/s041842.gif
-.. |Figure 4: Sample Physical Topology for Simple Tiered Web Application| image:: documentation/images/s041844.gif
-.. |Figure 5: Sample Physical Topology Addressing| image:: documentation/images/s041845.gif
+.. |Figure 1: Simple Tiered Web Use Case| image:: images/s041840.gif
+.. |Figure 2: Create Floating IP Pool| image:: images/s041841.gif
+.. |Figure 3: Allocate Floating IP| image:: images/s041842.gif
+.. |Figure 4: Sample Physical Topology for Simple Tiered Web Application| image:: images/s041844.gif
+.. |Figure 5: Sample Physical Topology Addressing| image:: images/s041845.gif

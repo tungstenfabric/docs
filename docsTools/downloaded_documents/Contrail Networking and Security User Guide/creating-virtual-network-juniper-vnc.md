@@ -15,8 +15,7 @@ how to create a virtual network when using Juniper Networks Contrail.
     The **Add IP Address Management** window appears, see
     [Figure 1](creating-virtual-network-juniper-vnc.html#add-ipam).
 
-    ![Figure 1: Add IP Address
-    Management](documentation/images/s041838.gif)
+    ![Figure 1: Add IP Address Management](images/s041838.gif)
 
 2.  <span id="jd0e46">Complete the fields in **Add IP Address
     Management**: The fields are described in
@@ -35,16 +34,16 @@ how to create a virtual network when using Juniper Networks Contrail.
     Networks** to access the **Configure Networks** page; see
     [Figure 2](creating-virtual-network-juniper-vnc.html#config-networks).</span>
 
-    ![Figure 2: Configure Networks](documentation/images/s042492.png)
+    ![Figure 2: Configure Networks](images/s042492.png)
 
 4.  <span id="jd0e123">Verify that your project is displayed as active
     in the upper-right field, then click the <span
-    class="graphic">![](documentation/images/s042494.png)</span>icon.
-    The **Create Network** window is displayed. See
+    class="graphic">![](images/s042494.png)</span>icon. The **Create
+    Network** window is displayed. See
     [Figure 3](creating-virtual-network-juniper-vnc.html#create-network).
     Use the scroll bar to access all sections of this window.</span>
 
-    ![Figure 3: Create Network](documentation/images/s041528.gif)
+    ![Figure 3: Create Network](images/s041528.gif)
 
 5.  <span id="jd0e137">Complete the fields in the **Create Network**
     window with values that identify the network name, network policy,

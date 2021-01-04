@@ -931,11 +931,11 @@ Example: Content for cfg-snmp.py
 
  
 
-.. |Figure 1: Analytics Topology| image:: documentation/images/s042103.gif
-.. |Figure 2: Add Physical Router Window| image:: documentation/images/s042440.gif
-.. |Figure 3: Sample Output From a pRouter REST API| image:: documentation/images/s042104.gif
-.. |Figure 4: Sample Output From a pRouter UVE| image:: documentation/images/s042435.gif
-.. |Figure 5: Physical Topology Related to a vRouter| image:: documentation/images/s042436.gif
-.. |Figure 6: Traffic Statistics Graph| image:: documentation/images/s042437.gif
-.. |Figure 7: List of Active Flows| image:: documentation/images/s042438.gif
-.. |Figure 8: Underlay Path| image:: documentation/images/s042439.gif
+.. |Figure 1: Analytics Topology| image:: images/s042103.gif
+.. |Figure 2: Add Physical Router Window| image:: images/s042440.gif
+.. |Figure 3: Sample Output From a pRouter REST API| image:: images/s042104.gif
+.. |Figure 4: Sample Output From a pRouter UVE| image:: images/s042435.gif
+.. |Figure 5: Physical Topology Related to a vRouter| image:: images/s042436.gif
+.. |Figure 6: Traffic Statistics Graph| image:: images/s042437.gif
+.. |Figure 7: List of Active Flows| image:: images/s042438.gif
+.. |Figure 8: Underlay Path| image:: images/s042439.gif

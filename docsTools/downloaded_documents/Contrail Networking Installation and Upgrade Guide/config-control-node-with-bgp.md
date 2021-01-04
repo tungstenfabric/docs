@@ -46,13 +46,13 @@ To configure BGP peering in the control node:
     [Figure 1](config-control-node-with-bgp.html#config-bgp-peers).</span>
 
     ![Figure 1: Configure&gt; Infrastructure &gt; BGP
-    Routers](documentation/images/s042497.png)
+    Routers](images/s042497.png)
 
     A summary screen of the control nodes and BGP routers is displayed;
     see
     [Figure 2](config-control-node-with-bgp.html#control-nodes-summary).
 
-    ![Figure 2: BGP Routers Summary](documentation/images/s042498.png)
+    ![Figure 2: BGP Routers Summary](images/s042498.png)
 
 2.  <span id="jd0e79">(Optional) The global AS number is 64512 by
     default. To change the AS number, on the **BGP Router** summary
@@ -61,11 +61,11 @@ To configure BGP peering in the control node:
 
 3.  <span id="jd0e88">To create control nodes and BGP routers, on the
     **BGP Routers** summary screen, click the <span
-    class="graphic">![](documentation/images/s042494.png)</span> icon.
-    The **Create BGP Router** window is displayed; see
+    class="graphic">![](images/s042494.png)</span> icon. The **Create
+    BGP Router** window is displayed; see
     [Figure 3](config-control-node-with-bgp.html#add-bgp-peer).</span>
 
-    ![Figure 3: Create BGP Router](documentation/images/s042496.png)
+    ![Figure 3: Create BGP Router](images/s042496.png)
 
 4.  <span id="jd0e105">In the **Create BGP Router** window, click **BGP
     Router** to add a new BGP router or click **Control Node** to add
@@ -107,20 +107,19 @@ To configure BGP peering in the control node:
     **Monitor &gt; Infrastructure &gt; Control Nodes**; see
     [Figure 4](config-control-node-with-bgp.html#control-node-summ).</span>
 
-    ![Figure 4: Control Nodes](documentation/images/s042499.png)
+    ![Figure 4: Control Nodes](images/s042499.png)
 
     In the **Control Nodes** window, click any hostname in the memory
     map to view its details; see
     [Figure 5](config-control-node-with-bgp.html#control-node-details).
 
-    ![Figure 5: Control Node Details](documentation/images/s042500.png)
+    ![Figure 5: Control Node Details](images/s042500.png)
 
 8.  <span id="jd0e292">Click the **Peers** tab to view the peers of a
     control node; see
     [Figure 6](config-control-node-with-bgp.html#peer-details).</span>
 
-    ![Figure 6: Control Node Peers
-    Tab](documentation/images/s042501.png)
+    ![Figure 6: Control Node Peers Tab](images/s042501.png)
 
 ## Configuring the Control Node with BGP from Contrail Command
 
@@ -134,7 +133,7 @@ To configure BGP peering in the control node:
     [Figure 7](config-control-node-with-bgp.html#config-bgp).
 
     ![Figure 7: Infrastructure &gt; Cluster &gt; Advanced &gt; BGP
-    Routers](documentation/images/s009220.png)
+    Routers](images/s009220.png)
 
 2.  <span id="jd0e334">(Optional) The global AS number is 64512 by
     default. You can change the AS number according to your requirement
@@ -147,7 +146,7 @@ To configure BGP peering in the control node:
     Routers** tab. The **Create BGP Router** window is displayed. See
     [Figure 8](config-control-node-with-bgp.html#bgp-create).</span>
 
-    ![Figure 8: Create BGP Router](documentation/images/s009221.png)
+    ![Figure 8: Create BGP Router](images/s009221.png)
 
 4.  <span id="jd0e371">In the **Create BGP Router** page, populate the
     fields with values to create your system. See

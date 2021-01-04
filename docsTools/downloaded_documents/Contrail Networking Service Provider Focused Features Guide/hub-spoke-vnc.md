@@ -62,7 +62,7 @@ Each `spoke-vn` exports its `spoke-rt`
 `(target:1:2, target:1:3, target:1:4)` routes to the hub, and the
 `hub-vn` imports them.
 
-![Figure 1: Hub-and-Spoke Topology](documentation/images/g300884.png)
+![Figure 1: Hub-and-Spoke Topology](images/g300884.png)
 
 ## Troubleshooting Hub-and-Spoke Topology
 
@@ -263,6 +263,6 @@ targets for `hub-vn` and `spoke-vns`, by invoking
 
 </div>
 
-![Figure 2: Contrail Introspect](documentation/images/S018552.png)
+![Figure 2: Contrail Introspect](images/S018552.png)
 
  

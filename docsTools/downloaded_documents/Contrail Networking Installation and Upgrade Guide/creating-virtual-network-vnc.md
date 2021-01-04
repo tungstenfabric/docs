@@ -11,17 +11,16 @@ when using OpenStack.
     **Networks** page is displayed. See
     [Figure 1](creating-virtual-network-vnc.html#networks-openstack).</span>
 
-    ![Figure 1: Networks Page](documentation/images/s008528.png)
+    ![Figure 1: Networks Page](images/s008528.png)
 
 2.  <span id="jd0e45">Click **Create Network**. The **Create Network**
     window is displayed. See
     [Figure 2](creating-virtual-network-vnc.html#create-network-os) and
     [Figure 3](creating-virtual-network-vnc.html#create-network-tab).</span>
 
-    ![Figure 2: Create Networks](documentation/images/s008529.png)
+    ![Figure 2: Create Networks](images/s008529.png)
 
-    ![Figure 3: Subnet and Gateway
-    Details](documentation/images/s008530.png)
+    ![Figure 3: Subnet and Gateway Details](images/s008530.png)
 
 3.  <span id="jd0e66">Click the **Network** and **Subnet** tabs to
     complete the fields in the **Create Network** window. See field
@@ -41,8 +40,7 @@ when using OpenStack.
 4.  <span id="jd0e135">Click the **Subnet Details** tab to specify the
     Allocation Pool, DNS Name Servers, and Host Routes.</span>
 
-    ![Figure 4: Additional Subnet
-    Attributes](documentation/images/s008531.png)
+    ![Figure 4: Additional Subnet Attributes](images/s008531.png)
 
 5.  <span id="jd0e145">To save your network, click **Create** , or click
     **Cancel** to discard your work and start over.</span>

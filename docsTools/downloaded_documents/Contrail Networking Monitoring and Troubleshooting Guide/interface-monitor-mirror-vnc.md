@@ -21,7 +21,7 @@ To configure interface mirroring:
 2.  In the list of attributes for the vRouter, select Interfaces; see
     [Figure 1](interface-monitor-mirror-vnc.html#vrouter-interfaces).
 
-    ![Figure 1: Individual vRouter](documentation/images/s041839.gif)
+    ![Figure 1: Individual vRouter](images/s041839.gif)
 
     A list of interfaces for that vRouter appears.
 
@@ -29,7 +29,7 @@ To configure interface mirroring:
     column and select the option Packet Capture; see
     [Figure 2](interface-monitor-mirror-vnc.html#vr-intf).
 
-    ![Figure 2: Interfaces](documentation/images/s041856.gif)
+    ![Figure 2: Interfaces](images/s041856.gif)
 
     The mirror packet capture starts and displays at this screen.
 

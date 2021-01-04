@@ -23,7 +23,7 @@ of all control nodes in the system. See
 [Table 1](monitoring-infrastructure-vnc.html#control-nodes-summ-fields)
 for descriptions of the fields on this screen.
 
-![Figure 1: Control Nodes Summary](documentation/images/s041574.gif)
+![Figure 1: Control Nodes Summary](images/s041574.gif)
 
 Table 1: Control Nodes Summary Fields
 
@@ -48,8 +48,7 @@ more details about the selected control node. The first tab is the
 **Details** tab; see
 [Figure 2](monitoring-infrastructure-vnc.html#control-details).
 
-![Figure 2: Individual Control Node—Details
-Tab](documentation/images/s041577.gif)
+![Figure 2: Individual Control Node—Details Tab](images/s041577.gif)
 
 The Details tab provides a summary of the status and activity on the
 selected node, and presents graphical displays of CPU and memory usage.
@@ -81,8 +80,7 @@ system logging information for a defined time period, with the last 5
 minutes of information as the default display. See
 [Figure 3](monitoring-infrastructure-vnc.html#control-console).
 
-![Figure 3: Individual Control Node—Console
-Tab](documentation/images/s041578.gif)
+![Figure 3: Individual Control Node—Console Tab](images/s041578.gif)
 
 See [Table 3](monitoring-infrastructure-vnc.html#console-tab-fields) for
 descriptions of the fields on the **Console** tab screen.
@@ -187,8 +185,7 @@ their peering state. Click the expansion arrow next to the address of
 any peer to reveal more details. See
 [Figure 4](monitoring-infrastructure-vnc.html#control-peers).
 
-![Figure 4: Individual Control Node—Peers
-Tab](documentation/images/s041579.gif)
+![Figure 4: Individual Control Node—Peers Tab](images/s041579.gif)
 
 See [Table 4](monitoring-infrastructure-vnc.html#peers-tab-fields) for
 descriptions of the fields on the **Peers** tab screen.
@@ -212,8 +209,7 @@ more results. Click the expansion icon next to a routing table name to
 reveal more details about the selected route. See
 [Figure 5](monitoring-infrastructure-vnc.html#control-routes).
 
-![Figure 5: Individual Control Node—Routes
-Tab](documentation/images/s041580.gif)
+![Figure 5: Individual Control Node—Routes Tab](images/s041580.gif)
 
 See [Table 5](monitoring-infrastructure-vnc.html#routes-tab-fields) for
 descriptions of the fields on the **Routes** tab screen.

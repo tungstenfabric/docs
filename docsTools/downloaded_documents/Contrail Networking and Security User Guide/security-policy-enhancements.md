@@ -453,16 +453,14 @@ them.
     selecting an application policy set. See
     [Figure 1](security-policy-enhancements.html#fw1).</span>
 
-    ![Figure 1: Firewall Policy
-    Wizard](documentation/images/s019913.png)
+    ![Figure 1: Firewall Policy Wizard](images/s019913.png)
 
 2.  <span id="jd0e444">Click the large + on the Firewall Policy Wizard
     screen to view the **Application Policy Sets** window. The existing
     application policy sets are displayed. See
     [Figure 2](security-policy-enhancements.html#fw2).</span>
 
-    ![Figure 2: Application Policy
-    Sets](documentation/images/s019914.png)
+    ![Figure 2: Application Policy Sets](images/s019914.png)
 
 3.  <span id="jd0e456">To create a new firewall policy, click the
     application policy set in the list to which the new firewall policy
@@ -472,15 +470,14 @@ them.
     [Figure 3](security-policy-enhancements.html#fw3), where the
     **HRPolicySet** has been selected.</span>
 
-    ![Figure 3: Edit Application Policy
-    Sets](documentation/images/s019915.png)
+    ![Figure 3: Edit Application Policy Sets](images/s019915.png)
 
 4.  <span id="jd0e471">To view all firewall policies, click the
     Application Policy Sets link in the left side.</span>
 
     See [Figure 4](security-policy-enhancements.html#fw4).
 
-    ![Figure 4: All Firewall Policies](documentation/images/s019916.png)
+    ![Figure 4: All Firewall Policies](images/s019916.png)
 
 5.  <span id="jd0e482">Select any listed firewall policy to view or edit
     the rules associated with that policy. See
@@ -489,7 +486,7 @@ them.
     each field to add or change policy rules, and use the +, - icons to
     the right of each rule to add or delete the rule.</span>
 
-    ![Figure 5: Firewall Policy Rules](documentation/images/s019917.png)
+    ![Figure 5: Firewall Policy Rules](images/s019917.png)
 
 ### Managing Policy Tags
 
@@ -505,7 +502,7 @@ for specific uses in specific projects.
     such as application, deployment, site, tier, and so on. See
     [Figure 6](security-policy-enhancements.html#fw6).</span>
 
-    ![Figure 6: Tags](documentation/images/s019918.png)
+    ![Figure 6: Tags](images/s019918.png)
 
 2.  <span id="jd0e516">You can click through any listed tag to see the
     rules to which the tag is applied. See
@@ -514,7 +511,7 @@ for specific uses in specific projects.
     You can also reach this page from **Configure &gt; Security &gt;
     Global Policies**.</span>
 
-    ![Figure 7: View Application Tags](documentation/images/s019919.png)
+    ![Figure 7: View Application Tags](images/s019919.png)
 
 ### Viewing Global Policies
 
@@ -529,7 +526,7 @@ groups policies.
     policies, see
     [Figure 8](security-policy-enhancements.html#fw8)</span>
 
-    ![Figure 8: Firewall Policies](documentation/images/s019920.png)
+    ![Figure 8: Firewall Policies](images/s019920.png)
 
 2.  <span id="jd0e550">To view and manage the service groups policies,
     from **Configure &gt; Security &gt; Global Policies**, click the
@@ -537,7 +534,7 @@ groups policies.
     service groups, see
     [Figure 9](security-policy-enhancements.html#fw9).</span>
 
-    ![Figure 9: Service Groups](documentation/images/s019921.png)
+    ![Figure 9: Service Groups](images/s019921.png)
 
 ### Visualizing Traffic Groups
 
@@ -550,43 +547,41 @@ represents traffic tagged with application, deployment, or project. The
 inner circle represents traffic tagged with tier. The center of the
 circle shows the traffic origination and destination.
 
-![Figure 10: Traffic Groups](documentation/images/s019922.png)
+![Figure 10: Traffic Groups](images/s019922.png)
 
 You can click in the right side of the screen to get details of the
 policy rules that have been matched by the selected traffic. See
 [Figure 11](security-policy-enhancements.html#fw11).
 
-![Figure 11: Traffic Groups, Policy
-Details](documentation/images/s019923.png)
+![Figure 11: Traffic Groups, Policy Details](images/s019923.png)
 
 You can click in the right side of the screen to get to the **Settings**
 window, where you can change the type of view and change which items
 appear in the visual representation. See
 [Figure 12](security-policy-enhancements.html#fw12).
 
-![Figure 12: Traffic Groups, Settings](documentation/images/s019924.png)
+![Figure 12: Traffic Groups, Settings](images/s019924.png)
 
 You can click on the name of a policy that has been matched to view the
 endpoint statistics, including source tags and remote tags, of the
 traffic currently represented in the visual. See
 [Figure 13](security-policy-enhancements.html#fw13).
 
-![Figure 13: Traffic Groups, Endpoint
-Statistics](documentation/images/s019925.png)
+![Figure 13: Traffic Groups, Endpoint Statistics](images/s019925.png)
 
 You can click deeper through any linked statistic to view more details
 about that statistic, see
 [Figure 15](security-policy-enhancements.html#fw15) and
 [Figure 15](security-policy-enhancements.html#fw15).
 
-![Figure 14: Traffic Groups, Details](documentation/images/s019926.png)
+![Figure 14: Traffic Groups, Details](images/s019926.png)
 
-![Figure 15: Traffic Groups, Details](documentation/images/s019927.png)
+![Figure 15: Traffic Groups, Details](images/s019927.png)
 
 You can change the settings of what statistics are displayed in each
 traffic group at the **Traffic Groups Settings** screen see
 [Figure 16](security-policy-enhancements.html#fw16).
 
-![Figure 16: Traffic Groups Settings](documentation/images/s019928.png)
+![Figure 16: Traffic Groups Settings](images/s019928.png)
 
  

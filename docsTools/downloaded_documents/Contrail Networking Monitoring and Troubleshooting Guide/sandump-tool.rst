@@ -345,8 +345,8 @@ macOS machines.
 
  
 
-.. |Figure 1: host file| image:: documentation/images/s009683.png
-.. |Figure 2: File debugging in Wireshark| image:: documentation/images/s060107.png
-.. |Figure 3: host file| image:: documentation/images/s009683.png
-.. |Figure 4: Wireshark—Preferences| image:: documentation/images/s060106.png
-.. |Figure 5: File debugging in Wireshark| image:: documentation/images/s060107.png
+.. |Figure 1: host file| image:: images/s009683.png
+.. |Figure 2: File debugging in Wireshark| image:: images/s060107.png
+.. |Figure 3: host file| image:: images/s009683.png
+.. |Figure 4: Wireshark—Preferences| image:: images/s060106.png
+.. |Figure 5: File debugging in Wireshark| image:: images/s060107.png

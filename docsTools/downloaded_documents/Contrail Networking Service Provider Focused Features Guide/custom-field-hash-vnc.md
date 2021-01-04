@@ -37,7 +37,7 @@ network upon which to hash at the **Configure &gt; Networking &gt;
 Network, Create Network** window, in the **ECMP Hashing Fields** section
 as shown in the following figure.
 
-![](documentation/images/S018553.png)
+![](images/S018553.png)
 
 If the hashing fields are configured for a virtual network, all traffic
 destined to that VN will be subject to the customized hash field
@@ -53,7 +53,7 @@ originating from that virtual machine interface would get the desired
 ECMP field selection applied as its path attribute, and eventually get
 propagated to the ingress vRouter node. See the following example.
 
-![](documentation/images/s018740.png)
+![](images/s018740.png)
 
 ## Using ECMP Hash Fields Selection
 

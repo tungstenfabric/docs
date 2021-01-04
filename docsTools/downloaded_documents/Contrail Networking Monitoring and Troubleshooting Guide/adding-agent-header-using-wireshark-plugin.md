@@ -41,8 +41,7 @@ header information in a packet:
     that the plugin is loaded in the **Plugins** section. See
     [Figure 1](adding-agent-header-using-wireshark-plugin.html#agent-hdr-plugin-loaded).</span>
 
-    ![Figure 1: The Plugin is Loaded in
-    Wireshark](documentation/images/s060265.png)
+    ![Figure 1: The Plugin is Loaded in Wireshark](images/s060265.png)
 
 4.  <span id="step-four">Pass the pcap file through editcap to add a
     custom encapsulation type for a packet:</span>
@@ -54,15 +53,13 @@ header information in a packet:
     Encapsulation Table**. See
     [Figure 2](adding-agent-header-using-wireshark-plugin.html#encapsulation-table).</span>
 
-    ![Figure 2: Edit Encapsulation
-    Table](documentation/images/s060266.png)
+    ![Figure 2: Edit Encapsulation Table](images/s060266.png)
 
 6.  <span id="jd0e115">In the **Edit Encapsulation Table**, add the
     `agent_hdr` as a payload protocol for the packet. See
     [Figure 3](adding-agent-header-using-wireshark-plugin.html#add-agent-hdr).</span>
 
-    ![Figure 3: Add Agent Header to a
-    Packet](documentation/images/s060267.png)
+    ![Figure 3: Add Agent Header to a Packet](images/s060267.png)
 
 7.  <span id="jd0e130">Using Wireshark, open the modified pcap file you
     generated in step
@@ -71,7 +68,7 @@ header information in a packet:
     [Figure 4](adding-agent-header-using-wireshark-plugin.html#modified-parsed-packets).</span>
 
     ![Figure 4: Packets Expanded Using the Wireshark
-    Plugin](documentation/images/s060268.png)
+    Plugin](images/s060268.png)
 
 Follow these steps to configure the Wireshark plugin in a Windows OS
 computer and dissect agent header information in a packet:

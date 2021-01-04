@@ -62,10 +62,10 @@ the gateway router fails. BGP hold time expires after 90 seconds as
 the destination is unreachable and the same is propagated to the control
 node, which recognizes that the gateway router has failed. This leads
 to a silent packet drop for 90 seconds until the routing table in
-the control node is updated and convergence achieved.</p><figure id="gateway-failure"><figcaption>Figure 1: Tunnel Endpoint failure: SDN Gateway</figcaption><div class="graphic"><img alt="Tunnel Endpoint failure: SDN Gateway" src="documentation/images/g301196.png" style=""/></div></figure><p><a href="fast-routing-convergence.html#vrouter-failure">Figure 2</a> shows a scenario where
+the control node is updated and convergence achieved.</p><figure id="gateway-failure"><figcaption>Figure 1: Tunnel Endpoint failure: SDN Gateway</figcaption><div class="graphic"><img alt="Tunnel Endpoint failure: SDN Gateway" src="images/g301196.png" style=""/></div></figure><p><a href="fast-routing-convergence.html#vrouter-failure">Figure 2</a> shows a scenario where
 the vRouter fails. The control node comes to know about the vRouter
 failure only after 15 seconds when the XMPP hold time expires. Traffic
-is dropped during these 15 seconds until convergence is achieved.</p><figure id="vrouter-failure"><figcaption>Figure 2: Tunnel Endpoint Failure: vRouter</figcaption></figure><div class="graphic"><img alt="" src="documentation/images/g301197.png" style=""/></div><p><span id="jd0e60">Starting with Release
+is dropped during these 15 seconds until convergence is achieved.</p><figure id="vrouter-failure"><figcaption>Figure 2: Tunnel Endpoint Failure: vRouter</figcaption></figure><div class="graphic"><img alt="" src="images/g301197.png" style=""/></div><p><span id="jd0e60">Starting with Release
 2008, Contrail Networking supports fast convergence.</span> The fast convergence feature reduces the convergence time in case
 of an overlay end point failure. The Contrail control plane responds
 to the changes in the underlay network and then takes action to achieve
@@ -90,7 +90,7 @@ achieves fast convergence by using the destination reachability information
 that the spine gathers through BFD or link down protocols, and by
 using the XMPP timeout information sent to the control node to detect
 a failure in the vRouter. </p><figure id="fast-convergence"><figcaption>Figure 3: Fast Convergence in a Contrail-managed
-Network</figcaption></figure><div class="graphic"><img alt="" src="documentation/images/g301198.png" style=""/></div><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e60">2008</a></div><div class="table-cell">Starting with Release
+Network</figcaption></figure><div class="graphic"><img alt="" src="images/g301198.png" style=""/></div><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e60">2008</a></div><div class="table-cell">Starting with Release
 2008, Contrail Networking supports fast convergence.</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e63">2008</a></div><div class="table-cell">To achieve fast convergence in case of a southbound
 failure (vRouter failure), you can set the XMPP hold time to a value
 as low as one (1) second. Whenever the XMPP hold time expires, the

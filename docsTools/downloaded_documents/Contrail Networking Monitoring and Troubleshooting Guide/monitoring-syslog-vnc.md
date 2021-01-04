@@ -22,7 +22,7 @@ to view object logs activity, and **Query Queue** to create custom
 queries of log activity; see
 [Figure 1](monitoring-syslog-vnc.html#query-syslog-menu).
 
-![Figure 1: Query &gt; Logs](documentation/images/s041893.gif)
+![Figure 1: Query &gt; Logs](images/s041893.gif)
 
 ## Query &gt; Logs &gt; System Logs
 
@@ -30,8 +30,7 @@ Click **Query &gt; Logs &gt; System Logs** to access the **Query System
 Logs** menu, where you can view system logs according to criteria that
 you determine. See [Figure 2](monitoring-syslog-vnc.html#query-syslog).
 
-![Figure 2: Query &gt; Logs &gt; System
-Logs](documentation/images/s041894.gif)
+![Figure 2: Query &gt; Logs &gt; System Logs](images/s041894.gif)
 
 The query fields available on the **Query System Logs** screen are
 described in [Table 1](monitoring-syslog-vnc.html#syslog-table).
@@ -104,7 +103,7 @@ filtered by **Level** `= SYS_DEBUG`.
     Clause** section and click **OK**; see
     [Figure 3](monitoring-syslog-vnc.html#sample-query).</span>
 
-    ![Figure 3: Edit Where Clause](documentation/images/s041895.gif)
+    ![Figure 3: Edit Where Clause](images/s041895.gif)
 
 2.  <span id="jd0e245">The information you defined at the Where screen
     displays on the **Query System Logs**. Enter any more defining
@@ -112,8 +111,7 @@ filtered by **Level** `= SYS_DEBUG`.
     [Figure 4](monitoring-syslog-vnc.html#sample-query2). When finished,
     click **Run Query** to display the results.</span>
 
-    ![Figure 4: Sample Query System
-    Logs](documentation/images/s041896.gif)
+    ![Figure 4: Sample Query System Logs](images/s041896.gif)
 
 ## Query &gt; Logs &gt; Object Logs
 
@@ -123,8 +121,7 @@ logs record information related to modifications made to objects,
 including creation, deletion, and other modifications; see
 [Figure 5](monitoring-syslog-vnc.html#object-tab).
 
-![Figure 5: Query &gt; Logs &gt; Object
-Logs](documentation/images/s041897.gif)
+![Figure 5: Query &gt; Logs &gt; Object Logs](images/s041897.gif)
 
 The query fields available on the **Object Logs** screen are described
 in [Table 2](monitoring-syslog-vnc.html#objects-table).

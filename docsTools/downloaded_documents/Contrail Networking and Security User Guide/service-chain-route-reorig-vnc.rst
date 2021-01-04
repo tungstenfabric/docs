@@ -813,25 +813,25 @@ the static route. See the following example.
 
  
 
-.. |Figure 1: Route Reorigination| image:: documentation/images/S018557.png
-.. |Figure 2: Route Aggregate Relationships| image:: documentation/images/s018718.png
-.. |Figure 3: Create Route Aggregate| image:: documentation/images/s018719.png
-.. |Figure 4: Create Service Instance| image:: documentation/images/s018720.png
-.. |image1| image:: documentation/images/s018721.png
-.. |image2| image:: documentation/images/s018722.png
-.. |image3| image:: documentation/images/s018723.png
-.. |image4| image:: documentation/images/s018724.png
-.. |image5| image:: documentation/images/s018725.png
-.. |image6| image:: documentation/images/s018726.png
-.. |image7| image:: documentation/images/s018728.png
-.. |image8| image:: documentation/images/s018729.png
-.. |image9| image:: documentation/images/s018730.png
-.. |image10| image:: documentation/images/s018731.png
-.. |image11| image:: documentation/images/s018732.png
-.. |image12| image:: documentation/images/s018745.png
-.. |image13| image:: documentation/images/s018733.png
-.. |image14| image:: documentation/images/s018734.png
-.. |image15| image:: documentation/images/s018735.png
-.. |image16| image:: documentation/images/s018736.png
-.. |image17| image:: documentation/images/s018737.png
-.. |image18| image:: documentation/images/s018738.png
+.. |Figure 1: Route Reorigination| image:: images/S018557.png
+.. |Figure 2: Route Aggregate Relationships| image:: images/s018718.png
+.. |Figure 3: Create Route Aggregate| image:: images/s018719.png
+.. |Figure 4: Create Service Instance| image:: images/s018720.png
+.. |image1| image:: images/s018721.png
+.. |image2| image:: images/s018722.png
+.. |image3| image:: images/s018723.png
+.. |image4| image:: images/s018724.png
+.. |image5| image:: images/s018725.png
+.. |image6| image:: images/s018726.png
+.. |image7| image:: images/s018728.png
+.. |image8| image:: images/s018729.png
+.. |image9| image:: images/s018730.png
+.. |image10| image:: images/s018731.png
+.. |image11| image:: images/s018732.png
+.. |image12| image:: images/s018745.png
+.. |image13| image:: images/s018733.png
+.. |image14| image:: images/s018734.png
+.. |image15| image:: images/s018735.png
+.. |image16| image:: images/s018736.png
+.. |image17| image:: images/s018737.png
+.. |image18| image:: images/s018738.png

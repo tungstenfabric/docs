@@ -66,8 +66,7 @@ node page using the Contrail Web user interface.
 the contrail-control infrastructure page. Notice the Introspect link at
 the bottom of the Control Nodes Details tab window.
 
-![Figure 1: Control Nodes Details Tab
-Window](documentation/images/s042485.png)
+![Figure 1: Control Nodes Details Tab Window](images/s042485.png)
 
 The following are the Sandesh modules for the Contrail control process
 (contrail-control) Introspect port.
@@ -101,19 +100,17 @@ The following are the Sandesh modules for the Contrail control process
 [Figure 2](introspect-process-debugging.html#cont-intro-win) shows the
 Controller Introspect window.
 
-![Figure 2: Controller Introspect
-Window](documentation/images/s042488.png)
+![Figure 2: Controller Introspect Window](images/s042488.png)
 
 [Figure 3](introspect-process-debugging.html#bgp-peer-neigh-sum) shows
 an example of the BGP Peer (bgp\_peer.xml) Introspect page.
 
-![Figure 3: BGP Peer Introspect Page](documentation/images/s042486.png)
+![Figure 3: BGP Peer Introspect Page](images/s042486.png)
 
 [Figure 4](introspect-process-debugging.html#bgp-neigh-sum) shows an
 example of the BGP Neighbor Summary Introspect page.
 
-![Figure 4: BGP Neighbor Summary Introspect
-Page](documentation/images/s042487.png)
+![Figure 4: BGP Neighbor Summary Introspect Page](images/s042487.png)
 
 The following are the Sandesh modules for the Contrail vRouter agent
 (`contrail-vrouter-agent`) Introspect port.
@@ -159,6 +156,6 @@ The following are the Sandesh modules for the Contrail vRouter agent
 [Figure 5](introspect-process-debugging.html#agent-introspect) shows an
 example of the Agent (agent.xml) Introspect page.
 
-![Figure 5: Agent Introspect Page](documentation/images/s042489.png)
+![Figure 5: Agent Introspect Page](images/s042489.png)
 
  

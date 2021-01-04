@@ -150,17 +150,16 @@ To configure the global VXLAN identifier mode:
     The Global Config options and values are displayed in the Global
     Config window.
 
-    ![Figure 1: Global Config Window for VXLAN
-    ID](documentation/images/s018533.png)
+    ![Figure 1: Global Config Window for VXLAN ID](images/s018533.png)
 
 2.  <span id="jd0e177">Click the edit icon <span
-    class="graphic">![](documentation/images/s018510.png)</span>.</span>
+    class="graphic">![](images/s018510.png)</span>.</span>
 
     The Edit Global Config window is displayed as shown in
     [Figure 2](evpn-vxlan-configuring.html#edit-global-config-vxmode).
 
     ![Figure 2: Edit Global Config Window for VXLAN Identifier
-    Mode](documentation/images/s018508.png)
+    Mode](images/s018508.png)
 
 3.  <div id="jd0e190">
 
@@ -199,13 +198,13 @@ To change the forwarding mode:
     change the forwarding mode for.</span>
 
 3.  <span id="jd0e251">Click the gear icon <span
-    class="graphic">![](documentation/images/s018509.png)</span> and
-    select **Edit**.</span>
+    class="graphic">![](images/s018509.png)</span> and select
+    **Edit**.</span>
 
     The Edit Network window is displayed as shown in
     [Figure 3](evpn-vxlan-configuring.html#edit-network-window).
 
-    ![Figure 3: Edit Network Window](documentation/images/s042518.png)
+    ![Figure 3: Edit Network Window](images/s042518.png)
 
     Under the Advanced Options select the forwarding mode from the
     following choices:
@@ -273,15 +272,15 @@ To configure the global VXLAN identifier:
     change the forwarding mode for.</span>
 
 3.  <span id="jd0e368">Click the gear icon <span
-    class="graphic">![](documentation/images/s018509.png)</span> and
-    select **Edit**.</span>
+    class="graphic">![](images/s018509.png)</span> and select
+    **Edit**.</span>
 
     The Edit Network window is displayed. Select the **Advanced
     Options** as shown in
     [Figure 4](evpn-vxlan-configuring.html#edit-global-config-vxid).
 
     ![Figure 4: Edit Network Window for VXLAN
-    Identifier](documentation/images/s018534.png)
+    Identifier](images/s018534.png)
 
 4.  <span id="jd0e387">Type the VXLAN identifier.</span>
 
@@ -318,13 +317,13 @@ To configure the global VXLAN identifier mode:
 -   The Global Config options are displayed.
 
 -   Click the edit icon <span
-    class="graphic">![](documentation/images/s018510.png)</span>.
+    class="graphic">![](images/s018510.png)</span>.
 
 The Edit Global Config window is displayed as shown in
 [Figure 5](evpn-vxlan-configuring.html#edit-global-config-encapriority).
 
 ![Figure 5: Edit Global Config Window for Encapsulation Priority
-Order](documentation/images/s018508.png)
+Order](images/s018508.png)
 
 Under Encapsulation Priority Order select one of the following:
 

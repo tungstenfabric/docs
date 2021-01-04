@@ -278,8 +278,8 @@ Table 4: Query Flow Records Fields
 
  
 
-.. |Figure 1: Query Flow Series Window| image:: documentation/images/s008307.PNG
-.. |Figure 2: Flow Series Select Terms| image:: documentation/images/s008305.PNG
-.. |Figure 3: Flows Series Filter| image:: documentation/images/s008306.PNG
-.. |Figure 4: Flows Records| image:: documentation/images/s008308.PNG
-.. |Figure 5: Flows Records Select Terms| image:: documentation/images/s008337.png
+.. |Figure 1: Query Flow Series Window| image:: images/s008307.PNG
+.. |Figure 2: Flow Series Select Terms| image:: images/s008305.PNG
+.. |Figure 3: Flows Series Filter| image:: images/s008306.PNG
+.. |Figure 4: Flows Records| image:: images/s008308.PNG
+.. |Figure 5: Flows Records Select Terms| image:: images/s008337.png

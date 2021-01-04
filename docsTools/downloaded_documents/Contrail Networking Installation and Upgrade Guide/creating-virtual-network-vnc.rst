@@ -57,7 +57,7 @@ when using OpenStack.
 
  
 
-.. |Figure 1: Networks Page| image:: documentation/images/s008528.png
-.. |Figure 2: Create Networks| image:: documentation/images/s008529.png
-.. |Figure 3: Subnet and Gateway Details| image:: documentation/images/s008530.png
-.. |Figure 4: Additional Subnet Attributes| image:: documentation/images/s008531.png
+.. |Figure 1: Networks Page| image:: images/s008528.png
+.. |Figure 2: Create Networks| image:: images/s008529.png
+.. |Figure 3: Subnet and Gateway Details| image:: images/s008530.png
+.. |Figure 4: Additional Subnet Attributes| image:: images/s008531.png

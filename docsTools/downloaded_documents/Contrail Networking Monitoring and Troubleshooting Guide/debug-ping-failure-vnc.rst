@@ -172,15 +172,15 @@ be taken into account while debugging.
 
  
 
-.. |Figure 1: Virtual Machine Status Window| image:: documentation/images/s041980.gif
-.. |Figure 2: Tap Interface Status Window| image:: documentation/images/s041981.gif
-.. |Figure 3: Policies, Attachments, and Traffic Rule Status Window| image:: documentation/images/s041982.gif
-.. |Figure 4: Virtual Network Policy Configuration Window| image:: documentation/images/s041983.gif
-.. |Figure 5: Virtual Network Route Information Window| image:: documentation/images/s041984.gif
-.. |Figure 6: Flow and Dropstats Command List| image:: documentation/images/s041985.gif
-.. |Figure 7: Flow Command Output Window| image:: documentation/images/S041986.gif
-.. |Figure 8: Fetch Flow Record Window| image:: documentation/images/S041987.gif
-.. |Figure 9: Unresolved IP Address Window| image:: documentation/images/S041988.gif
-.. |Figure 10: Unresolved Flow Details Window| image:: documentation/images/S041989.gif
-.. |Figure 11: Protocol-Specific Flow Sample| image:: documentation/images/S041991.gif
-.. |Figure 12: Protocol-Specific Flow Sample With Deny Action| image:: documentation/images/S041992.gif
+.. |Figure 1: Virtual Machine Status Window| image:: images/s041980.gif
+.. |Figure 2: Tap Interface Status Window| image:: images/s041981.gif
+.. |Figure 3: Policies, Attachments, and Traffic Rule Status Window| image:: images/s041982.gif
+.. |Figure 4: Virtual Network Policy Configuration Window| image:: images/s041983.gif
+.. |Figure 5: Virtual Network Route Information Window| image:: images/s041984.gif
+.. |Figure 6: Flow and Dropstats Command List| image:: images/s041985.gif
+.. |Figure 7: Flow Command Output Window| image:: images/S041986.gif
+.. |Figure 8: Fetch Flow Record Window| image:: images/S041987.gif
+.. |Figure 9: Unresolved IP Address Window| image:: images/S041988.gif
+.. |Figure 10: Unresolved Flow Details Window| image:: images/S041989.gif
+.. |Figure 11: Protocol-Specific Flow Sample| image:: images/S041991.gif
+.. |Figure 12: Protocol-Specific Flow Sample With Deny Action| image:: images/S041992.gif

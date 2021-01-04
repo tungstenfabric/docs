@@ -221,13 +221,13 @@ compatible environment and load it on an active vRO instance.
 
  
 
-.. |Figure 1: vCenter SSO service page| image:: documentation/images/s007052.png
-.. |Figure 2: Orchestrator Control Center| image:: documentation/images/s007053.png
-.. |Figure 3: Manage Plug-Ins page| image:: documentation/images/s007054.png
-.. |Figure 4: EULA page| image:: documentation/images/s007055.png
-.. |Figure 5: Getting Started with vRealize Orchestrator| image:: documentation/images/s007056.png
-.. |Figure 6: VMware vRealize Orchestrator Login page| image:: documentation/images/s007057.png
-.. |Figure 7: Workflow Library| image:: documentation/images/s007058.png
-.. |Figure 8: Controller Tab| image:: documentation/images/s007059.png
-.. |Figure 9: Credentials Tab| image:: documentation/images/s007060.png
-.. |Figure 10: Tenant Tab| image:: documentation/images/s007061.png
+.. |Figure 1: vCenter SSO service page| image:: images/s007052.png
+.. |Figure 2: Orchestrator Control Center| image:: images/s007053.png
+.. |Figure 3: Manage Plug-Ins page| image:: images/s007054.png
+.. |Figure 4: EULA page| image:: images/s007055.png
+.. |Figure 5: Getting Started with vRealize Orchestrator| image:: images/s007056.png
+.. |Figure 6: VMware vRealize Orchestrator Login page| image:: images/s007057.png
+.. |Figure 7: Workflow Library| image:: images/s007058.png
+.. |Figure 8: Controller Tab| image:: images/s007059.png
+.. |Figure 9: Credentials Tab| image:: images/s007060.png
+.. |Figure 10: Tenant Tab| image:: images/s007061.png

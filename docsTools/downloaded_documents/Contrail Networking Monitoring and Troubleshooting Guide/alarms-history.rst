@@ -55,6 +55,6 @@ view, see `Figure 3 <alarms-history.html#ah3>`__.
 
  
 
-.. |Figure 1: Alarms History Page| image:: documentation/images/s019896.png
-.. |Figure 2: Events Log Tooltip| image:: documentation/images/s019897.png
-.. |Figure 3: Detailed Event Log| image:: documentation/images/s019898.png
+.. |Figure 1: Alarms History Page| image:: images/s019896.png
+.. |Figure 2: Events Log Tooltip| image:: images/s019897.png
+.. |Figure 3: Detailed Event Log| image:: images/s019898.png

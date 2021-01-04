@@ -68,7 +68,7 @@ provisioning of a nested Contrail-OpenShift cluster.
     communicate with OpenShift networks provided in the OpenShift
     inventory file.
 
-    ![](documentation/images/s008143.PNG)
+    ![](images/s008143.PNG)
 
 <span class="kbd user-typing" v-pre="">Provisioning Nested OpenShift
 Cluster</span>

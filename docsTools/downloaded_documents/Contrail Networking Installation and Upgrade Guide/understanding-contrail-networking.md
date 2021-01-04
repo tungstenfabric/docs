@@ -52,7 +52,6 @@ like Apache Kafka and its API.
 Contrail Networking also provides a Graphical User Interface (GUI).This
 GUI is built entirely using the REST APIs.
 
-![Figure 1: Contrail Networking
-Architecture](documentation/images/g300457.png)
+![Figure 1: Contrail Networking Architecture](images/g300457.png)
 
  

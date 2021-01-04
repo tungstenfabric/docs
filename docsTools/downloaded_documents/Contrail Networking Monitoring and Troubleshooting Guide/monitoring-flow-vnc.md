@@ -14,7 +14,7 @@ Select **Query &gt; Flows &gt; Flow Series** to create queries of the
 flow series table. The results are in the form of time series data for
 flow series. See [Figure 1](monitoring-flow-vnc.html#flow-query).
 
-![Figure 1: Query Flow Series Window](documentation/images/s041598.gif)
+![Figure 1: Query Flow Series Window](images/s041598.gif)
 
 The query fields available on the screen for the **Flow Series** tab are
 described in [Table 1](monitoring-flow-vnc.html#flow-table). Enter query
@@ -87,14 +87,14 @@ you select units. Select **Time Granularity** and then select
 **SUM(Bytes)** or **SUM(Packets)** to aggregate bytes and packets in
 intervals.
 
-![Figure 2: Flow Series Select](documentation/images/s041600.gif)
+![Figure 2: Flow Series Select](images/s041600.gif)
 
 Use the **Filter** window to refine the display of query results for
 flows, by defining an attribute by which to sort the results, the sort
 order of the results, and any limit needed to restrict the number of
 results. See [Figure 3](monitoring-flow-vnc.html#filter-flow).
 
-![Figure 3: Flow Series Filter](documentation/images/s041599.gif)
+![Figure 3: Flow Series Filter](images/s041599.gif)
 
 ## Example: Query Flow Series
 
@@ -104,8 +104,7 @@ VN and destination VN for the last 10 minutes, with the bytes aggregated
 in 10 second intervals. See
 [Figure 4](monitoring-flow-vnc.html#flow-series-example).
 
-![Figure 4: Example: Query Flow
-Series](documentation/images/s041604.gif)
+![Figure 4: Example: Query Flow Series](images/s041604.gif)
 
 The query returns tabular time series data, see
 [Figure 5](monitoring-flow-vnc.html#series-tabular), for the following
@@ -117,16 +116,14 @@ combinations of Source VN and Dest VN:
 2.  Flow Class 2: Source VN = default-domain:demo:front-end, Dest
     VN=default-domain:demo:back-end
 
-![Figure 5: Query Flow Series Tabular
-Results](documentation/images/s041605.gif)
+![Figure 5: Query Flow Series Tabular Results](images/s041605.gif)
 
 Because **Time Granularity** is selected, the results can also be
 displayed as graphical charts. Click the graph button on the right side
 of the tabular results. The results are displayed in a graphical flow
 chart. See [Figure 6](monitoring-flow-vnc.html#series-graphical).
 
-![Figure 6: Query Flow Series Graphical
-Results](documentation/images/s041611.gif)
+![Figure 6: Query Flow Series Graphical Results](images/s041611.gif)
 
 ## Query &gt; Flow Records
 
@@ -135,7 +132,7 @@ records for detailed debugging of connectivity issues between
 applications and virtual machines. Queries at this level return records
 of the active flows within a given time period.
 
-![Figure 7: Flow Records](documentation/images/s041601.gif)
+![Figure 7: Flow Records](images/s041601.gif)
 
 The query fields available on the screen for the **Flow Records** tab
 are described in
@@ -197,8 +194,7 @@ The **Select** window allows you to select one or more attributes to
 display for the flow records selected, see
 [Figure 8](monitoring-flow-vnc.html#select-flow-records).
 
-![Figure 8: Flow Records Select
-Window](documentation/images/s041602.gif)
+![Figure 8: Flow Records Select Window](images/s041602.gif)
 
 You can restrict the query to a particular source VN and destination VN
 combination using the **Where** section.
@@ -209,7 +205,7 @@ AND term2 AND term3..) OR (term4 AND term5) OR…).
 
 Each term is a single variable expression such as **Source VN = VN1**.
 
-![Figure 9: Where Clause Window](documentation/images/s041608.gif)
+![Figure 9: Where Clause Window](images/s041608.gif)
 
 ## Query &gt; Flows &gt; Query Queue
 
@@ -217,7 +213,7 @@ Select **Query &gt; Flows &gt; Query Queue** to display queries that are
 in the queue waiting to be performed on the data. See
 [Figure 10](monitoring-flow-vnc.html#flows-queue).
 
-![Figure 10: Flows Query Queue](documentation/images/s041592.gif)
+![Figure 10: Flows Query Queue](images/s041592.gif)
 
 The query fields available on the screen for the **Flow Records** tab
 are described in [Table 3](monitoring-flow-vnc.html#flow-records-table).

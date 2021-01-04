@@ -20,7 +20,7 @@ through the standard switch port group that is used for management and
 control data, see
 [Figure 1](vcenter-as-orchestrator-deployment-scenarios-501.html#stdswitch).
 
-![Figure 1: Standard Switch Setup](documentation/images/g300460.png)
+![Figure 1: Standard Switch Setup](images/g300460.png)
 
 To set up the ContrailVM in this mode, the standard switch and port
 group must be configured in `vcenter_vars.yml`.
@@ -76,7 +76,7 @@ The ContrailVM can be configured to use the management and control\_data
 NICs from DVS. When the DVS configuration is specified, the standard
 switch configuration is ignored.
 
-![Figure 2: Distributed Switch Setup](documentation/images/g300461.png)
+![Figure 2: Distributed Switch Setup](images/g300461.png)
 
 To set up the ContrailVM in this mode, configure the distributed switch,
 port group, number of ports in the port group, and the uplink in the
@@ -136,7 +136,7 @@ data.
 shows a PCI pass-through setup with a single `control_data` interface.
 
 ![Figure 3: PCI Pass-Through with Single Control Data
-Interface](documentation/images/g300462.png)
+Interface](images/g300462.png)
 
 When setting up the ContrailVM with pass-through interfaces, upon
 provisioning ESXi hosts in the installation process, the PCI
@@ -173,7 +173,7 @@ shows a PCI pass-through setup with a bond\_control data interface,
 which has multiple pass-through NICs.
 
 ![Figure 4: PCI Pass-Through Setup with Bond Control
-Interface](documentation/images/g300463.png)
+Interface](images/g300463.png)
 
 Update the ContrailVM section in `vcenter_vars.yml` with `pci_devices`
 as shown in the following example:
@@ -212,7 +212,7 @@ In the SR-IOV setup, the ContrailVM is provided management and control
 data interfaces. SR-IOV interfaces are used for control data. See
 [Figure 5](vcenter-as-orchestrator-deployment-scenarios-501.html#sriov).
 
-![Figure 5: SR-IOV Setup](documentation/images/g300464.png)
+![Figure 5: SR-IOV Setup](images/g300464.png)
 
 In VMware, the `port-group` is mandatory for SR-IOV interfaces because
 the ability to configure the networks is based on the active policies
@@ -233,7 +233,7 @@ interfaces are exposed as Ethernet interfaces in the ContrailVM.
 shows a SR-IOV setup with a single `control_data` interface.
 
 ![Figure 6: SR-IOV With Single Control Data
-Interface](documentation/images/g300464.png)
+Interface](images/g300464.png)
 
 <div id="jd0e195" class="sample" dir="ltr">
 
@@ -294,8 +294,7 @@ The server configuration:
 shows an SR-IOV configuration with a bond `control_data` interface,
 which has multiple SR-IOV NICs.
 
-![Figure 7: SR-IOV With Bond Control Data
-Interface](documentation/images/g300465.png)
+![Figure 7: SR-IOV With Bond Control Data Interface](images/g300465.png)
 
 For Bond interface-configuration specify multiple NICs in <span
 class="cli" v-pre="">sr\_iov\_nics</span>, and add required

@@ -19,7 +19,7 @@ Select **Monitor &gt; Infrastructure &gt; Config Nodes** to view a
 summary of activities for the analytics nodes. See
 [Figure 1](monitor-config-vnc.html#config-nodes-summary).
 
-![Figure 1: Config Nodes Summary](documentation/images/s041557.gif)
+![Figure 1: Config Nodes Summary](images/s041557.gif)
 
 [Table 1](monitor-config-vnc.html#config-nodes-summary-fields) describes
 the fields in the Config Nodes summary.
@@ -41,8 +41,7 @@ Click the name of any config node displayed on the config nodes summary
 to view the **Details** tab for that node; see
 [Figure 2](monitor-config-vnc.html#config-nodes-details).
 
-![Figure 2: Individual Config Nodes— Details
-Tab](documentation/images/s041558.gif)
+![Figure 2: Individual Config Nodes— Details Tab](images/s041558.gif)
 
 [Table 2](monitor-config-vnc.html#config-nodes-details-fields) describes
 the fields on the Details screen.
@@ -66,8 +65,7 @@ Click the **Console** tab for an individual config node to display
 system logging information for a defined time period. See
 [Figure 3](monitor-config-vnc.html#config-nodes-console).
 
-![Figure 3: Individual Config Node—Console
-Tab](documentation/images/s041565.gif)
+![Figure 3: Individual Config Node—Console Tab](images/s041565.gif)
 
 See [Table 3](monitor-config-vnc.html#config-nodes-console-tab-fields)
 for descriptions of the fields on the **Console** tab screen.

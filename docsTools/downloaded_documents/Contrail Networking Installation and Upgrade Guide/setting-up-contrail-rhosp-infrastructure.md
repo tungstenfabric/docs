@@ -36,14 +36,14 @@ interfaces attach to separate virtual bridges within the VM, allowing
 for two physically separate networks (external and provisioning
 networks).
 
-![Figure 1: Physical View](documentation/images/g200475.png)
+![Figure 1: Physical View](images/g200475.png)
 
 [Figure 2](setting-up-contrail-rhosp-infrastructure.html#LogicalView-379F67C3)
 shows the logical view of the connectivity where VLANs are used to
 provide further network separation for the different OpenStack network
 types.
 
-![Figure 2: Logical View](documentation/images/g200476.png)
+![Figure 2: Logical View](images/g200476.png)
 
 The following sections describe how to configure the infrastructure, the
 undercloud, and finally the overcloud.

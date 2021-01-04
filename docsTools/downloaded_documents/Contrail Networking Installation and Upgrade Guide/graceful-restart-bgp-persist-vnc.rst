@@ -302,5 +302,5 @@ timers from this window.
 
  
 
-.. |Figure 1: Global Config System Configuration Screen| image:: documentation/images/s060275.png
-.. |Figure 2: Edit System Configuration Window| image:: documentation/images/s060276.png
+.. |Figure 1: Global Config System Configuration Screen| image:: images/s060275.png
+.. |Figure 2: Edit System Configuration Window| image:: images/s060276.png

@@ -18,7 +18,7 @@ routing table for the Left VN, with the next hop modified to ensure that
 the traffic is sent by means of the left interface of the service chain.
 This is an example of route reorigination.
 
-![Figure 1: Route Reorigination](documentation/images/S018557.png)
+![Figure 1: Route Reorigination](images/S018557.png)
 
 Using reorigination of routes for service chaining (for example, putting
 the route for the right network in the left routing table) requires the
@@ -85,8 +85,7 @@ instance and to the right interface of the right-most service instance.
 The relationships are shown in
 [Figure 2](service-chain-route-reorig-vnc.html#rr2).
 
-![Figure 2: Route Aggregate
-Relationships](documentation/images/s018718.png)
+![Figure 2: Route Aggregate Relationships](images/s018718.png)
 
 The schema transformer sets the next-hop field of the route aggregate
 object to the service chain interface address. The schema transformer
@@ -214,7 +213,7 @@ You can use the Contrail UI, **Configure &gt; Networking &gt; Routing
 object and identify the routes to aggregate. See
 [Figure 3](service-chain-route-reorig-vnc.html#rr3).
 
-![Figure 3: Create Route Aggregate](documentation/images/s018719.png)
+![Figure 3: Create Route Aggregate](images/s018719.png)
 
 ##### Example VNC Script to Create a Route Aggregate Object
 
@@ -243,7 +242,7 @@ Create a service instance with the route aggregate object linked to the
 aggregate left network subnet prefix in the right virtual network. See
 the example in [Figure 4](service-chain-route-reorig-vnc.html#si1).
 
-![Figure 4: Create Service Instance](documentation/images/s018720.png)
+![Figure 4: Create Service Instance](images/s018720.png)
 
 #### Create a Virtual Network and Network Policy
 
@@ -251,12 +250,12 @@ Create a left and right virtual network with the subnets 1.1.1/24 and
 2.2.2/24, respectively. Create a network policy to apply a service chain
 between the left VN and the right VN. See the following example.
 
-![](documentation/images/s018721.png)
+![](images/s018721.png)
 
 Attach the network policy to create the service chain between the left
 and right VNs. See the following example.
 
-![](documentation/images/s018722.png)
+![](images/s018722.png)
 
 #### Validate the Route Aggregate Object in the API Server
 
@@ -266,7 +265,7 @@ reference for the aggregate object. The `aggregate_route_nexthop` field
 in the route aggregate object is initialized by the schema transformer
 to the service chain address. See the following example.
 
-![](documentation/images/s018723.png)
+![](images/s018723.png)
 
 #### Validate the Route Aggregate Object in the Control Node
 
@@ -278,7 +277,7 @@ instance. For example:
 
 See the following example.
 
-![](documentation/images/s018724.png)
+![](images/s018724.png)
 
 To check the state of the route aggregate object on the control node,
 point your browser to:
@@ -287,7 +286,7 @@ point your browser to:
 
 See the following example.
 
-![](documentation/images/s018725.png)
+![](images/s018725.png)
 
 You can also check the route table for the aggregate route in the right
 VN BGP table. For example:
@@ -296,7 +295,7 @@ VN BGP table. For example:
 
 See the following example.
 
-![](documentation/images/s018726.png)
+![](images/s018726.png)
 
 ## Routing Policy
 
@@ -518,7 +517,7 @@ VN, for routes belonging to the left VN.
 
 The following figure illustrates a routing policy configuration.
 
-![](documentation/images/s018728.png)
+![](images/s018728.png)
 
 The policy sequence number specified in the routing policy link data
 determines the order in which the routing policy is evaluated. The
@@ -558,7 +557,7 @@ how to validate the policy.
 First, create the routing policy, **Configure &gt; Networking &gt;
 Routing &gt; Create &gt;Routing Policy**. See the following example.
 
-![](documentation/images/s018729.png)
+![](images/s018729.png)
 
 **Note**
 
@@ -572,14 +571,14 @@ Create a service instance and attach the routing policy to both the left
 and right interfaces. The order of the policy is calculated by the UI,
 based on the order of the policy specified in the list.
 
-![](documentation/images/s018730.png)
+![](images/s018730.png)
 
 #### Configure the Network Policy for the Service Chain
 
 At **Edit Policy**, create a policy for the service chain, see the
 following example.
 
-![](documentation/images/s018731.png)
+![](images/s018731.png)
 
 ### Using a VNC Script to Create Routing Policy
 
@@ -622,7 +621,7 @@ You can verify the service instance references and the routing instance
 references for the routing policy by looking in the API server
 configuration database. See the following example.
 
-![](documentation/images/s018732.png)
+![](images/s018732.png)
 
 ### Verify Routing Policy in the Control Node
 
@@ -634,7 +633,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018745.png)
+![](images/s018745.png)
 
 ### Verify Routing Policy Configuration in the Control Node
 
@@ -646,7 +645,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018733.png)
+![](images/s018733.png)
 
 ### Verify Routing Policy Configuration on the Routing Instance
 
@@ -659,7 +658,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018734.png)
+![](images/s018734.png)
 
 You can also verify the routing policy on the routing instance
 operational object.
@@ -670,7 +669,7 @@ Point your browser to:
 
 See the following example.
 
-![](documentation/images/s018735.png)
+![](images/s018735.png)
 
 ## Control for Route Reorigination
 
@@ -694,7 +693,7 @@ with a well-known BGP community called `no-reoriginate`.
 When the control node is reoriginating the route, it skips the routes
 that are tagged with the BGP community.
 
-![](documentation/images/s018736.png)
+![](images/s018736.png)
 
 ### Configuring and Troubleshooting Reorigination Control
 
@@ -702,12 +701,12 @@ The community attribute on the static routes for the interface static
 route of the service instance is specified during creation of the
 service instance. See the following example.
 
-![](documentation/images/s018737.png)
+![](images/s018737.png)
 
 Use the following example to verify that the service instance
 configuration object in the API server has the correct community set for
 the static route. See the following example.
 
-![](documentation/images/s018738.png)
+![](images/s018738.png)
 
  

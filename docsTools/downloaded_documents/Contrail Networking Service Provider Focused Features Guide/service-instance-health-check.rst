@@ -363,4 +363,4 @@ routes only when the connected routes of all the SIs are up.
 
  
 
-.. |Figure 1: Create Health Check Screen| image:: documentation/images/s018766.png
+.. |Figure 1: Create Health Check Screen| image:: images/s018766.png

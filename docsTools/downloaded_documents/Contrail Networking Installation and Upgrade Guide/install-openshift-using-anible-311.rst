@@ -649,4 +649,4 @@ Caveats and Troubleshooting Instructions
 
  
 
-.. |Figure 1: Sample installation topology| image:: documentation/images/g300780.png
+.. |Figure 1: Sample installation topology| image:: images/g300780.png

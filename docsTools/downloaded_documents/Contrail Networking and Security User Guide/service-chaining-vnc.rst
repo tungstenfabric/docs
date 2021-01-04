@@ -183,5 +183,5 @@ The following are the parameters to be configured for a service policy:
 
  
 
-.. |Figure 1: Service Chaining| image:: documentation/images/s041619.gif
-.. |Figure 2: Contrail Service Chain| image:: documentation/images/s041901.gif
+.. |Figure 1: Service Chaining| image:: images/s041619.gif
+.. |Figure 2: Contrail Service Chain| image:: images/s041901.gif

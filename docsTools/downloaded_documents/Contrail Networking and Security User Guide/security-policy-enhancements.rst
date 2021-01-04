@@ -620,19 +620,19 @@ traffic group at the **Traffic Groups Settings** screen see
 
  
 
-.. |Figure 1: Firewall Policy Wizard| image:: documentation/images/s019913.png
-.. |Figure 2: Application Policy Sets| image:: documentation/images/s019914.png
-.. |Figure 3: Edit Application Policy Sets| image:: documentation/images/s019915.png
-.. |Figure 4: All Firewall Policies| image:: documentation/images/s019916.png
-.. |Figure 5: Firewall Policy Rules| image:: documentation/images/s019917.png
-.. |Figure 6: Tags| image:: documentation/images/s019918.png
-.. |Figure 7: View Application Tags| image:: documentation/images/s019919.png
-.. |Figure 8: Firewall Policies| image:: documentation/images/s019920.png
-.. |Figure 9: Service Groups| image:: documentation/images/s019921.png
-.. |Figure 10: Traffic Groups| image:: documentation/images/s019922.png
-.. |Figure 11: Traffic Groups, Policy Details| image:: documentation/images/s019923.png
-.. |Figure 12: Traffic Groups, Settings| image:: documentation/images/s019924.png
-.. |Figure 13: Traffic Groups, Endpoint Statistics| image:: documentation/images/s019925.png
-.. |Figure 14: Traffic Groups, Details| image:: documentation/images/s019926.png
-.. |Figure 15: Traffic Groups, Details| image:: documentation/images/s019927.png
-.. |Figure 16: Traffic Groups Settings| image:: documentation/images/s019928.png
+.. |Figure 1: Firewall Policy Wizard| image:: images/s019913.png
+.. |Figure 2: Application Policy Sets| image:: images/s019914.png
+.. |Figure 3: Edit Application Policy Sets| image:: images/s019915.png
+.. |Figure 4: All Firewall Policies| image:: images/s019916.png
+.. |Figure 5: Firewall Policy Rules| image:: images/s019917.png
+.. |Figure 6: Tags| image:: images/s019918.png
+.. |Figure 7: View Application Tags| image:: images/s019919.png
+.. |Figure 8: Firewall Policies| image:: images/s019920.png
+.. |Figure 9: Service Groups| image:: images/s019921.png
+.. |Figure 10: Traffic Groups| image:: images/s019922.png
+.. |Figure 11: Traffic Groups, Policy Details| image:: images/s019923.png
+.. |Figure 12: Traffic Groups, Settings| image:: images/s019924.png
+.. |Figure 13: Traffic Groups, Endpoint Statistics| image:: images/s019925.png
+.. |Figure 14: Traffic Groups, Details| image:: images/s019926.png
+.. |Figure 15: Traffic Groups, Details| image:: images/s019927.png
+.. |Figure 16: Traffic Groups Settings| image:: images/s019928.png

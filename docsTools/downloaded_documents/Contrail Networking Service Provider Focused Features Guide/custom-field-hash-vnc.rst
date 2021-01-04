@@ -117,5 +117,5 @@ used during load balancing of the traffic.
 
  
 
-.. |image1| image:: documentation/images/S018553.png
-.. |image2| image:: documentation/images/s018740.png
+.. |image1| image:: images/S018553.png
+.. |image2| image:: images/s018740.png

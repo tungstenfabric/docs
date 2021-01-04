@@ -55,9 +55,9 @@ types supported for EVPN.</p><sw-table><table cellspacing="0" style="border-top:
 an auto-generated VNID or a user-generated VXLAN ID, either through
 the Contrail Web UI or by modifying a python file. </p><p>To configure the global VXLAN identifier mode:</p><ol type="1"><li id="jd0e165" style="">From the Contrail Web UI, select <strong v-pre="">Configure &gt; Infrastucture
 &gt; Global Config</strong>.<p>The Global Config options and values are displayed in the Global
-Config window.</p><figure id="jd0e173"><figcaption>Figure 1: Global Config Window for VXLAN ID</figcaption><div class="graphic"><img alt="Global Config Window for VXLAN ID" src="documentation/images/s018533.png" style=""/></div></figure></li><li id="jd0e177" style="">Click the edit icon <span class="graphic"><img alt="" src="documentation/images/s018510.png" style=""/></span>.<p>The Edit Global Config window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-vxmode">Figure 2</a>.</p><figure id="edit-global-config-vxmode"><figcaption>Figure 2: Edit Global Config Window
+Config window.</p><figure id="jd0e173"><figcaption>Figure 1: Global Config Window for VXLAN ID</figcaption><div class="graphic"><img alt="Global Config Window for VXLAN ID" src="images/s018533.png" style=""/></div></figure></li><li id="jd0e177" style="">Click the edit icon <span class="graphic"><img alt="" src="images/s018510.png" style=""/></span>.<p>The Edit Global Config window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-vxmode">Figure 2</a>.</p><figure id="edit-global-config-vxmode"><figcaption>Figure 2: Edit Global Config Window
 for VXLAN Identifier Mode</figcaption><div class="graphic"><img alt="Edit Global Config Window
-for VXLAN Identifier Mode" src="documentation/images/s018508.png" style=""/></div></figure></li><li id="jd0e190" style=""><p>Select one of the following:</p><ul><li style=""><p><strong v-pre="">Auto Configured</strong>— The VXLAN identifier
+for VXLAN Identifier Mode" src="images/s018508.png" style=""/></div></figure></li><li id="jd0e190" style=""><p>Select one of the following:</p><ul><li style=""><p><strong v-pre="">Auto Configured</strong>— The VXLAN identifier
 is automatically assigned for the virtual network. </p></li><li style=""><p><strong v-pre="">User Configured</strong>– You must provide the
 VXLAN identifier for the virtual network. </p></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>When <strong v-pre="">User Configured</strong> is selected, if you do
 not provide an identifier, then VXLAN encapsulation <em>is not
@@ -67,8 +67,8 @@ Python to modify the <code class="inline" v-pre="">/opt/contrail/utils/encap.py<
 fallback bridging (IP FIB and MAC FIB). The mode can be changed, either
 through the Contrail Web UI or by using python provisioning commands.</p><p>To change the forwarding mode:</p><ol type="1"><li id="jd0e242" style="">From the Contrail Web UI, select <strong v-pre="">Configure &gt; Networking
 &gt; Networks</strong>.</li><li id="jd0e248" style="">Select the virtual network that you want to change the
-forwarding mode for.</li><li id="jd0e251" style="">Click the gear icon <span class="graphic"><img alt="" src="documentation/images/s018509.png" style=""/></span> and
-select <strong v-pre="">Edit</strong>.<p>The Edit Network window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-network-window">Figure 3</a>.</p><figure id="edit-network-window"><figcaption>Figure 3: Edit Network Window</figcaption><div class="graphic"><img alt="Edit Network Window" src="documentation/images/s042518.png" style=""/></div></figure><p>Under the Advanced Options select the forwarding mode
+forwarding mode for.</li><li id="jd0e251" style="">Click the gear icon <span class="graphic"><img alt="" src="images/s018509.png" style=""/></span> and
+select <strong v-pre="">Edit</strong>.<p>The Edit Network window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-network-window">Figure 3</a>.</p><figure id="edit-network-window"><figcaption>Figure 3: Edit Network Window</figcaption><div class="graphic"><img alt="Edit Network Window" src="images/s042518.png" style=""/></div></figure><p>Under the Advanced Options select the forwarding mode
 from the following choices:</p><ul><li style=""><p>Select <strong v-pre="">Default</strong> to enable the default forwarding
 mode.</p></li><li style=""><p>Select <strong v-pre="">L2 and L3</strong> to enable IP and MAC FIB (fallback
 bridging).</p></li><li style=""><p>Select <strong v-pre="">L2 Only</strong> to enable only MAC FIB.</p></li><li style=""><p>Select <strong v-pre="">L3 Only</strong> to enable only IP.</p></li></ul></li></ol><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The full list of forwarding modes are only displayed if
@@ -88,11 +88,11 @@ identifier mode has been set to User Configured. You can then set
 the VXLAN ID by either using the Contrail Web UI or by using Python
 commands. </p><p>To configure the global VXLAN identifier:</p><ol type="1"><li id="jd0e359" style="">From the Contrail Web UI, select <strong v-pre="">Configure &gt; Networking
 &gt; Networks</strong>.</li><li id="jd0e365" style="">Select the virtual network that you want to change the
-forwarding mode for.</li><li id="jd0e368" style="">Click the gear icon <span class="graphic"><img alt="" src="documentation/images/s018509.png" style=""/></span> and
+forwarding mode for.</li><li id="jd0e368" style="">Click the gear icon <span class="graphic"><img alt="" src="images/s018509.png" style=""/></span> and
 select <strong v-pre="">Edit</strong>.<p>The Edit Network window is displayed. Select the <strong v-pre="">Advanced
 Options</strong> as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-vxid">Figure 4</a>.</p><figure id="edit-global-config-vxid"><figcaption>Figure 4: Edit Network Window for
 VXLAN Identifier</figcaption><div class="graphic"><img alt="Edit Network Window for
-VXLAN Identifier" src="documentation/images/s018534.png" style=""/></div></figure></li><li id="jd0e387" style="">Type the VXLAN identifier.</li><li id="jd0e390" style="">Click <strong v-pre="">Save</strong>.</li></ol><p>Alternatively, you can use the following Python provisioning
+VXLAN Identifier" src="images/s018534.png" style=""/></div></figure></li><li id="jd0e387" style="">Type the VXLAN identifier.</li><li id="jd0e390" style="">Click <strong v-pre="">Save</strong>.</li></ol><p>Alternatively, you can use the following Python provisioning
 command to configure the VXLAN identifier: </p><p><code class="inline" v-pre="">python provisioning_forwarding_mode --project_fq_name
 'defaultdomain: admin' --vn_name vn1 --forwarding_mode &lt; vxlan_id
 &gt;</code></p><h2 id="jd0e402">Configuring Encapsulation Methods</h2><p>The default encapsulation mode for EVPN is MPLS over UDP. All
@@ -106,9 +106,9 @@ and is shared by all virtual machines in the virtual network. The
 VNID is mapped to the VRF of the virtual network to which it belongs.</p><p>The priority order in which to apply encapsulation methods is
 determined by the sequence of methods set either from the Contrail
 Web UI or in the <code class="filepath">encap.py</code> file.</p><p>To configure the global VXLAN identifier mode:</p><ul><li style=""><p>From the Contrail Web UI, select <strong v-pre="">Configure &gt; Infrastucture
-&gt; Global Config</strong>.</p></li><li style=""><p>The Global Config options are displayed.</p></li><li style=""><p>Click the edit icon <span class="graphic"><img alt="" src="documentation/images/s018510.png" style=""/></span>.</p></li></ul><p>The Edit Global Config window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-encapriority">Figure 5</a>.</p><figure id="edit-global-config-encapriority"><figcaption>Figure 5: Edit Global Config
+&gt; Global Config</strong>.</p></li><li style=""><p>The Global Config options are displayed.</p></li><li style=""><p>Click the edit icon <span class="graphic"><img alt="" src="images/s018510.png" style=""/></span>.</p></li></ul><p>The Edit Global Config window is displayed as shown in <a href="evpn-vxlan-configuring.html#edit-global-config-encapriority">Figure 5</a>.</p><figure id="edit-global-config-encapriority"><figcaption>Figure 5: Edit Global Config
 Window for Encapsulation Priority Order</figcaption><div class="graphic"><img alt="Edit Global Config
-Window for Encapsulation Priority Order" src="documentation/images/s018508.png" style=""/></div></figure><p>Under Encapsulation Priority Order select one of the
+Window for Encapsulation Priority Order" src="images/s018508.png" style=""/></div></figure><p>Under Encapsulation Priority Order select one of the
 following:</p><ul><li style=""><p><strong v-pre="">MPLS over UDP</strong></p></li><li style=""><p><strong v-pre="">MPLS over GRE</strong></p></li><li style=""><p><strong v-pre="">VxLAN</strong></p></li></ul><p>Click the + plus symbol to the right of the first priority to
 add a second priority or third priority.</p><p>Use the following procedure to change the default encapsulation
 method to VXLAN by editing the <code class="filepath">encap.py</code> file.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>VXLAN is <em>only</em> supported for EVPN

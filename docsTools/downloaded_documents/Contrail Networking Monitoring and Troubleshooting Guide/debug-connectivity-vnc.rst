@@ -95,17 +95,17 @@ these steps on your own.
 
  
 
-.. |Figure 1: Navigate to Instance| image:: documentation/images/s041879.gif
-.. |Figure 2: Traffic Statistics for Instance| image:: documentation/images/s041880.gif
-.. |Figure 3: Navigate to Instance| image:: documentation/images/s041881.gif
-.. |Figure 4: Traffic Statistics for Instance| image:: documentation/images/s041882.gif
-.. |Figure 5: Navigate to a3s18 Interfaces| image:: documentation/images/s041883.gif
-.. |Figure 6: Navigate to a3s19 Interfaces| image:: documentation/images/s041884.gif
-.. |Figure 7: ACL Connectivity a3s18| image:: documentation/images/s041885.gif
-.. |Figure 8: ACL Connectivity a3s19| image:: documentation/images/s041886.gif
-.. |Figure 9: Routes default-domain:demo:vn0:vn0| image:: documentation/images/s041887.gif
-.. |Figure 10: Routes default-domain:demo:vn16:vn16| image:: documentation/images/s041888.gif
-.. |Figure 11: Verify Route and Next Hop a3s18| image:: documentation/images/s041889.gif
-.. |Figure 12: Verify Route and Next Hop a3s19| image:: documentation/images/s041890.gif
-.. |Figure 13: Flows for a3s18| image:: documentation/images/s041891.gif
-.. |Figure 14: Flows for a3s19| image:: documentation/images/s041892.gif
+.. |Figure 1: Navigate to Instance| image:: images/s041879.gif
+.. |Figure 2: Traffic Statistics for Instance| image:: images/s041880.gif
+.. |Figure 3: Navigate to Instance| image:: images/s041881.gif
+.. |Figure 4: Traffic Statistics for Instance| image:: images/s041882.gif
+.. |Figure 5: Navigate to a3s18 Interfaces| image:: images/s041883.gif
+.. |Figure 6: Navigate to a3s19 Interfaces| image:: images/s041884.gif
+.. |Figure 7: ACL Connectivity a3s18| image:: images/s041885.gif
+.. |Figure 8: ACL Connectivity a3s19| image:: images/s041886.gif
+.. |Figure 9: Routes default-domain:demo:vn0:vn0| image:: images/s041887.gif
+.. |Figure 10: Routes default-domain:demo:vn16:vn16| image:: images/s041888.gif
+.. |Figure 11: Verify Route and Next Hop a3s18| image:: images/s041889.gif
+.. |Figure 12: Verify Route and Next Hop a3s19| image:: images/s041890.gif
+.. |Figure 13: Flows for a3s18| image:: images/s041891.gif
+.. |Figure 14: Flows for a3s19| image:: images/s041892.gif

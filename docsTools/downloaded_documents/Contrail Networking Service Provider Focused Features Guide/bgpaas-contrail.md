@@ -143,7 +143,7 @@ application.
 [Figure 1](bgpaas-contrail.html#dyntunnel1) shows the need to insert a
 dynamic tunnel into a virtual network.
 
-![Figure 1: Dynamic Tunnel Insertion](documentation/images/g300441.png)
+![Figure 1: Dynamic Tunnel Insertion](images/g300441.png)
 
 #### Dynamic Network Reachability of Applications
 
@@ -213,8 +213,7 @@ To configure BGPaaS within a tenant:
     The **Create BGP as a Service** page is displayed. See
     [Figure 2](bgpaas-contrail.html#bgpaas-webui).</span>
 
-    ![Figure 2: Create BGP as a
-    Service](documentation/images/S018555.png)
+    ![Figure 2: Create BGP as a Service](images/S018555.png)
 
 3.  <span id="jd0e249">In the **Create BGPaaS** page, populate the
     fields with the following values to create your service.</span>
@@ -243,7 +242,7 @@ To configure BGPaaS within a tenant:
     page. The **Create BGPaaS** page is displayed. See
     [Figure 3](bgpaas-contrail.html#bgpass-create).</span>
 
-    ![Figure 3: Create BGPaaS](documentation/images/s008077.PNG)
+    ![Figure 3: Create BGPaaS](images/s008077.PNG)
 
 3.  <span id="jd0e376">In the **Create BGPaaS** page, populate the
     fields with the following values to create your BGP object.</span>

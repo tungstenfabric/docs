@@ -150,13 +150,12 @@ Follow the procedure to use Sandump tool:
             [Figure 1](sandump-tool.html#HostFile_win) shows the host
             file with the required IP addresses.
 
-            ![Figure 1: host file](documentation/images/s009683.png)
+            ![Figure 1: host file](images/s009683.png)
 
         5.  <span id="jd0e146">Open the pcap file generated from Sandump
             tool for further debugging in Wireshark.</span>
 
-            ![Figure 2: File debugging in
-            Wireshark](documentation/images/s060107.png)
+            ![Figure 2: File debugging in Wireshark](images/s060107.png)
 
     -   Follow the procedure to analyze the packets in Wireshark for
         macOS.
@@ -191,20 +190,18 @@ Follow the procedure to use Sandump tool:
             [Figure 3](sandump-tool.html#HostFile) shows the host file
             with the required IP addresses.
 
-            ![Figure 3: host file](documentation/images/s009683.png)
+            ![Figure 3: host file](images/s009683.png)
 
         6.  <span id="jd0e223">Navigate to **Wireshark &gt;
             Preferences &gt; Name Resolution** and check **Resolve
             network (IP) addresses** option.</span>
 
-            ![Figure 4:
-            Wireshark—Preferences](documentation/images/s060106.png)
+            ![Figure 4: Wireshark—Preferences](images/s060106.png)
 
         7.  <span id="jd0e236">Open the pcap file generated from Sandump
             tool for further debugging in Wireshark.</span>
 
-            ![Figure 5: File debugging in
-            Wireshark](documentation/images/s060107.png)
+            ![Figure 5: File debugging in Wireshark](images/s060107.png)
 
 <div class="table">
 

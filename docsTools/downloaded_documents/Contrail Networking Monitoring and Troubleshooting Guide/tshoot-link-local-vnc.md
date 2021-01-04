@@ -22,7 +22,7 @@ address range 169.254.169.x.
 Link-local service can be configured using the Contrail WebUI:
 **Configure &gt; Infrastructure &gt; Link Local Services**.
 
-![](documentation/images/s041993.gif)
+![](images/s041993.gif)
 
 ## Troubleshooting Procedure for Link-Local Services
 
@@ -41,13 +41,13 @@ errors.
 
     Checking the virtual machine status in the Contrail UI:
 
-    ![](documentation/images/s041994.gif)
+    ![](images/s041994.gif)
 
     Checking the tap interface status in the http agent introspect:
 
     `http://<compute-node-ip>:8085/Snh_ItfReq?name=`
 
-    ![](documentation/images/s041995.gif)
+    ![](images/s041995.gif)
 
 3.  <span id="jd0e78">Check the link-local configuration in the vrouter
     agent. Make sure the configured link-local service is
@@ -55,7 +55,7 @@ errors.
 
     `http://<compute-node-ip>:8085/Snh_LinkLocalServiceInfo?`
 
-    ![](documentation/images/s041996.gif)
+    ![](images/s041996.gif)
 
 4.  <span id="jd0e89">Validate the BGP neighbor config and the BGP
     peering config object. When the virtual machine communicates with
@@ -70,7 +70,7 @@ errors.
     that have NAT programmed. Also shown are the number of packets and
     bytes transmitted in the respective flows.
 
-    ![](documentation/images/s041997.gif)
+    ![](images/s041997.gif)
 
     The forward flow displays the source IP of the virtual machine and
     the destination IP of the link-local service. The reverse flow
@@ -129,7 +129,7 @@ troubleshoot metadata service.
     The port on which the vrouter agent listens for metadata requests is
     also displayed.
 
-    ![](documentation/images/s041998.gif)
+    ![](images/s041998.gif)
 
 2.  <span id="jd0e163">Check the metadata trace messages, which show the
     trail of metadata requests and responses.</span>

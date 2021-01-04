@@ -565,16 +565,16 @@ Routes <contrail-routing-policy-sp-features.html#secondary-routing-policies-cn-s
 
  
 
-.. |image1| image:: documentation/images/g300536.png
-.. |image2| image:: documentation/images/g300443.png
-.. |image3| image:: documentation/images/s018729.png
-.. |image4| image:: documentation/images/s018730.png
-.. |image5| image:: documentation/images/s018731.png
-.. |image6| image:: documentation/images/s018732.png
-.. |image7| image:: documentation/images/s018745.png
-.. |image8| image:: documentation/images/s018733.png
-.. |image9| image:: documentation/images/s018734.png
-.. |image10| image:: documentation/images/s018735.png
-.. |image11| image:: documentation/images/g300444.png
-.. |image12| image:: documentation/images/s018737.png
-.. |image13| image:: documentation/images/s018738.png
+.. |image1| image:: images/g300536.png
+.. |image2| image:: images/g300443.png
+.. |image3| image:: images/s018729.png
+.. |image4| image:: images/s018730.png
+.. |image5| image:: images/s018731.png
+.. |image6| image:: images/s018732.png
+.. |image7| image:: images/s018745.png
+.. |image8| image:: images/s018733.png
+.. |image9| image:: images/s018734.png
+.. |image10| image:: images/s018735.png
+.. |image11| image:: images/g300444.png
+.. |image12| image:: images/s018737.png
+.. |image13| image:: images/s018738.png

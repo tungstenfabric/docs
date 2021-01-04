@@ -14,7 +14,7 @@ Select **Query &gt; Flows &gt; Series** to create queries of the flow
 series table. The results are in the form of time series data for flow
 series. See [Figure 1](query-flows-cc.html#query-flows-series).
 
-![Figure 1: Query Flow Series Window](documentation/images/s008307.PNG)
+![Figure 1: Query Flow Series Window](images/s008307.PNG)
 
 The query fields available on the screen for the **Series** tab are
 described in [Table 1](query-flows-cc.html#flow-table). Enter query data
@@ -87,14 +87,14 @@ of a flow series by clicking each attribute desired. See
 [Figure 2](query-flows-cc.html#select-terms). Select **SUM(Bytes)** or
 **SUM(Packets)** to aggregate bytes and packets in intervals.
 
-![Figure 2: Flow Series Select Terms](documentation/images/s008305.PNG)
+![Figure 2: Flow Series Select Terms](images/s008305.PNG)
 
 Use the **Filters** window to refine the display of query results for
 flows, by defining an attribute by which to sort the results, the sort
 order of the results, and any limit needed to restrict the number of
 results. See [Figure 3](query-flows-cc.html#flow-series-filter).
 
-![Figure 3: Flows Series Filter](documentation/images/s008306.PNG)
+![Figure 3: Flows Series Filter](images/s008306.PNG)
 
 ## Query Individual Flow Records
 
@@ -103,7 +103,7 @@ flow records for detailed debugging of connectivity issues between
 applications and virtual machines. Queries at this level return records
 of the active flows within a given time period.
 
-![Figure 4: Flows Records](documentation/images/s008308.PNG)
+![Figure 4: Flows Records](images/s008308.PNG)
 
 The query fields available on the screen for the **Records** tab are
 described in [Table 2](query-flows-cc.html#flow-records-table1). Enter
@@ -164,8 +164,7 @@ The **Select Terms** window allows you to select one or more attributes
 to display for the flow records selected. See
 [Figure 5](query-flows-cc.html#records-select-terms).
 
-![Figure 5: Flows Records Select
-Terms](documentation/images/s008337.png)
+![Figure 5: Flows Records Select Terms](images/s008337.png)
 
 ## Using the Query Window
 

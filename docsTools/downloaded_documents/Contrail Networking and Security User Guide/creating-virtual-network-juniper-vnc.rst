@@ -118,7 +118,7 @@ how to create a virtual network when using Juniper Networks Contrail.
 
  
 
-.. |Figure 1: Add IP Address Management| image:: documentation/images/s041838.gif
-.. |Figure 2: Configure Networks| image:: documentation/images/s042492.png
-.. |image1| image:: documentation/images/s042494.png
-.. |Figure 3: Create Network| image:: documentation/images/s041528.gif
+.. |Figure 1: Add IP Address Management| image:: images/s041838.gif
+.. |Figure 2: Configure Networks| image:: images/s042492.png
+.. |image1| image:: images/s042494.png
+.. |Figure 3: Create Network| image:: images/s041528.gif

@@ -20,8 +20,7 @@ uses its public address 172.21.1.1 for outgoing packets. To maintain
 unique NAT sessions the source port of the traffic also needs to be
 replaced.
 
-![Figure 1: Virtual Network With a Private
-Subnet](documentation/images/s042005.gif)
+![Figure 1: Virtual Network With a Private Subnet](images/s042005.gif)
 
 ## Neutron APIs for Routers
 
@@ -96,8 +95,7 @@ window. Click the check box for SNAT to enable SNAT on the router.
 
 The following shows a router for which SNAT has been **Enabled**.
 
-![Figure 2: Edit Router Window to Enable
-SNAT](documentation/images/s042100.gif)
+![Figure 2: Edit Router Window to Enable SNAT](images/s042100.gif)
 
 When a router has been **Enabled** for SNAT, the configuration can be
 seen by selecting **Configure &gt; Networking &gt; Routers**. In the
@@ -106,12 +104,12 @@ features for that router, the status of SNAT is listed. The following
 shows a router that has been opened in the list. The status of the
 router shows that SNAT is **Enabled**.
 
-![Figure 3: Router Status for SNAT](documentation/images/s042101.gif)
+![Figure 3: Router Status for SNAT](images/s042101.gif)
 
 You can view the real time status of a router with SNAT by viewing the
 instance console, as in the following.
 
-![Figure 4: Instance Details Window](documentation/images/s042102.gif)
+![Figure 4: Instance Details Window](images/s042102.gif)
 
 ## Using the Web UI to Configure Distributed SNAT
 
@@ -136,14 +134,13 @@ go to **Configure &gt; Infrastructure &gt; Global Config**. The
 following shows an example of a port range used for port address
 translation.
 
-![Figure 5: Edit Forwarding Options
-Window](documentation/images/s007013.png)
+![Figure 5: Edit Forwarding Options Window](images/s007013.png)
 
 To use distributed SNAT, you must enable SNAT on the virtual network. To
 enable SNAT on the virtual network, go to **Configure &gt; Networking
 &gt; Networks**. The following shows a virtual network for which SNAT
 has been enabled under Advanced Options.
 
-![Figure 6: Create Window](documentation/images/s007014.png)
+![Figure 6: Create Window](images/s007014.png)
 
  

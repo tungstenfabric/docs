@@ -38,8 +38,7 @@ on the Contrail node.
         [Figure 1](md5-authentication-configuring.html#edit-bgp-router),
         a list of BGP peers is displayed.
 
-        ![Figure 1: Edit BGP Router
-        Window](documentation/images/s042480.png)
+        ![Figure 1: Edit BGP Router Window](images/s042480.png)
 
     2.  For a BGP peer, click on the gear icon on the right hand side of
         the peer entry. Then click **Edit**. This displays the Edit BGP

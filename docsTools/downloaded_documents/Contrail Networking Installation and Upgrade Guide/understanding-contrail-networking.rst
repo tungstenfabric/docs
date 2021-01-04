@@ -57,4 +57,4 @@ GUI is built entirely using the REST APIs.
 
  
 
-.. |Figure 1: Contrail Networking Architecture| image:: documentation/images/g300457.png
+.. |Figure 1: Contrail Networking Architecture| image:: images/g300457.png

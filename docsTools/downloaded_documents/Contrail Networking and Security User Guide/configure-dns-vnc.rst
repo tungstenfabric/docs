@@ -392,12 +392,12 @@ Table 6: DNS Scripts
 
  
 
-.. |Figure 1: DNS Servers Examples| image:: documentation/images/s041847.gif
-.. |Figure 2: IPAM and Virtual DNS| image:: documentation/images/s041848.gif
-.. |Figure 3: Example Usage for NS Record Type| image:: documentation/images/s041849.gif
-.. |Figure 4: Configure DNS Records| image:: documentation/images/s041850.gif
-.. |Figure 5: Add DNS| image:: documentation/images/s041864.gif
-.. |Figure 6: Add DNS Record| image:: documentation/images/s041853.gif
-.. |Figure 7: Associate IPAMs to DNS| image:: documentation/images/s041854.gif
-.. |Figure 8: Configure IP Address Management| image:: documentation/images/s041855.gif
-.. |Figure 9: DNS Server| image:: documentation/images/s041857.gif
+.. |Figure 1: DNS Servers Examples| image:: images/s041847.gif
+.. |Figure 2: IPAM and Virtual DNS| image:: images/s041848.gif
+.. |Figure 3: Example Usage for NS Record Type| image:: images/s041849.gif
+.. |Figure 4: Configure DNS Records| image:: images/s041850.gif
+.. |Figure 5: Add DNS| image:: images/s041864.gif
+.. |Figure 6: Add DNS Record| image:: images/s041853.gif
+.. |Figure 7: Associate IPAMs to DNS| image:: images/s041854.gif
+.. |Figure 8: Configure IP Address Management| image:: images/s041855.gif
+.. |Figure 9: DNS Server| image:: images/s041857.gif

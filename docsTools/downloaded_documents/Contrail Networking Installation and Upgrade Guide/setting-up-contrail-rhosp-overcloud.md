@@ -1981,7 +1981,7 @@ role and a Compute role has to be created.
 
 Overview
 
-![](documentation/images/g200478.png)
+![](images/g200478.png)
 
 Mapping Table
 

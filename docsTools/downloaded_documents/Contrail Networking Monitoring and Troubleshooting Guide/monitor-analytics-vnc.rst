@@ -265,8 +265,8 @@ Table 5: Monitor Analytics Individual Node Console Tab Fields
 
  
 
-.. |Figure 1: Analytics Nodes Summary| image:: documentation/images/s041517.gif
-.. |Figure 2: Monitor Analytics Individual Node Details Tab| image:: documentation/images/s041518.gif
-.. |Figure 3: Individual Analytics Node—Generators Tab| image:: documentation/images/s041523.gif
-.. |Figure 4: Individual Analytics Node—QE QueriesTab| image:: documentation/images/s041524.gif
-.. |Figure 5: Analytics Individual Node—Console Tab| image:: documentation/images/s041519.png
+.. |Figure 1: Analytics Nodes Summary| image:: images/s041517.gif
+.. |Figure 2: Monitor Analytics Individual Node Details Tab| image:: images/s041518.gif
+.. |Figure 3: Individual Analytics Node—Generators Tab| image:: images/s041523.gif
+.. |Figure 4: Individual Analytics Node—QE QueriesTab| image:: images/s041524.gif
+.. |Figure 5: Analytics Individual Node—Console Tab| image:: images/s041519.png

@@ -59,10 +59,10 @@ forwarding class to be applied works as follows:</p><ul><li style=""><p>For an I
 the EXP bit value is used with the MPLS EXP map.</p></li><li style=""><p>If the QoS configuration is untrusted, only the default
 forwarding class is specified, and all incoming values of the DSCP,
 802.1p, and EXP bits in the packet are mapped to the same default
-forwarding class.</p></li></ul><p><a href="network-qos-vnc-3.1.html#qos1">Figure 1</a> shows the processing of QoS packets.</p><figure id="qos1"><figcaption>Figure 1: Processing of QoS Packets</figcaption><div class="graphic"><img alt="Processing of QoS Packets" src="documentation/images/g300445.png" style=""/></div></figure><p>A virtual machine interface, virtual network, and network policy
+forwarding class.</p></li></ul><p><a href="network-qos-vnc-3.1.html#qos1">Figure 1</a> shows the processing of QoS packets.</p><figure id="qos1"><figcaption>Figure 1: Processing of QoS Packets</figcaption><div class="graphic"><img alt="Processing of QoS Packets" src="images/g300445.png" style=""/></div></figure><p>A virtual machine interface, virtual network, and network policy
 can refer to the QoS configuration object. The QoS configuration object
 can be specified on the vhost so that underlay traffic can also be
-subjected to marking and queuing. See <a href="network-qos-vnc-3.1.html#qos2">Figure 2</a>.</p><figure id="qos2"><figcaption>Figure 2: Referring to the QoS Object</figcaption><div class="graphic"><img alt="Referring to the QoS Object" src="documentation/images/g300442.png" style=""/></div></figure><h2 id="jd0e161">Example: Mapping Traffic to Forwarding Classes</h2><p>This example shows how traffic forwarding classes are defined
+subjected to marking and queuing. See <a href="network-qos-vnc-3.1.html#qos2">Figure 2</a>.</p><figure id="qos2"><figcaption>Figure 2: Referring to the QoS Object</figcaption><div class="graphic"><img alt="Referring to the QoS Object" src="images/g300442.png" style=""/></div></figure><h2 id="jd0e161">Example: Mapping Traffic to Forwarding Classes</h2><p>This example shows how traffic forwarding classes are defined
 and how the QoS configuration object is defined to map the QoS bits
 to forwarding classes.</p><p><a href="network-qos-vnc-3.1.html#forward1">Table 1</a> shows two forwarding class objects
 defined. FC1 marks the traffic with high priority values and queues

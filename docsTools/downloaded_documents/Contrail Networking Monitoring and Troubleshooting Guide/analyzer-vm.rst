@@ -126,4 +126,4 @@ Follow these steps if the packets are not displaying:
 
  
 
-.. |Figure 1: Wireshark Packet Display| image:: documentation/images/s041872.gif
+.. |Figure 1: Wireshark Packet Display| image:: images/s041872.gif

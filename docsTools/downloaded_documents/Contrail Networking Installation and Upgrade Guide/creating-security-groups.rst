@@ -101,8 +101,8 @@ To add rules to a security group:
 
  
 
-.. |Figure 1: Security Groups| image:: documentation/images/s041610.gif
-.. |Figure 2: Edit Security Group Rules| image:: documentation/images/s041860.gif
-.. |Figure 3: Add Rule| image:: documentation/images/s041862.gif
-.. |Figure 4: Create Security Group| image:: documentation/images/s041861.gif
-.. |Figure 5: Associate Security Group at Launch Instance| image:: documentation/images/s041863.gif
+.. |Figure 1: Security Groups| image:: images/s041610.gif
+.. |Figure 2: Edit Security Group Rules| image:: images/s041860.gif
+.. |Figure 3: Add Rule| image:: images/s041862.gif
+.. |Figure 4: Create Security Group| image:: images/s041861.gif
+.. |Figure 5: Associate Security Group at Launch Instance| image:: images/s041863.gif

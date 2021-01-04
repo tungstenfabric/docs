@@ -290,9 +290,9 @@ Networking > Services**.
 
  
 
-.. |Figure 1: Service Templates| image:: documentation/images/s041612.gif
-.. |Figure 2: Create Service Template| image:: documentation/images/s041613.gif
-.. |Figure 3: Create Service Instances| image:: documentation/images/s041858.gif
-.. |Figure 4: Create Policy| image:: documentation/images/s041859.gif
-.. |Figure 5: Create Policy Rules| image:: documentation/images/s041833.gif
-.. |Figure 6: Service Instances View Console| image:: documentation/images/s041869.gif
+.. |Figure 1: Service Templates| image:: images/s041612.gif
+.. |Figure 2: Create Service Template| image:: images/s041613.gif
+.. |Figure 3: Create Service Instances| image:: images/s041858.gif
+.. |Figure 4: Create Policy| image:: images/s041859.gif
+.. |Figure 5: Create Policy Rules| image:: images/s041833.gif
+.. |Figure 6: Service Instances View Console| image:: images/s041869.gif

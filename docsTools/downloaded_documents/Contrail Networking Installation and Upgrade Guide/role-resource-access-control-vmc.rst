@@ -482,9 +482,9 @@ about RBAC:
 
  
 
-.. |Figure 1: RBAC Global Level| image:: documentation/images/s018760.png
-.. |Figure 2: RBAC Domain Level| image:: documentation/images/s018761.png
-.. |Figure 3: RBAC Project Level| image:: documentation/images/s018762.png
-.. |Figure 4: RBAC Details API Access| image:: documentation/images/s018763.png
-.. |Figure 5: Edit API Access| image:: documentation/images/s018764.png
-.. |Figure 6: Edit Object Level Access| image:: documentation/images/s018765.png
+.. |Figure 1: RBAC Global Level| image:: images/s018760.png
+.. |Figure 2: RBAC Domain Level| image:: images/s018761.png
+.. |Figure 3: RBAC Project Level| image:: images/s018762.png
+.. |Figure 4: RBAC Details API Access| image:: images/s018763.png
+.. |Figure 5: Edit API Access| image:: images/s018764.png
+.. |Figure 6: Edit Object Level Access| image:: images/s018765.png

@@ -46,4 +46,4 @@ nodes increase in the system, the analytics nodes can also be increased.
 
  
 
-.. |Figure 1: Analytics Scalability| image:: documentation/images/s041520.gif
+.. |Figure 1: Analytics Scalability| image:: images/s041520.gif

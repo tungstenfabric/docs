@@ -119,4 +119,4 @@ Table 1: MonitorMenu Options
 
  
 
-.. |Figure 1: Monitor Menu| image:: documentation/images/s041506.gif
+.. |Figure 1: Monitor Menu| image:: images/s041506.gif

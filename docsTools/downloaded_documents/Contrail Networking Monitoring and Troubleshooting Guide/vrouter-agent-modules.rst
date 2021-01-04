@@ -554,4 +554,4 @@ This module is responsible to run the following services in Agent:
 
  
 
-.. |Figure 1: Overview of Agent Modules| image:: documentation/images/g301126.png
+.. |Figure 1: Overview of Agent Modules| image:: images/g301126.png

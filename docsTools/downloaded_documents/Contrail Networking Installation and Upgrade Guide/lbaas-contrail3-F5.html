@@ -9,7 +9,7 @@ as in previous releases.</p><p>This method of configuration has the following be
 from Neutron, from virtual controller APIs, or from the Contrail UI.</p></li><li style=""><p>The load balancer driver can make inline calls, such as
 REST or SUDS, to configure the external load balancer device.</p></li><li style=""><p>The load balancer driver can use Contrail service monitor
 infrastructure, such as database, logging, and API server.</p></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The <em>Neutron</em> LBaaS plugin is not supported
-in OpenStack Train release.</p></sw-admonition><p><a href="lbaas-contrail3-F5.html#lbaas-neutron">Figure 1</a> provides an overview of the Contrail LBaaS components.</p><figure id="lbaas-neutron"><figcaption>Figure 1: Contrail LBaaS components with neutron-lbaas</figcaption><div class="graphic"><img alt="Contrail LBaaS components with neutron-lbaas" src="documentation/images/g300524.png" style=""/></div></figure><h2 id="jd0e65">Using a Service Appliance Set as the LBaaS Provider</h2><p>In OpenStack Neutron, the load balancer provider is statically
+in OpenStack Train release.</p></sw-admonition><p><a href="lbaas-contrail3-F5.html#lbaas-neutron">Figure 1</a> provides an overview of the Contrail LBaaS components.</p><figure id="lbaas-neutron"><figcaption>Figure 1: Contrail LBaaS components with neutron-lbaas</figcaption><div class="graphic"><img alt="Contrail LBaaS components with neutron-lbaas" src="images/g300524.png" style=""/></div></figure><h2 id="jd0e65">Using a Service Appliance Set as the LBaaS Provider</h2><p>In OpenStack Neutron, the load balancer provider is statically
 configured in <code class="inline" v-pre="">neutron.conf</code>, which requires
 restart of the Neutron server when configuring a new provider. The
 following is an example of the service provider configuration in <code class="inline" v-pre="">neutron.conf</code>. </p><div class="sample" dir="ltr" id="jd0e76"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[service_providers]
@@ -107,7 +107,7 @@ traffic to the compute node where the pool member is instantiated.</p><p>The F5 
 to all the VIPs, by advertising a subnet route that covers all VIPs
 using IGP.</p><p>The F5 device load balances among different pool members and
 sends traffic to the chosen member.</p><p><a href="lbaas-contrail3-F5.html#lbaas-contrail-2">Figure 2</a> shows the traffic flow
-in global routed mode.</p><figure id="lbaas-contrail-2"><figcaption>Figure 2: Global Routed Traffic Flow</figcaption><div class="graphic"><img alt="Global Routed Traffic Flow" src="documentation/images/g300525.png" style=""/></div></figure><p>A similar result can also be achieved on the switch to which
+in global routed mode.</p><figure id="lbaas-contrail-2"><figcaption>Figure 2: Global Routed Traffic Flow</figcaption><div class="graphic"><img alt="Global Routed Traffic Flow" src="images/g300525.png" style=""/></div></figure><p>A similar result can also be achieved on the switch to which
 the F5 is attached, by publishing the VIP subnet in IGP and using
 a static route to point the VIP traffic to the F5 device.</p><p> The MX should attract the reverse traffic from the pool members
 going back to the F5. </p><h5 class="Head5" id="jd0e244">Routing Traffic to Pool Members</h5><p>For post load balancing traffic going from the F5 device to

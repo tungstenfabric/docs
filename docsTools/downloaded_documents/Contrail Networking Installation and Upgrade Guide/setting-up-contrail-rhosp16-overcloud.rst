@@ -3260,4 +3260,4 @@ Installing Overcloud
 
  
 
-.. |image1| image:: documentation/images/g200478.png
+.. |image1| image:: images/g200478.png

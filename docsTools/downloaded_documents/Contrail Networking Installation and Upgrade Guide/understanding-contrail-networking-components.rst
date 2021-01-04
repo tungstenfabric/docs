@@ -57,4 +57,4 @@ Contrail Networking is comprised of the following key components:
 
  
 
-.. |Figure 1: Contrail Networking Overview| image:: documentation/images/g300459.png
+.. |Figure 1: Contrail Networking Overview| image:: images/g300459.png

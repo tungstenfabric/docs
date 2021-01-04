@@ -52,7 +52,6 @@ Contrail Networking is comprised of the following key components:
     implementations: as a Linux kernel module or as an Intel Data Plane
     Development Kit (DPDK)-based process.
 
-![Figure 1: Contrail Networking
-Overview](documentation/images/g300459.png)
+![Figure 1: Contrail Networking Overview](images/g300459.png)
 
  

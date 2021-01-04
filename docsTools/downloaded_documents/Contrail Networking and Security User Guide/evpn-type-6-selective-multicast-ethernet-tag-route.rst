@@ -43,5 +43,5 @@ later.
 
  
 
-.. |Figure 1: Configure IGMP| image:: documentation/images/s008005.png
-.. |Figure 2: Define Multicast Policy| image:: documentation/images/s008006.png
+.. |Figure 1: Configure IGMP| image:: images/s008005.png
+.. |Figure 2: Define Multicast Policy| image:: images/s008006.png

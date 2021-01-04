@@ -354,7 +354,7 @@ To configure RBAC at the global level, navigate to **Configure &gt;
 Infrastructure &gt; Global Config &gt; RBAC**, see
 [Figure 1](role-resource-access-control-vmc.html#rbacui1).
 
-![Figure 1: RBAC Global Level](documentation/images/s018760.png)
+![Figure 1: RBAC Global Level](images/s018760.png)
 
 ### Configuring RBAC at the Domain Level
 
@@ -362,7 +362,7 @@ To configure RBAC at the domain level, navigate to **Configure &gt; RBAC
 &gt; Domain**, see
 [Figure 2](role-resource-access-control-vmc.html#rbacui2).
 
-![Figure 2: RBAC Domain Level](documentation/images/s018761.png)
+![Figure 2: RBAC Domain Level](images/s018761.png)
 
 ### Configuring RBAC at the Project Level
 
@@ -370,7 +370,7 @@ To configure RBAC at the project level, navigate to **Configure &gt;
 RBAC &gt; Project**, see
 [Figure 3](role-resource-access-control-vmc.html#rbacui3).
 
-![Figure 3: RBAC Project Level](documentation/images/s018762.png)
+![Figure 3: RBAC Project Level](images/s018762.png)
 
 ### Configuring RBAC Details
 
@@ -380,7 +380,7 @@ the plus (+) icon to add a list, or click the gear icon to select from
 Edit, Insert After, or Delete, see
 [Figure 4](role-resource-access-control-vmc.html#rbacui4).
 
-![Figure 4: RBAC Details API Access](documentation/images/s018763.png)
+![Figure 4: RBAC Details API Access](images/s018763.png)
 
 #### Creating or Editing API Level Access
 
@@ -391,7 +391,7 @@ Access filed to enter the types of access allowed for the role,
 including, Create, Read, Update, Delete, and so on, see
 [Figure 5](role-resource-access-control-vmc.html#rbacui5).
 
-![Figure 5: Edit API Access](documentation/images/s018764.png)
+![Figure 5: Edit API Access](images/s018764.png)
 
 #### Creating or Editing Object Level Access
 
@@ -402,7 +402,7 @@ and global share permissions. You can also share the resource to other
 tenants by configuring it in the **Share List**, see
 [Figure 6](role-resource-access-control-vmc.html#rbacui6).
 
-![Figure 6: Edit Object Level Access](documentation/images/s018765.png)
+![Figure 6: Edit Object Level Access](images/s018765.png)
 
 ## RBAC Resources
 

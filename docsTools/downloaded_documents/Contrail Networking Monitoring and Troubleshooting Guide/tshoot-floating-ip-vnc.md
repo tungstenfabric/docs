@@ -49,18 +49,18 @@ Private virtual network:
 
 ## Example
 
-![](documentation/images/s041948.gif)
+![](images/s041948.gif)
 
 A virtual machine is created in the virtual network VN1 with the name
 VN1\_VM1 and with the IP address 10.1.1.253. A floating IP address of
 10.204.219.37 is associated to the VN1\_VM1 instance.
 
-![](documentation/images/s041949.gif)
+![](images/s041949.gif)
 
 An MX80 router is configured as a gateway to peer with control nodes
 nodec7 and nodec8.
 
-![](documentation/images/s041950.gif)
+![](images/s041950.gif)
 
 ## Example: MX80 Configuration for the Gateway
 
@@ -636,7 +636,7 @@ its floating IP object associations.
 -   <span id="jd0e185">Using Contrail UI to get the virtual machine
     interface:</span>
 
-    ![](documentation/images/s041951.gif)
+    ![](images/s041951.gif)
 
 <div id="jd0e190" class="example" dir="ltr">
 
@@ -779,7 +779,7 @@ the control nodes and the gateway MX.
 
 -   Using the Contrail UI:
 
-    ![](documentation/images/s041952.gif)
+    ![](images/s041952.gif)
 
 -   Using the control-node Introspect:
 
@@ -800,7 +800,7 @@ installed by the compute node (nodec10) that hosts that virtual machine.
 
 -   Using the Contrail UI:
 
-    ![](documentation/images/s041953.gif)
+    ![](images/s041953.gif)
 
 -   Using the http Introspect:
 
@@ -812,7 +812,7 @@ installed by the compute node (nodec10) that hosts that virtual machine.
 
     `http://nodec8:8083/Snh_BgpNeighborReq?ip_address=&domain=`
 
-    ![](documentation/images/s041954.gif)
+    ![](images/s041954.gif)
 
 <div id="jd0e275" class="example" dir="ltr">
 
@@ -827,7 +827,7 @@ corresponding BGP L3VPN routes, as in the following example.
 
 -   Using the Contrail UI:
 
-    ![](documentation/images/s041955.gif)
+    ![](images/s041955.gif)
 
 -   Using the control-node Introspect:
 
@@ -958,7 +958,7 @@ should have the next hop pointing to the MX gateway (10.204.216.253).
 
 -   Using the Contrail UI:
 
-    ![](documentation/images/s041959.gif)
+    ![](images/s041959.gif)
 
 </div>
 
@@ -978,7 +978,7 @@ for the routing instance `default-domain:admin:public_vn:public_vn.`
 
 -   In the following example, the unicast route table index is 2.
 
-    ![](documentation/images/s041956.gif)
+    ![](images/s041956.gif)
 
 Next, perform a route request query on ucindex 2, as shown in the
 following. The tunnel detail indicates the source and destination
@@ -988,9 +988,9 @@ machine).
 The query should also show a route for 10.204.219.37 with an interface
 next hop of tap-interface. `http://nodec10:8085/Snh_Inet4UcRouteReq?x=2`
 
-![](documentation/images/s041957.gif)
+![](images/s041957.gif)
 
-![](documentation/images/s041958.gif)
+![](images/s041958.gif)
 
 A ping from the MX gateway to the virtual machine’s floating IP in the
 public routing-instance should work.

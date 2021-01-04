@@ -104,6 +104,6 @@ Bubble charts use the following color-coding scheme:
 
  
 
-.. |Figure 1: Monitor > Infrastructure > Dashboard| image:: documentation/images/s041572.gif
-.. |Figure 2: Dashboard Summary Boxes| image:: documentation/images/s041566.gif
-.. |Figure 3: Bubble Summary Information| image:: documentation/images/s041898.gif
+.. |Figure 1: Monitor > Infrastructure > Dashboard| image:: images/s041572.gif
+.. |Figure 2: Dashboard Summary Boxes| image:: images/s041566.gif
+.. |Figure 3: Bubble Summary Information| image:: images/s041898.gif

@@ -24,7 +24,7 @@ the **Dashboard**. See
 [Figure 1](monitor-dashboard-vnc.html#dashboard1).
 
 ![Figure 1: Monitor &gt; Infrastructure &gt;
-Dashboard](documentation/images/s041572.gif)
+Dashboard](images/s041572.gif)
 
 ## Monitor Individual Details from the Dashboard
 
@@ -36,7 +36,7 @@ control nodes, virtual routers, analytics nodes, and config nodes can be
 monitored individually and in detail from the **Dashboard** by clicking
 an associated box, and drilling down for more detail.
 
-![Figure 2: Dashboard Summary Boxes](documentation/images/s041566.gif)
+![Figure 2: Dashboard Summary Boxes](images/s041566.gif)
 
 Detailed information about monitoring each of the areas represented by
 the boxes is provided in the links in
@@ -60,8 +60,7 @@ bubble to get summary information about the component it represents; see
 [Figure 3](monitor-dashboard-vnc.html#bubble-summ). You can click
 through the summary information to get more details about the component.
 
-![Figure 3: Bubble Summary
-Information](documentation/images/s041898.gif)
+![Figure 3: Bubble Summary Information](images/s041898.gif)
 
 ## Color-Coding of Bubble Charts
 

@@ -104,5 +104,5 @@ system by using the OpenStack dashboard:
 
  
 
-.. |Figure 1: OpenStack Images Window| image:: documentation/images/s018516.png
-.. |Figure 2: OpenStack Create An Image Window| image:: documentation/images/s018515.png
+.. |Figure 1: OpenStack Images Window| image:: images/s018516.png
+.. |Figure 2: OpenStack Create An Image Window| image:: images/s018515.png

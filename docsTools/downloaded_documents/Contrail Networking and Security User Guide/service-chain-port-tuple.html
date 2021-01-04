@@ -14,7 +14,7 @@ the port information when creating a service instance. The ports can
 be created as part of a VM launch from Nova or without using a VM
 launch. The ports are linked to a port-tuple object that is a child
 of a service instance. This functionality can also be leveraged in
-Heat stacks. See <a href="service-chain-port-tuple.html#tuple1">Figure 1</a>.</p><figure id="tuple1"><figcaption>Figure 1: Port Tuple Overview</figcaption><div class="graphic"><img alt="Port Tuple Overview" src="documentation/images/s018749.png" style=""/></div></figure><h2 id="jd0e30">Service Chain Version 2 Sample Workflow</h2><p>With Contrail service templates Version 2, the user can create
+Heat stacks. See <a href="service-chain-port-tuple.html#tuple1">Figure 1</a>.</p><figure id="tuple1"><figcaption>Figure 1: Port Tuple Overview</figcaption><div class="graphic"><img alt="Port Tuple Overview" src="images/s018749.png" style=""/></div></figure><h2 id="jd0e30">Service Chain Version 2 Sample Workflow</h2><p>With Contrail service templates Version 2, the user can create
 ports and bind them to a VM-based or container-based service instance,
 by means of a port-tuple object. All objects created with the Version
 2 service template are visible to the Contrail Heat engine, and are
@@ -44,7 +44,7 @@ prevent protocols such as VRRP from providing a high availability
 failover strategy. Using the allowed address pair extension enables
 additional IP/MAC pairs to be allowed through ports in Neutron. </p><p>In Contrail, you can configure allowed address pairs in the
 service instance configuration, using <strong v-pre="">Configure &gt; Services &gt;
-Service Instances &gt; Allowed Address Pair</strong>, see <a href="service-chain-port-tuple.html#aap">Figure 2</a>.</p><figure id="aap"><figcaption>Figure 2: Edit Service Instance, Allowed Address Pair</figcaption><div class="graphic"><img alt="Edit Service Instance, Allowed Address Pair" src="documentation/images/s019908.png" style=""/></div></figure><p>For more information about OpenStack allowed address pairs,
+Service Instances &gt; Allowed Address Pair</strong>, see <a href="service-chain-port-tuple.html#aap">Figure 2</a>.</p><figure id="aap"><figcaption>Figure 2: Edit Service Instance, Allowed Address Pair</figcaption><div class="graphic"><img alt="Edit Service Instance, Allowed Address Pair" src="images/s019908.png" style=""/></div></figure><p>For more information about OpenStack allowed address pairs,
 see <a href="https://docs.openstack.org/dragonflow/latest/specs/allowed_address_pairs.html">https://docs.openstack.org/dragonflow/latest/specs/allowed_address_pairs.html</a>.</p><h3 id="jd0e139">Service Chain with Static Route Table</h3><p>The service chain Version 2 also supports static route tables.
 A static route table is configured similar to how the allowed address
 pair is configured, except with using the label <code class="inline" v-pre="">right</code>. The route table will be attached to the correct VM ports of the

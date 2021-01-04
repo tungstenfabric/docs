@@ -66,4 +66,4 @@ on the Contrail node.
 
  
 
-.. |Figure 1: Edit BGP Router Window| image:: documentation/images/s042480.png
+.. |Figure 1: Edit BGP Router Window| image:: images/s042480.png

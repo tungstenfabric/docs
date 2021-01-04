@@ -1222,15 +1222,15 @@ and the MX IP or to public addresses is failing, try the following:
 
  
 
-.. |image1| image:: documentation/images/s041948.gif
-.. |image2| image:: documentation/images/s041949.gif
-.. |image3| image:: documentation/images/s041950.gif
-.. |image4| image:: documentation/images/s041951.gif
-.. |image5| image:: documentation/images/s041952.gif
-.. |image6| image:: documentation/images/s041953.gif
-.. |image7| image:: documentation/images/s041954.gif
-.. |image8| image:: documentation/images/s041955.gif
-.. |image9| image:: documentation/images/s041959.gif
-.. |image10| image:: documentation/images/s041956.gif
-.. |image11| image:: documentation/images/s041957.gif
-.. |image12| image:: documentation/images/s041958.gif
+.. |image1| image:: images/s041948.gif
+.. |image2| image:: images/s041949.gif
+.. |image3| image:: images/s041950.gif
+.. |image4| image:: images/s041951.gif
+.. |image5| image:: images/s041952.gif
+.. |image6| image:: images/s041953.gif
+.. |image7| image:: images/s041954.gif
+.. |image8| image:: images/s041955.gif
+.. |image9| image:: images/s041959.gif
+.. |image10| image:: images/s041956.gif
+.. |image11| image:: images/s041957.gif
+.. |image12| image:: images/s041958.gif

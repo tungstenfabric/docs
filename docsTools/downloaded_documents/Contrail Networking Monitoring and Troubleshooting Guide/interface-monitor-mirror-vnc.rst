@@ -38,5 +38,5 @@ To configure interface mirroring:
 
  
 
-.. |Figure 1: Individual vRouter| image:: documentation/images/s041839.gif
-.. |Figure 2: Interfaces| image:: documentation/images/s041856.gif
+.. |Figure 1: Individual vRouter| image:: images/s041839.gif
+.. |Figure 2: Interfaces| image:: images/s041856.gif

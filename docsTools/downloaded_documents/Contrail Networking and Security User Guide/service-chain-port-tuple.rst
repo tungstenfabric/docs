@@ -156,5 +156,5 @@ Checks <../topic-map/service-instance-health-check.html>`__.
 
  
 
-.. |Figure 1: Port Tuple Overview| image:: documentation/images/s018749.png
-.. |Figure 2: Edit Service Instance, Allowed Address Pair| image:: documentation/images/s019908.png
+.. |Figure 1: Port Tuple Overview| image:: images/s018749.png
+.. |Figure 2: Edit Service Instance, Allowed Address Pair| image:: images/s019908.png

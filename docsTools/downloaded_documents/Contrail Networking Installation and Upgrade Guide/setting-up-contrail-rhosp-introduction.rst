@@ -244,4 +244,4 @@ documentation <https://access.redhat.com/documentation/en-us/red_hat_openstack_p
 
  
 
-.. |Figure 1: Undercloud and Overcloud with Roles| image:: documentation/images/g300376.png
+.. |Figure 1: Undercloud and Overcloud with Roles| image:: images/g300376.png

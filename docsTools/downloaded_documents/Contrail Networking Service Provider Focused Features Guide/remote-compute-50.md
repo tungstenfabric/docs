@@ -173,8 +173,7 @@ section builds upon that minimum configuration and uses
 [Figure 1](remote-compute-50.html#subcluster) as an example data center
 network topology.
 
-![Figure 1: Example Multi-Cluster
-Topology](documentation/images/g200469.png)
+![Figure 1: Example Multi-Cluster Topology](images/g200469.png)
 
 In this topology, there is one main data center (`pop0`) and two remote
 data centers (`pop1` and `pop2`.) `pop0` contains two subclusters: one

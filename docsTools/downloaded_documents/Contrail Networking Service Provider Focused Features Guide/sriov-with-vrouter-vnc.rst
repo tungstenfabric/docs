@@ -470,5 +470,5 @@ To use CLI to enable and launch an SR-IOV VM:
 
  
 
-.. |Figure 1: Edit Network| image:: documentation/images/S018550.png
-.. |Figure 2: Create Port| image:: documentation/images/S018551.png
+.. |Figure 1: Edit Network| image:: images/S018550.png
+.. |Figure 2: Create Port| image:: images/S018551.png

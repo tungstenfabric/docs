@@ -12,8 +12,8 @@ as shown in <a href="evpn-type-6-selective-multicast-ethernet-tag-route.html#con
 QFX device to which the multicast source is connected. You can configure
 IGMP at the global system configuration-level, at virtual network-level,
 or at VMI-level. Configuring <span class="cli" v-pre="">ERB-UCAST-Gateway</span> role enables
-IGMP snooping on the QFX device.</p><figure id="configure-igmp"><figcaption>Figure 1: Configure IGMP</figcaption><div class="graphic"><img alt="Configure IGMP" src="documentation/images/s008005.png" style=""/></div></figure><p>You can allow or deny multicast traffic by attaching a policy
-at the virtual network-level as shown in <a href="evpn-type-6-selective-multicast-ethernet-tag-route.html#define-multicast-policy">Figure 2</a>.</p><figure id="define-multicast-policy"><figcaption>Figure 2:  Define Multicast Policy</figcaption><div class="graphic"><img alt=" Define Multicast Policy" src="documentation/images/s008006.png" style=""/></div></figure><p>In Contrail Release 5.1, the receivers are always inside the
+IGMP snooping on the QFX device.</p><figure id="configure-igmp"><figcaption>Figure 1: Configure IGMP</figcaption><div class="graphic"><img alt="Configure IGMP" src="images/s008005.png" style=""/></div></figure><p>You can allow or deny multicast traffic by attaching a policy
+at the virtual network-level as shown in <a href="evpn-type-6-selective-multicast-ethernet-tag-route.html#define-multicast-policy">Figure 2</a>.</p><figure id="define-multicast-policy"><figcaption>Figure 2:  Define Multicast Policy</figcaption><div class="graphic"><img alt=" Define Multicast Policy" src="images/s008006.png" style=""/></div></figure><p>In Contrail Release 5.1, the receivers are always inside the
 contrail cluster and sender is always outside the cluster. This feature
 is supported only with  &lt;*, G&gt;  /igmpv2. The SMET feature is supported
 only on QFX10000 and QFX5110 devices running Junos OS Release 18.4R1

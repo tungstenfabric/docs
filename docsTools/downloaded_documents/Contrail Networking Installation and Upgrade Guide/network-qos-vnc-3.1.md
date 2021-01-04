@@ -158,15 +158,14 @@ class to be applied works as follows:
 [Figure 1](network-qos-vnc-3.1.html#qos1) shows the processing of QoS
 packets.
 
-![Figure 1: Processing of QoS Packets](documentation/images/g300445.png)
+![Figure 1: Processing of QoS Packets](images/g300445.png)
 
 A virtual machine interface, virtual network, and network policy can
 refer to the QoS configuration object. The QoS configuration object can
 be specified on the vhost so that underlay traffic can also be subjected
 to marking and queuing. See [Figure 2](network-qos-vnc-3.1.html#qos2).
 
-![Figure 2: Referring to the QoS
-Object](documentation/images/g300442.png)
+![Figure 2: Referring to the QoS Object](images/g300442.png)
 
 ## Example: Mapping Traffic to Forwarding Classes
 

@@ -17,7 +17,7 @@ alternative to full-mesh internal BGP peering. See
 [Figure 1](contrail-route-reflectors.html#route-reflector-contrail).
 
 ![Figure 1: Advantage of BGP Route Reflector over Full-mesh
-Topology](documentation/images/g300492.png)
+Topology](images/g300492.png)
 
 You can create any number of RRs in the network. Each RR must have a
 unique cluster ID to prevent looping among the RRs.

@@ -264,13 +264,13 @@ Table 3: Query Flow Records Fields
 
  
 
-.. |Figure 1: Query Flow Series Window| image:: documentation/images/s041598.gif
-.. |Figure 2: Flow Series Select| image:: documentation/images/s041600.gif
-.. |Figure 3: Flow Series Filter| image:: documentation/images/s041599.gif
-.. |Figure 4: Example: Query Flow Series| image:: documentation/images/s041604.gif
-.. |Figure 5: Query Flow Series Tabular Results| image:: documentation/images/s041605.gif
-.. |Figure 6: Query Flow Series Graphical Results| image:: documentation/images/s041611.gif
-.. |Figure 7: Flow Records| image:: documentation/images/s041601.gif
-.. |Figure 8: Flow Records Select Window| image:: documentation/images/s041602.gif
-.. |Figure 9: Where Clause Window| image:: documentation/images/s041608.gif
-.. |Figure 10: Flows Query Queue| image:: documentation/images/s041592.gif
+.. |Figure 1: Query Flow Series Window| image:: images/s041598.gif
+.. |Figure 2: Flow Series Select| image:: images/s041600.gif
+.. |Figure 3: Flow Series Filter| image:: images/s041599.gif
+.. |Figure 4: Example: Query Flow Series| image:: images/s041604.gif
+.. |Figure 5: Query Flow Series Tabular Results| image:: images/s041605.gif
+.. |Figure 6: Query Flow Series Graphical Results| image:: images/s041611.gif
+.. |Figure 7: Flow Records| image:: images/s041601.gif
+.. |Figure 8: Flow Records Select Window| image:: images/s041602.gif
+.. |Figure 9: Where Clause Window| image:: images/s041608.gif
+.. |Figure 10: Flows Query Queue| image:: images/s041592.gif

@@ -106,8 +106,7 @@ To create a health check with the Contrail Web UI:
     Check Service**, and click to open the **Create** screen. See
     [Figure 1](service-instance-health-check.html#check1).</span>
 
-    ![Figure 1: Create Health Check
-    Screen](documentation/images/s018766.png)
+    ![Figure 1: Create Health Check Screen](images/s018766.png)
 
 2.  <span id="jd0e212">Complete the fields to define the permissions for
     the health check, see

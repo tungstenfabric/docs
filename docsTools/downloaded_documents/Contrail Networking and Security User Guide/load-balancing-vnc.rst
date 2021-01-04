@@ -30,4 +30,4 @@ chain:
 
  
 
-.. |Figure 1: Load Balancing a Service Chain| image:: documentation/images/s041830.gif
+.. |Figure 1: Load Balancing a Service Chain| image:: images/s041830.gif

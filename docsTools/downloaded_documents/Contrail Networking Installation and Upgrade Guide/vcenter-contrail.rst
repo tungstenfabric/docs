@@ -462,6 +462,6 @@ Follow these steps to monitor and manage Contrail VM from EAM:
 
  
 
-.. |Figure 1: vCenter Server Extensions| image:: documentation/images/s051766.png
-.. |Figure 2: ESX Agencies| image:: documentation/images/s051767.png
-.. |Figure 3: Configure Agent VM Settings| image:: documentation/images/s051768.png
+.. |Figure 1: vCenter Server Extensions| image:: images/s051766.png
+.. |Figure 2: ESX Agencies| image:: images/s051767.png
+.. |Figure 3: Configure Agent VM Settings| image:: images/s051768.png

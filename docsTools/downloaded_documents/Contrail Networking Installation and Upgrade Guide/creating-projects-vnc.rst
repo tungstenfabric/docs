@@ -41,5 +41,5 @@ managing projects.
 
  
 
-.. |Figure 1: OpenStack Projects| image:: documentation/images/s041521.gif
-.. |Figure 2: Add Project| image:: documentation/images/s041522.gif
+.. |Figure 1: OpenStack Projects| image:: images/s041521.gif
+.. |Figure 2: Add Project| image:: images/s041522.gif

@@ -8,7 +8,7 @@ Click **Monitor &gt; Infrastructure &gt; Virtual Routers** to view the
 **vRouters** summary screen. See
 [Figure 1](monitoring-vrouters-vnc.html#vrouters-summary).
 
-![Figure 1: vRouters Summary](documentation/images/s041581.gif)
+![Figure 1: vRouters Summary](images/s041581.gif)
 
 See [Table 1](monitoring-vrouters-vnc.html#vrouters-fields) for
 descriptions of the fields on the **vRouters Summary** screen.
@@ -64,8 +64,7 @@ see [Figure 2](monitoring-vrouters-vnc.html#vrouters-details).
 See[Table 2](monitoring-vrouters-vnc.html#vrouter-details) for
 descriptions of the fields on this tab.
 
-![Figure 2: Individual vRouters—Details
-Tab](documentation/images/s041582.gif)
+![Figure 2: Individual vRouters—Details Tab](images/s041582.gif)
 
 Table 2: vRouters Details Tab Fields
 
@@ -96,8 +95,7 @@ scroll bars to access all portions of the screen. See
 [Table 3](monitoring-vrouters-vnc.html#interfaces-tab-fields) for
 descriptions of the fields on the **Interfaces** tab screen.
 
-![Figure 3: Individual vRouters—Interfaces
-Tab](documentation/images/s041583.gif)
+![Figure 3: Individual vRouters—Interfaces Tab](images/s041583.gif)
 
 Table 3: vRouters: Interfaces Tab Fields
 
@@ -120,8 +118,7 @@ network to reveal more details. See
 [Table 4](monitoring-vrouters-vnc.html#networks-tab-fields) for
 descriptions of the fields on the **Networks** tab screen.
 
-![Figure 4: Individual vRouters—Networks
-Tab](documentation/images/s041584.gif)
+![Figure 4: Individual vRouters—Networks Tab](images/s041584.gif)
 
 Table 4: vRouters: Networks Tab Fields
 
@@ -141,8 +138,7 @@ the UUID of any ACL to reveal more details. See
 [Table 5](monitoring-vrouters-vnc.html#acl-tab-fields) for descriptions
 of the fields on the **ACL** tab screen.
 
-![Figure 5: Individual vRouters—ACL
-Tab](documentation/images/s041585.gif)
+![Figure 5: Individual vRouters—ACL Tab](images/s041585.gif)
 
 Table 5: vRouters: ACL Tab Fields
 
@@ -168,8 +164,7 @@ access all portions of the screen. See
 [Table 6](monitoring-vrouters-vnc.html#flows-tab-fields) for
 descriptions of the fields on the **Flows** tab screen.
 
-![Figure 6: Individual vRouters—Flows
-Tab](documentation/images/s041586.gif)
+![Figure 6: Individual vRouters—Flows Tab](images/s041586.gif)
 
 Table 6: vRouters: Flows Tab Fields
 
@@ -196,8 +191,7 @@ next to the route prefix to reveal more details. See
 [Table 7](monitoring-vrouters-vnc.html#routes-fields) for descriptions
 of the fields on the **Routes** tab screen.
 
-![Figure 7: Individual vRouters—Routes
-Tab](documentation/images/s041587.gif)
+![Figure 7: Individual vRouters—Routes Tab](images/s041587.gif)
 
 Table 7: vRouters: Routes Tab Fields
 
@@ -218,8 +212,7 @@ of information as the default display. See
 [Table 8](monitoring-vrouters-vnc.html#vrouter-console-fields) for
 descriptions of the fields on the **Console** tab screen.
 
-![Figure 8: Individual vRouter—Console
-Tab](documentation/images/s041591.gif)
+![Figure 8: Individual vRouter—Console Tab](images/s041591.gif)
 
 Table 8: Control Node: Console Tab Fields
 

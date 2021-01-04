@@ -71,7 +71,7 @@ Networking &gt; Services**.
     The **Service Templates** screen appears; see
     [Figure 1](configure-traffic-analyzer-vnc.html#config-svc-templ).
 
-    ![Figure 1: Service Templates](documentation/images/s041612.gif)
+    ![Figure 1: Service Templates](images/s041612.gif)
 
 2.  <span id="jd0e116">To create a new service template, click the **+**
     icon.</span>
@@ -79,8 +79,7 @@ Networking &gt; Services**.
     The **Create** window appears. Select the Service Template tab; see
     [Figure 2](configure-traffic-analyzer-vnc.html#add-svc-templ).
 
-    ![Figure 2: Create Service
-    Template](documentation/images/s041613.gif)
+    ![Figure 2: Create Service Template](images/s041613.gif)
 
 3.  <span id="jd0e133">Complete the fields by using the guidelines in
     [Table 1](configure-traffic-analyzer-vnc.html#svc-templ-fields-analyzer).</span>
@@ -146,8 +145,7 @@ Networking &gt; Services**.
     selected. See
     [Figure 3](configure-traffic-analyzer-vnc.html#add-serv-inst).
 
-    ![Figure 3: Create Service
-    Instances](documentation/images/s041858.gif)
+    ![Figure 3: Create Service Instances](images/s041858.gif)
 
 5.  <span id="jd0e266">Complete the fields by using the guidelines in
     [Table 2](configure-traffic-analyzer-vnc.html#add-svc-inst-fields).</span>
@@ -169,14 +167,14 @@ Networking &gt; Services**.
     **Create** window; see
     [Figure 4](configure-traffic-analyzer-vnc.html#config-netw-pol).</span>
 
-    ![Figure 4: Create Policy](documentation/images/s041859.gif)
+    ![Figure 4: Create Policy](images/s041859.gif)
 
 7.  <span id="jd0e364">Enter a name for the policy, then click the +
     icon in the lower portion of the screen to configure rules for the
     policy, see
     [Figure 5](configure-traffic-analyzer-vnc.html#add-rule-svc-inst).</span>
 
-    ![Figure 5: Create Policy Rules](documentation/images/s041833.gif)
+    ![Figure 5: Create Policy Rules](images/s041833.gif)
 
 8.  <span id="jd0e373">To add policy rules, complete the fields, using
     the guidelines in
@@ -259,7 +257,6 @@ Networking &gt; Services**.
     it starts and captures the mirrored packets destined to this
     service.
 
-    ![Figure 6: Service Instances View
-    Console](documentation/images/s041869.gif)
+    ![Figure 6: Service Instances View Console](images/s041869.gif)
 
  

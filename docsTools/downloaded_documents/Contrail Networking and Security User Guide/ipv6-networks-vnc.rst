@@ -130,6 +130,6 @@ inet6-vpn peering.
 
  
 
-.. |image1| image:: documentation/images/s042015.gif
-.. |image2| image:: documentation/images/s042016.gif
-.. |image3| image:: documentation/images/s042017.gif
+.. |image1| image:: images/s042015.gif
+.. |image2| image:: images/s042016.gif
+.. |image3| image:: images/s042017.gif

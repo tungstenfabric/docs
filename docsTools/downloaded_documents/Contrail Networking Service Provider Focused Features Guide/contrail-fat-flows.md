@@ -93,7 +93,7 @@ Click **Overlay**&gt;**Ports**.
 The Ports page is displayed. See
 [Figure 1](contrail-fat-flows.html#ports-page).
 
-![Figure 1: Ports Page](documentation/images/s007828.PNG)
+![Figure 1: Ports Page](images/s007828.PNG)
 
 Select the port you want to configure by selecting the check box next to
 the name of the port, and then click the **Edit** icon.
@@ -101,7 +101,7 @@ the name of the port, and then click the **Edit** icon.
 The Edit Port page is displayed. See
 [Figure 2](contrail-fat-flows.html#edit-port).
 
-![Figure 2: Edit Port Page](documentation/images/s007829.PNG)
+![Figure 2: Edit Port Page](images/s007829.PNG)
 
 Click **Fat Flow(s)** to display the fields that you can edit.
 
@@ -224,12 +224,11 @@ v-pre="">Understanding Source and Destination</span> section.
 **Note:** Contrail Networking enables you to configure subnet and prefix
 length.
 
-![Figure 3: Ignore
-Address—Destination](documentation/images/s051790.PNG)
+![Figure 3: Ignore Address—Destination](images/s051790.PNG)
 
-![Figure 4: Ignore Address—None](documentation/images/s051792.PNG)
+![Figure 4: Ignore Address—None](images/s051792.PNG)
 
-![Figure 5: Ignore Address—Source](documentation/images/s051791.PNG)
+![Figure 5: Ignore Address—Source](images/s051791.PNG)
 
 Click **Save** to update new configuration information.
 
@@ -263,7 +262,7 @@ Click **Overlay**&gt;**Virtual Networks**.
 The Virtual Networks page is displayed. See
 [Figure 6](contrail-fat-flows.html#all-networks).
 
-![Figure 6: Virtual Networks Page](documentation/images/s007830.PNG)
+![Figure 6: Virtual Networks Page](images/s007830.PNG)
 
 Select the virtual network you want to edit by selecting the check box
 next to the name of the virtual network, and then click the **Edit**
@@ -272,7 +271,7 @@ icon.
 The Edit Virtual Network page is displayed. See
 [Figure 7](contrail-fat-flows.html#edit-vn).
 
-![Figure 7: Edit Virtual Network Page](documentation/images/s007831.PNG)
+![Figure 7: Edit Virtual Network Page](images/s007831.PNG)
 
 Click **Fat Flows** to display the fields that you can edit.
 

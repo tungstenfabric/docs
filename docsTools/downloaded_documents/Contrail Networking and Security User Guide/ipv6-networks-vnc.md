@@ -72,7 +72,7 @@ new virtual network by selecting **Configure &gt; Networking &gt;
 Networks**, the Edit fields accept IPv6 addresses, as shown in the
 following image.
 
-![](documentation/images/s042015.gif)
+![](images/s042015.gif)
 
 ### Address Assignments
 
@@ -84,7 +84,7 @@ network.
 The following is a sample of IPv6 instances with address assignments, as
 listed in the OpenStack Horizon user interface.
 
-![](documentation/images/s042016.gif)
+![](images/s042016.gif)
 
 #### Enabling DHCPv6 In Virtual Machines
 
@@ -108,7 +108,7 @@ IPv6 addresses.
 
 A sample is shown in the following.
 
-![](documentation/images/s042017.gif)
+![](images/s042017.gif)
 
 **Note**
 

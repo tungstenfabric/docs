@@ -783,25 +783,25 @@ provisioning of Contrail analytics components.
 
  
 
-.. |Figure 1: Contrail Analytics Components| image:: documentation/images/g301071.png
-.. |Figure 2: Web UI - All Optional Analytics Components Deployed| image:: documentation/images/s008309.PNG
-.. |Figure 3: Web UI - Database Node in Dashboard| image:: documentation/images/s008310.PNG
-.. |Figure 4: Web UI - Optional Analytics Components Not Deployed| image:: documentation/images/s008311.PNG
-.. |Figure 5: Web UI - Database Node Not Visible in Dashboard| image:: documentation/images/s008312.PNG
-.. |Figure 6: Web UI - Monitor > Alarms Menu| image:: documentation/images/s008313.PNG
-.. |Figure 7: Web UI - Configure > Alarms Menu| image:: documentation/images/s008314.PNG
-.. |Figure 8: Web UI - Global Alarm Settings| image:: documentation/images/s008315.PNG
-.. |Figure 9: Analytics Alarm Disabled - Global Alarm and Alarm Not Available| image:: documentation/images/s008316.PNG
-.. |Figure 10: Analytics Alarm Disabled - Configure > Alarms| image:: documentation/images/s008317.PNG
-.. |Figure 11: Analytics SNMP Feature Enabled - Physical Topology Menu Available| image:: documentation/images/s008318.PNG
-.. |Figure 12: Analytics SNMP Feature Disabled - Physical Topology Menu Not Available| image:: documentation/images/s008319.PNG
-.. |Figure 13: Analytics Database Enabled - Query Page Available| image:: documentation/images/s008320.PNG
-.. |Figure 14: Analytics Database Disabled - Query Page Logo Not Available| image:: documentation/images/s008329.PNG
-.. |Figure 15: Query Page Visible in Dashboard| image:: documentation/images/s008321.PNG
-.. |Figure 16: Disabled Roles Still Visible in Contrail Command| image:: documentation/images/s008322.PNG
-.. |Figure 17: Empty Charts in Compute Nodes| image:: documentation/images/s008323.PNG
-.. |Figure 18: Empty Charts in Config Nodes| image:: documentation/images/s008324.PNG
-.. |Figure 19: Empty Charts in Analytics Nodes| image:: documentation/images/s008325.PNG
-.. |Figure 20: Empty Charts in Control Nodes| image:: documentation/images/s008326.PNG
-.. |Figure 21: Empty Charts in Database Nodes| image:: documentation/images/s008327.PNG
-.. |Figure 22: Empty Alarms Page| image:: documentation/images/s008328.PNG
+.. |Figure 1: Contrail Analytics Components| image:: images/g301071.png
+.. |Figure 2: Web UI - All Optional Analytics Components Deployed| image:: images/s008309.PNG
+.. |Figure 3: Web UI - Database Node in Dashboard| image:: images/s008310.PNG
+.. |Figure 4: Web UI - Optional Analytics Components Not Deployed| image:: images/s008311.PNG
+.. |Figure 5: Web UI - Database Node Not Visible in Dashboard| image:: images/s008312.PNG
+.. |Figure 6: Web UI - Monitor > Alarms Menu| image:: images/s008313.PNG
+.. |Figure 7: Web UI - Configure > Alarms Menu| image:: images/s008314.PNG
+.. |Figure 8: Web UI - Global Alarm Settings| image:: images/s008315.PNG
+.. |Figure 9: Analytics Alarm Disabled - Global Alarm and Alarm Not Available| image:: images/s008316.PNG
+.. |Figure 10: Analytics Alarm Disabled - Configure > Alarms| image:: images/s008317.PNG
+.. |Figure 11: Analytics SNMP Feature Enabled - Physical Topology Menu Available| image:: images/s008318.PNG
+.. |Figure 12: Analytics SNMP Feature Disabled - Physical Topology Menu Not Available| image:: images/s008319.PNG
+.. |Figure 13: Analytics Database Enabled - Query Page Available| image:: images/s008320.PNG
+.. |Figure 14: Analytics Database Disabled - Query Page Logo Not Available| image:: images/s008329.PNG
+.. |Figure 15: Query Page Visible in Dashboard| image:: images/s008321.PNG
+.. |Figure 16: Disabled Roles Still Visible in Contrail Command| image:: images/s008322.PNG
+.. |Figure 17: Empty Charts in Compute Nodes| image:: images/s008323.PNG
+.. |Figure 18: Empty Charts in Config Nodes| image:: images/s008324.PNG
+.. |Figure 19: Empty Charts in Analytics Nodes| image:: images/s008325.PNG
+.. |Figure 20: Empty Charts in Control Nodes| image:: images/s008326.PNG
+.. |Figure 21: Empty Charts in Database Nodes| image:: images/s008327.PNG
+.. |Figure 22: Empty Alarms Page| image:: images/s008328.PNG

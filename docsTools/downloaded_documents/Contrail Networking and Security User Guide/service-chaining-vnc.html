@@ -6,11 +6,11 @@ to dynamically apply single or multiple services to virtual machine
 services. </p><p><a href="service-chaining-vnc.html#service-chain-vm1">Figure 1</a> shows the basic service
 chain schema, with a single service. The service VM spawns the service,
 using the convention of left interface (left IF) and right interface
-(right IF). Multiple services can also be chained together.</p><figure id="service-chain-vm1"><figcaption>Figure 1: Service Chaining </figcaption><div class="graphic"><img alt="Service Chaining " src="documentation/images/s041619.gif" style=""/></div></figure><p>When you create a service chain, the Contrail software creates
+(right IF). Multiple services can also be chained together.</p><figure id="service-chain-vm1"><figcaption>Figure 1: Service Chaining </figcaption><div class="graphic"><img alt="Service Chaining " src="images/s041619.gif" style=""/></div></figure><p>When you create a service chain, the Contrail software creates
 tunnels across the underlay network that span through all services
 in the chain. <a href="service-chaining-vnc.html#svc-chain">Figure 2</a> shows two end points
 and two compute nodes, each with one service instance and traffic
-going to and from one end point to the other.</p><figure id="svc-chain"><figcaption>Figure 2: Contrail Service Chain</figcaption><div class="graphic"><img alt="Contrail Service Chain" src="documentation/images/s041901.gif" style=""/></div></figure><p>The following are the modes of services that can be configured.</p><ul><li class="unmarked-list" style=""><p><em>Transparent or bridge mode</em></p><ul><li class="unmarked-list" style=""><p>Used for services that do not modify the packet. Also
+going to and from one end point to the other.</p><figure id="svc-chain"><figcaption>Figure 2: Contrail Service Chain</figcaption><div class="graphic"><img alt="Contrail Service Chain" src="images/s041901.gif" style=""/></div></figure><p>The following are the modes of services that can be configured.</p><ul><li class="unmarked-list" style=""><p><em>Transparent or bridge mode</em></p><ul><li class="unmarked-list" style=""><p>Used for services that do not modify the packet. Also
 known as bump-in-the-wire or Layer 2 mode. Examples include Layer
 2 firewall, IDP, and so on.</p></li></ul></li><li class="unmarked-list" style=""><p><em>In-network or routed mode</em></p><ul><li class="unmarked-list" style=""><p>Provides a gateway service where packets are routed between
 the service instance interfaces. Examples include NAT, Layer 3 firewall,

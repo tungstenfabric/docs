@@ -43,4 +43,4 @@ installation for the operating system appropriate for your system:
 
  
 
-.. |Figure 1: Contrail Containers, Pods, and Microservices| image:: documentation/images/g300352.png
+.. |Figure 1: Contrail Containers, Pods, and Microservices| image:: images/g300352.png

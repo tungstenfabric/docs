@@ -263,6 +263,6 @@ it as a failure in the vRouter and initiates convergence.
 
  
 
-.. |Figure 1: Tunnel Endpoint failure: SDN Gateway| image:: documentation/images/g301196.png
-.. |image1| image:: documentation/images/g301197.png
-.. |image2| image:: documentation/images/g301198.png
+.. |Figure 1: Tunnel Endpoint failure: SDN Gateway| image:: images/g301196.png
+.. |image1| image:: images/g301197.png
+.. |image2| image:: images/g301198.png

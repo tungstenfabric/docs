@@ -41,7 +41,7 @@ platforms supporting VXLAN bridges.
 [Figure 1](vrouter-agent-modules.html#agent-modules) provides an
 overview of the different modules involved.
 
-![Figure 1: Overview of Agent Modules](documentation/images/g301126.png)
+![Figure 1: Overview of Agent Modules](images/g301126.png)
 
 ## Config
 

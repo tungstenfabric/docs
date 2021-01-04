@@ -27,7 +27,7 @@ network.</p><div class="sample" dir="ltr" id="jd0e90"><div class="output" dir="l
 </pre></template></sw-code></div></div></li><li style=""><p>OpenShift nodes (VMs) must have Internet connectivity.</p></li><li style=""><p>Default security group of the virtual-network where OpenShift
 nodes are launched must be modified to allow all ingress traffic to
 communicate with OpenShift networks provided in the OpenShift inventory
-file.</p><figure id="jd0e99"><div class="graphic"><img alt="" src="documentation/images/s008143.PNG" style=""/></div></figure></li></ul><p><kbd class="user-typing" v-pre="">Provisioning Nested OpenShift Cluster</kbd></p><p>Provisioning a nested OpenShift cluster is a two-step
+file.</p><figure id="jd0e99"><div class="graphic"><img alt="" src="images/s008143.PNG" style=""/></div></figure></li></ul><p><kbd class="user-typing" v-pre="">Provisioning Nested OpenShift Cluster</kbd></p><p>Provisioning a nested OpenShift cluster is a two-step
 process.</p><ol type="a"><li style=""><p>Create link-local services in the Contrail-OpenStack cluster.</p><p>A nested OpenShift cluster is managed by the same Contrail controller
 that manages the underlying OpenStack cluster. Hence, the nested Openshift
 cluster needs IP reachability to the Contrail controller and OpenStack
