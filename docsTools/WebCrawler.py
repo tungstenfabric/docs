@@ -1083,7 +1083,7 @@ class AllDocuments(object):
         pp = pprint.PrettyPrinter(indent=4)
         for document in documents:
             pages=[] #list of pages in that document
-            print('Analyzing '+document['name'])
+            print('\nAnalyzing '+document['name'])
             
             #create folder for that document and images
             if not os.path.exists(args.outputFolder+"/"+document['name']):
@@ -1096,114 +1096,108 @@ class AllDocuments(object):
             for page in document['pages']: 
                 if page['juniperAgreesToCopy']:
                     #try:
-                        print('    Analyzing '+str(page['id'])+":"+page['url'])
+                        print('\n    Analyzing '+str(page['id'])+": "+page['url'])
                         #get filename
                         filename=os.path.basename(urlparse(page['url']).path) 
+                        extension = os.path.splitext(filename)[1]
+                        #skip files other than html                        
+                        if extension!=".html":
+                            continue
                         #check if file exist
-                        if 1==0:
-                        #if os.path.isfile(args.outputFolder+"/"+document['name']+"/"+filename):
+                        #if 1==0:
+                        if os.path.isfile(args.outputFolder+"/"+document['name']+"/"+filename):
                         #if yes print message
-                            print("Page already exist: "+document['url'])
-                            pass
-                        else:
-                            #open file
-                            f = open(args.outputFolder+"/"+document['name']+"/"+filename, "w")
-                            #download that page
-                            websiteCode = urllib.request.urlopen(page['url']).read()
-                            #extract the content
-                            #parsed_html = BeautifulSoup(websiteCode, 'html.parser')
-                            parsed_html = BeautifulSoup(test_html_docs, 'html.parser')    
+                            print("    \033[93mPage already exist and will be overwritten: "+document['url']+"\033[0m")
+                        #open file
+                        f = open(args.outputFolder+"/"+document['name']+"/"+filename, "w")
+                        #download that page
+                        websiteCode = urllib.request.urlopen(page['url']).read()
+                        #extract the content
+                        parsed_html = BeautifulSoup(websiteCode, 'html.parser')
+                        #parsed_html = BeautifulSoup(test_html_docs, 'html.parser')    
 
-                            #remove empty tags for better html
+                        #remove empty tags for better html
+                        
+
+                        empty_tags = parsed_html.findAll(lambda tag: ((not tag.contents) and len(tag.get_text(strip=True)) <= 0) and not tag.name == 'br' and not tag.name == 'img')
+
+                        #pp.pprint(empty_tags)
+                        for empty_tag in empty_tags:
+                            empty_tag.decompose()
+                        
+                        #remove tags that contain only newline
+                        empty_tags2 = parsed_html.findAll(lambda tag: self.has_only_newline(tag) and not tag.name == 'br' and not tag.name == 'img')
+                        for empty_tag in empty_tags2:
+                            empty_tag.decompose()
+
+                        #unwrap div that don't have any style
+                        empty_tags2 = parsed_html.findAll(lambda tag: self.has_empty_style(tag) and tag.name=='div')
+                        for empty_tag in empty_tags2:
+                            empty_tag.unwrap()
+                        
+                        #remove rlated documentation section
+                        empty_tags2 = parsed_html.findAll("div", class_="l-aside-box")
+                        for empty_tag in empty_tags2:
+                            empty_tag.decompose()                
+
+                        #change figurecaption to figcaption
+                        empty_tags2 = parsed_html.findAll("figurecaption")
+                        for empty_tag in empty_tags2:
+                            empty_tag.name="figcaption"
+
+
+
+                        content = parsed_html.body.find("div", id="topic-content")
+                        #extract all images and files
+                        images=parsed_html.body.find(id="topic-content").find_all("img")
+                        #for each found image
+                        for image in images:                                
+                            print("        Analyzing image: "+str(image['src']))
+                            #workaround for error when file doesn't have filename but only extension
+                            #workaround: skip those files and remove them from HTML
+                            if os.path.basename(urlparse(image['src']).path).split(".")[0]=="":
+                                print("        \033[93mError: Image without file name\033[0m")
+                                image.decompose()
+                                continue
                             
-
-                            empty_tags = parsed_html.findAll(lambda tag: ((not tag.contents) and len(tag.get_text(strip=True)) <= 0) and not tag.name == 'br' and not tag.name == 'img')
-
-                            #pp.pprint(empty_tags)
-                            for empty_tag in empty_tags:
-                                empty_tag.decompose()
-                            
-                            #remove tags that contain only newline
-                            empty_tags2 = parsed_html.findAll(lambda tag: self.has_only_newline(tag) and not tag.name == 'br' and not tag.name == 'img')
-                            for empty_tag in empty_tags2:
-                                empty_tag.decompose()
-
-                            #unwrap div that don't have any style
-                            empty_tags2 = parsed_html.findAll(lambda tag: self.has_empty_style(tag) and tag.name=='div')
-                            for empty_tag in empty_tags2:
-                                empty_tag.unwrap()
-                            
-                            #remove rlated documentation section
-                            empty_tags2 = parsed_html.findAll("div", class_="l-aside-box")
-                            for empty_tag in empty_tags2:
-                                empty_tag.decompose()                
-
-                            #change figurecaption to figcaption
-                            empty_tags2 = parsed_html.findAll("figurecaption")
-                            for empty_tag in empty_tags2:
-                                empty_tag.name="figcaption"
-
-
-
-                            content = parsed_html.body.find("div", id="topic-content")
-                            #extract all images and files
-                            images=parsed_html.body.find(id="topic-content").find_all("img")
-                            #for each found image
-                            for image in images:                                
-                                print(image['src'])
-                                if os.path.isfile(args.outputFolder+"/"+document['name']+image['src']):
-                                #if yes print message
-                                    print("Image already exist: "+image['src'])
-                                    continue
-                                else:
-                                    imageContent = urllib.request.urlopen("https://www.juniper.net"+image['src']).read()
-                                    imageFileName=os.path.basename(urlparse(image['src']).path)
-                                    imagePosixPath=image['src'].replace(imageFileName,"")
-                                    #check if image folder is documentation/images
-                                    #if not, then save it in documentation/images anyway
-                                    #print(imageFileName)
-                                    #exit()
-                                    imageFile = open(args.outputFolder+"/"+document['name']+"/documentation/images/"+imageFileName, "wb")
-                                    imageFile.write(imageContent)
-                                    #always change path of file as it needs to be inside document folder
-                                    image['src']="documentation/images/"+str(imageFileName)
-                                    #image['src']="LOLA"
-                                    #newSrc="documentation/images/"+str(imageFileName)
-                                    #content=content.replace(image['src'],newSrc)
-                                    
-                            content.name="p"
-                            #print(parsed_html)
-                            #exit()
-                            #write to file
-                            f.write(str(content))              
-                            f.close()
-                            #Convert from html to github markdown
-                            
-                            mdFileName=str(args.outputFolder+"/"+document['name']+"/"+filename).replace(".html",".md")
-                            rstFileName=str(mdFileName).replace(".md",".rst")
-                            pdoc_args = ['-s']
-                            output = pypandoc.convert_file(args.outputFolder+"/"+document['name']+"/"+filename,
-                                                        to='gfm',
-                                                        format='html',
-                                                        extra_args=pdoc_args,
-                                                        outputfile=mdFileName
-                                                        )
-                            output = pypandoc.convert_file(mdFileName,
-                                                        to='rst',
-                                                        format='gfm',
-                                                        extra_args=pdoc_args,
-                                                        outputfile=rstFileName
-                                                        )
-                            #output = pypandoc.convert_file(args.outputFolder+"/"+document['name']+"/"+filename, 'gfm', outputfile=mdFileName)
-                            #output = pypandoc.convert_file(mdFileName, 'rst', outputfile=rstFileName)
-
-                            #Convert from github markdown to rst
-
-                            exit()
-                    #except:
-                    #   print("Page doesn't exist: "+page['url'])
-                    #  continue
-            #websiteBaseUrl=websiteURL.replace(filename, "") #domena do której będą doklejane linki z ToC
+                            imageFileName=os.path.basename(urlparse(image['src']).path)
+                            #if file exists show warning 
+                            if os.path.isfile(args.outputFolder+"/"+document['name']+"/documentation/images/"+imageFileName):
+                                print("        \033[93mImage already exist and will be overwritten: "+image['src']+"\033[0m")
+                            imageFile = open(args.outputFolder+"/"+document['name']+"/documentation/images/"+imageFileName, "wb")
+                            imageContent = urllib.request.urlopen("https://www.juniper.net"+image['src']).read()
+                            imageFile.write(imageContent)
+                            #always change path of file as it needs to be inside document folder
+                            image['src']="documentation/images/"+str(imageFileName)
+                            #image['src']="LOLA"
+                            #newSrc="documentation/images/"+str(imageFileName)
+                            #content=content.replace(image['src'],newSrc)
+                                
+                        content.name="p"
+                        #print(parsed_html)
+                        #exit()
+                        #write to file
+                        f.write(str(content))              
+                        f.close()
+                        #Convert from html to github markdown
+                        
+                        mdFileName=str(args.outputFolder+"/"+document['name']+"/"+filename).replace(".html",".md")
+                        rstFileName=str(mdFileName).replace(".md",".rst")
+                        pdoc_args = ['-s']
+                        output = pypandoc.convert_file(args.outputFolder+"/"+document['name']+"/"+filename,
+                                                    to='gfm',
+                                                    format='html',
+                                                    extra_args=pdoc_args,
+                                                    outputfile=mdFileName
+                                                    )
+                        #Convert from github markdown to rst
+                        output = pypandoc.convert_file(mdFileName,
+                                                    to='rst',
+                                                    format='gfm',
+                                                    extra_args=pdoc_args,
+                                                    outputfile=rstFileName
+                                                    )
+        return True
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='This script takes input file with links to documentation pages, downloads pages where we have permission from Juniper to copy their content to Tungsten Fabric.',
