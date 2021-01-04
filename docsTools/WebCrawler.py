@@ -1100,12 +1100,13 @@ class AllDocuments(object):
                         extension = os.path.splitext(filename)[1]
                         #skip files other than html                        
                         if extension!=".html":
+                            print("        \033[93mSource URL points to file that is not a HTML. Skipping that URL\033[0m")
                             continue
                         #check if file exist
                         #if 1==0:
                         if os.path.isfile(args.outputFolder+"/"+document['name']+"/"+filename):
                         #if yes print message
-                            print("    \033[93mPage already exist and will be overwritten: "+document['url']+"\033[0m")
+                            print("        \033[93mPage already exist and will be overwritten: "+document['url']+"\033[0m")
                         #open file
                         f = open(args.outputFolder+"/"+document['name']+"/"+filename, "w")
                         #download that page
@@ -1154,14 +1155,14 @@ class AllDocuments(object):
                             #workaround for error when file doesn't have filename but only extension
                             #workaround: skip those files and remove them from HTML
                             if os.path.basename(urlparse(image['src']).path).split(".")[0]=="":
-                                print("        \033[93mError: Image without file name\033[0m")
+                                print("            \033[93mError: Image without file name\033[0m")
                                 image.decompose()
                                 continue
                             
                             imageFileName=os.path.basename(urlparse(image['src']).path)
                             #if file exists show warning 
                             if os.path.isfile(args.outputFolder+"/"+document['name']+"/images/"+imageFileName):
-                                print("        \033[93mImage already exist and will be overwritten: "+image['src']+"\033[0m")
+                                print("            \033[93mImage already exist and will be overwritten: "+image['src']+"\033[0m")
                             imageFile = open(args.outputFolder+"/"+document['name']+"/images/"+imageFileName, "wb")
                             imageContent = urllib.request.urlopen("https://www.juniper.net"+image['src']).read()
                             imageFile.write(imageContent)
