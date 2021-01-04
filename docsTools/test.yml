@@ -1,6 +1,14 @@
 - filename: contrail-networking-security-user-guide.html
   name: Contrail Networking and Security User Guide
   pages:
+  - fileName: ../../topics/task/configuration/load-balance-as-service-vnc.html
+    id: 51
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/load-balance-as-service-vnc.html
+  - fileName: contrail-fabric-lifecycle-management-feature-guide.pdf
+    id: 73
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-fabric-lifecycle-management-feature-guide.pdf
   - fileName: ../../topics/concept/security-policy-enhancements.html
     id: 1
     juniperAgreesToCopy: true
