@@ -20,8 +20,13 @@ Result: you have a file that contains:
 1. The script will download only tiles marked as JuniperAgreesToCopy=True
 1. Script will overwrite all existing files and images with the new version. 
 1. Pages and images that don't exist in the new documentation will be left untouched.
-1. Compare changes in .rst files generated inside documentation_pages_output folder. If something was changed, look up the same file in docs repo and see if corrections are needed
-1. For images:
+1. Compare changes in .rst files generated inside documentation_pages_output folder. 
+1. For changed files:
+   1. Look up the same file in docs repo and see if corrections are needed.
+1. For new files:
+   1. Search for any mentions of Contrail ```grep  -rho "[cC]ontrail-[^ ,'\"\:\{\)\.\;\`/]*\|[cC]ontrail [a-zA-Z]* " --exclude=\*.{rst,md,html,css} * > occurences.txt```
+   1. Check file ```decontralization_guide.txt``` to see which mentions should be corrected and which should be left unchanged.
+1. For all images:
    1. Manually check all changed ones with their previous version. Sometimes you will get false-positive because a change that is not visible to a user (for example, in EXIF fields) will be treated as a change by git.
    1. In case a new image was added, use ```grep -r "<FILE_NAME" *``` to find the document in which that image was used. For example: ```grep -r "s041998.gif" *```. Open that document and make the same screenshot using Tungsten Fabric. If you don't have access to the latest TF version, ask community members for help.
 1. Commit ```documentation_pages_output``` with a flag ```-m "<RELEASE NAME>```. For example for release r2020 it will be ```-m "r2020"```
