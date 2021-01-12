@@ -1,0 +1,20 @@
+<p id="topic-content"><h1 id="jd0e2">Support for EVPN Type 6 Selective Multicast Ethernet Tag Route</h1><sw-topic-details date="2019-05-13"> </sw-topic-details><p>Contrail Release 5.1 supports EVPN Type 6 selective multicast
+Ethernet tag (SMET) route to selectively send or receive traffic based
+on the presence or absence of active receivers on a compute node.
+The EVPN Type-6 SMET route helps build and use multicast trees selectively
+on a per <span class="cli" v-pre="">&lt;*, G&gt;</span> basis.</p><p>Currently, all broadcast, unknown unicast, multicast (BUM) traffic
+is carried over the inclusive multicast ethernet tag (IMET) routes.
+This results in flooding of all compute nodes irrespective of whether
+an active receiver is present or not on each of those compute-nodes. </p><h2 id="jd0e16">Configuring EVPN Type-6 SMET Routes</h2><p>EVPN Type-6 SMET routes capability attaches a specific BGP community
+attribute <span class="cli" v-pre="">Ethernet Multicast flags Community</span> (<span class="cli" v-pre="">MF</span>) to the IMET routes. This community is advertised by default in
+Contrail release 5.1 and later. You must enable IGMP on the network
+as shown in <a href="evpn-type-6-selective-multicast-ethernet-tag-route.html#configure-igmp">Figure 1</a> as well as on the
+QFX device to which the multicast source is connected. You can configure
+IGMP at the global system configuration-level, at virtual network-level,
+or at VMI-level. Configuring <span class="cli" v-pre="">ERB-UCAST-Gateway</span> role enables
+IGMP snooping on the QFX device.</p><figure id="configure-igmp"><figcaption>Figure 1: Configure IGMP</figcaption><div class="graphic"><img alt="Configure IGMP" src="images/s008005.png" style=""/></div></figure><p>You can allow or deny multicast traffic by attaching a policy
+at the virtual network-level as shown in <a href="evpn-type-6-selective-multicast-ethernet-tag-route.html#define-multicast-policy">Figure 2</a>.</p><figure id="define-multicast-policy"><figcaption>Figure 2:  Define Multicast Policy</figcaption><div class="graphic"><img alt=" Define Multicast Policy" src="images/s008006.png" style=""/></div></figure><p>In Contrail Release 5.1, the receivers are always inside the
+contrail cluster and sender is always outside the cluster. This feature
+is supported only with  &lt;*, G&gt;  /igmpv2. The SMET feature is supported
+only on QFX10000 and QFX5110 devices running Junos OS Release 18.4R1
+and later.</p><sw-prev-next> </sw-prev-next></p>

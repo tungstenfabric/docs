@@ -1,0 +1,171 @@
+<p id="topic-content"><h1 id="jd0e2">Integrating vCenter for Contrail</h1><sw-topic-details date="2020-03-10"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>These topics provide instructions for integrating Contrail Release
+5.1.x and microservices with
+VMware vCenter.</p></div></div><h2 id="id-prerequisites">Prerequisites</h2><p>Before you start the integration, ensure that the contrail controller
+meets the prerequisites given in <a href="../installation/hardware-reqs-vnc.html">Server Requirements and Supported Platforms</a>.</p><p>Follow these steps to prepare Contrail controller(s):</p><div class="sample" dir="ltr" id="jd0e24"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>yum update -y
+
+yum install -y yum-plugin-priorities https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+yum install -y python-pip git gcc python-devel sshpass
+
+yum install -y git
+
+pip install “ansible==2.5.0” pyvmomi
+</pre></template></sw-code></div></div><h2 id="id-esx-agent-manager">ESX Agent Manager</h2><p>VMware provides a standard vCenter solution called vSphere ESX
+Agent Manager (EAM), that allows you to deploy, monitor, and manage
+ContrailVMs on ESXi hosts. </p><p> The ContrailVM is deployed as an Agent VM that is monitored by EAM.
+With this integration, ContrailVMs are marked as more critical and
+privileged than other tenant VMs on the host.</p><p>The following are the benefits of running ContrailVM
+as an AgentVM from EAM:</p><ul><li style=""><p>Auto-deploy ContrailVMs on ESXi hosts in scope (clusters).</p></li><li style=""><p>Manage and Monitor ContrailVMs through EAM in the vSphere
+web client.</p></li><li style=""><p>Integrate with other vCenter features like AddHos, Maintenance
+Mode, vSphere DRS, vSphere DPM, and VMWare HA. </p></li></ul><p>These topics provide instructions for integrating Contrail Release
+5.1.x and microservices with VMware vCenter.</p><h2 id="id-set-up-vcenter-server">Set Up vCenter Server</h2><p>Follow these steps to set up the vCenter server.</p><ol type="1"><li id="jd0e60" style="">Download the Contrail Ansible Deployer (<code class="filepath">contrail-ansible-deployer-<var v-pre="">&lt; &gt;</var>.tgz</code>) onto your provisioning host. You can download the deployer from <a href="https://www.juniper.net/support/downloads/?p=contrail#sw">https://www.juniper.net/support/downloads/?p=contrail#sw</a>.</li><li id="jd0e72" style="">Untar the <code class="filepath">tgz</code>.<div class="sample" dir="ltr" id="jd0e78"><div dir="ltr" id="jd0e79"><code>- tar xvf contrail-ansible-deployer-<var v-pre="">&lt; &gt;</var>.tgz </code></div></div></li><li id="jd0e84" style="">Prepare a <code class="filepath">vcenter_vars.yml</code> file populated with vCenter server and ESXI hosts parameters. You
+can download the CentOS 7.5 and ESXi VM Host from <a href="https://www.juniper.net/support/downloads/?p=contrail#sw">https://www.juniper.net/support/downloads/?p=contrail#sw</a>.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>You can see a sample of the vcenter_vars.yml file in the <code class="filepath">contrail-ansible-deployer/playbooks<br/>/roles/vcenter/vars/vcenter_vars.yml</code> after you extract the image files. </p></sw-admonition><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The ContrailVM’s Open Virtualization Format (OVF)
+image must be hosted on an http or https server which runs on and
+is reachable from the vCenter server. The location of the OVF is provided
+as a URL path for <code class="inline" v-pre="">vmdk:</code> as shown in the
+example given below.</p><div class="sample" dir="ltr" id="example_1"><p><b>Example: Enabling HA and DRS in the cluster</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>vcenter_servers:
+  - SRV1:
+      hostname: 
+      username:
+      password:
+      # Optional: defaults to False
+      #validate_certs: False
+      datacentername: 
+      clusternames:
+      #path to the ovf, is needed for ESX Agent Manager to deploy ContrailVMs
+      vmdk: http://<var v-pre="">&lt;ip-address&gt;</var>/centos-7.5/LATEST/ContrailVM.ovf
+      # Optional: If not specified HA and DRS are turned off on the clusters.
+      enable_ha: yes
+      enable_drs: yes
+</pre></template></sw-code></div><p>For definition examples, refer <code class="filepath">contrail-ansible-deployer/playbooks/roles/vcenter/vars/vcenter_vars.yml.sample</code>.</p><p>To enable HA and DRS in the cluster, set <code class="inline" v-pre="">enable_ha</code> and <code class="inline" v-pre="">enable_drs</code> to <code class="inline" v-pre="">yes</code> in the <code class="filepath">vcenter_vars.yml</code> file. If
+these flags are not enabled, HA and DRS is turned off by default for
+newly created and existing clusters. </p></div></sw-admonition><div class="sample" dir="ltr" id="jd0e134"><p><b>Example instances.yaml File</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>provider_config:
+  bms:
+    ssh_pwd: password
+    ssh_user: root
+    ntpserver: 8.8.8.8
+    domainsuffix: blah.net
+
+instances:
+  bms1:
+    provider: bms
+    ip: <var v-pre="">&lt;ip-address&gt;</var>
+    roles:
+      config_database:
+      config:
+      control:
+      analytics_database:
+      analytics:
+      webui:
+      vcenter_plugin:
+  bms2:
+    provider: bms
+    esxi_host: <var v-pre="">&lt;ip-address&gt;</var>
+    ip: <var v-pre="">&lt;ip-address&gt;</var>
+    roles:
+      vrouter:
+      vcenter_manager:
+        ESXI_USERNAME: root
+        ESXI_PASSWORD: password
+  bms3:
+    provider: bms
+    esxi_host: <var v-pre="">&lt;ip-address&gt;</var>
+    ip: <var v-pre="">&lt;ip-address&gt;</var>
+    roles:
+      vrouter:
+      vcenter_manager:
+        ESXI_USERNAME: root
+        ESXI_PASSWORD: password
+  bms4:
+    provider: bms
+    esxi_host: <var v-pre="">&lt;ip-address&gt;</var>
+    ip: <var v-pre="">&lt;ip-address&gt;</var>
+    roles:
+      vrouter:
+      vcenter_manager:
+        ESXI_USERNAME: root
+        ESXI_PASSWORD: password
+
+
+global_configuration:
+  CONTAINER_REGISTRY: hub.juniper.net
+  CONTAINER_REGISTRY_USERNAME: username
+  CONTAINER_REGISTRY_PASSWORD: password
+  REGISTRY_PRIVATE_INSECURE: False
+
+contrail_configuration:
+  CLOUD_ORCHESTRATOR: vcenter
+  CONTROLLER_NODES: <var v-pre="">&lt;ip-address&gt;</var>
+  CONTRAIL_VERSION: 5.1.0-0.360
+  RABBITMQ_NODE_PORT: 5673
+  VCENTER_SERVER: <var v-pre="">&lt;ip-address&gt;</var>
+  VCENTER_USERNAME: administrator@vsphere.net
+  VCENTER_PASSWORD: password
+  VCENTER_DATACENTER: &lt;DC name here&gt;
+  VCENTER_DVSWITCH: overlay
+  VCENTER_WSDL_PATH: /usr/src/contrail/contrail-web-core/webroot/js/vim.wsdl
+  VCENTER_AUTH_PROTOCOL: https
+</pre></template></sw-code></div></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The default login credentials for Contrail OVF:</p><ul><li style=""><p>Username: <var v-pre="">root </var></p></li><li style=""><p>Password: <var v-pre="">c0ntrail123</var></p></li></ul><p>We suggest using unique usernames and passwords in accordance
+with your organization’s security guidelines.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e182"><p><b>Example vcenter_vars.yml File</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>---
+vcenter_servers:
+  - SRV1:
+      hostname: <var v-pre="">&lt;host-ip-address&gt;</var>
+      username: administrator@vsphere.net
+      password: password
+      # Optional: defaults to False
+      #validate_certs: False
+      datacentername: "&lt;your DC name here&gt;"
+      clusternames:
+        - "&lt;your cluster name here&gt;"
+      vmdk: http://<var v-pre="">&lt;ip-address&gt;</var>/contrail/images/ContrailVM.ovf
+      dv_switch:
+        dv_switch_name: overlay
+      dv_port_group:
+        dv_portgroup_name: VM_pg
+        number_of_ports: 1800
+
+esxihosts:
+  - name: <var v-pre="">&lt;ip-address&gt;</var>
+    username: root
+    password: password
+    datastore: &lt;your local datastore here&gt;
+    datacenter: "&lt;your DC name here&gt;"
+    cluster: "&lt;your cluster name here&gt;"
+    contrail_vm:
+      networks:
+        - mac: 00:77:56:aa:bb:01
+    vcenter_server: SRV1 #leave this
+  - name: <var v-pre="">&lt;ip-address&gt;</var>
+    username: root
+    password: password
+    datastore: &lt;your local datastore here&gt;
+    datacenter: "&lt;your DC name here&gt;"
+    cluster: "&lt;your cluster name here&gt;"
+    contrail_vm:
+      networks:
+        - mac: 00:77:56:aa:bb:02
+    vcenter_server: SRV1 #leave this
+  - name: <var v-pre="">&lt;ip-address&gt;</var>
+    username: root
+    password: password
+    datastore: &lt;your local datastore here&gt;
+    datacenter: "&lt;your DC name here&gt;"
+    cluster: "&lt;your cluster name here&gt;"
+    contrail_vm:
+      networks:
+        - mac: 00:77:56:aa:bb:77
+    vcenter_server: SRV1 #leave this
+</pre></template></sw-code></div></div></li><li id="run-vcenter-playbook" style="">	Run the Contrail vCenter playbook.<div class="sample" dir="ltr" id="jd0e205"><div dir="ltr" id="jd0e206"><code>ansible-playbook playbooks/vcenter.yml</code></div></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Verify that the hostnames for the contrail controller(s)
+and the ContrailVMs (vRouters) are unique in <code class="filepath">/etc/hostname</code> file. </p><p>You can verify hostname from either the DHCP options (if the
+management network uses DHCP) or manually (if the management network
+uses static IP allocation).</p></sw-admonition></li></ol><h2 id="id-configure-contrail-parameters">Configure Contrail Parameters</h2><p>Populate the file <code class="filepath">config/instances.yaml</code> with Contrail roles.</p><p>For an example file, see <code class="filepath">contrail-ansible-deployer/confing/instances.yaml.vcenter_example</code>.</p><h2 id="id-install-contrail">Install Contrail</h2><p>Install Contrail by running the following Contrail playbooks:</p><div class="sample" dir="ltr" id="jd0e238"><div dir="ltr" id="jd0e239"><code>ansible-playbook -i inventory/ -e orchestrator=vcenter playbooks/configure_instances.yml</code></div><div dir="ltr" id="jd0e241"><code>ansible-playbook -i inventory/ -e orchestrator=vcenter playbooks/install_contrail.yml</code></div></div><h2 id="id-monitor-and-manage-contrailvm-from-esx-agent-manager">Monitor and Manage ContrailVM from ESX Agent Manager</h2><p>ContrailVMs can be monitored from EAM by using ContrailVM-Agency.</p><p>Follow these steps to monitor and manage Contrail VM
+from EAM:</p><ol type="1"><li id="jd0e254" style="">Resolve issues from the ContrailVM-Agency.<p>The ContrailVM-Agency is in an alert state when the ContrailVM
+in any host is powered off or is deleted. </p><p>Click <strong v-pre="">Resolve All Issues</strong> from the ContrailVM-Agency
+to correct the issue. The ContrailVM-Agency will attempt to correct
+the issue by bringing the ContrailVM back online or by spawning a
+ContrailVM from the OVF on the ESXi host.</p><figure id="jd0e264"><figcaption>Figure 1: vCenter Server Extensions</figcaption><div class="graphic"><img alt="vCenter Server Extensions" src="images/s051766.png" style=""/></div></figure><figure id="jd0e268"><figcaption>Figure 2: ESX Agencies</figcaption><div class="graphic"><img alt="ESX Agencies" src="images/s051767.png" style=""/></div></figure></li><li id="jd0e272" style="">Add host.<ol type="a"><li id="jd0e276" style="">Add ESXi host to the cluster.</li><li id="jd0e279" style="">Configure <strong v-pre="">Agent VM Settings</strong> for the ESXI host.<figure id="jd0e285"><figcaption>Figure 3: Configure Agent VM Settings</figcaption><div class="graphic"><img alt="Configure Agent VM Settings" src="images/s051768.png" style=""/></div></figure><p>For more information on configuring Agent VM, network, and datastore
+settings, see <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.vcenterhost.doc/GUID-6BEC5198-5273-4592-ABD2-2E6E85873C16.html">Configure Agent VM Settings</a>.</p><p>EAM deploys a ContrailVM (from the base OVF) on the ESXi host.</p></li><li id="jd0e296" style="">Add ESXi host details to <code class="filepath">vcenter_vars.yml</code> and repeat step <a href="vcenter-contrail.html#run-vcenter-playbook">4</a> to add
+appropriate interfaces to the ContrailVM and to configure necessary
+settings in the vCenter server.</li><li id="jd0e304" style="">Add ContrailVM details to <code class="filepath">instances.yaml</code> and provision Contrail on the newly added ContrailVm (router). For
+more information on provisioning Contrail, see <a href="vcenter-contrail.html#id-install-contrail">Install Contrail</a>.</li></ol></li><li id="jd0e312" style="">Clean up the ContrailVM-Agency.<p>Delete <strong v-pre="">ContrailVM-Agency</strong> from the EAM user interface
+to delete ContrailVM and the agency.</p></li></ol><sw-prev-next> </sw-prev-next></p>

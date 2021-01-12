@@ -1,0 +1,1168 @@
+- filename: contrail-networking-security-user-guide.html
+  name: Contrail Networking and Security User Guide
+  pages:
+  - fileName: ../../topics/concept/security-policy-enhancements.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/security-policy-enhancements.html
+  - fileName: ../../topics/concept/openstack-security-policy-features.html
+    id: 2
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/openstack-security-policy-features.html
+  - fileName: ../../topics/concept/security-policy-generation.html
+    id: 3
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/security-policy-generation.html
+  - fileName: ../../topics/task/configuration/security-policy-generation-configuring.html
+    id: 4
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/security-policy-generation-configuring.html
+  - fileName: ../../topics/topic-map/host-based-firewalls.html
+    id: 5
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/host-based-firewalls.html
+  - fileName: ../../topics/task/configuration/creating-virtual-network-juniper-vnc.html
+    id: 6
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/creating-virtual-network-juniper-vnc.html
+  - fileName: ../../topics/task/configuration/creating-ip-address-pool-vnc.html
+    id: 7
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/creating-ip-address-pool-vnc.html
+  - fileName: ../../topics/concept/ipv6-networks-vnc.html
+    id: 8
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/ipv6-networks-vnc.html
+  - fileName: ../../topics/task/configuration/evpn-vxlan-configuring.html
+    id: 9
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/evpn-vxlan-configuring.html
+  - fileName: ../../topics/concept/contrail-evpn-route-type-5-ip-prefix-route.html
+    id: 10
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-evpn-route-type-5-ip-prefix-route.html
+  - fileName: ../../topics/reference/evpn-type-6-selective-multicast-ethernet-tag-route.html
+    id: 11
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/evpn-type-6-selective-multicast-ethernet-tag-route.html
+  - fileName: ../../topics/concept/contrail-inter-as-option-c.html
+    id: 12
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-inter-as-option-c.html
+  - fileName: ../../topics/concept/next-hop-limit-increase.html
+    id: 13
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/next-hop-limit-increase.html
+  - fileName: ../../topics/task/configuration/web-use-case-vnc.html
+    id: 14
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/web-use-case-vnc.html
+  - fileName: ../../topics/reference/code-example-vnc.html
+    id: 15
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/code-example-vnc.html
+  - fileName: ../../topics/task/configuration/configure-dns-vnc.html
+    id: 16
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configure-dns-vnc.html
+  - fileName: ../../topics/concept/distributed-service-resource-allocation.html
+    id: 17
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/distributed-service-resource-allocation.html
+  - fileName: ../../topics/task/configuration/broadcast-vnc.html
+    id: 18
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/broadcast-vnc.html
+  - fileName: ../../topics/task/configuration/service-chaining-vnc.html
+    id: 19
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/service-chaining-vnc.html
+  - fileName: ../../topics/task/configuration/service-chaining-mx.html
+    id: 20
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/service-chaining-mx.html
+  - fileName: ../../topics/concept/load-balancing-vnc.html
+    id: 21
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/load-balancing-vnc.html
+  - fileName: ../../topics/concept/service-chain-port-tuple.html
+    id: 22
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/service-chain-port-tuple.html
+  - fileName: ../../topics/task/configuration/service-chain-route-reorig-vnc.html
+    id: 23
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/service-chain-route-reorig-vnc.html
+  - fileName: ../../topics/example/example-create-innetwork-service-chain.html
+    id: 24
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/example/example-create-innetwork-service-chain.html
+  - fileName: ../../topics/example/example-create-innetwork-nat-service-chain.html
+    id: 25
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/example/example-create-innetwork-nat-service-chain.html
+  - fileName: ../../topics/example/example-create-transparent-service-chain.html
+    id: 26
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/example/example-create-transparent-service-chain.html
+  - fileName: ../../topics/task/configuration/static-routes-for-services-vnc.html
+    id: 27
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/static-routes-for-services-vnc.html
+  - fileName: ../../topics/task/configuration/configure-metadata-service-vnc.html
+    id: 28
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configure-metadata-service-vnc.html
+  - fileName: ../../topics/task/configuration/snat-vnc.html
+    id: 29
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/snat-vnc.html
+  - fileName: contrail-networking-security-user-guide.pdf
+    id: 30
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-networking-security-user-guide.pdf
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-networking-security-user-guide.html
+- filename: contrail-install-and-upgrade-guide.html
+  name: Contrail Networking Installation and Upgrade Guide
+  pages:
+  - fileName: ../../topics/concept/understanding-contrail-networking.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-contrail-networking.html
+  - fileName: ../../topics/concept/understanding-contrail-networking-components.html
+    id: 2
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-contrail-networking-components.html
+  - fileName: ../../topics/concept/summary-of-container-design.html
+    id: 3
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/summary-of-container-design.html
+  - fileName: ../../topics/concept/intro-microservices-contrail.html
+    id: 4
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/intro-microservices-contrail.html
+  - fileName: ../../topics/concept/install-contrail-overview-ansible-50.html
+    id: 5
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-overview-ansible-50.html
+  - fileName: ../../topics/task/installation/hardware-reqs-vnc.html
+    id: 6
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/hardware-reqs-vnc.html
+  - fileName: ../../topics/task/installation/how-to-install-contrail-command-and-provision-cluster.html
+    id: 7
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-install-contrail-command-and-provision-cluster.html
+  - fileName: ../../topics/task/operational/logging-into-contrail-command.html
+    id: 8
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/logging-into-contrail-command.html
+  - fileName: ../../topics/reference/contrail-command-ui-features.html
+    id: 9
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/contrail-command-ui-features.html
+  - fileName: ../../topics/task/configuration/deploy-cluster-contrail-command-instances-yml.html
+    id: 10
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/deploy-cluster-contrail-command-instances-yml.html
+  - fileName: ../../topics/task/configuration/import-cluster-data-contrail-command.html
+    id: 11
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/import-cluster-data-contrail-command.html
+  - fileName: ../../topics/task/configuration/adding-new-compute-node-cc.html
+    id: 12
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/adding-new-compute-node-cc.html
+  - fileName: ../../topics/task/installation/deploy-contrail-command-import-cluster-canonical-juju.html
+    id: 13
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/deploy-contrail-command-import-cluster-canonical-juju.html
+  - fileName: ../../topics/task/installation/install-contrail-command-canonical-openstack.html
+    id: 14
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/install-contrail-command-canonical-openstack.html
+  - fileName: ../../topics/task/operational/upgrade-contrail-cc.html
+    id: 15
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/upgrade-contrail-cc.html
+  - fileName: ../../topics/task/operational/upgrade-using-backup-restore.html
+    id: 16
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/upgrade-using-backup-restore.html
+  - fileName: ../../topics/task/installation/installing-contrail-ansible-ziu.html
+    id: 17
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/installing-contrail-ansible-ziu.html
+  - fileName: ../../topics/task/installation/install-contrail-rhosp-ziu.html
+    id: 18
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/install-contrail-rhosp-ziu.html
+  - fileName: ../../topics/task/installation/update-canonical-openstack-juju.html
+    id: 19
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/update-canonical-openstack-juju.html
+  - fileName: ../../topics/task/operational/upgrade-contrail-ansible-deployer.html
+    id: 20
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/upgrade-contrail-ansible-deployer.html
+  - fileName: ../../topics/task/operational/upgrade-in-place.html
+    id: 21
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/upgrade-in-place.html
+  - fileName: ../../topics/task/configuration/ffu-ziu-rhosp16.1-cn.html
+    id: 22
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ffu-ziu-rhosp16.1-cn.html
+  - fileName: ../../topics/concept/backup-using-json-50.html
+    id: 23
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/backup-using-json-50.html
+  - fileName: ../../topics/task/installation/provisioning-k8s-cluster.html
+    id: 24
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/provisioning-k8s-cluster.html
+  - fileName: ../../topics/example/contrail-command-cluster-kubernetes.html
+    id: 25
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/example/contrail-command-cluster-kubernetes.html
+  - fileName: ../../topics/task/verification/verifying-cni-k8s.html
+    id: 26
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/verification/verifying-cni-k8s.html
+  - fileName: ../../topics/task/configuration/vcenter-contrail.html
+    id: 27
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/vcenter-contrail.html
+  - fileName: ../../topics/task/installation/install-contrail-vRO-plugin.html
+    id: 28
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/install-contrail-vRO-plugin.html
+  - fileName: ../../topics/concept/integrating-contrail501-with-vRO.html
+    id: 29
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/integrating-contrail501-with-vRO.html
+  - fileName: ../../topics/topic-map/vcenter-interfaces-configuration-cc.html
+    id: 30
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/vcenter-interfaces-configuration-cc.html
+  - fileName: ../../topics/task/installation/vcenter-as-orchestrator-deployment-scenarios-501.html
+    id: 31
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/vcenter-as-orchestrator-deployment-scenarios-501.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp16-introduction.html
+    id: 32
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp16-introduction.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp16-infrastructure.html
+    id: 33
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp16-infrastructure.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp16-undercloud.html
+    id: 34
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp16-undercloud.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp16-overcloud.html
+    id: 35
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp16-overcloud.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp-introduction.html
+    id: 36
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp-introduction.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp-infrastructure.html
+    id: 37
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp-infrastructure.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp-undercloud.html
+    id: 38
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp-undercloud.html
+  - fileName: ../../topics/topic-map/setting-up-contrail-rhosp-overcloud.html
+    id: 39
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/setting-up-contrail-rhosp-overcloud.html
+  - fileName: ../../topics/task/configuration/smartnic-vrouter-support.html
+    id: 40
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/smartnic-vrouter-support.html
+  - fileName: ../../topics/task/installation/rhosp-octavia.html
+    id: 41
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/rhosp-octavia.html
+  - fileName: ../../topics/task/configuration/creating-projects-vnc.html
+    id: 42
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/creating-projects-vnc.html
+  - fileName: ../../topics/task/configuration/creating-virtual-network-vnc.html
+    id: 43
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/creating-virtual-network-vnc.html
+  - fileName: ../../topics/task/configuration/creating-image-vnc.html
+    id: 44
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/creating-image-vnc.html
+  - fileName: ../../topics/task/configuration/creating-security-groups.html
+    id: 45
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/creating-security-groups.html
+  - fileName: ../../topics/task/configuration/heat-template-vnc.html
+    id: 46
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/heat-template-vnc.html
+  - fileName: ../../topics/concept/network-qos-vnc-3.1.html
+    id: 47
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/network-qos-vnc-3.1.html
+  - fileName: ../../topics/task/configuration/network-qos-configuring.html
+    id: 48
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/network-qos-configuring.html
+  - fileName: ../../topics/task/configuration/lbaas-contrail3-F5.html
+    id: 49
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/lbaas-contrail3-F5.html
+  - fileName: ../../topics/concept/lbaas-v2-vnc.html
+    id: 50
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/lbaas-v2-vnc.html
+  - fileName: ../../topics/task/configuration/load-balance-as-service-vnc.html
+    id: 51
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/load-balance-as-service-vnc.html
+  - fileName: ../../topics/concept/multiqueue-virtio-vnc.html
+    id: 52
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/multiqueue-virtio-vnc.html
+  - fileName: ../../topics/task/configuration/ceilometer-configuring.html
+    id: 53
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ceilometer-configuring.html
+  - fileName: ../../topics/task/configuration/neutron-perform-improve-vnc.html
+    id: 54
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/neutron-perform-improve-vnc.html
+  - fileName: ../../topics/task/installation/how-to-install-contrail-networking-openshift4.html
+    id: 55
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-install-contrail-networking-openshift4.html
+  - fileName: ../../topics/task/configuration/install-openshift-using-anible-311.html
+    id: 56
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/install-openshift-using-anible-311.html
+  - fileName: ../../topics/task/configuration/install-nested-openshift-311-using-anible.html
+    id: 57
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/install-nested-openshift-311-using-anible.html
+  - fileName: ../../topics/topic-map/deploying-contrail-using-juju-charms.html
+    id: 58
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/deploying-contrail-using-juju-charms.html
+  - fileName: ../../topics/topic-map/deploying-contrail-using-juju-charms-kubernetes.html
+    id: 59
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/deploying-contrail-using-juju-charms-kubernetes.html
+  - fileName: ../../topics/task/configuration/juju-charms-nested-kubernetes.html
+    id: 60
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/juju-charms-nested-kubernetes.html
+  - fileName: ../../topics/task/installation/canonical-octavia.html
+    id: 61
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/canonical-octavia.html
+  - fileName: ../../topics/topic-map/smartnic-vrouter-juju-charms.html
+    id: 62
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/smartnic-vrouter-juju-charms.html
+  - fileName: ../../topics/concept/install-contrail-afx-kolla-ocata-requirements.html
+    id: 63
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-afx-kolla-ocata-requirements.html
+  - fileName: ../../topics/concept/install-contrail-afx-prepare.html
+    id: 64
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-afx-prepare.html
+  - fileName: ../../topics/concept/install-contrail-afx-run-playbooks.html
+    id: 65
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-afx-run-playbooks.html
+  - fileName: ../../topics/concept/install-contrail-afx-access-contrail-ui.html
+    id: 66
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-afx-access-contrail-ui.html
+  - fileName: ../../topics/concept/install-contrail-afx-notes-caveats.html
+    id: 67
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-afx-notes-caveats.html
+  - fileName: ../../topics/concept/install-contrail-afx-example-instances-yaml.html
+    id: 68
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-contrail-afx-example-instances-yaml.html
+  - fileName: ../../../contrail-insights/topics/topic-map/appformix-openstack2.html
+    id: 69
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../../contrail-insights/topics/topic-map/appformix-openstack2.html
+  - fileName: ../../topics/concept/install-afx-openstack-ha.html
+    id: 70
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/install-afx-openstack-ha.html
+  - fileName: ../../topics/concept/role-resource-access-control-vmc.html
+    id: 71
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/role-resource-access-control-vmc.html
+  - fileName: ../../topics/concept/rbac-analytics-api.html
+    id: 72
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/rbac-analytics-api.html
+  - fileName: ../../topics/topic-map/config-control-node-with-bgp.html
+    id: 73
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/config-control-node-with-bgp.html
+  - fileName: ../../topics/task/installation/md5-authentication-configuring.html
+    id: 74
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/md5-authentication-configuring.html
+  - fileName: ../../topics/task/configuration/config-TLS-vncDocument1.html
+    id: 75
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/config-TLS-vncDocument1.html
+  - fileName: ../../topics/concept/graceful-restart-bgp-persist-vnc.html
+    id: 76
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/graceful-restart-bgp-persist-vnc.html
+  - fileName: contrail-install-and-upgrade-guide.pdf
+    id: 77
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-install-and-upgrade-guide.pdf
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-install-and-upgrade-guide.html
+- filename: contrail-service-provider-feature-guide.html
+  name: Contrail Networking Service Provider Focused Features Guide
+  pages:
+  - fileName: ../../topics/concept/dpdk-with-vrouter-vnc-40.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/dpdk-with-vrouter-vnc-40.html
+  - fileName: ../../topics/concept/sriov-with-vrouter-vnc.html
+    id: 2
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/sriov-with-vrouter-vnc.html
+  - fileName: ../../topics/concept/vrouter-isolcpu.html
+    id: 3
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/vrouter-isolcpu.html
+  - fileName: ../../topics/task/configuration/support-for-ddp-in-intel-x710-ethernet.html
+    id: 4
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/support-for-ddp-in-intel-x710-ethernet.html
+  - fileName: ../../topics/task/configuration/vrouter-mac-ip-learning-and-bfd-for-pods.html
+    id: 5
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/vrouter-mac-ip-learning-and-bfd-for-pods.html
+  - fileName: ../../topics/task/configuration/hub-spoke-vnc.html
+    id: 6
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/hub-spoke-vnc.html
+  - fileName: ../../topics/concept/remote-compute-50.html
+    id: 7
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/remote-compute-50.html
+  - fileName: ../../topics/task/configuration/custom-field-hash-vnc.html
+    id: 8
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/custom-field-hash-vnc.html
+  - fileName: ../../topics/concept/contrail-routing-policy-sp-features.html
+    id: 9
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-routing-policy-sp-features.html
+  - fileName: ../../topics/task/configuration/create-external-community-routing-policy.html
+    id: 10
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-external-community-routing-policy.html
+  - fileName: ../../topics/task/configuration/configuring-qfx-series-devices-with-routing-policies.html
+    id: 11
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configuring-qfx-series-devices-with-routing-policies.html
+  - fileName: ../../topics/topic-map/service-instance-health-check.html
+    id: 12
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/service-instance-health-check.html
+  - fileName: ../../topics/concept/service-chain-ecmp-active-active-mode.html
+    id: 13
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/service-chain-ecmp-active-active-mode.html
+  - fileName: ../../topics/concept/contrail-route-reflectors.html
+    id: 14
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-route-reflectors.html
+  - fileName: ../../topics/task/configuration/configuring-route-reflector.html
+    id: 15
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configuring-route-reflector.html
+  - fileName: ../../topics/topic-map/bgpaas-contrail.html
+    id: 16
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/bgpaas-contrail.html
+  - fileName: ../../topics/topic-map/contrail-fat-flows.html
+    id: 17
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/contrail-fat-flows.html
+  - fileName: ../../topics/topic-map/use-case-fat-flow.html
+    id: 18
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/use-case-fat-flow.html
+  - fileName: ../../topics/concept/flow-sample-overview.html
+    id: 19
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/flow-sample-overview.html
+  - fileName: contrail-service-provider-feature-guide.pdf
+    id: 20
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-service-provider-feature-guide.pdf
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-service-provider-feature-guide.html
+- filename: contrail-fabric-lifecycle-management-feature-guide.html
+  name: Contrail Networking Fabric Lifecycle Management Guide
+  pages:
+  - fileName: ../../topics/concept/understanding-underlay-management.html
+    id: 1
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-underlay-management.html
+  - fileName: ../../topics/concept/understanding-fabric-lifecycle-management.html
+    id: 2
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-fabric-lifecycle-management.html
+  - fileName: ../../topics/concept/ems-fabric-management-overview.html
+    id: 3
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/ems-fabric-management-overview.html
+  - fileName: ../../topics/task/configuration/ems-create-fabric.html
+    id: 4
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-create-fabric.html
+  - fileName: ../../topics/task/configuration/ems-discover-device.html
+    id: 5
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-discover-device.html
+  - fileName: ../../topics/task/configuration/ems-assign-role-device.html
+    id: 6
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-assign-role-device.html
+  - fileName: ../../topics/task/configuration/ems-assign-telemetry-profiles.html
+    id: 7
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-assign-telemetry-profiles.html
+  - fileName: ../../topics/task/configuration/ems-delete-fabric.html
+    id: 8
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-delete-fabric.html
+  - fileName: ../../topics/task/configuration/end-end-ztp.html
+    id: 9
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/end-end-ztp.html
+  - fileName: ../../topics/task/configuration/ems-image-management.html
+    id: 10
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-image-management.html
+  - fileName: ../../topics/task/configuration/onboard-fabric-devices.html
+    id: 11
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/onboard-fabric-devices.html
+  - fileName: ../../topics/task/configuration/onboard-fabric-devices-ztp.html
+    id: 12
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/onboard-fabric-devices-ztp.html
+  - fileName: ../../topics/task/configuration/device-import.html
+    id: 13
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/device-import.html
+  - fileName: ../../topics/task/configuration/create-virtual-network.html
+    id: 14
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-virtual-network.html
+  - fileName: ../../topics/task/configuration/create-logical-router.html
+    id: 15
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-logical-router.html
+  - fileName: ../../topics/task/configuration/create-network-policy.html
+    id: 16
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-network-policy.html
+  - fileName: ../../topics/task/configuration/create-network-ipam.html
+    id: 17
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-network-ipam.html
+  - fileName: ../../topics/task/configuration/reconfigure-device-roles.html
+    id: 18
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/reconfigure-device-roles.html
+  - fileName: ../../topics/task/configuration/managing-custom-roles.html
+    id: 19
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/managing-custom-roles.html
+  - fileName: ../../topics/task/configuration/ems-view-node-profile-info.html
+    id: 20
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/ems-view-node-profile-info.html
+  - fileName: ../../topics/task/operational/monitoring-fabric-jobs.html
+    id: 21
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/monitoring-fabric-jobs.html
+  - fileName: ../../topics/task/configuration/aborting-ongoing-fabric-job.html
+    id: 22
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/aborting-ongoing-fabric-job.html
+  - fileName: ../../topics/task/configuration/add-leaf-spine-device-to-fabric-using-ztp.html
+    id: 23
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/add-leaf-spine-device-to-fabric-using-ztp.html
+  - fileName: ../../topics/task/configuration/configuring-device-functional-groups.html
+    id: 24
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configuring-device-functional-groups.html
+  - fileName: ../../topics/task/configuration/create-l3-pnf-service-chain.html
+    id: 25
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-l3-pnf-service-chain.html
+  - fileName: ../../topics/task/configuration/create-vnf-service-chain.html
+    id: 26
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/create-vnf-service-chain.html
+  - fileName: ../../topics/task/configuration/service-chaining-as-path-retain.html
+    id: 27
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/service-chaining-as-path-retain.html
+  - fileName: ../../topics/concept/assisted-replication-contrail-networking.html
+    id: 28
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/assisted-replication-contrail-networking.html
+  - fileName: ../../topics/task/configuration/generic-device-operational-commands.html
+    id: 29
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/generic-device-operational-commands.html
+  - fileName: ../../topics/topic-map/add-dhcp-server-information.html
+    id: 30
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/add-dhcp-server-information.html
+  - fileName: ../../topics/topic-map/return-material-authorization.html
+    id: 31
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/return-material-authorization.html
+  - fileName: ../../topics/reference/external-connectivity-overlay-networks.html
+    id: 32
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/external-connectivity-overlay-networks.html
+  - fileName: ../../topics/topic-map/contrail-supported-platforms-roles-node-profiles.html
+    id: 33
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/contrail-supported-platforms-roles-node-profiles.html
+  - fileName: ../../topics/topic-map/data-center-interconnect-lr.html
+    id: 34
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/data-center-interconnect-lr.html
+  - fileName: ../../topics/topic-map/logical-router-interconnect.html
+    id: 35
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/logical-router-interconnect.html
+  - fileName: ../../topics/task/configuration/configuring-mx-qfx-datacenter-gateway.html
+    id: 36
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configuring-mx-qfx-datacenter-gateway.html
+  - fileName: ../../topics/concept/contrail-virtual-port-groups.html
+    id: 37
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-virtual-port-groups.html
+  - fileName: ../../topics/task/configuration/configuring-virtual-port-group.html
+    id: 38
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configuring-virtual-port-group.html
+  - fileName: ../../topics/topic-map/connect-third-party-device-cc.html
+    id: 39
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/connect-third-party-device-cc.html
+  - fileName: ../../topics/concept/port-profile-storm-control.html
+    id: 40
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/port-profile-storm-control.html
+  - fileName: ../../topics/task/configuration/contrail-cloning-configuration-profiles.html
+    id: 41
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/contrail-cloning-configuration-profiles.html
+  - fileName: ../../topics/concept/evpn-vxlan-multitenant-networking.html
+    id: 42
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/evpn-vxlan-multitenant-networking.html
+  - fileName: ../../topics/concept/erb-for-qfx-switches.html
+    id: 43
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/erb-for-qfx-switches.html
+  - fileName: ../../topics/task/configuration/maintenance-mode.html
+    id: 44
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/maintenance-mode.html
+  - fileName: ../../topics/concept/network-topology-integration-contrail-command.html
+    id: 45
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/network-topology-integration-contrail-command.html
+  - fileName: ../../topics/task/operational/view-fabric-hardware-inventory.html
+    id: 46
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/view-fabric-hardware-inventory.html
+  - fileName: ../../topics/task/configuration/viewing-device-configuration-in-fabric.html
+    id: 47
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/viewing-device-configuration-in-fabric.html
+  - fileName: ../../topics/task/configuration/detecting-cli-changes.html
+    id: 48
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/detecting-cli-changes.html
+  - fileName: ../../topics/topic-map/certificate-lifecycle-management-using-idm.html
+    id: 49
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/certificate-lifecycle-management-using-idm.html
+  - fileName: ../../topics/concept/collapsed-spine-architecture-contrail-networking.html
+    id: 50
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/collapsed-spine-architecture-contrail-networking.html
+  - fileName: ../../topics/concept/superspine-role-contrail-networking.html
+    id: 51
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/superspine-role-contrail-networking.html
+  - fileName: ../../topics/concept/ha-cluster-manage-fabric.html
+    id: 52
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/ha-cluster-manage-fabric.html
+  - fileName: ../../topics/concept/hitless-upgrade.html
+    id: 53
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/hitless-upgrade.html
+  - fileName: ../../topics/task/configuration/performing-hitless-upgrade-dc-device.html
+    id: 54
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/performing-hitless-upgrade-dc-device.html
+  - fileName: ../../topics/topic-map/fast-routing-convergence.html
+    id: 55
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/fast-routing-convergence.html
+  - fileName: ../../topics/task/configuration/configure-fast-convergence-contrail-command.html
+    id: 56
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configure-fast-convergence-contrail-command.html
+  - fileName: ../../topics/concept/understanding-vmware-fabric-mode.html
+    id: 57
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-vmware-fabric-mode.html
+  - fileName: ../../topics/task/installation/deploying-cvfm-plugin.html
+    id: 58
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/deploying-cvfm-plugin.html
+  - fileName: ../../topics/task/configuration/fabric-esxi-discovery-cvfm.html
+    id: 59
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/fabric-esxi-discovery-cvfm.html
+  - fileName: ../../topics/task/configuration/add-distributed-port-groups.html
+    id: 60
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/add-distributed-port-groups.html
+  - fileName: ../../topics/task/configuration/updating-vcenter-credentials-contrail-command.html
+    id: 61
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/updating-vcenter-credentials-contrail-command.html
+  - fileName: ../../topics/concept/understanding-openstack-contrail-fabric-integration.html
+    id: 62
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-openstack-contrail-fabric-integration.html
+  - fileName: ../../topics/task/configuration/deploy-ml2plugin-rhosp.html
+    id: 63
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/deploy-ml2plugin-rhosp.html
+  - fileName: ../../topics/topic-map/bms-management.html
+    id: 64
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/bms-management.html
+  - fileName: ../../topics/concept/how-bms-manager-works.html
+    id: 65
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/how-bms-manager-works.html
+  - fileName: ../../topics/concept/LAG-and-multihoming-support.html
+    id: 66
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/LAG-and-multihoming-support.html
+  - fileName: ../../topics/task/configuration/add-baremetal-server.html
+    id: 67
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/add-baremetal-server.html
+  - fileName: ../../topics/task/configuration/launching-new-baremetal-server.html
+    id: 68
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/launching-new-baremetal-server.html
+  - fileName: ../../topics/concept/onboarding-discovery-bms.html
+    id: 69
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/onboarding-discovery-bms.html
+  - fileName: ../../topics/task/operational/launching-deleting-bms.html
+    id: 70
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/launching-deleting-bms.html
+  - fileName: ../../topics/task/configuration/dnat-for-bms.html
+    id: 71
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/dnat-for-bms.html
+  - fileName: ../../topics/task/troubleshooting/troubleshooting-bms-manager.html
+    id: 72
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/troubleshooting-bms-manager.html
+  - fileName: contrail-fabric-lifecycle-management-feature-guide.pdf
+    id: 73
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-fabric-lifecycle-management-feature-guide.pdf
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-fabric-lifecycle-management-feature-guide.html
+- filename: contrail-analytics-troubleshooting-guide.html
+  name: Contrail Networking Monitoring and Troubleshooting Guide
+  pages:
+  - fileName: ../../topics/concept/analytics-overview-vnc.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-overview-vnc.html
+  - fileName: ../../topics/concept/alerts-overview.html
+    id: 2
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/alerts-overview.html
+  - fileName: ../../topics/task/configuration/underlay-overlay-mapping-vnc.html
+    id: 3
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/underlay-overlay-mapping-vnc.html
+  - fileName: ../../topics/task/configuration/encrypting-connection-analytics-server-and-client-server.html
+    id: 4
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/encrypting-connection-analytics-server-and-client-server.html
+  - fileName: ../../topics/concept/analytics-scalability-vnc.html
+    id: 5
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-scalability-vnc.html
+  - fileName: ../../topics/task/operational/ha-analytics-vnc.html
+    id: 6
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/ha-analytics-vnc.html
+  - fileName: ../../topics/task/configuration/vrouter-cli-utilities-vnc.html
+    id: 7
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/vrouter-cli-utilities-vnc.html
+  - fileName: ../../topics/concept/contrail-tools.html
+    id: 8
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-tools.html
+  - fileName: ../../topics/task/installation/sandump-tool.html
+    id: 9
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/sandump-tool.html
+  - fileName: ../../topics/task/configuration/syslog-receiver-vnc.html
+    id: 10
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/syslog-receiver-vnc.html
+  - fileName: ../../topics/concept/send-flow-msg-syslog.html
+    id: 11
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/send-flow-msg-syslog.html
+  - fileName: ../../topics/concept/analytics-user-alarms-log-statistics.html
+    id: 12
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-user-alarms-log-statistics.html
+  - fileName: ../../topics/reference/contrail-networking-alarms.html
+    id: 13
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/contrail-networking-alarms.html
+  - fileName: ../../topics/concept/alarms-history.html
+    id: 14
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/alarms-history.html
+  - fileName: ../../topics/task/operational/analytics-node-memory-cpu-info.html
+    id: 15
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/analytics-node-memory-cpu-info.html
+  - fileName: ../../topics/task/configuration/analytics-role-resource-access-control.html
+    id: 16
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/analytics-role-resource-access-control.html
+  - fileName: ../../topics/concept/analytics-standalone-40-vnc.html
+    id: 17
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-standalone-40-vnc.html
+  - fileName: ../../topics/concept/vrouter-agent-modules.html
+    id: 18
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/vrouter-agent-modules.html
+  - fileName: ../../topics/concept/analytics-secure-sandesh-40-vnc.html
+    id: 19
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-secure-sandesh-40-vnc.html
+  - fileName: ../../topics/task/configuration/configure-traffic-analyzer-vnc.html
+    id: 20
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/configure-traffic-analyzer-vnc.html
+  - fileName: ../../topics/task/configuration/interface-monitor-mirror-vnc.html
+    id: 21
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/interface-monitor-mirror-vnc.html
+  - fileName: ../../topics/concept/mirroring-enhancements-vnc.html
+    id: 22
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/mirroring-enhancements-vnc.html
+  - fileName: ../../topics/concept/analyzer-vm.html
+    id: 23
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analyzer-vm.html
+  - fileName: ../../topics/task/configuration/adding-agent-header-using-wireshark-plugin.html
+    id: 24
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/adding-agent-header-using-wireshark-plugin.html
+  - fileName: ../../topics/concept/nic-assisted-mirroring.html
+    id: 25
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/nic-assisted-mirroring.html
+  - fileName: ../../topics/concept/monitor-vnc.html
+    id: 26
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/monitor-vnc.html
+  - fileName: ../../topics/task/configuration/monitor-dashboard-vnc.html
+    id: 27
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitor-dashboard-vnc.html
+  - fileName: ../../topics/task/configuration/monitoring-infrastructure-vnc.html
+    id: 28
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitoring-infrastructure-vnc.html
+  - fileName: ../../topics/task/configuration/monitoring-vrouters-vnc.html
+    id: 29
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitoring-vrouters-vnc.html
+  - fileName: ../../topics/task/configuration/monitor-analytics-vnc.html
+    id: 30
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitor-analytics-vnc.html
+  - fileName: ../../topics/task/configuration/monitor-config-vnc.html
+    id: 31
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitor-config-vnc.html
+  - fileName: ../../topics/task/configuration/monitoring-networking-vnc.html
+    id: 32
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitoring-networking-vnc.html
+  - fileName: ../../topics/task/configuration/monitoring-flow-vnc.html
+    id: 33
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitoring-flow-vnc.html
+  - fileName: ../../topics/task/configuration/monitoring-syslog-vnc.html
+    id: 34
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/monitoring-syslog-vnc.html
+  - fileName: ../../topics/task/configuration/introspect-process-debugging.html
+    id: 35
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/introspect-process-debugging.html
+  - fileName: ../../topics/task/troubleshooting/debug-connectivity-vnc.html
+    id: 36
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/debug-connectivity-vnc.html
+  - fileName: ../../topics/concept/analytics-optional-modules.html
+    id: 37
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-optional-modules.html
+  - fileName: ../../topics/task/operational/overlay-routes-visualizing.html
+    id: 38
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/overlay-routes-visualizing.html
+  - fileName: ../../topics/task/operational/monitoring-bond-interfaces-dpdk.html
+    id: 39
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/operational/monitoring-bond-interfaces-dpdk.html
+  - fileName: ../../topics/topic-map/cc-topn.html
+    id: 40
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/cc-topn.html
+  - fileName: ../../topics/concept/topology-view-maps.html
+    id: 41
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/topology-view-maps.html
+  - fileName: ../../topics/concept/topology-view-packet-path.html
+    id: 42
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/topology-view-packet-path.html
+  - fileName: ../../topics/concept/assign-custom-name-ports-vxlan-cc.html
+    id: 43
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/assign-custom-name-ports-vxlan-cc.html
+  - fileName: ../../topics/concept/monitor-dashboard-cc.html
+    id: 44
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/monitor-dashboard-cc.html
+  - fileName: ../../topics/concept/query-flows-cc.html
+    id: 45
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/query-flows-cc.html
+  - fileName: ../../topics/concept/analytics-optional-modules.html
+    id: 46
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-optional-modules.html
+  - fileName: ../../topics/concept/analytics-overview-appformix.html
+    id: 47
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/analytics-overview-appformix.html
+  - fileName: ../../topics/topic-map/telemetry-profiles-contrail-command.html
+    id: 48
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/topic-map/telemetry-profiles-contrail-command.html
+  - fileName: ../../topics/concept/fabric-devices-ports-alarms-cc.html
+    id: 49
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/fabric-devices-ports-alarms-cc.html
+  - fileName: ../../topics/concept/add-delete-flow-nodes-ui.html
+    id: 50
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/add-delete-flow-nodes-ui.html
+  - fileName: ../../topics/concept/add-delete-flow-nodes-instances-yml.html
+    id: 51
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/add-delete-flow-nodes-instances-yml.html
+  - fileName: ../../topics/concept/alarms-contrail-afx.html
+    id: 52
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/alarms-contrail-afx.html
+  - fileName: ../../topics/concept/instances-contrail-afx.html
+    id: 53
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/instances-contrail-afx.html
+  - fileName: ../../topics/concept/host-charts-contrail-afx.html
+    id: 54
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/host-charts-contrail-afx.html
+  - fileName: ../../topics/concept/metrics-afx.html
+    id: 55
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/metrics-afx.html
+  - fileName: ../../topics/task/troubleshooting/debug-ping-failure-vnc.html
+    id: 56
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/debug-ping-failure-vnc.html
+  - fileName: ../../topics/task/troubleshooting/debug-bgp-peering-vnc.html
+    id: 57
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/debug-bgp-peering-vnc.html
+  - fileName: ../../topics/task/troubleshooting/tshoot-floating-ip-vnc.html
+    id: 58
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/tshoot-floating-ip-vnc.html
+  - fileName: ../../topics/task/troubleshooting/remove-stale-vms-vnc.html
+    id: 59
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/remove-stale-vms-vnc.html
+  - fileName: ../../topics/task/troubleshooting/tshoot-link-local-vnc.html
+    id: 60
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/troubleshooting/tshoot-link-local-vnc.html
+  - fileName: ../../topics/task/configuration/node-status-vnc.html
+    id: 61
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/node-status-vnc.html
+  - fileName: ../../topics/concept/contrail-logs-vnc.html
+    id: 62
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/contrail-logs-vnc.html
+  - fileName: ../../topics/reference/contrail-status.html
+    id: 63
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/contrail-status.html
+  - fileName: ../../topics/reference/contrail-version.html
+    id: 64
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/reference/contrail-version.html
+  - fileName: ../../topics/task/configuration/analytics-apis-vnc.html
+    id: 65
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/analytics-apis-vnc.html
+  - fileName: ../../topics/task/configuration/analytics-apis-log-flow-vnc.html
+    id: 66
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/analytics-apis-log-flow-vnc.html
+  - fileName: ../../topics/task/configuration/neutron-perform-improve-vnc.html
+    id: 67
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/neutron-perform-improve-vnc.html
+  - fileName: ../../topics/task/configuration/using-vpc-vpis-vnc.html
+    id: 68
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/using-vpc-vpis-vnc.html
+  - fileName: contrail-analytics-troubleshooting-guide.pdf
+    id: 69
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-analytics-troubleshooting-guide.pdf
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-analytics-troubleshooting-guide.html
+- filename: contrail-cloud-native-guide.html
+  name: Contrail Networking Cloud-Native User Guide
+  pages:
+  - fileName: ../../topics/concept/kubernetes-cni-contrail.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/kubernetes-cni-contrail.html
+  - fileName: ../../topics/task/installation/how-to-install-contrail-networking-openshift45.html
+    id: 2
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-install-contrail-networking-openshift45.html
+  - fileName: ../../topics/task/installation/how-to-install-contrail-networking-openshift4.html
+    id: 3
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-install-contrail-networking-openshift4.html
+  - fileName: ../../topics/task/configuration/install-openshift-using-anible-311.html
+    id: 4
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/install-openshift-using-anible-311.html
+  - fileName: ../../topics/task/configuration/install-nested-openshift-311-using-anible.html
+    id: 5
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/install-nested-openshift-311-using-anible.html
+  - fileName: ../../topics/task/installation/how-to-install-contrail-aws-eks.html
+    id: 6
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-install-contrail-aws-eks.html
+  - fileName: ../../topics/task/installation/how-to-integrate-k8s-cluster-anthos.html
+    id: 7
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-integrate-k8s-cluster-anthos.html
+  - fileName: ../../topics/task/installation/how-to-enable-kubevirt-kubernetes.html
+    id: 8
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/how-to-enable-kubevirt-kubernetes.html
+  - fileName: ../../topics/task/installation/provisioning-k8s-cluster.html
+    id: 9
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/installation/provisioning-k8s-cluster.html
+  - fileName: ../../topics/task/configuration/how-to-configure-multi-interface-pods-kubernetes.html
+    id: 10
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/how-to-configure-multi-interface-pods-kubernetes.html
+  - fileName: ../../topics/example/contrail-command-cluster-kubernetes.html
+    id: 11
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/example/contrail-command-cluster-kubernetes.html
+  - fileName: ../../topics/task/verification/verifying-cni-k8s.html
+    id: 12
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/verification/verifying-cni-k8s.html
+  - fileName: ../../topics/concept/k8s-network-policy.html
+    id: 13
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/k8s-network-policy.html
+  - fileName: ../../topics/task/configuration/how-to-use-keystone-in-kubernetes.html
+    id: 14
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/how-to-use-keystone-in-kubernetes.html
+  - fileName: ../../topics/task/configuration/multi-network-interfaces-containers.html
+    id: 15
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/multi-network-interfaces-containers.html
+  - fileName: ../../topics/concept/k8s-ip-fabric.html
+    id: 16
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/k8s-ip-fabric.html
+  - fileName: contrail-cloud-native-guide.pdf
+    id: 17
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-cloud-native-guide.pdf
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-cloud-native-guide.html

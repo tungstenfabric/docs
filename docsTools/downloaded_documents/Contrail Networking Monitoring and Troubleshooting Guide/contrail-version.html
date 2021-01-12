@@ -1,0 +1,45 @@
+<p id="topic-content"><h1 id="jd0e3">contrail-version (Viewing Version Information)</h1><sw-topic-details date="2019-08-29"> </sw-topic-details><h4 id="jd0e11">Syntax</h4><div class="example" dir="ltr" id="jd0e12"><sw-code><template v-pre=""><div class="statement" style="display:block;">[root@host]# contrail-version</div></template></sw-code></div><h4>Release Information</h4><p formatting-option="none" id="jd0e16">Command introduced in Contrail Release
+1.0.</p><h4>Description</h4><p>Display a list of all installed components with
+their version and build numbers. </p><h4>Required Privilege Level</h4><p>admin</p><h4>Sample Output</h4><div id="jd0e24">The following example shows version and build
+information for all installed components.<p id="jd0e27"><b>Sample Output</b></p><code>root@host&gt; <kbd class="user-typing" v-pre="">contrail-version </kbd></code><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>Package                                Version                 Build-ID | Repo | RPM Name
+-------------------------------------- ----------------------- ----------------------------------
+contrail-analytics                     1-1309090026.el6        141
+contrail-analytics-venv                0.1-1309062310.el6      141
+contrail-api                           0.1-1309090026.el6      141
+contrail-api-lib                       0.1-1309090026.el6      141
+contrail-api-venv                      0.1-1309080539.el6      141
+contrail-control                       2012.0-1309090026.el6   141
+contrail-database                      0.1-1309050028          141
+contrail-dns                           1-1309090026.el6        141
+contrail-fabric-utils                  1-1309090026            141
+contrail-libs                          1-1309090026.el6        141
+contrail-nodejs                        0.8.15-1309090026.el6   141
+contrail-openstack-analytics           0.1-1309090026.el6      141
+contrail-openstack-cfgm                0.1-1309090026.el6      141
+contrail-openstack-control             0.1-1309090026.el6      141
+
+</pre></template></sw-code></div></div><h4>Sample Output</h4><div id="jd0e36">The following example shows version and build
+information for only the installed contrail components.<p id="jd0e39"><b>Sample Output</b></p><code>root@host&gt; <kbd class="user-typing" v-pre="">contrail-version | grep contrail</kbd></code><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>Package                                Version                 Build-ID | Repo | RPM Name
+-------------------------------------- ----------------------- ----------------------------------
+contrail-analytics                     1-1309090026.el6        141                 
+contrail-analytics-venv                0.1-1309062310.el6      141                 
+contrail-api                           0.1-1309090026.el6      141                 
+contrail-api-lib                       0.1-1309090026.el6      141                 
+contrail-api-venv                      0.1-1309080539.el6      141                 
+contrail-control                       2012.0-1309090026.el6   141                 
+contrail-database                      0.1-1309050028          141                 
+contrail-dns                           1-1309090026.el6        141                 
+contrail-fabric-utils                  1-1309090026            141                 
+contrail-libs                          1-1309090026.el6        141                 
+contrail-nodejs                        0.8.15-1309090026.el6   141                 
+contrail-openstack-analytics           0.1-1309090026.el6      141                 
+contrail-openstack-cfgm                0.1-1309090026.el6      141                 
+contrail-openstack-control             0.1-1309090026.el6      141                 
+contrail-openstack-database            0.1-1309090026.el6      141                 
+contrail-openstack-webui               0.1-1309090026.el6      141                 
+contrail-setup                         1-1309090026.el6        141                 
+contrail-webui                         1-1309090026            141                 
+openstack-quantum-contrail             2013.2-1309090026       141                 
+
+
+</pre></template></sw-code></div></div><sw-prev-next> </sw-prev-next></p>

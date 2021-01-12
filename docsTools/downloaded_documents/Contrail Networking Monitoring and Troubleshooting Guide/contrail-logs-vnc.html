@@ -1,0 +1,78 @@
+<p id="topic-content"><h1 id="jd0e3">contrail-logs (Accessing Log File Messages)</h1><sw-topic-details date="2020-09-14"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>A command-line utility, <code class="inline" v-pre="">contrail-logs</code>, uses REST APIs to retrieve system log messages, object log messages,
+and trace messages.</p></div></div><h2 id="jd0e31">Command-Line Options for Contrail-Logs</h2><p>The command-line utility for accessing log file information
+is <code class="inline" v-pre="">contrail-logs</code> in the analytics node.
+The following are the options supported at the command line for <code class="inline" v-pre="">contrail-logs</code>, as viewed using the <code class="inline" v-pre=""> -–help</code> option.</p><div class="example" dir="ltr" id="jd0e45"><sw-code><template v-pre=""><pre>[root@host]#  contrail-logs --help
+usage: contrail-logs [-h] 
+                     [--opserver-ip OPSERVER_IP]
+                     [--opserver-port OPSERVER_PORT] 
+                     [--start-time START_TIME]
+                     [--end-time END_TIME] 
+                     [--last LAST] 
+                     [--source SOURCE]
+                     [--module {ControlNode, VRouterAgent, ApiServer, Schema, OpServer, Collector, QueryEngine, ServiceMonitor, DnsAgent}]
+                     [--category CATEGORY]
+                     [--level LEVEL]
+                     [--message-type MESSAGE_TYPE] 
+                     [--reverse] 
+                     [--verbose]
+                     [--all]
+                     [--object {ObjectVNTable, ObjectVMTable, ObjectSITable, ObjectVRouter, ObjectBgpPeer, ObjectRoutingInstance, ObjectBgpRouter, ObjectXmppConnection, ObjectCollectorInfo, ObjectGeneratorInfo, ObjectConfigNode}]
+                     [--object-id OBJECT_ID]
+                     [--object-select-field {ObjectLog,SystemLog}]
+                     [--trace TRACE]
+
+</pre></template></sw-code></div><h2 id="jd0e48">Option Descriptions</h2><p>The following are the descriptions for each of the option arguments
+available for <code class="inline" v-pre="">contrail-logs</code>.</p><div class="example" dir="ltr" id="jd0e56"><sw-code><template v-pre=""><pre>optional arguments:
+  -h, --help
+                        show this help message and exit
+  --opserver-ip OPSERVER_IP
+                        IP address of OpServer (default: 127.0.0.1)
+  --opserver-port OPSERVER_PORT
+                        Port of OpServer (default: 8081)
+  --start-time START_TIME
+                        Logs start time (format now-10m, now-1h) (default: now-10m)
+  --end-time END_TIME   
+                        Logs end time (default: now)
+  --last LAST
+                        Logs from last time period (format 10m, 1d) (default: None)
+  --source SOURCE       
+                        Logs from source address (default: None)
+  --module {ControlNode, VRouterAgent, ApiServer, Schema, OpServer, Collector, QueryEngine, ServiceMonitor, DnsAgent}
+                        Logs from module (default: None)
+  --category CATEGORY   
+                        Logs of category (default: None)
+  --level LEVEL         
+                        Logs of level (default: None)
+  --message-type MESSAGE_TYPE
+                        Logs of message type (default: None)
+  --reverse             
+                        Show logs in reverse chronological order (default: False)
+  --verbose             
+                        Show internal information (default: True)
+  --all                 
+                        Show all logs (default: False)
+  --object {ObjectVNTable, ObjectVMTable, ObjectSITable, ObjectVRouter, ObjectBgpPeer, ObjectRoutingInstance, ObjectBgpRouter, ObjectXmppConnection, ObjectCollectorInfo, ObjectGeneratorInfo, ObjectConfigNode}
+                        Logs of object type (default: None)
+  --object-id OBJECT_ID
+                        Logs of object name (default: None)
+  --object-select-field {ObjectLog,SystemLog}
+                        Select field to filter the log (default: None)
+  --trace TRACE         
+                        Dump trace buffer (default: None)
+</pre></template></sw-code></div><h2 id="jd0e59">Example Uses</h2><p>The following examples show how you can use the option arguments
+available for <code class="inline" v-pre="">contrail-logs</code> to retrieve
+the information you specify.</p><ol><li style=""><p>View only the system log messages from all boxes for the
+last 10 minutes.</p><p><code class="inline" v-pre="">contrail-logs</code></p></li><li style=""><p>View all log messages (systemlog, objectlog, uve, ...)
+from all boxes for the last 10 minutes.</p><p><code class="inline" v-pre="">contrail-logs --all</code></p></li><li style=""><p>View only the control node system log messagess from all
+boxes for the last 10 minutes.</p><p><code class="inline" v-pre="">contrail-logs --module ControlNode</code></p><p><code class="inline" v-pre="">--module</code> accepts the following values
+- <code class="inline" v-pre="">ControlNode, VRouterAgent, ApiServer, Schema, ServiceMonitor,
+Collector, OpServer, QueryEngine, DnsAgent</code></p></li><li style=""><p>View the control node system log messages from source <code class="inline" v-pre="">a6s23.contrail.juniper.net </code>for the last 10 minutes.</p><p><code class="inline" v-pre="">contrail-logs --module ControlNode --source a6s23.contrail.juniper.net</code></p></li><li style=""><p>View the XMPP category system log messages from all modules
+on all boxes for the last 10 minutes.</p><p><code class="inline" v-pre="">contrail-logs --category XMPP</code></p></li><li style=""><p>View the system log messages from all the boxes from the
+last hour.</p><p><code class="inline" v-pre="">contrail-logs --last 1h</code></p></li><li style=""><p>View the system log messages from the VN object named <code class="inline" v-pre="">demo:admin:vn1</code> from all boxes for the last 10 minutes.</p><p><code class="inline" v-pre="">contrail-logs --object ObjectVNTable --object-id
+demo:admin:vn1  </code></p><p><code class="inline" v-pre="">--object </code>accepts the following values
+- <code class="inline" v-pre="">ObjectVNTable, ObjectVMTable, ObjectSITable, ObjectVRouter,
+ObjectBgpPeer, ObjectRoutingInstance, ObjectBgpRouter, ObjectXmppConnection,
+ObjectCollectorInfo</code></p></li><li style=""><p>View the system log messages from all boxes for the last
+10 minutes in reverse chronological order:</p><p><code class="inline" v-pre="">contrail-logs --reverse</code></p></li><li style=""><p>View the system log messages from a specific time interval
+and display them in a specified date format.</p><p><code class="inline" v-pre="">contrail-logs --start-time "2020 May 12 18:30:27.0"
+--end-time "2020 May 12 18:31:27.0"</code></p></li></ol><sw-prev-next> </sw-prev-next></p>

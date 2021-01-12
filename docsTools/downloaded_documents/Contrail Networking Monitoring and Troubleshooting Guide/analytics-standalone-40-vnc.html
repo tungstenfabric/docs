@@ -1,0 +1,78 @@
+<p id="topic-content"><h1 id="jd0e2">Configuring Analytics as a Standalone Solution</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Starting with Contrail 4.0, it is possible to
+configure Contrail Analytics as a standalone solution.</p></div></div><h2 id="jd0e13">Overview: Contrail Analytics as a Standalone Solution</h2><p>Starting with Contrail 4.0 (containerized Contrail), Contrail
+Analytics can be configured as a standalone solution. </p><p>The following services are necessary for a standalone solution:</p><ul><li style=""><p>config</p></li><li style=""><p>webui</p></li><li style=""><p>analytics</p></li><li style=""><p>analyticsdb</p></li></ul><p>A standalone Contrail Analytics solution consists of the following
+containers: </p><ul><li style=""><p>controller container with only config and webui services
+enabled</p></li><li style=""><p>analytics container</p></li><li style=""><p>analyticsdb container </p></li></ul><h2 id="jd0e47">Configuration Examples for Standalone</h2><div class="mini-toc-intro"><p>The following are examples of default inventory file configurations
+for the controller container for standalone Contrail analytics.</p></div><ul><li style=""><p><a href="analytics-standalone-40-vnc.html#jd0e55">Examples: Inventory File Controller Components </a></p></li><li style=""><p><a href="analytics-standalone-40-vnc.html#jd0e76">JSON Configuration Examples</a></p></li></ul><h3 id="jd0e55">Examples: Inventory File Controller Components </h3><div class="mini-toc-intro"><p>The following are example analytics standalone solution inventory
+file configurations for Contrail controller container components.</p></div><ul><li style=""><p><a href="analytics-standalone-40-vnc.html#jd0e63">Single Node Cluster</a></p></li><li style=""><p><a href="analytics-standalone-40-vnc.html#jd0e69">Multi-Node Cluster</a></p></li></ul><h4 id="jd0e63">Single Node Cluster</h4><div class="example" dir="ltr" id="jd0e66"><sw-code><template v-pre=""><pre>[contrail-controllers]
+10.xx.32.10             controller_components=['config','webui']
+
+[contrail-analyticsdb]
+10.xx.32.10
+
+[contrail-analytics]
+10.xx.32.10
+</pre></template></sw-code></div><h4 id="jd0e69">Multi-Node Cluster</h4><div class="example" dir="ltr" id="jd0e73"><sw-code><template v-pre=""><pre>[contrail-controllers]
+10.xx.32.10             controller_components=['config','webui']
+10.xx.32.11             controller_components=['config','webui']
+10.xx.32.12             controller_components=['config','webui']
+
+[contrail-analyticsdb]
+10.xx.32.10
+10.xx.32.11
+10.xx.32.12
+
+[contrail-analytics]
+10.xx.32.10
+10.xx.32.11
+10.xx.32.12
+</pre></template></sw-code></div><h3 id="jd0e76">JSON Configuration Examples</h3><div class="mini-toc-intro"><p>The following are example JSON file configurations for (<span class="cli" v-pre="">server.json</span>) for Contrail analytics standalone solution.</p></div><ul><li style=""><p><a href="analytics-standalone-40-vnc.html#jd0e87">Example: JSON Single Node Cluster</a></p></li><li style=""><p><a href="analytics-standalone-40-vnc.html#jd0e93">Example: JSON Multi-Node Cluster</a></p></li></ul><h4 id="jd0e87">Example: JSON Single Node Cluster</h4><div class="example" dir="ltr" id="jd0e90"><sw-code><template v-pre=""><pre>{                                                                
+    "cluster_id": "cluster1",                                    
+    "domain": "sm-domain.com",                                   
+    "id": "server1",                                             
+    "parameters" : {                                             
+        "provision": {                                           
+            "contrail_4": {                                      
+               "controller_components": "['config',’webui']"   
+            },                  
+    …
+    …
+}
+</pre></template></sw-code></div><h4 id="jd0e93">Example: JSON Multi-Node Cluster</h4><div class="example" dir="ltr" id="jd0e96"><sw-code><template v-pre=""><pre>{                                                                
+    "cluster_id": "cluster1",                                    
+    "domain": "sm-domain.com",                                   
+    "id": "server1",                                             
+    "parameters" : {                                             
+        "provision": {                                           
+            "contrail_4": {                                      
+               "controller_components": "['config',’webui']"   
+            },                  
+    …
+    …
+},
+{                                                                
+    "cluster_id": "cluster1",                                    
+    "domain": "sm-domain.com",                                   
+    "id": "server2",                                             
+    "parameters" : {                                             
+        "provision": {                                           
+            "contrail_4": {                                      
+               "controller_components": "['config',’webui']"   
+            },                  
+    …
+    …
+},
+{                                                                
+    "cluster_id": "cluster1",                                    
+    "domain": "sm-domain.com",                                   
+    "id": "server3",                                             
+    "parameters" : {                                             
+        "provision": {                                           
+            "contrail_4": {                                      
+               "controller_components": "['config',’webui']"   
+            },                  
+    …
+    …
+}
+
+</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

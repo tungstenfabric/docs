@@ -1,0 +1,19 @@
+<p id="topic-content"><h1 id="jd0e3">Analyzer Service Virtual Machine</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>The analyzer service virtual machine (<code class="inline" v-pre="">analyzer-vm-console.qcow2</code>) launches a Contrail-enhanced
+version of the network protocol analyzer Wireshark as the analyzer
+starts capturing mirror packets destined to the analyzer service. </p></div></div><h2 id="jd0e17">Packet Format for Analyzer</h2><p>The analyzer uses the PCAP format, which has these parts:</p><ul><li style=""><p>Global header</p></li><li style=""><p>PCAP packet header</p></li><li style=""><p>Packet data (original packet data)</p></li></ul><p>The global header is added by the analyzer service by means
+of the Wireshark instance. The vRouter DP uses the configured UDP
+session to send mirrored packets to the analyzer, adding the PCAP
+packet header to the packet data as it sends it over the UDP socket
+to the analyzer. </p><p>The following additional information is also added to the packet
+data as metadata:</p><ul><li style=""><p>Captured host (IP address)</p></li><li style=""><p>Ingress or egress </p></li><li style=""><p>Action (Pass/Deny/...) </p></li><li style=""><p>Source VN (fully qualified name)</p></li><li style=""><p>Destination VN (fully qualified name)</p></li></ul><p>In the existing PCAP, a network ID is added in the global header.
+ The metadata (additional flow information) is added in front of the
+existing packet as follows.  </p><p>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+</p><p> | Global header | Packet header| Meta data |Packet data| Packet
+header| Meta data |Packet data| </p><p>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+
+ </p><h2 id="jd0e60">Metadata Format</h2><p>The metadata is in type-length-value (TLV) format as follows.</p><ul><li class="unmarked-list" style=""><p>Type: 1 Byte </p></li><li class="unmarked-list" style=""><p>Length: 1 Byte</p></li><li class="unmarked-list" style=""><p>Value: up to length</p></li></ul><p>Type</p><ul><li class="unmarked-list" style=""><p>1 – Captured host IPv4 address</p></li><li class="unmarked-list" style=""><p> 2  - Action field</p></li><li class="unmarked-list" style=""><p>3 – Source VN </p></li><li class="unmarked-list" style=""><p>4 – Destination VN</p></li><li class="unmarked-list" style=""><p>255 – TLV end</p></li></ul><p><em>Captured host address </em></p><p>Length is 4 or 16 bytes based on IP address type </p><p><em>Action field </em></p><p>Length is 2 bytes. Multiple bits might be turned on, if there
+are more actions. Ingress or egress bit will be present in the Action
+field. </p><p><em>Source VN or Destination VN </em></p><p>Length is variable and up to 256 characters  </p><p><em>TLV end </em></p><p>A special type <code class="inline" v-pre="">255 (0xFF)</code> is used
+to identify the end of TLV entries.  The TLV end must be last, at
+the end of the metadata. </p><h2 id="jd0e116">Wireshark Changes</h2><p>A plugin is added to the Wireshark code. The plugin parses the
+metadata and displays the packet fields; see example in <a href="analyzer-vm.html#wireshark1">Figure 1</a>.</p><figure id="wireshark1"><figcaption>Figure 1: Wireshark Packet Display</figcaption><div class="graphic"><img alt="Wireshark Packet Display" src="images/s041872.gif" style=""/></div></figure><h2 id="jd0e127">Troubleshooting Packet Display</h2><p>Follow these steps if the packets are not displaying:</p><ol type="1"><li id="jd0e133" style="">Use <code class="inline" v-pre="">tcpdump</code> on the tap interfaces
+to see if packets are going towards the analyzer VM.</li><li id="jd0e139" style="">Check introspect to see whether the flow action has mirror
+activity in it or not.</li></ol><sw-prev-next> </sw-prev-next></p>

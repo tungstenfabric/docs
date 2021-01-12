@@ -1,0 +1,10 @@
+<p id="topic-content"><h1 id="jd0e2">ECMP Support in Service Chain</h1><sw-topic-details date="2019-08-23"> </sw-topic-details><p>Equal-cost multipath (ECMP) can be used to distribute traffic
+across VMs. </p><h2 id="jd0e13">Service Chain with Equal-Cost Multipath in Active-Active Mode</h2><p>To support ECMP in the service chain, create multiple port tuples
+within the same service instance. The labels should be the same for
+the VM ports in each port tuple. For example, if port tuple 1 uses
+the labels <code class="inline" v-pre="">left</code> and <code class="inline" v-pre="">right</code>, then port tuple 2 in the same service instance should also use
+the labels <code class="inline" v-pre="">left</code> and <code class="inline" v-pre="">right</code> for its ports. </p><p>When there are multiple port tuples, the default mode of operation
+is <code class="inline" v-pre="">active-active</code>. </p><h2 id="jd0e35">Service Chain with Health Check</h2><p>Service chain Version 2 also allows service instance health
+check configuration on a per interface label. This is used to monitor
+the health of the service. </p><p>For more information about the service instance health check,
+see <a href="../topic-map/service-instance-health-check.html">Service Instance Health Checks</a>.</p><sw-prev-next> </sw-prev-next></p>

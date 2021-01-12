@@ -1,0 +1,192 @@
+<p id="topic-content"><h1 id="jd0e2">User Configuration for Analytics Alarms and Log Statistics</h1><sw-topic-details date="2020-03-23"> </sw-topic-details><h2 id="jd0e10">Configuring Alarms Based on User-Visible Entities Data</h2><p>Contrail allows you to dynamically configure alarms based on
+the user-visible entities (UVE) data. An alarm configuration object
+is created based on the alarm configuration XSD schema. The alarm
+configuration object is added to the Contrail configuration database,
+using the Contrail API server REST API interface. </p><p>An alarm configuration object can be anchored in the configuration
+data model under <code class="inline" v-pre="">global-system-config</code> or
+project, depending on the alarm type. Under <code class="inline" v-pre="">global-system-config</code>, you should configure virtual network system-wide alarms, such as
+those for the analytics node, the config node, and so on. Under <code class="inline" v-pre="">project</code>, you should configure alarms related to project
+objects, such as virtual networks and similar objects. </p><p>To configure and monitor alarms using the Contrail UI:</p><ol type="1"><li id="jd0e32" style="">Navigate to <strong v-pre="">Configure &gt; Alarms&gt; Project</strong>, and
+select the desired project to access the <strong v-pre="">Alarm Rules</strong> page. <figure id="jd0e41"><div class="graphic"><img alt="" src="images/s018752.png" style=""/></div></figure></li><li id="jd0e43" style="">Click the Gear icon to add a new alarm configuration or
+to edit an existing alarm configuration. Use the <strong v-pre="">Edit</strong> screen
+to define descriptions and to set up alarm rules. See <a href="analytics-user-alarms-log-statistics.html#table1">Table 1</a> for field descriptions.<figure id="alarm1"><div class="graphic"><img alt="" src="images/s018753.png" style=""/></div></figure><sw-table><p class="SubTitle" id="table1">Table 1: Alarm Rules Fields</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Field</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Name</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Enter a name for the alarm.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Severity</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Select the severity level of the alarm from the list.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>UVE Keys</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Select the list of UVE types to apply to this alarm.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Enter a description of the alarm.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Rule</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Set up the alarm rules. Alarm rules are expressed as
+OR of AND terms. Each term has operand1, operand2, and the operation.
+Operand1 is the UVE attribute. Operand2 can be either another UVE
+attribute or a JSON value. The rules are evaluated in the <code class="inline" v-pre="">contrail-alarm-gen</code> service and an alarm is raised or
+cleared as needed on respective conditions.</p></td></tr></tbody></table></sw-table></li><li id="jd0e106" style="">To monitor alarms, navigate to <strong v-pre="">Monitor &gt; Alarms&gt;
+Dashboard</strong>. The <strong v-pre="">Dashboard</strong> screen lists the active
+alarms in the system.<figure id="jd0e115"><div class="graphic"><img alt="" src="images/s018754.png" style=""/></div></figure></li></ol><h2 id="jd0e118">Examples: Detecting Anomalies</h2><p>The purpose of anomaly detection in Contrail is to identify
+a condition in which  a metric deviates from its expected value, within
+given parameters.     </p><p>Contrail uses a statistical process control model for time-series
+anomaly detection that can be computed online, in real-time. Raw metrics
+are sent as statistics by Sandesh generators embedded inside the UVEs.
+The model uses the running average and running standard deviation
+for a given raw metric. The model does not account for seasonality
+and linear trends in the metric.     </p><div class="example" dir="ltr" id="jd0e126"><p>The following example represents part of the UVE sent
+by the vRouter to the collector. The raw metrics are <code class="inline" v-pre="">phy_band_in_bps</code> and <code class="inline" v-pre="">phy_band_out_bps</code>. </p><p>The derived statistics are in <code class="inline" v-pre="">in_bps_ewm </code>and <code class="inline" v-pre="">out_bps_ewm</code>, which are generated when
+the model’s EWM algorithm is applied to the raw metrics. The
+raw metrics and the derived statistics are part of the UVE and are
+sent to the collector.</p><sw-code><template v-pre=""><pre>struct EWMResult {
+    3: u64 samples
+    6: double mean
+    7: double stddev
+}
+
+struct VrouterStatsAgent { // Agent stats
+
+1: string name (key="ObjectVRouter")
+
+2: optional bool deleted    …
+    
+/** @display_name:Vrouter Physical Interface Input bandwidth Statistics*/
+
+50: optional map&lt;string,u64&gt; phy_band_in_bps (tags="name:.__key")
+
+/** @display_name:Vrouter Physical Interface Output bandwidth Statistics*/
+
+51: optional map&lt;string,u64&gt; phy_band_out_bps (tags="name:.__key")
+
+52: optional map&lt;string,derived_stats_results.EWMResult&gt; in_bps_ewm (mstats="phy_band_in_bps:DSEWM:0.2")
+
+53: optional map&lt;string,derived_stats_results.EWMResult&gt; out_bps_ewm (mstats="phy_band_out_bps:DSEWM:0.2")
+}
+</pre></template></sw-code></div><p>The following shows part of the UVE that lists the raw metric <code class="inline" v-pre="">phy_band_out_bps</code> and the derived statistic <code class="inline" v-pre="">out_bps_ewm</code>. The user  can define an alarm based on
+the values in <code class="inline" v-pre="">sigma</code> or in <code class="inline" v-pre="">stddev</code>. </p><figure id="jd0e160"><div class="graphic"><img alt="" src="images/s018755.png" style=""/></div></figure><h2 id="jd0e163">Configuring the User-Defined Log Statistic</h2><p>Any deployment of Contrail cloud over an orchestration system
+requires tools for monitoring and troubleshooting the entire cloud
+deployment. Cloud data centers are built with a large collection of
+interconnected servers that provide computing and storage capacity
+for a variety of applications. The monitoring of the cloud and its
+infrastructure requires monitoring logs and messages sent to a variety
+of servers from many micro services. </p><p>Contrail analytics stores all of the monitored messages in the
+Contrail database node, and the analytics generates a large amount
+of useful information that aids in monitoring and troubleshooting
+the network.  </p><p>With Contrail, the user-defined log statistic feature provides
+additional abilities for monitoring and troubleshooting by enabling
+the user to set a counter on any regular Perl-type expression. Each
+time the pattern is found in any system logs, UVEs, or object logs,
+the counter is incremented. </p><p>The user-defined log statistic can be configured from
+the Contrail UI or from the command line, using <code class="inline" v-pre="">vnc_api</code>. </p><p>To configure the user-defined log statistic from the Contrail
+UI:</p><ol type="1"><li id="jd0e183" style="">Navigate to <strong v-pre="">Configure &gt; Infrastructure &gt; Global Config </strong>and select <strong v-pre="">Log Statistic</strong>. <figure id="jd0e192"><div class="graphic"><img alt="" src="images/s018756.png" style=""/></div></figure></li><li id="jd0e194" style="">To create a log statistic, click the plus (+) icon to
+access the <strong v-pre="">Create Log Statistic </strong>screen. Enter a name for
+the user-defined log statistic, and in the <strong v-pre="">RegExp Pattern</strong> field, enter the Perl-type expression to look for and count.<figure id="jd0e203"><div class="graphic"><img alt="" src="images/s018757.png" style=""/></div></figure></li><li id="jd0e205" style="">To edit an existing log statistic, select the name of
+the statistic and click the Gear icon, then select <strong v-pre="">Edit</strong> to access the <strong v-pre="">Edit Log Statistic</strong> screen.  <figure id="jd0e214"><div class="graphic"><img alt="" src="images/s018758.png" style=""/></div></figure></li><li id="jd0e216" style="">To delete a log statistic, select the name of the statistic
+and click the gear icon, then select the <strong v-pre="">Delete</strong> option.<figure id="jd0e222"><div class="graphic"><img alt="" src="images/s018759.png" style=""/></div></figure></li></ol><div class="example" dir="ltr" id="jd0e224"><p>To configure the user-defined statistic from the <code class="inline" v-pre="">vnc_api</code>:</p><sw-code><template v-pre=""><pre>user@host:~# python 
+Python 2.7.6 (default, Jun 22 2015, 17:58:13) 
+[GCC 4.8.2] on linux2 
+Type "help", "copyright", "credits" or "license" for more information.
+
+&gt;&gt; from vnc_api import vnc_api 
+&gt;&gt; from vnc_api.gen.resource_xsd import UserDefinedLogStat 
+&gt;&gt; from vnc_api.gen.resource_client import GlobalSystemConfig 
+&gt;&gt; vnc = vnc_api.VncApi('&lt;username&gt;', '&lt;password&gt;', '&lt;tenant&gt;') 
+&gt;&gt; gsc_uuid = vnc.global_system_configs_list()['global-system-configs'][0]['uuid'] 
+&gt;&gt; gsc = vnc.global_system_config_read(id=gsc_uuid)
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e233"><p>To list the counters: </p><sw-code><template v-pre=""><pre>&gt;&gt; [(x.name, x.pattern) for x in gsc.user_defined_log_statistics.statlist] 
+
+[('HostnameCounter', 'dummy'), ('MyIp', '10.84.14.38')] 
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e239"><p>To add a counter: </p><sw-code><template v-pre=""><pre>&gt;&gt; g=GlobalSystemConfig() 
+&gt;&gt; g.add_user_defined_counter(UserDefinedLogStat('Foo', 'Ba.*r')) 
+&gt;&gt; vnc.global_system_config_update(g) 
+</pre></template></sw-code></div><div class="example" dir="ltr" id="jd0e245"><p>To verify an addition:</p><sw-code><template v-pre=""><pre>&gt;&gt; gsc = vnc.global_system_config_read(id=gsc_uuid)
+&gt;&gt; [(x.name, x.pattern) for x in gsc.user_defined_log_statistics.statlist] 
+
+[('HostnameCounter', 'dummy'), ('MyIp', '10.84.14.38'), ('Foo', 'Ba.*r')] 
+</pre></template></sw-code></div><h2 id="jd0e252">Implementing the User-Defined Log Statistic</h2><p>The statistics are sent as a counter that has been aggregated
+over a time period of 60 seconds. </p><p>A current sample from your system can be obtained from the UVE
+at:</p><p> <code class="inline" v-pre="">http://<var v-pre="">&lt;analytics-ip&gt;</var>:8081/analytics/uves/user-defined-log-statistic/<var v-pre="">&lt;name&gt;</var></code></p><p>You can also use the statistics table <code class="inline" v-pre="">UserDefinedLogStatTable</code> to get historical data with all supported aggregations such as SUM,
+AVG, and the like.   </p><p>The schema for the table is at the following location: </p><p><code class="inline" v-pre="">http://&lt;ip&gt;:8081/analytics/table/StatTable.UserDefinedCounter.count/schema</code></p><div class="sample" dir="ltr" id="jd0e279"><p><b>Schema for User-Defined Statistics Table</b></p><p>The following is the schema for the user-defined statistic table:</p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+   "type": "STAT",
+   "columns": [
+   {
+   "datatype": "string",
+   "index": true,
+   "name": "Source",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "T",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "CLASS(T)",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "T=",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "CLASS(T=)",
+   "suffixes": null
+},
+   {
+   "datatype": "uuid",
+   "index": false,
+   "name": "UUID",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "COUNT(count)",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "count.previous",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "SUM(count.previous)",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "CLASS(count.previous)",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "MAX(count.previous)",
+   "suffixes": null
+},
+   {
+   "datatype": "int",
+   "index": false,
+   "name": "MIN(count.previous)",
+   "suffixes": null
+},
+   {
+   "datatype": "percentiles",
+   "index": false,
+   "name": "PERCENTILES(count.previous)",
+   "suffixes": null
+},
+   {
+   "datatype": "avg",
+   "index": false,
+   "name": "AVG(count.previous)",
+   "suffixes": null
+},
+   {
+   "datatype": "string",
+   "index": true,
+   "name": "name",
+   "suffixes": null
+}
+   ]
+}
+</pre></template></sw-code></div></div><sw-prev-next> </sw-prev-next></p>

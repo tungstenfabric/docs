@@ -1,0 +1,16 @@
+<p id="topic-content"><h1 id="jd0e3">Configuring Role-Based Access Control for Analytics</h1><sw-topic-details date="2020-09-15"> </sw-topic-details><p>The analytics API uses role-based access control (RBAC) to provide
+the ability to access UVE and query information based on the permissions
+of the user for the UVE or queried object.  </p><p>Contrail Networking extends authenticated
+access so that tenants can view network monitoring information about
+the networks for which they have read permissions. </p><p>The analytics API can map query and UVE objects to configuration
+objects on which RBAC rules are applied, so that read permissions
+can be verified using the VNC API. </p><p>RBAC is applied to analytics in the following ways:</p><ul><li style=""><p>For statistics queries, annotations are added to the Sandesh
+file so that indices and tags on statistics queries can be associated
+with objects and UVEs. These are used by the contrail-analytics-api
+to determine the object level read permissions.</p></li><li style=""><p>For flow and log queries, the object read permissions
+are evaluated for each AND term in the where query.</p></li><li style=""><p>For UVEs list queries (e.g. analytics/uve/virtual-networks/),
+the contrail-analytics-api gets a list of UVEs that have read permissions
+for a given token. For a UVE query for a specific resource (e.g. analytics/uves/virtual-network/vn1),
+contrail-analytics-api checks the object level read permissions using
+VNC API.</p></li></ul><p>Tenants cannot view system logs and flow logs, those logs are
+displayed for cloud-admin roles only.</p><p>A non-admin user can see only non-global UVEs, including: </p><ul><li style=""><p>virtual_network</p></li><li style=""><p>virtual_machine</p></li><li style=""><p>virtual_machine_interface</p></li><li style=""><p>service_instance</p></li><li style=""><p>	service_chain</p></li><li style=""><p>tag</p></li><li style=""><p>firewall_policy</p></li><li style=""><p>firewall_rule </p></li><li style=""><p>address_group </p></li><li style=""><p>service_group </p></li><li style=""><p>aaplication_policy_set</p></li></ul><p>In <code class="inline" v-pre="">/etc/contrail/contrail-analytics-api.conf</code>, in the section <code class="inline" v-pre="">DEFAULTS</code>, the parameter <code class="inline" v-pre="">aaa_mode</code> now supports <code class="inline" v-pre="">rbac</code> as one of the values.</p><sw-prev-next> </sw-prev-next></p>

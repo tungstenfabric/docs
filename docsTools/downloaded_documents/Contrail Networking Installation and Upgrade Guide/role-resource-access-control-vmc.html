@@ -1,0 +1,87 @@
+<p id="topic-content"><h1 id="jd0e3">Configuring Role and Resource-Based Access Control</h1><sw-topic-details date="2020-07-30"> </sw-topic-details><h2 id="jd0e11">Contrail Role and Resource-Based Access (RBAC) Overview</h2><p>Contrail Networking supports role and resource-based access
+control (RBAC) with API operation-level access control.</p><p>The RBAC implementation relies on user credentials obtained
+from Keystone from a token present in an API request. Credentials
+include user, role, tenant, and domain information.</p><p>API-level access is controlled by a list of rules. The attachment
+points for the rules include <code class="inline" v-pre="">global-system-config</code>, domain, and project. Resource-level access is controlled by permissions
+embedded in the object.</p><h2 id="jd0e23">API-Level Access Control</h2><p>If the RBAC feature is enabled, the API server requires a valid
+token to be present in the <code class="inline" v-pre="">X-Auth-Token</code> of any incoming request. The API server trades the token for user
+credentials (role, domain, project, and so on) from Keystone. </p><p>If a token is missing or is invalid, an HTTP error 401 is returned. </p><p>The <code class="inline" v-pre="">api-access-list</code> object holds
+access rules of the following form: </p><p><code class="inline" v-pre=""><var v-pre="">&lt;object, field&gt;</var> =&gt; list
+of <var v-pre="">&lt;role:CRUD&gt;</var> </code> </p><p>Where:  </p><div class="definitionList"><div><span class="defTerm" style=""><code class="inline" v-pre="">object</code></span><span class="defSep">—</span><span class="defItem" style="">An API resource such as network or subnet.</span></div><div><span class="defTerm" style=""><code class="inline" v-pre="">field</code></span><span class="defSep">—</span><span class="defItem" style="">Any property or reference within the resource. The <code class="inline" v-pre="">field</code> option can be multilevel, for example, <code class="inline" v-pre="">network.ipam.host-routes</code> can be used to identify multiple
+levels. The <code class="inline" v-pre="">field</code> is optional, so in its
+absence, the create, read, update, and delete (CRUD) operation refers
+to the entire resource. </span></div><div><span class="defTerm" style=""><code class="inline" v-pre="">role</code></span><span class="defSep">—</span><span class="defItem" style="">The Keystone role name. </span></div></div><p>Each rule also specifies the list of roles and their corresponding
+permissions as a subset of the CRUD operations. </p><div class="example" dir="ltr" id="jd0e82"><p><b><h3 id="jd0e83">Example: ACL RBAC Object</h3></b></p><p>The following is an example access control list (ACL) object
+for a project in which the admin and any users with the <code class="inline" v-pre="">Development</code> role can perform CRUD operations on the
+network in a project. However, only the <code class="inline" v-pre="">admin </code> role can perform CRUD operations for policy and IP address management
+(IPAM) inside a network.</p><sw-code><template v-pre=""><pre>&lt;virtual-network, network-policy&gt; =&gt; admin:CRUD
+
+ &lt;virtual-network, network-ipam&gt; =&gt; admin:CRUD
+
+ &lt;virtual-network, *&gt;    =&gt; admin:CRUD, Development:CRUD</pre></template></sw-code></div><h3 id="jd0e96">Rule Sets and ACL Objects</h3><p>The following are the features of rule sets for access control
+objects in Contrail.</p><ul><li style=""><p>The rule set for validation is the union of rules from
+the ACL attached to: </p><ul><li style=""><p>User project</p></li><li style=""><p>User domain</p></li><li style=""><p>Default domain</p><p>It is possible for the project or domain access object to be
+empty.</p></li></ul></li><li style=""><p>Access is only granted if a rule in the combined rule
+set allows access.</p></li><li style=""><p>There is no explicit deny rule.</p></li><li style=""><p>An ACL object can be shared within a domain. Therefore,
+multiple projects can point to the same ACL object. You can make an
+ACL object the default.</p></li></ul><h2 id="jd0e127">Object Level Access Control</h2><p>The <code class="inline" v-pre="">perms2</code> permission property of
+an object allows fine-grained access control per resource.</p><p>The <code class="inline" v-pre="">perms2</code> property has the following
+fields:</p><div class="definitionList"><div><span class="defTerm" style=""><code class="inline" v-pre="">owner</code> </span><span class="defSep">—</span><span class="defItem" style="">This field is populated at the time of creation with the tenant
+UUID value extracted from the token. </span></div><div><span class="defTerm" style=""><code class="inline" v-pre="">share list </code></span><span class="defSep">—</span><span class="defItem" style="">The share list gets built when the object is selected for sharing
+with other users. It is a list of tuples with which the object is
+shared.</span></div></div><p>The <code class="inline" v-pre="">permission</code> field has the following
+options: </p><ul><li style=""><p><code class="inline" v-pre="">R</code>—Read object</p></li><li style=""><p><code class="inline" v-pre="">W</code>—Create or update object</p></li><li style=""><p><code class="inline" v-pre="">X</code>—Link (refer to) object</p></li></ul><p>Access is allowed as follows: </p><ul><li style=""><p>If the user is the owner and permissions allow (rwx)</p></li><li style=""><p>Or if the user tenant is in a shared list and permissions
+allow </p></li><li style=""><p>Or if world access is allowed</p></li></ul><h2 id="jd0e189">Configuration</h2><div class="mini-toc-intro"><p>This section describes the parameters used in Contrail RBAC.</p></div><ul><li style=""><p><a href="role-resource-access-control-vmc.html#jd0e197">Parameter: aaa-mode</a></p></li><li style=""><p><a href="role-resource-access-control-vmc.html#jd0e271">Parameter: cloud_admin_role</a></p></li><li style=""><p><a href="role-resource-access-control-vmc.html#jd0e358">Global Read-Only Role</a></p></li><li style=""><p><a href="role-resource-access-control-vmc.html#jd0e415">Parameter Changes in /etc/neutron/api-paste.ini</a></p></li></ul><h3 id="jd0e197">Parameter: aaa-mode</h3><p>RBAC is controlled by a parameter named <code class="inline" v-pre="">aaa-mode</code>. This parameter is used in place of the multi-tenancy parameter
+of previous releases.</p><p>The <code class="inline" v-pre="">aaa-mode</code> can be set to the following
+values:</p><ul><li style=""><p><code class="inline" v-pre="">no-auth</code>—No authentication
+is performed and full access is granted to all.</p></li><li style=""><p><code class="inline" v-pre="">cloud-admin</code>—Authentication
+is performed and only the admin role has access.</p></li><li style=""><p><code class="inline" v-pre="">rbac</code>—Authentication is
+performed and access is granted based on role.</p><p>If you are using
+Contrail Ansible Deployer to provision Contrail Networking, set the
+value for <span class="cli" v-pre="">AAA_MODE</span> to <span class="cli" v-pre="">rbac</span> to enable RBAC by
+default.</p><div class="sample" dir="ltr" id="jd0e235"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>contrail_configuration:
+  .
+  .
+  .
+  AAA_MODE: rbac
+</pre></template></sw-code></div></div><p>If you are installing Contrail Networking from Contrail
+Command, specify the key and value as <span class="cli" v-pre="">AAA_MODE</span> and <span class="cli" v-pre="">rbac</span>, respectively, under the section Contrail Configuration
+on the <strong v-pre="">Step 2 Provisioning Options</strong> page.</p></li></ul><p>After enabling
+RBAC, you must restart the neutron server by running the <span class="cli" v-pre="">service
+neutron-server restart</span> command for the changes to take effect.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The <code class="inline" v-pre="">multi_tenancy</code> parameter is deprecated,
+starting with Contrail 3.0. The parameter should be removed from the
+configuration. Instead, use the <code class="inline" v-pre="">aaa_mode</code> parameter for RBAC to take effect.</p><p>If the <code class="inline" v-pre="">multi_tenancy</code> parameter is
+not removed, the <code class="inline" v-pre="">aaa-mode</code> setting is ignored. </p></sw-admonition><h3 id="jd0e271">Parameter: cloud_admin_role</h3><p>A user who is assigned the <code class="inline" v-pre="">cloud_admin_role</code> has full access to everything. </p><p>This role name is configured with the <code class="inline" v-pre="">cloud_admin_role</code> parameter in the API server. The default setting for the parameter
+is <code class="inline" v-pre="">admin</code>. This role must be configured
+in Keystone to change the default value. </p><p>If a user has the <code class="inline" v-pre="">cloud_admin_role</code> in one tenant, and the user has a role in other tenants, then the <code class="inline" v-pre="">cloud_admin_role</code> role must be included in the other
+tenants. A user with the <code class="inline" v-pre="">cloud_admin_role</code> doesn't need to have a role in all tenants, however, if that user
+has any role in another tenant, that tenant must include the <code class="inline" v-pre="">cloud_admin_role</code>. </p><h4 id="jd0e301">Configuration Files with Cloud Admin Credentials</h4><p>The following configuration files contain <code class="inline" v-pre="">cloud_admin_role</code> credentials:</p><ul><li style=""><p><code class="inline" v-pre="">/etc/contrail/contrail-keystone-auth.conf </code></p></li><li style=""><p><code class="inline" v-pre="">/etc/neutron/plugins/opencontrail/ContrailPlugin.ini</code></p></li><li style=""><p><code class="inline" v-pre="">/etc/contrail/contrail-webui-userauth.js</code></p></li></ul><h4 id="jd0e323">Changing Cloud Admin Configuration Files</h4><p>Modify the cloud admin credential files if the <code class="inline" v-pre="">cloud_admin_role</code> role is changed.</p><ol type="1"><li id="jd0e333" style="">Change the configuration files with the new information.</li><li id="jd0e336" style="">Restart the following:<ul><li style=""><p>API server</p><p><code class="inline" v-pre="">service supervisor-config restart</code></p></li><li style=""><p>Neutron server </p><p><code class="inline" v-pre="">service neutron-server restart</code></p></li><li style=""><p>WebUI</p><p><code class="inline" v-pre="">service supervisor-webui restart</code></p></li></ul></li></ol><h3 id="jd0e358">Global Read-Only Role</h3><p>You can configure a global read-only role (<code class="inline" v-pre="">global_read_only_role</code>).</p><p>A <code class="inline" v-pre="">global_read_only_role</code> allows read-only
+access to all Contrail resources. The <code class="inline" v-pre="">global_read_only_role</code> must be configured in Keystone. The default <code class="inline" v-pre="">global_read_only_role</code> is not set to any value. </p><p>A <code class="inline" v-pre="">global_read_only_role</code> user can
+use the Contrail Web Ui to view the global configuration of Contrail
+default settings.</p><h4 id="jd0e382">Setting the Global Read-Only Role</h4><p>To set the global read-only role:</p><ol type="1"><li id="jd0e389" style="">The <code class="inline" v-pre="">cloud_admin</code> user sets the <code class="inline" v-pre="">global_read_only_role</code> in the Contrail API:<p><code class="inline" v-pre="">/etc/contrail/contrail-api.conf</code></p><p><code class="inline" v-pre="">global_read_only_role = <var v-pre="">&lt;new-admin-read-role&gt;</var></code></p></li><li id="jd0e406" style="">Restart the <code class="inline" v-pre="">contrail-api </code>service:<p><code class="inline" v-pre="">service contrail-api restart</code></p></li></ol><h3 id="jd0e415">Parameter Changes in /etc/neutron/api-paste.ini</h3><p>Contrail RBAC operation is based upon a user token received
+in the <code class="inline" v-pre="">X-Auth-Token</code> header in API requests.
+The following change must be made in <code class="filepath">/etc/neutron/api-paste.ini</code> to force Neutron to pass the user token in requests to the Contrail
+API server:</p><div class="example" dir="ltr" id="jd0e426"><sw-code><template v-pre=""><pre>keystone = user_token request_id catch_errors ....
+...
+...
+[filter:user_token]
+paste.filter_factory = neutron_plugin_contrail.plugins.opencontrail.neutron_middleware:token_factory</pre></template></sw-code></div><h2 id="jd0e429">Upgrading from Previous Releases</h2><p>The <code class="inline" v-pre="">multi_tenancy</code> parameter is deprecated.. The parameter
+should be removed from the configuration. Instead, use the <code class="inline" v-pre="">aaa_mode</code> parameter for RBAC to take effect.</p><p>If the <code class="inline" v-pre="">multi_tenancy</code> parameter is
+not removed, the <code class="inline" v-pre="">aaa-mode</code> setting is ignored. </p><h2 id="jd0e448">Configuring RBAC Using the Contrail User Interface</h2><p>To use the Contrail UI with RBAC:</p><ol type="1"><li id="jd0e455" style="">Set the aaa_mode to no_auth.<p><code class="inline" v-pre="">/etc/contrail/contrail-analytics-api.conf</code></p><p><code class="inline" v-pre="">aaa_mode = no-auth </code></p></li><li id="jd0e464" style="">Restart the <code class="inline" v-pre="">analytics-api</code> service.<p><code class="inline" v-pre="">service contrail-analytics-api restart</code></p></li><li id="jd0e473" style="">Restart services by restarting the container.</li></ol><p>You can use the Contrail UI to configure RBAC at both the API
+level and the object level.  API level access control can be configured
+at the global, domain, and project levels. Object level access is
+available from most of the create or edit screens in the Contrail
+UI.</p><h3 id="jd0e479">Configuring RBAC at the Global Level</h3><p>To configure RBAC at the global level, navigate to <strong v-pre="">Configure
+&gt; Infrastructure &gt; Global Config &gt; RBAC</strong>, see <a href="role-resource-access-control-vmc.html#rbacui1">Figure 1</a>. </p><figure id="rbacui1"><figcaption>Figure 1: RBAC Global Level</figcaption><div class="graphic"><img alt="RBAC Global Level" src="images/s018760.png" style=""/></div></figure><h3 id="jd0e493">Configuring RBAC at the Domain Level</h3><p>To configure RBAC at the domain level, navigate to <strong v-pre="">Configure
+&gt; RBAC &gt; Domain</strong>, see <a href="role-resource-access-control-vmc.html#rbacui2">Figure 2</a>. </p><figure id="rbacui2"><figcaption>Figure 2: RBAC Domain Level</figcaption><div class="graphic"><img alt="RBAC Domain Level" src="images/s018761.png" style=""/></div></figure><h3 id="jd0e507">Configuring RBAC at the Project Level</h3><p>To configure RBAC at the project level, navigate to <strong v-pre="">Configure
+&gt; RBAC &gt; Project</strong>, see <a href="role-resource-access-control-vmc.html#rbacui3">Figure 3</a>. </p><figure id="rbacui3"><figcaption>Figure 3: RBAC Project Level</figcaption><div class="graphic"><img alt="RBAC Project Level" src="images/s018762.png" style=""/></div></figure><h3 id="jd0e521">Configuring RBAC Details</h3><p>Configuring RBAC is similar at all of the levels. To add or
+edit an API access list, navigate to the global, domain, or project
+page, then click the plus (+) icon to add a list, or click the gear
+icon to select from Edit, Insert After, or Delete, see <a href="role-resource-access-control-vmc.html#rbacui4">Figure 4</a>. </p><figure id="rbacui4"><figcaption>Figure 4: RBAC Details API Access</figcaption><div class="graphic"><img alt="RBAC Details API Access" src="images/s018763.png" style=""/></div></figure><h4 id="jd0e532">Creating or Editing API Level Access</h4><p>Clicking create, edit, or insert after activates the Edit API
+Access popup window, where you enter the details for the API Access
+Rules.  Enter the user type in the Role field, and use the <strong v-pre="">+</strong> icon in the Access filed
+to enter the types of access allowed for the role, including, Create,
+Read, Update, Delete, and so on, see <a href="role-resource-access-control-vmc.html#rbacui5">Figure 5</a>. </p><figure id="rbacui5"><figcaption>Figure 5: Edit API Access</figcaption><div class="graphic"><img alt="Edit API Access" src="images/s018764.png" style=""/></div></figure><h4 id="jd0e546">Creating or Editing Object Level Access</h4><p>You can configure fine-grained access control by resource. A <strong v-pre="">Permissions</strong> tab is available on all create or edit popups for
+resources. Use the <strong v-pre="">Permissions</strong> popup to configure owner
+permissions and global share permissions. You can also share the resource
+to other tenants by configuring it in the <strong v-pre="">Share List</strong>, see <a href="role-resource-access-control-vmc.html#rbacui6">Figure 6</a>. </p><figure id="rbacui6"><figcaption>Figure 6: Edit Object Level Access</figcaption><div class="graphic"><img alt="Edit Object Level Access" src="images/s018765.png" style=""/></div></figure><h2 id="jd0e566">RBAC Resources</h2><p>Refer to the <cite>OpenStack Administrator Guide</cite> for additional information about RBAC:</p><ul><li style=""><p><a href="http://docs.openstack.org/admin-guide-cloud/content/identity-service-api-protection-with-role-based-access-control.html">Identity API protection with role-based access control (RBAC)</a></p></li></ul><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,150 @@
+<p id="topic-content"><h1 id="jd0e2">How to Perform a Zero Impact Contrail Networking Upgrade using
+the Ansible Deployer</h1><sw-topic-details date="2020-12-15"> </sw-topic-details><p><span id="jd0e10">Starting in Contrail Networking
+Release 2005, you can perform a Zero Impact Upgrade (ZIU) of Contrail
+Networking using the Contrail Ansible Deployer container.</span> The Contrail Ansible Deployer container image can be loaded from
+the Juniper Networks Contrail Container Registry hosted at <var v-pre="">hub.juniper.net/contrail</var>.</p><p>Use the procedure in this document to perform a Zero Impact
+Upgrade (ZIU) of Contrail Networking using the Contrail Ansible Deployer
+container. This ZIU allows Contrail Networking to upgrade while sustaining
+minimal network downtime.</p><p>Before you begin:</p><ul><li style=""><p>The target release for this upgrade must be Contrail Release
+2005 or later.</p></li><li style=""><p>You can use this procedure to incrementally upgrade to
+the next Contrail Networking release only. For instance, if you are
+running Contrail Networking Release 2003 and want to upgrade to the
+next Contrail Release—which is Contrail Networking Release 2005—you
+can use this procedure to perform the upgrade.</p><p>This procedure is not validated for upgrades between releases
+that are two or more releases apart. For instance, it could not be
+used to upgrade from Contrail Networking Release 2002 to Contrail
+Networking Release 2005.</p><p>For a list of Contrail Networking releases in a table that illustrates
+Contrail Networking release order, see <a href="https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf">Contrail Networking Supported Platforms</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p></li><li style=""><p>The Contrail Ansible Deployer container can only be used
+in CentOS environments.</p></li><li style=""><p>Take snapshots of your current configurations before you
+proceed with the upgrade process. For details, refer to <a href="../../concept/backup-using-json-50.html">How to Backup and Restore Contrail Databases in JSON Format</a>.</p></li></ul><p>This procedure illustrates how to perform a ZIU using
+the Ansible deployer container. It includes a representative example
+of the steps being performed to upgrade from Contrail Networking Release
+2005 to Release 2008.</p><p>To perform the ZIU using the Ansible deployer:</p><ol type="1"><li id="jd0e50" style="">Pull the <var v-pre="">contrail-ansible-deployer</var> file for the target upgrade release. This procedure is typically
+performed from a Contrail controller running in your environment,
+but it can also be performed from a separate server which has network
+connectivity to the deployment that is being upgraded.<p>This procedure shows you how to load a 2008 image from the Juniper
+Networks Contrail Container Registry. You can, however, also change
+the values to load the file from a private registry.</p><p>The Juniper Networks Contrail Container Registry is hosted at <var v-pre="">hub.juniper.net/contrail</var>. If you need the credentials
+to access the registry, email <a href="mailto:contrail-registry@juniper.net?subject=">contrail-registry@juniper.net</a>.</p><p>Enter the following commands to pull the <var v-pre="">contrail-ansible-deployer</var> file from the registry:</p><div class="sample" dir="ltr" id="jd0e71"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>sudo docker login -u &lt;username&gt; -p &lt;password&gt; hub.juniper.net <br/>sudo docker pull hub.juniper.net/contrail/contrail-kolla-ansible-deployer:2008.&lt;contrail_container_tag&gt;</pre></template></sw-code></div></div><p>where:</p><ul><li style=""><p><var v-pre="">username</var>—username to access
+the registry. Email <a href="mailto:contrail-registry@juniper.net?subject=">contrail-registry@juniper.net</a> if you need to obtain <var v-pre="">username</var> and <var v-pre="">password</var> credentials.</p></li><li style=""><p><var v-pre="">password</var>—password to access
+the registry. Email <a href="mailto:contrail-registry@juniper.net?subject=">contrail-registry@juniper.net</a> if you need to obtain <var v-pre="">username</var> and <var v-pre="">password</var> credentials.</p></li><li style=""><p><var v-pre="">contrail_container_tag</var>—the
+container tag ID for your target Contrail Networking release. The <var v-pre="">contrail_container_tag</var> for any Contrail Release 20 software
+can be obtained from <a href="https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf">README Access to Contrail Networking Registry 20xx</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>. </p></li></ul></li><li id="jd0e118" style="">Start the Contrail Ansible Deployer:<div class="sample" dir="ltr" id="jd0e121"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker run -t --net host -d --privileged --name contrail-kolla-ansible-deployer hub.juniper.net/contrail/contrail-kolla-ansible-deployer:2008.&lt;contrail_container_tag&gt;</pre></template></sw-code></div></div></li><li id="jd0e124" style="">Navigate to the <var v-pre="">instances.yaml</var> file
+and open it for editing.<p>The <var v-pre="">instances.yaml</var> file was used to initially
+deploy the setup. The <var v-pre="">instances.yaml</var> can be loaded
+into the Contrail Ansible Deployer and edited to supported the target
+upgrade version.</p><p><em>Contrail Release 2008 Target Upgrade Example using
+VI as the editor</em>:</p><div class="sample" dir="ltr" id="jd0e142"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker cp instances.yaml contrail-kolla-ansible-deployer:/root/contrail-ansible-deployer/config/instances.yaml
+docker exec -it contrail-kolla-ansible-deployer bash
+cd /root/contrail-ansible-deployer/config/
+vi instances.yaml</pre></template></sw-code></div></div></li><li id="jd0e145" style="">Update the <var v-pre="">CONTRAIL_CONTAINER_TAG</var> to the desired version tag in the <code class="filepath">instances.yaml</code> file from the existing deployment. The <var v-pre="">CONTRAIL_CONTAINER_TAG</var> variable is in the <var v-pre="">contrail_configuration:</var> hierarchy
+within the <code class="filepath">instances.yaml</code> file.<p>The <var v-pre="">CONTRAIL_CONTAINER_TAG</var> for any Contrail
+Release 20 software can be obtained from <a href="https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf">README Access to Contrail Networking Registry 20xx</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>. </p><p>Here is an example instances.yml file configuration:</p><div class="sample" dir="ltr" id="jd0e173"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>contrail_configuration:
+  <span data-fg-color="blue">CONTRAIL_CONTAINER_TAG: "2008.121"</span>
+  CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: "2"
+  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: "2"
+  JVM_EXTRA_OPTS: "-Xms1g -Xmx2g"
+  VROUTER_ENCRYPTION: FALSE
+  LOG_LEVEL: SYS_DEBUG
+  CLOUD_ORCHESTRATOR: kubernetes</pre></template></sw-code></div></div></li><li id="jd0e179" style="">Upgrade the control plane  by running the ziu.yml playbook
+file from inside the contrail ansible deployer container.<ul><li style=""><p>For Contrail Networking Release 2005 to Contrail Networking
+Release 2008:</p><p>Upgrade the control plane by running the <code class="filepath">ziu.yml</code> playbook file.</p><p><span class="cli" v-pre="">sudo -E ansible-playbook -v -e orchestrator=openstack -e
+config_file=instances.yaml playbooks/ziu.yml</span></p></li><li style=""><p>For Contrail Networking Release 2011 and later:</p><p>Upgrade the control plane by running the controller stage of <code class="filepath">ziu.yml</code> playbook file.</p><p><span class="cli" v-pre="">sudo -E ansible-playbook -v -e stage=controller -e orchestrator=openstack
+-e config_file=../instances.yaml playbooks/ziu.yml</span></p></li></ul></li><li id="jd0e205" style="">Upgrade the Openstack plugin by running the install_openstack.yml
+playbook file.<ul><li style=""><p>For Contrail Networking Release 2005 to Contrail Networking
+Release 2008:</p><p><span class="cli" v-pre="">sudo -E ansible-playbook -v -e orchestrator=openstack -e
+config_file=instances.yaml playbooks/install_openstack.yml</span></p></li><li style=""><p>For Contrail Networking Release 2011 and later:</p><p><span class="cli" v-pre="">sudo -E ansible-playbook -v -e stage=openstack -e orchestrator=openstack
+-e config_file=../instances.yaml playbooks/ziu.yml</span></p></li></ul></li><li id="jd0e221" style="">Enter the <span class="cli" v-pre="">contrail-status</span> command to monitor
+upgrade status. Ensure all pods reach the <var v-pre="">running</var> state and all services reach the <var v-pre="">active</var> state.<p>This <span class="cli" v-pre="">contrail-status</span> command provides this output
+after a successful upgrade:</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Some output fields and data have been removed for readability.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e241"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>
+                                Original
+Pod             Service         Name                                   State
+                 redis           contrail-external-redis                <span data-fg-color="blue">running</span>
+                 rsyslogd                                               <span data-fg-color="blue">running</span>
+analytics        api             contrail-analytics-api                 <span data-fg-color="blue">running</span>
+analytics        collector       contrail-analytics-collector           <span data-fg-color="blue">running</span>
+analytics        nodemgr         contrail-nodemgr                       <span data-fg-color="blue">running</span>
+analytics        provisioner     contrail-provisioner                   <span data-fg-color="blue">running</span>
+analytics-alarm  alarm-gen       contrail-analytics-alarm-gen           <span data-fg-color="blue">running</span>
+analytics-alarm  kafka           contrail-external-kafka                <span data-fg-color="blue">running</span>
+analytics-alarm  nodemgr         contrail-nodemgr                       <span data-fg-color="blue">running</span>
+analytics-alarm  provisioner     contrail-provisioner                   <span data-fg-color="blue">running</span>
+analytics-snmp   nodemgr         contrail-nodemgr                       <span data-fg-color="blue">running</span>
+analytics-snmp   provisioner     contrail-provisioner                   <span data-fg-color="blue">running</span>
+analytics-snmp   snmp-collector  contrail-analytics-snmp-collector      <span data-fg-color="blue">running</span>
+analytics-snmp   topology        contrail-analytics-snmp-topology       <span data-fg-color="blue">running</span>
+config           api             contrail-controller-config-api         <span data-fg-color="blue">running</span>
+config           device-manager  contrail-controller-config-devicemgr   <span data-fg-color="blue">running</span>
+config           dnsmasq         contrail-controller-config-dnsmasq     <span data-fg-color="blue">running</span>
+config           nodemgr         contrail-nodemgr                       <span data-fg-color="blue">running</span>
+config           provisioner     contrail-provisioner                   <span data-fg-color="blue">running</span>
+config           schema          contrail-controller-config-schema      <span data-fg-color="blue">running</span>
+config           stats           contrail-controller-config-stats       <span data-fg-color="blue">running</span>
+config           svc-monitor     contrail-controller-config-svcmonitor  <span data-fg-color="blue">running</span>
+config-database  cassandra       contrail-external-cassandra            <span data-fg-color="blue">running</span>
+&lt;trimmed&gt;
+
+vrouter kernel module is PRESENT
+== Contrail control ==
+control: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+named: <span data-fg-color="blue">active</span>
+dns: <span data-fg-color="blue">active</span>
+
+== Contrail analytics-alarm ==
+nodemgr: <span data-fg-color="blue">active</span>
+kafka: <span data-fg-color="blue">active</span>
+alarm-gen: <span data-fg-color="blue">active</span>
+
+== Contrail kubernetes ==
+kube-manager: <span data-fg-color="blue">active</span>
+
+== Contrail database ==
+nodemgr: <span data-fg-color="blue">active</span>
+query-engine: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail analytics ==
+nodemgr: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+collector: <span data-fg-color="blue">active</span>
+
+== Contrail config-database ==
+nodemgr: <span data-fg-color="blue">active</span>
+zookeeper: <span data-fg-color="blue">active</span>
+rabbitmq: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail webui ==
+web: <span data-fg-color="blue">active</span>
+job: <span data-fg-color="blue">active</span>
+
+== Contrail vrouter ==
+nodemgr: <span data-fg-color="blue">active</span>
+agent: <span data-fg-color="blue">active</span>
+
+== Contrail analytics-snmp ==
+snmp-collector: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+topology: <span data-fg-color="blue">active</span>
+
+== Contrail config ==
+svc-monitor: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+device-manager: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+schema: <span data-fg-color="blue">active</span>
+</pre></template></sw-code></div></div></li><li id="mark-compute-nodes-for-migration" style="">Migrate workloads
+VM from one group of compute nodes. Leave them uncommented in the
+instances.yaml file. Comment other computes not ready to upgrаde in
+instances.yaml.</li><li id="upgrade-compute-nodes" style="">Upgrade compute nodes.<ul><li style=""><p>For Contrail Networking Release 2005 to Contrail Networking
+Release 2008:</p><p>Run the <kbd class="user-typing" v-pre="">install_contrail.yml</kbd> playbook
+file to upgrade the compute nodes that were uncommented in the <kbd class="user-typing" v-pre="">instances.yaml</kbd> file. Only the compute nodes that were
+left uncommented in <a href="installing-contrail-ansible-ziu.html#mark-compute-nodes-for-migration">8</a> are upgraded to the target release in this step.</p><p><span class="cli" v-pre="">sudo -E ansible-playbook -v -e orchestrator=openstack -e
+config_file=instances.yaml playbooks/install_contrail.yml</span></p></li><li style=""><p>For Contrail Networking Release 2011 and later:</p><p>Run the compute stage of <kbd class="user-typing" v-pre="">ziu.yml</kbd> playbook
+file to upgrade the compute nodes that were uncommented in the <kbd class="user-typing" v-pre="">instances.yaml</kbd> file. Only the compute nodes that were
+left uncommented in <a href="installing-contrail-ansible-ziu.html#mark-compute-nodes-for-migration">8</a> are upgraded to the target release in this step.</p><p><span class="cli" v-pre="">sudo -E ansible-playbook -v -e stage=compute -e orchestrator=openstack
+-e config_file=../instances.yaml playbooks/ziu.yml</span></p></li></ul></li><li id="jd0e442" style="">Repeat Steps <a href="installing-contrail-ansible-ziu.html#mark-compute-nodes-for-migration">8</a> and <a href="installing-contrail-ansible-ziu.html#upgrade-compute-nodes">9</a> until all
+compute nodes are upgraded.</li></ol><p>You can access the Ansible playbook logs of the upgrade at <code class="inline" v-pre="">/var/log/ansible.log</code>.</p><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e10">2005</a></div><div class="table-cell">Starting in Contrail Networking
+Release 2005, you can perform a Zero Impact Upgrade (ZIU) of Contrail
+Networking using the Contrail Ansible Deployer container.</div></div></div><sw-prev-next> </sw-prev-next></p>

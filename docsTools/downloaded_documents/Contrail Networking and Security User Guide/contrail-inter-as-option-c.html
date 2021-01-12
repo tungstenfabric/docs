@@ -1,0 +1,23 @@
+<p id="topic-content"><h1 id="jd0e2">Support for L3VPN Inter AS Option C</h1><sw-topic-details date="2019-05-28"> </sw-topic-details><p>Contrail Release 5.1 and later supports L3VPN inter AS Option
+C, which is used to interconnect multi-AS backbones as described in
+RFC 4364. Inter-AS option C uses BGP as the label distribution protocol.
+Labeled IPv4 routes are redistributed by eBGP between the neighboring
+autonomous systems. A new address family inet-labeled is added to
+maintain labeled unicast routes. This table is used for resolving
+L3VPN routes which are encapsulated using MPLS. <a href="contrail-inter-as-option-c.html#l3vpn-interas-option-c">Figure 1</a> shows the connectivity and
+the roles of different components in this architecture.  </p><figure id="l3vpn-interas-option-c"><figcaption>Figure 1: L3VPN Inter AS Option C
+Architecture</figcaption><div class="graphic"><img alt="L3VPN Inter AS Option C
+Architecture" src="images/g300379.png" style=""/></div></figure><p>The controller maintains an eBGP session with the SDN-GW router
+and an iBGP session with the ASBR router. The controller exchanges
+labeled routes with the vRouters over XMPP. The vRouter uses MPLSoUDP
+or MPLSoGRE to reach the ASBR and encapsulates two labels within it
+- the inner VPN label and outer BGP-LU label. For the opposite direction,
+the vRouter  advertises a labeled unicast route for its vhost address
+with a label 3 (implicit null), so  the traffic from the ASBR delivered
+through the fabric to the vRouter over a UDP/GRE tunnel contains only
+the VPN label. </p><h2 id="jd0e19">Configuring Inter AS Option C</h2><p>This section describes how to configure L3VPN Inter AS Option
+C from Contrail Command UI.</p><ol type="1"><li id="jd0e26" style="">Navigate to Infrastructure &gt; Cluster &gt; Advanced.</li><li id="jd0e29" style="">Click <strong v-pre="">BGP Routers </strong>tab and click the <strong v-pre="">Edit</strong> icon against the node that you want to configure.<p>The Edit BGP Router page is displayed. </p></li><li id="jd0e40" style="">Configure eBGP session for the SDN gateway. Make sure
+you include <span class="cli" v-pre="">inet-labeled</span> to the <strong v-pre="">Address Family</strong> field.<figure id="jd0e49"><div class="graphic"><img alt="" src="images/s008004.png" style=""/></div></figure></li><li id="jd0e51" style="">Configure the iBGP session with the ASBR router. Address
+family must be set to <span class="cli" v-pre="">inet-labeled</span>.<figure id="jd0e57"><div class="graphic"><img alt="" src="images/s008002.png" style=""/></div></figure></li><li id="jd0e59" style="">Navigate to <strong v-pre="">Infrastructure &gt; Cluster &gt; Advanced</strong>.</li><li id="jd0e65" style="">Click the <strong v-pre="">Virtual Routers </strong>tab and on the Forwarding
+Options pane, click Edit to modify the encapsulation settings. <p>Contrail supports three encapsulation types. They are VXLAN,
+MPLS Over UDP, and MPLS Over GRE.</p></li><li id="jd0e73" style="">Set the Encapsulation priority order.<figure id="jd0e76"><div class="graphic"><img alt="" src="images/s008003.png" style=""/></div></figure></li><li id="jd0e78" style="">Click <strong v-pre="">Save</strong>.<p>Changes made to Forwarding Options settings are saved.</p></li></ol><sw-prev-next> </sw-prev-next></p>

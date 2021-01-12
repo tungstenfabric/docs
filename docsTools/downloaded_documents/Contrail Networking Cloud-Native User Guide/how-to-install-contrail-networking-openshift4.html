@@ -1,0 +1,378 @@
+<p id="topic-content"><h1 id="jd0e3">How to Install Contrail Networking and Red Hat OpenShift 4.4</h1><sw-topic-details date="2020-11-12"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>You can install Contrail Networking with Red
+Hat Openshift 4.4 in multiple environments.</p><p>This document shows one method of installing Red Hat Openshift
+4.4 with Contrail Networking in two separate contexts—on a VM
+running in a KVM module and within Amazon Web Services (AWS). There
+are many implementation and configuration options available for installing
+and configuring Red Hat OpenShift 4.4 and the scope of all options
+is beyond this document. For additional information on Red Hat Openshift
+4.4 implementation options, see the <a href="https://docs.openshift.com/container-platform/4.4/welcome/index.html">OpenShift Container Platform 4.4 Documentation</a> from Red Hat.</p><p>This document includes the following sections:</p></div></div><h2 id="id-how-to-install-contrail-networking-and-red-hat-openshift-44-using-a-vm-running-in-a-kvm-module">How to Install Contrail Networking and Red Hat OpenShift 4.4
+using a VM Running in a KVM Module</h2><div class="mini-toc-intro"><p>This section illustrates how to install Contrail
+Networking with Red Hat OpenShift 4.4 orchestration, where Contrail
+Networking and Red Hat Openshift are running on virtual machines (VMs)
+in a Kernel-based Virtual Machine (KVM) module. This procedure can
+also be performed to configure an environment where Contrail Networking
+and Red Hat OpenShift 4.4 are running on a bare metal server.</p></div><ul><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-when-to-use-this-procedure-openshift44-kvm">When to Use This Procedure</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-prerequisites-openshift44-kvm">Prerequisites</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-installing-contrail-networking-openshift44-kvm">Install Contrail Networking and Red Hat Openshift 4.4</a></p></li></ul><h3 id="id-when-to-use-this-procedure-openshift44-kvm">When to Use This Procedure</h3><p>This procedure is used to install Contrail Networking and Red
+Hat OpenShift 4.4 orchestration on a virtual machine (VM) running
+in a Kernel-based Virtual Machine (KVM) module. Support for Contrail
+Networking installations onto VMs in Red Hat OpenShift 4.4 environments
+is introduced in Contrail Networking Release 2008. See <a href="https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf">Contrail Networking Supported Platforms</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p><p>You can also use this procedure to install Contrail Networking
+and Red Hat OpenShift 4.4 orchestration on a bare metal server.</p><p>This procedure should work with all versions of Openshift 4.4.</p><h3 id="id-prerequisites-openshift44-kvm">Prerequisites</h3><p>This document makes the following assumptions about your environment:</p><ul><li style=""><p>the KVM environment is operational.</p></li><li style=""><p>the server meets the platform requirements for the installation.
+See <a href="https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf">Contrail Networking Supported Platforms</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p></li><li style=""><p>Minimum server requirements:</p><ul><li style=""><p>Primary nodes: 8 CPU, 40GB RAM, 250GB SSD storage</p></li><li style=""><p>Backup nodes: 4 CPU, 16GB RAM, 120GB SSD storage</p></li><li style=""><p>Helper node: 4 CPU, 8GB RAM, 30GB SSD storage</p></li></ul></li><li style=""><p>In single node deployments, do not use spinning disk arrays
+with low Input/Output Operations Per Second (IOPS) when using Contrail
+Networking with Red Hat Openshift. Higher IOPS disk arrays are required
+because the control plane always operates as a high availability setup
+in single node deployments.</p><p>IOPS requirements vary by environment due to multiple factors
+beyond Contrail Networking and Red Hat Openshift. We, therefore, provide
+this guideline but do not provide direct guidance around IOPS requirements.</p></li></ul><h3 id="id-installing-contrail-networking-openshift44-kvm">Install Contrail Networking and Red Hat Openshift 4.4</h3><div class="mini-toc-intro"><p>Perform these steps to install Contrail Networking
+and Red Hat OpenShift 4.4 using a VM running in a KVM module:</p></div><ul><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-create-a-virtual-network">Create a Virtual Network or a Bridge Network for the Installation</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-create-a-virtual-machine-running-red-hat-enterprise-linux-7-or-8">Create a Helper Node with a Virtual Machine Running CentOS
+7 or 8</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-prepare-the-helper-node">Prepare the Helper Node</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-create-ignition-configurations">Create the Ignition Configurations</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-launch-the-virtual-machines">Launch the Virtual Machines</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-monitoring-the-installation-process-and-deleting-the-bootstrap-virtual-machine">Monitor the Installation Process and Delete the Bootstrap Virtual
+Machine</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-finish-the-installation">Finish the Installation</a></p></li></ul><h4 id="id-create-a-virtual-network">Create a Virtual Network or a Bridge Network for the Installation</h4><p>To create a virtual network or a bridge network for the
+installation:</p><ol type="1"><li id="jd0e98" style="">Log onto the server that will host the VM that will run
+Contrail Networking.<p>Download the <var v-pre="">virt-net.xml</var> virtual network
+configuration file from the Red Hat repository.</p><div class="sample" dir="ltr" id="jd0e106"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># wget https://raw.githubusercontent.com/RedHatOfficial/ocp4-helpernode/master/docs/examples/virt-net.xml</pre></template></sw-code></div></div></li><li id="jd0e109" style="">Create a virtual network using the <var v-pre="">virt-net.xml</var> file.<p>You may need to modify your virtual network for your environment.</p><p><em>Example:</em></p><div class="sample" dir="ltr" id="jd0e120"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virsh net-define --file virt-net.xml</pre></template></sw-code></div></div></li><li id="jd0e123" style="">Set the OpenShift 4.4 virtual network to autostart on
+bootup:<div class="sample" dir="ltr" id="jd0e126"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virsh net-autostart openshift4
+# virsh net-start openshift4</pre></template></sw-code></div></div></li></ol><h4 id="id-create-a-virtual-machine-running-red-hat-enterprise-linux-7-or-8">Create a Helper Node with a Virtual Machine Running CentOS
+7 or 8</h4><p>This procedure requires a helper node with a virtual
+machine that is running either CentOS 7 or 8.</p><p>To create this helper node:</p><ol type="1"><li id="jd0e140" style="">Download the Kickstart file for the helper node from the
+Red Hat repository:<p><em>CentOS 8</em></p><div class="sample" dir="ltr" id="jd0e146"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># wget https://raw.githubusercontent.com/RedHatOfficial/ocp4-helpernode/master/docs/examples/helper-ks8.cfg -O helper-ks.cfg</pre></template></sw-code></div></div><p><em>CentOS 7</em></p><div class="sample" dir="ltr" id="jd0e152"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># wget https://raw.githubusercontent.com/RedHatOfficial/ocp4-helpernode/master/docs/examples/helper-ks.cfg -O helper-ks.cfg</pre></template></sw-code></div></div></li><li id="jd0e155" style="">If you haven’t already configured a root password
+and the NTP server on the helper node, enter the following commands:<p><em>Example Root Password</em></p><div class="sample" dir="ltr" id="jd0e161"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>rootpw --plaintext <var v-pre="">password</var></pre></template></sw-code></div></div><p><em>Example NTP Configuration</em></p><div class="sample" dir="ltr" id="jd0e169"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>timezone America/Los_Angeles --isUtc --ntpservers=0.centos.pool.ntp.org,1.centos.pool.ntp.org,2.centos.pool.ntp.org,3.centos.pool.ntp.org</pre></template></sw-code></div></div></li><li id="jd0e172" style="">Edit the <var v-pre="">helper-ks.cfg</var> file for your
+environment and use it to install the helper node.<p>The following examples show how to install the helper node without
+having to take further actions:</p><p><em>CentOS 8</em></p><div class="sample" dir="ltr" id="jd0e183"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virt-install --name="ocp4-aHelper" --vcpus=2 --ram=4096 \
+--disk path=/var/lib/libvirt/images/ocp4-aHelper.qcow2,bus=virtio,size=50 \
+--os-variant centos8 --network network=openshift4,model=virtio \
+--boot hd,menu=on --location /var/lib/libvirt/iso/CentOS-8.2.2004-x86_64-dvd1.iso \
+--initrd-inject helper-ks.cfg --extra-args "inst.ks=file:/helper-ks.cfg" --noautoconsole</pre></template></sw-code></div></div><p><em>CentOS 7</em></p><div class="sample" dir="ltr" id="jd0e189"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virt-install --name="ocp4-aHelper" --vcpus=2 --ram=4096 \
+--disk path=/var/lib/libvirt/images/ocp4-aHelper.qcow2,bus=virtio,size=30 \
+--os-variant centos7.0 --network network=openshift4,model=virtio \
+--boot hd,menu=on --location /var/lib/libvirt/iso/CentOS-7-x86_64-Minimal-2003.iso \
+--initrd-inject helper-ks.cfg --extra-args "inst.ks=file:/helper-ks.cfg" --noautoconsole</pre></template></sw-code></div></div><p>The helper node is installed with the following settings, which
+are pulled from the <var v-pre="">virt-net.xml</var> file:</p><ul><li style=""><p><kbd class="user-typing" v-pre="">HELPER_IP</kbd>: 192.168.7.77</p></li><li style=""><p><kbd class="user-typing" v-pre="">NetMask</kbd>: 255.255.255.0</p></li><li style=""><p><kbd class="user-typing" v-pre="">Default Gateway</kbd>: 192.168.7.1</p></li><li style=""><p><kbd class="user-typing" v-pre="">DNS Server</kbd>: 8.8.8.8</p></li></ul></li><li id="jd0e218" style="">Monitor the helper node installation progress in the viewer:<div class="sample" dir="ltr" id="jd0e221"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virt-viewer --domain-name ocp4-aHelper</pre></template></sw-code></div></div><p>When the installation process is complete, the helper node shuts
+off.</p></li><li id="jd0e226" style="">Start the helper node:<div class="sample" dir="ltr" id="jd0e229"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virsh start ocp4-aHelper</pre></template></sw-code></div></div></li></ol><h4 id="id-prepare-the-helper-node">Prepare the Helper Node</h4><p>To prepare the helper node after the helper node installation:</p><ol type="1"><li id="jd0e241" style="">Login to the helper node:<div class="sample" dir="ltr" id="jd0e244"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ssh -l root <var v-pre="">HELPER_IP</var></pre></template></sw-code></div></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The default <var v-pre="">HELPER_IP</var>, which was
+pulled from the <var v-pre="">virt-net.xml</var> file, is 192.168.7.77.</p></sw-admonition></li><li id="jd0e258" style="">Install Enterprise Linux and update CentOS.<div class="sample" dir="ltr" id="jd0e261"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-$(rpm -E %rhel).noarch.rpm
+# yum -y update</pre></template></sw-code></div></div></li><li id="jd0e264" style="">Install Ansible and Git and clone the <var v-pre="">helpernode</var> repository onto the helper node.<div class="sample" dir="ltr" id="jd0e270"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># yum -y install ansible git
+# git clone https://github.com/RedHatOfficial/ocp4-helpernode
+# cd ocp4-helpernode</pre></template></sw-code></div></div></li><li id="jd0e273" style="">Copy the vars.yaml file into the top-level directory:<div class="sample" dir="ltr" id="jd0e276"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># cp docs/examples/vars.yaml .</pre></template></sw-code></div></div><p>Review the vars.yml file. Consider changing any value that requires
+changing in your environment.</p><p>The following values should be reviewed especially carefully:</p><ul><li style=""><p>The domain name, which is defined using the <var v-pre="">domain:</var> parameter in the <var v-pre="">dns:</var> hierarchy.
+If you are using local DNS servers, modify the forwarder parameters—<var v-pre="">forwarder1:</var> and <var v-pre="">forwarder2:</var> are used
+in this example—to connect to these DNS servers.</p></li><li style=""><p>Hostnames for primary and worker nodes. Hostnames are defined using
+the <var v-pre="">name:</var> parameter in either the <var v-pre="">primaries:</var> or <var v-pre="">workers:</var> hierarchies.</p></li><li style=""><p>IP and DHCP settings. If you are using a custom bridge
+network, modify the IP and DHCP settings accordingly.</p></li><li style=""><p>VM and BMS settings. </p><p>If you are using a VM, set the <var v-pre="">disk:</var> parameter
+as <var v-pre="">disk: vda</var>.</p><p>If you are using a BMS, set the <var v-pre="">disk:</var> parameter
+as <var v-pre="">disk: sda</var>.</p></li></ul><p>A sample vars.yml file:</p><div class="sample" dir="ltr" id="jd0e335"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>disk: vda
+helper:
+  name: "helper"
+  ipaddr: "192.168.7.77"
+dns:
+  domain: "example.com"
+  clusterid: "ocp4"
+  forwarder1: "8.8.8.8"
+  forwarder2: "8.8.4.4"
+dhcp:
+  router: "192.168.7.1"
+  bcast: "192.168.7.255"
+  netmask: "255.255.255.0"
+  poolstart: "192.168.7.10"
+  poolend: "192.168.7.30"
+  ipid: "192.168.7.0"
+  netmaskid: "255.255.255.0"
+bootstrap:
+  name: "bootstrap"
+  ipaddr: "192.168.7.20"
+  macaddr: "52:54:00:60:72:67"
+masters:
+  - name: "master0"
+	ipaddr: "192.168.7.21"
+	macaddr: "52:54:00:e7:9d:67"
+  - name: "master1"
+	ipaddr: "192.168.7.22"
+	macaddr: "52:54:00:80:16:23"
+  - name: "master2"
+	ipaddr: "192.168.7.23"
+	macaddr: "52:54:00:d5:1c:39"
+workers:
+  - name: "worker0"
+	ipaddr: "192.168.7.11"
+	macaddr: "52:54:00:f4:26:a1"
+  - name: "worker1"
+	ipaddr: "192.168.7.12"
+	macaddr: "52:54:00:82:90:00"
+</pre></template></sw-code></div></div></li><li id="jd0e338" style="">Review the <var v-pre="">vars/main.yml</var> file to
+ensure the file reflects the correct version of Red Hat OpenShift.
+If you need to change the Red Hat Openshift version in the file, change
+it.<p>In the following sample <var v-pre="">main.yml</var> file,
+Red Hat Openshift 4.4.21 is installed:</p><div class="sample" dir="ltr" id="jd0e349"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>ssh_gen_key: true
+install_filetranspiler: false
+staticips: false
+force_ocp_download: false
+ocp_bios: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/latest/rhcos-4.4.17-x86_64-metal.x86_64.raw.gz"
+ocp_initramfs: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/latest/rhcos-4.4.17-x86_64-installer-initramfs.x86_64.img"
+ocp_install_kernel: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/latest/rhcos-4.4.17-x86_64-installer-kernel-x86_64"
+ocp_client: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-4.4/openshift-client-linux.tar.gz"
+ocp_installer: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-4.4/openshift-install-linux.tar.gz"
+helm_source: "https://get.helm.sh/helm-v3.2.4-linux-amd64.tar.gz"
+chars: (\\_|\\$|\\\|\\/|\\=|\\)|\\(|\\&amp;|\\^|\\%|\\$|\\#|\\@|\\!|\\*)
+ppc64le: false
+chronyconfig:
+  enabled: false
+setup_registry:
+  deploy: false
+  autosync_registry: false
+  registry_image: docker.io/library/registry:2
+  local_repo: "ocp4/openshift4"
+  product_repo: "openshift-release-dev"
+  release_name: "ocp-release"
+  release_tag: "4.4.21-x86_64"</pre></template></sw-code></div></div></li><li id="jd0e352" style="">Run the playbook to setup the helper node:<div class="sample" dir="ltr" id="jd0e355"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ansible-playbook -e @vars.yaml tasks/main.yml</pre></template></sw-code></div></div></li><li id="jd0e358" style="">After the playbook is run, gather information about your
+environment and confirm that all services are active and running:<div class="sample" dir="ltr" id="jd0e361"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># <kbd class="user-typing" v-pre="">/usr/local/bin/helpernodecheck services</kbd>
+Status of services:
+===================
+Status of dhcpd svc 		-&gt;    Active: active (running) since Mon 2020-09-28 05:40:10 EDT; 33min ago
+Status of named svc 		-&gt;    Active: active (running) since Mon 2020-09-28 05:40:08 EDT; 33min ago
+Status of haproxy svc 	-&gt;    Active: active (running) since Mon 2020-09-28 05:40:08 EDT; 33min ago
+Status of httpd svc 		-&gt;    Active: active (running) since Mon 2020-09-28 05:40:10 EDT; 33min ago
+Status of tftp svc 		-&gt;    Active: active (running) since Mon 2020-09-28 06:13:34 EDT; 1s ago
+Unit local-registry.service could not be found.
+Status of local-registry svc 		-&gt;
+</pre></template></sw-code></div></div></li></ol><h4 id="id-create-ignition-configurations">Create the Ignition Configurations</h4><p>To create Ignition configurations:</p><ol type="1"><li id="jd0e376" style="">On your hypervisor and helper nodes, check that your NTP
+server is properly configured in the <var v-pre="">/etc/chrony.conf</var> file:<div class="sample" dir="ltr" id="jd0e382"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>chronyc tracking</pre></template></sw-code></div></div><p>The installation fails with a <var v-pre="">X509: certificate has
+expired or is not yet valid</var> message when NTP is not properly
+configured.</p></li><li id="jd0e390" style="">Create a location to store your pull secret objects:<div class="sample" dir="ltr" id="jd0e393"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># mkdir -p ~/.openshift</pre></template></sw-code></div></div></li><li id="jd0e396" style="">From <a href="https://www.openshift.com/try">Get Started
+with Openshift</a> website, download your pull secret and save it
+in the <var v-pre="">~/.openshift/pull-secret</var> directory.<div class="sample" dir="ltr" id="jd0e405"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ls -1 ~/.openshift/pull-secret
+/root/.openshift/pull-secret</pre></template></sw-code></div></div></li><li id="jd0e408" style="">An SSH key is created for you in the <var v-pre="">~/.ssh/helper_rsa</var> directory after completing the previous step. You can use this key
+or create a unique key for authentication.<div class="sample" dir="ltr" id="jd0e414"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ls -1 ~/.ssh/helper_rsa
+/root/.ssh/helper_rsa</pre></template></sw-code></div></div></li><li id="jd0e417" style="">Create an installation directory.<div class="sample" dir="ltr" id="jd0e420"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># mkdir ~/ocp4
+# cd ~/ocp4</pre></template></sw-code></div></div></li><li id="jd0e423" style="">Create an install-config.yaml file.<p>An example file:</p><div class="sample" dir="ltr" id="jd0e428"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># cat &lt;&lt;EOF &gt; install-config.yaml
+apiVersion: v1
+baseDomain: example.com
+compute:
+- hyperthreading: Disabled
+  name: worker
+  replicas: 0
+controlPlane:
+  hyperthreading: Disabled
+  name: master
+  replicas: 3
+metadata:
+  name: ocp4
+networking:
+  clusterNetworks:
+  - cidr: 10.254.0.0/16
+    hostPrefix: 24
+  networkType: Contrail
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  none: {}
+pullSecret: '$(&lt; ~/.openshift/pull-secret)'
+sshKey: '$(&lt; ~/.ssh/helper_rsa.pub)'
+EOF</pre></template></sw-code></div></div></li><li id="jd0e431" style="">Create the installation manifests:<div class="sample" dir="ltr" id="jd0e434"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># openshift-install create manifests</pre></template></sw-code></div></div></li><li id="jd0e437" style="">Set the <kbd class="user-typing" v-pre="">mastersSchedulable:</kbd> variable to <kbd class="user-typing" v-pre="">false</kbd> in the <var v-pre="">manifests/cluster-scheduler-02-config.yml</var> file.<div class="sample" dir="ltr" id="jd0e449"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># sed -i 's/mastersSchedulable: true/mastersSchedulable: false/g' manifests/cluster-scheduler-02-config.yml</pre></template></sw-code></div></div><p>A sample <kbd class="user-typing" v-pre="">cluster-scheduler-02-config.yml</kbd> file after this configuration change:</p><div class="sample" dir="ltr" id="jd0e457"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># cat manifests/cluster-scheduler-02-config.yml
+apiVersion: config.openshift.io/v1
+kind: Scheduler
+metadata:
+  creationTimestamp: null
+  name: cluster
+spec:
+  mastersSchedulable: false
+  policy:
+    name: ""
+status: {}</pre></template></sw-code></div></div><p>This configuration change is needed to prevent pods from being
+scheduled on control plane machines.</p></li><li id="jd0e462" style="">Clone the contrail operator repository:<div class="sample" dir="ltr" id="jd0e465"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># git clone https://github.com/Juniper/contrail-operator.git
+# git checkout R2008</pre></template></sw-code></div></div></li><li id="jd0e468" style="">Create the Contrail operator configuration file.<p>Example:</p><div class="sample" dir="ltr" id="jd0e473"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># cat &lt;&lt;EOF &gt; config_contrail_operator.yaml
+CONTRAIL_VERSION=2008.121
+CONTRAIL_REGISTRY=hub.juniper.net/contrail
+DOCKER_CONFIG=&lt;this_needs_to_be_generated&gt;
+EOF</pre></template></sw-code></div></div><p>where: </p><ul><li style=""><p><var v-pre="">CONTRAIL_VERSION</var> is the Contrail
+Networking container tag of the version of Contrail Networking that
+you are downloading. </p><p>This procedure is initially supported in Contrail Networking
+Release 2008. You can obtain the Contrail Networking container tags
+for all Contrail Networking 20 releases in <a href="/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf">README Access to Contrail Networking Registry 20XX</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p></li><li style=""><p><var v-pre="">CONTRAIL_REGISTRY</var> is the path to
+the container registry. The default Juniper Contrail Container Registry
+contains the files needed for this installation and is located at <var v-pre="">hub.juniper.net/contrail</var>. </p><p>If needed, email <a href="mailto:contrail-registry@juniper.net?subject=">contrail-registry@juniper.net</a> to obtain your username and password credentials to access the Contrail
+Container registry.</p></li><li style=""><p><var v-pre="">DOCKER_CONFIG</var> is the registry secret
+credential. Set the <var v-pre="">DOCKER_CONFIG</var> to registry
+secret with proper data in base64. </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>You can create base64 encoded values using a script. See <a href="https://github.com/Juniper/contrail-operator/tree/master/deploy/openshift/tools/docker-config-generate">DOCKER_CONFIG generate</a>.</p><p>To start the script:</p><div class="sample" dir="ltr" id="jd0e518"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ./contrail-operator/deploy/openshift/tools/docker-config-generate/generate-docker-config.sh</pre></template></sw-code></div></div><p>You can copy output generated from the script and use it as
+the <var v-pre="">DOCKER_CONFIG</var> value in this file.</p></sw-admonition></li></ul></li><li id="jd0e526" style="">Install Contrail manifests:<div class="sample" dir="ltr" id="jd0e529"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ./contrail-operator/deploy/openshift/install-manifests.sh --dir ./ --config ./config_contrail_operator.yaml</pre></template></sw-code></div></div></li><li id="jd0e532" style="">If your environment has to use a specific NTP server,
+set the environment using the steps in the <a href="https://github.com/Juniper/contrail-operator/blob/R2008/deploy/openshift/docs/chrony-ntp-configuration.md">Openshift 4.x Chrony Configuration</a> document.</li><li id="jd0e538" style="">Generate the Ignition configurations:<div class="sample" dir="ltr" id="jd0e541"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># openshift-install create ignition-configs</pre></template></sw-code></div></div></li><li id="jd0e544" style="">Copy the Ignition files in the Ignition directory for
+the webserver:<div class="sample" dir="ltr" id="jd0e547"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># cp ~/ocp4/*.ign /var/www/html/ignition/
+# restorecon -vR /var/www/html/
+# restorecon -vR /var/lib/tftpboot/
+# chmod o+r /var/www/html/ignition/*.ign</pre></template></sw-code></div></div></li></ol><h4 id="id-launch-the-virtual-machines">Launch the Virtual Machines</h4><p>To launch the virtual machines:</p><ol type="1"><li id="jd0e559" style="">From the hypervisor, use PXE booting to launch the virtual
+machine or machines. If you are using a bare metal server, use PXE
+booting to boot the servers.</li><li id="jd0e562" style="">Launch the bootstrap virtual machine:<div class="sample" dir="ltr" id="jd0e565"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virt-install --pxe --network bridge=openshift4 --mac=52:54:00:60:72:67 --name ocp4-bootstrap --ram=8192 --vcpus=4 --os-variant rhel8.0 --disk path=/var/lib/libvirt/images/ocp4-bootstrap.qcow2,size=120 --vnc</pre></template></sw-code></div></div><p>The following actions occur as a result of this step:</p><ul><li style=""><p>a bootstrap node virtual machine is created.</p></li><li style=""><p>the bootstrap node VM is connected to the PXE server.
+The PXE server is our helper node.</p></li><li style=""><p>an IP address is assigned from DHCP.</p></li><li style=""><p>A Red Hat Enterprise Linux CoreOS (RHCOS) image is downloaded
+from the HTTP server.</p></li></ul><p>The ignition file is embedded at the end of the installation
+process.</p></li><li id="jd0e585" style="">Use SSH to run the helper RSA:<div class="sample" dir="ltr" id="jd0e588"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ssh -i ~/.ssh/helper_rsa core@192.168.7.20</pre></template></sw-code></div></div></li><li id="jd0e591" style="">Review the logs:<div class="sample" dir="ltr" id="jd0e594"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>journalctl -f</pre></template></sw-code></div></div></li><li id="jd0e597" style="">On the bootstrap node, a temporary etcd and bootkube is
+created.<p>You can monitor these services when they are running by entering
+the <kbd class="user-typing" v-pre="">sudo crictl ps</kbd> command.</p><div class="sample" dir="ltr" id="jd0e605"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[core@bootstrap ~]$ <kbd class="user-typing" v-pre="">sudo crictl ps</kbd>
+CONTAINER      IMAGE         CREATED             STATE    NAME                            POD ID
+33762f4a23d7d  976cc3323...  54 seconds ago      Running  manager                         29a...
+ad6f2453d7a16  86694d2cd...  About a minute ago  Running  kube-apiserver-insecure-readyz  4cd...
+3bbdf4176882f  quay.io/...   About a minute ago  Running  kube-scheduler                  b3e...
+57ad52023300e  quay.io/...   About a minute ago  Running  kube-controller-manager         596...
+a1dbe7b8950da  quay.io/...   About a minute ago  Running  kube-apiserver                  4cd...
+5aa7a59a06feb  quay.io/...   About a minute ago  Running  cluster-version-operator        3ab...
+ca45790f4a5f6  099c2a...     About a minute ago  Running  etcd-metrics                    081...
+e72fb8aaa1606  quay.io/...   About a minute ago  Running  etcd-member                     081...
+ca56bbf2708f7  1ac19399...   About a minute ago  Running  machine-config-server           c11...</pre></template></sw-code></div></div><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Output modified for readability.</p></sw-admonition></li><li id="jd0e614" style="">From the hypervisor, launch the VMs on the primary nodes:<div class="sample" dir="ltr" id="jd0e617"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virt-install --pxe --network bridge=openshift4 --mac=52:54:00:e7:9d:67 --name ocp4-master0 --ram=40960 --vcpus=8 --os-variant rhel8.0 --disk path=/var/lib/libvirt/images/ocp4-master0.qcow2,size=250 --vnc
+# virt-install --pxe --network bridge=openshift4 --mac=52:54:00:80:16:23 --name ocp4-master1 --ram=40960 --vcpus=8 --os-variant rhel8.0 --disk path=/var/lib/libvirt/images/ocp4-master1.qcow2,size=250 --vnc
+# virt-install --pxe --network bridge=openshift4 --mac=52:54:00:d5:1c:39 --name ocp4-master2 --ram=40960 --vcpus=8 --os-variant rhel8.0 --disk path=/var/lib/libvirt/images/ocp4-master2.qcow2,size=250 --vnc</pre></template></sw-code></div></div><p>You can login to the primary nodes from the helper node after the primary nodes have been provisioned:</p><div class="sample" dir="ltr" id="jd0e622"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ssh -i ~/.ssh/helper_rsa core@192.168.7.21
+# ssh -i ~/.ssh/helper_rsa core@192.168.7.22
+# ssh -i ~/.ssh/helper_rsa core@192.168.7.23</pre></template></sw-code></div></div><p>Enter the <kbd class="user-typing" v-pre="">sudo crictl ps</kbd> at any point
+to monitor pod creation as the VMs are launching.</p></li></ol><h4 id="id-monitoring-the-installation-process-and-deleting-the-bootstrap-virtual-machine">Monitor the Installation Process and Delete the Bootstrap Virtual
+Machine</h4><p>To monitor the installation process:</p><ol type="1"><li id="jd0e639" style="">From the helper node, navigate to the <var v-pre="">~/ocp4</var> directory.</li><li id="jd0e645" style="">Track the install process log:<div class="sample" dir="ltr" id="jd0e648"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># openshift-install wait-for bootstrap-complete --log-level debug</pre></template></sw-code></div></div><p>Look for the <var v-pre="">DEBUG Bootstrap status: complete</var> and the <var v-pre="">INFO It is now safe to remove the bootstrap resources</var> messages to confirm that the installation is complete.</p><div class="sample" dir="ltr" id="jd0e659"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>INFO Waiting up to 30m0s for the Kubernetes API at https://api.ocp4.example.com:6443...
+INFO API v1.13.4+838b4fa up
+INFO Waiting up to 30m0s for bootstrapping to complete...
+<span data-fg-color="blue">DEBUG Bootstrap status: complete</span>
+<span data-fg-color="blue">INFO It is now safe to remove the bootstrap resources</span></pre></template></sw-code></div></div><p>Do not proceed to the next step until you see these messages.</p></li><li id="jd0e669" style="">From the hypervisor, delete the bootstrap VM and launch
+the worker nodes.<div class="sample" dir="ltr" id="jd0e672"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># virt-install --pxe --network bridge=openshift4 --mac=52:54:00:f4:26:a1 --name ocp4-worker0 --ram=16384 --vcpus=4 --os-variant rhel8.0 --disk path=/var/lib/libvirt/images/ocp4-worker0.qcow2,size=120 --vnc
+
+# virt-install --pxe --network bridge=openshift4 --mac=52:54:00:82:90:00 --name ocp4-worker1 --ram=16384 --vcpus=4 --os-variant rhel8.0 --disk path=/var/lib/libvirt/images/ocp4-worker1.qcow2,size=120 --vnc</pre></template></sw-code></div></div></li></ol><h4 id="id-finish-the-installation">Finish the Installation</h4><p>To finish the installation:</p><ol type="1"><li id="jd0e684" style="">Login to your Kubernetes cluster:<div class="sample" dir="ltr" id="jd0e687"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># export KUBECONFIG=/root/ocp4/auth/kubeconfig</pre></template></sw-code></div></div></li><li id="jd0e690" style="">Your installation might be waiting for worker nodes to
+approve the certificate signing request (CSR). The machineconfig node
+approval operator typically handles CSR approval.<p>CSR approval, however, sometimes has to be performed manually. </p><p>To check pending CSRs:</p><div class="sample" dir="ltr" id="jd0e697"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># oc get csr</pre></template></sw-code></div></div><p>To approve all pending CSRs:</p><div class="sample" dir="ltr" id="jd0e702"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># oc get csr -o go-template='{{range .items}}{{if not .status}}{{.metadata.name}}{{"\n"}}{{end}}{{end}}' | xargs oc adm certificate approve</pre></template></sw-code></div></div><p>You may have to approve all pending CSRs multiple times, depending
+on the number of worker nodes in your environment and other factors.</p><p>To monitor incoming CSRs:</p><div class="sample" dir="ltr" id="jd0e709"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># watch -n5 oc get csr</pre></template></sw-code></div></div><p>Do not move to the next step until incoming CSRs have stopped.</p></li><li id="jd0e714" style="">Set your cluster management state to <var v-pre="">Managed</var>:<div class="sample" dir="ltr" id="jd0e720"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"managementState":"Managed"}}'</pre></template></sw-code></div></div></li><li id="jd0e723" style="">Setup your registry storage.<p>For most environments, see <a href="https://docs.openshift.com/container-platform/4.5/installing/installing_bare_metal/installing-bare-metal.html#registry-configuring-storage-baremetal_installing-bare-metal">Configuring registry storage for bare metal</a> in the Red Hat
+Openshift documentation.</p><p>For proof of concept labs and other smaller environments, you
+can set storage to <var v-pre="">emptyDir</var>.</p><div class="sample" dir="ltr" id="jd0e736"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"emptyDir":{}}}}'</pre></template></sw-code></div></div></li><li id="jd0e739" style="">If you need to make the registry accessible:<div class="sample" dir="ltr" id="jd0e742"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p '{"spec":{"defaultRoute":true}}'</pre></template></sw-code></div></div></li><li id="jd0e745" style="">Wait for the installation to finish:<div class="sample" dir="ltr" id="jd0e748"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># <kbd class="user-typing" v-pre="">openshift-install wait-for install-complete</kbd>
+INFO Waiting up to 30m0s for the cluster at https://api.ocp4.example.com:6443 to initialize...
+INFO Waiting up to 10m0s for the openshift-console route to be created...
+INFO Install complete!
+INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/root/ocp4/auth/kubeconfig'
+INFO Access the OpenShift web-console here: https://console-openshift-console.apps.ocp4.example.com
+INFO Login to the console with user: kubeadmin, password: XXX-XXXX-XXXX-XXXX</pre></template></sw-code></div></div></li><li id="jd0e754" style="">Add a user to the cluster. See <a href="how-to-install-contrail-networking-openshift4.html#id-add-a-user">How to Add a User After Completing the Installation</a>.</li></ol><h2 id="id-how-to-install-contrail-networking-and-red-hat-openshift-44-on-amazon-web-services">How to Install Contrail Networking and Red Hat OpenShift 4.4
+on Amazon Web Services</h2><div class="mini-toc-intro"><p>Follow these procedures to install Contrail
+Networking and Red Hat Openshift 4.4 on Amazon Web Services (AWS):</p></div><ul><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-when-to-use-this-procedure-openshift44-aws">When to Use This Procedure</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-prerequisites-openshift44-aws">Prerequisites</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-configure-dns">Configure DNS</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-configure-aws-credentials">Configure AWS Credentials</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-download-the-openshift-installer-and-the-command-line-tools">Download the OpenShift Installer and the Command Line Tools</a></p></li><li style=""><p><a href="how-to-install-contrail-networking-openshift4.html#id-deploy-the-cluster">Deploy the Cluster</a></p></li></ul><h3 id="id-when-to-use-this-procedure-openshift44-aws">When to Use This Procedure</h3><p>This procedure is used to install Contrail Networking and Red
+Hat OpenShift 4.4 orchestration in AWS. Support for Contrail Networking
+and Red Hat OpenShift 4.4 environments is introduced in Contrail Networking
+Release 2008. See <a href="https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf">Contrail Networking Supported Platforms</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p><h3 id="id-prerequisites-openshift44-aws">Prerequisites</h3><p>This document makes the following assumptions about your environment:</p><ul><li style=""><p>the server meets the platform requirements for the installation.
+See <a href="https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf">Contrail Networking Supported Platforms</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p></li></ul><h3 id="id-configure-dns">Configure DNS</h3><p>A DNS zone must be created and available in Route 53 for your
+AWS account before starting this installation. You must also register
+a domain for your Contrail cluster in AWS Route 53. All entries created
+in AWS Route 53 are expected to be resolvable from the nodes in the
+Contrail cluster.</p><p>For information on configuring DNS zones in AWS Route 53, see
+the <var v-pre="">Amazon Route 53 Developer Guide</var> from AWS.</p><h3 id="id-configure-aws-credentials">Configure AWS Credentials</h3><p>The installer used in this procedure creates multiple resources
+in AWS that are needed to run your cluster. These resources include
+Elastic Compute Cloud (EC2) instances, Virtual Private Clouds (VPCs),
+security groups, IAM roles, and other necessary network building blocks.</p><p>AWS credentials are needed to access these resources and should
+be configured before starting this installation. </p><p>To configure AWS credentials, see the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html">Configuration and credential file settings</a> section of the <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html">AWS Command Line Interface User Guide</a> from AWS.</p><h3 id="id-download-the-openshift-installer-and-the-command-line-tools">Download the OpenShift Installer and the Command Line Tools</h3><p>To download the installer and the command line tools:</p><ol type="1"><li id="jd0e843" style="">Check which versions of the OpenShift installer are available:<div class="sample" dir="ltr" id="jd0e846"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/ | \
+  awk '{print $5}'| \
+  grep -o '4.[0-9].[0-9]*' | \
+  uniq | \
+  sort | \
+  column</pre></template></sw-code></div></div></li><li id="jd0e849" style="">Set the version and download the OpenShift installer and
+the CLI tool.<p>In this example output, the Openshift version is 4.4.20.</p><div class="sample" dir="ltr" id="jd0e854"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ VERSION=4.4.20
+$ wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$VERSION/openshift-install-mac-$VERSION.tar.gz
+$ wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/$VERSION/openshift-client-mac-$VERSION.tar.gz
+
+$ tar -xvzf openshift-install-mac-4.4.20.tar.gz -C /usr/local/bin
+$ tar -xvzf openshift-client-mac-4.4.20.tar.gz -C /usr/local/bin
+
+$ openshift-install version
+$ oc version
+$ kubectl version</pre></template></sw-code></div></div></li></ol><h3 id="id-deploy-the-cluster">Deploy the Cluster</h3><p>To deploy the cluster:</p><ol type="1"><li id="jd0e866" style="">Generate an SSH private key and add it to the agent:<div class="sample" dir="ltr" id="jd0e869"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ ssh-keygen -b 4096 -t rsa -f ~/.ssh/id_rsa -N ""</pre></template></sw-code></div></div></li><li id="jd0e872" style="">Create a working folder:<p>In this example, a working folder named <var v-pre="">aws-ocp4</var> is created and the user is then moved into the new directory.</p><div class="sample" dir="ltr" id="jd0e880"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ mkdir ~/aws-ocp4 ; cd ~/aws-ocp4</pre></template></sw-code></div></div></li><li id="jd0e883" style="">Create an installation configuration file. See <a href="https://docs.openshift.com/container-platform/4.5/installing/installing_aws/installing-aws-customizations.html#installation-initializing_installing-aws-customizations">Creating the installation configuration file</a> section of the <a href="https://docs.openshift.com/container-platform/4.5/installing/installing_aws/installing-aws-customizations.html">Installing a cluster on AWS with customizations</a> document from
+Red Hat OpenShift.<div class="sample" dir="ltr" id="jd0e892"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ openshift-install create install-config</pre></template></sw-code></div></div><p>An <var v-pre="">install-config.yaml</var> file needs to be
+created and added to the current directory. A sample <var v-pre="">install-config.yaml</var> file is provided below.</p><p>Be aware of the following factors while creating the <var v-pre="">install-config.yaml</var> file:</p><ul><li style=""><p>The <var v-pre="">networkType</var> field is usually
+set as <var v-pre="">OpenShiftSDN</var> in the YAML file by default. </p><p>For configuration pointing at Contrail cluster nodes, the <var v-pre="">networkType</var> field needs to be configured as <var v-pre="">Contrail</var>.</p></li><li style=""><p>OpenShift primary nodes need larger instances. We recommend setting
+the type to <var v-pre="">m5.2xlarge</var> or larger for OpenShift primary nodes.</p></li><li style=""><p>Most OpenShift worker nodes can use the default instance
+sizes. You should consider using larger instances, however, for high
+demand performance workloads.</p></li><li style=""><p>Many of the installation parameters in the YAML file are
+described in more detail in the <a href="https://docs.openshift.com/container-platform/4.5/installing/installing_aws/installing-aws-customizations.html#installation-configuration-parameters_installing-aws-customizations">Installation configuration parameters</a> section of the <a href="https://docs.openshift.com/container-platform/4.5/installing/installing_aws/installing-aws-customizations.html">Installing a cluster on AWS with customizations</a> document from
+Red Hat OpenShift.</p></li></ul><p>A sample <var v-pre="">install-config.yaml</var> file:</p><div class="sample" dir="ltr" id="jd0e949"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>apiVersion: v1
+baseDomain: ovsandbox.com
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  platform:
+    aws:
+      rootVolume:
+        iops: 2000
+        size: 500
+        type: io1
+      type: m5.4xlarge
+  replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform:
+    aws:
+      rootVolume:
+        iops: 4000
+        size: 500
+        type: io1
+      type: m5.2xlarge
+  replicas: 3
+metadata:
+  creationTimestamp: null
+  name: w1
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.0.0.0/16
+  networkType: Contrail
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  aws:
+    region: eu-west-1
+publish: External
+pullSecret: '{"auths"...}'
+sshKey: |
+  ssh-rsa ...</pre></template></sw-code></div></div></li><li id="jd0e952" style="">Create the installation manifests:<div class="sample" dir="ltr" id="jd0e955"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># openshift-install create manifests</pre></template></sw-code></div></div></li><li id="jd0e958" style="">Clone the Contrail operator repository:<div class="sample" dir="ltr" id="jd0e961"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ git clone https://github.com/Juniper/contrail-operator.git
+$ git checkout R2008</pre></template></sw-code></div></div></li><li id="jd0e964" style="">Create the Contrail operator configuration file.<p>Example:</p><div class="sample" dir="ltr" id="jd0e969"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># cat &lt;&lt;EOF &gt; config_contrail_operator.yaml
+CONTRAIL_VERSION=2008.121
+CONTRAIL_REGISTRY=hub.juniper.net/contrail
+DOCKER_CONFIG=&lt;this_needs_to_be_generated&gt;
+EOF</pre></template></sw-code></div></div><p>where: </p><ul><li style=""><p><var v-pre="">CONTRAIL_VERSION</var> is the Contrail
+Networking container tag of the version of Contrail Networking that
+you are downloading. </p><p>This procedure is initially supported in Contrail Networking
+Release 2008. You can obtain the Contrail Networking container tags
+for all Contrail Networking 20 releases in <a href="/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf">README Access to Contrail Networking Registry 20XX</a> <sw-icon iconsize="18" name="pdf"> </sw-icon>.</p></li><li style=""><p><var v-pre="">CONTRAIL_REGISTRY</var> is the path to
+the container registry. The default Juniper Contrail Container Registry
+contains the files needed for this installation and is located at <var v-pre="">hub.juniper.net/contrail</var>. </p><p>If needed, email <a href="mailto:contrail-registry@juniper.net?subject=">contrail-registry@juniper.net</a> to obtain your username and password credentials to access the Contrail
+Container registry.</p></li><li style=""><p><var v-pre="">DOCKER_CONFIG</var> is the registry secret
+credential. Set the <var v-pre="">DOCKER_CONFIG</var> to registry
+secret with proper data in base64. </p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>You can create base64 encoded values using a script. See <a href="https://github.com/Juniper/contrail-operator/tree/master/deploy/openshift/tools/docker-config-generate">DOCKER_CONFIG generate</a>.</p><p>To start the script:</p><div class="sample" dir="ltr" id="jd0e1014"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ./contrail-operator/deploy/openshift/tools/docker-config-generate/generate-docker-config.sh</pre></template></sw-code></div></div><p>You can copy output generated from the script and use it as
+the <var v-pre="">DOCKER_CONFIG</var> value in this file.</p></sw-admonition></li></ul></li><li id="jd0e1022" style="">Install Contrail manifests:<div class="sample" dir="ltr" id="jd0e1025"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># ./contrail-operator/deploy/openshift/install-manifests.sh --dir ./ --config ./config_contrail_operator.yaml</pre></template></sw-code></div></div></li><li id="jd0e1028" style="">Create the cluster:<div class="sample" dir="ltr" id="jd0e1031"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ openshift-install create cluster --log-level=debug</pre></template></sw-code></div></div><ul><li style=""><p>Contrail Networking needs to open some networking ports
+for operation within AWS. These ports are opened by adding rules to
+security groups.</p><p>Follow this procedure to add rules to security groups when AWS
+resources are manually created:</p><ol type="a"><li id="jd0e1041" style="">Build the Contrail CLI tool for managing security group
+ports on AWS. This tool allows you to automatically open ports that
+are required for Contrail to manage security group ports on AWS that
+are attached to Contrail cluster resources.<p>To build this tool:</p><div class="sample" dir="ltr" id="jd0e1046"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>go build .</pre></template></sw-code></div></div><p>After entering this command, you should be in the binary contrail-sc-open
+in your directory. This interface is the compiled tool.</p></li><li id="jd0e1051" style="">Start the tool:<div class="sample" dir="ltr" id="jd0e1054"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>./contrail-sc-open -cluster-name <var v-pre="">name of your Openshift cluster</var> -region <var v-pre="">AWS region where cluster is located</var></pre></template></sw-code></div></div></li></ol></li></ul></li><li id="jd0e1062" style="">When the service router-default is created in openshift-ingress,
+use the following command to patch the configuration:<div class="sample" dir="ltr" id="jd0e1065"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ oc -n openshift-ingress patch service router-default --patch '{"spec": {"externalTrafficPolicy": "Cluster"}}'</pre></template></sw-code></div></div></li><li id="jd0e1068" style="">Monitor the screen messages.<p>Look for the <var v-pre="">INFO Install complete!</var>.</p><p>The final messages from a sample successful installation:</p><div class="sample" dir="ltr" id="jd0e1078"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>INFO Waiting up to 10m0s for the openshift-console route to be created...
+DEBUG Route found in openshift-console namespace: console
+DEBUG Route found in openshift-console namespace: downloads
+DEBUG OpenShift console route is created
+INFO Install complete!
+INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/Users/ovaleanu/aws1-ocp4/auth/kubeconfig'
+INFO Access the OpenShift web-console here: https://console-openshift-console.apps.w1.ovsandbox.com
+INFO Login to the console with user: kubeadmin, password: XXXxx-XxxXX-xxXXX-XxxxX</pre></template></sw-code></div></div></li><li id="jd0e1081" style="">Access the cluster:<div class="sample" dir="ltr" id="jd0e1084"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ export KUBECONFIG=~/aws-ocp4/auth/kubeconfig</pre></template></sw-code></div></div></li><li id="jd0e1087" style="">Add a user to the cluster. See <a href="how-to-install-contrail-networking-openshift4.html#id-add-a-user">How to Add a User After Completing the Installation</a>.</li></ol><h2 id="id-add-a-user">How to Add a User After Completing the Installation</h2><p>The process for adding an Openshift user is identical
+in KVM or on AWS.</p><p>Redhat OpenShift 4.4 supports a single kubeadmin user by default.
+This kubeadmin user is used to deploy the initial cluster configuration.</p><p>You can use this procedure to create a Custom Resource (CR)
+to define a HTTPasswd identity provider.</p><ol type="1"><li id="jd0e1105" style="">Generate a flat file that contains the user names and
+passwords for your cluster by using the HTPasswd identity provider:<div class="sample" dir="ltr" id="jd0e1108"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ htpasswd -c -B -b users.htpasswd testuser MyPassword</pre></template></sw-code></div></div><p>A file called users.httpasswd is created.</p></li><li id="jd0e1113" style="">Define a secret password that contains the HTPasswd user
+file:<div class="sample" dir="ltr" id="jd0e1116"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ oc create secret generic htpass-secret --from-file=htpasswd=/root/ocp4/users.htpasswd -n openshift-config</pre></template></sw-code></div></div><p>This custom resource shows the parameters and acceptable values
+for an HTPasswd identity provider.</p><div class="sample" dir="ltr" id="jd0e1121"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ <kbd class="user-typing" v-pre="">cat htpasswdCR.yaml</kbd>
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+  - name: testuser
+    mappingMethod: claim
+    type: HTPasswd
+    htpasswd:
+      fileData:
+        name: htpass-secret</pre></template></sw-code></div></div></li><li id="jd0e1127" style="">Apply the defined custom resource:<div class="sample" dir="ltr" id="jd0e1130"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ oc create -f htpasswdCR.yaml</pre></template></sw-code></div></div></li><li id="jd0e1133" style="">Add the user and assign the <var v-pre="">cluster-admin </var> role:<div class="sample" dir="ltr" id="jd0e1139"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>$ oc adm policy add-cluster-role-to-user cluster-admin testuser</pre></template></sw-code></div></div></li><li id="jd0e1142" style="">Login using the new user credentials:<div class="sample" dir="ltr" id="jd0e1145"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>oc login -u testuser
+Authentication required for https://api.ocp4.example.com:6443 (openshift)
+Username: testuser
+Password:
+Login successful.</pre></template></sw-code></div></div><p>The kubeadmin user can now safely be removed. See the <a href="https://docs.openshift.com/container-platform/4.5/authentication/remove-kubeadmin.html">Removing the kubeadmin user</a> document from Red Hat OpenShift.</p></li></ol><h2 id="id-how-to-install-earlier-releases-of-contrail-networking-and-red-hat-openshift">How to Install Earlier Releases of Contrail Networking and
+Red Hat OpenShift</h2><p>If you have a need to install Contrail Networking with earlier
+versions of Red Hat Openshift, Contrail Networking is also supported
+with Red Hat Openshift 3.11.</p><p>For information on installing Contrail Networking with Red Hat
+Openshift 3.11, see the following documentation:</p><ul><li style=""><p><a href="../configuration/install-openshift-using-anible-311.html">Installing a Standalone Red Hat OpenShift Container Platform 3.11 Cluster with Contrail Using Contrail OpenShift Deployer</a></p></li><li style=""><p><a href="../configuration/install-nested-openshift-311-using-anible.html">Installing a Nested Red Hat OpenShift Container Platform 3.11 Cluster Using Contrail Ansible Deployer</a></p></li></ul><sw-prev-next> </sw-prev-next></p>

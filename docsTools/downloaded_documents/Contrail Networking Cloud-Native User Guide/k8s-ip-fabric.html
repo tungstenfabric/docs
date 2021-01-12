@@ -1,0 +1,83 @@
+<p id="topic-content"><h1 id="jd0e3">Kubernetes Updates</h1><sw-topic-details date="2020-11-12"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>This topic describes updates to Kubernetes and
+supported features in Contrail.</p></div></div><h2 id="jd0e16">TLS Bootstrapping of Kubernetes Nodes</h2><p>Contrail supports TLS Bootstrapping of Kubernetes Nodes starting
+in Contrail Networking Release 5.1. TLS bootstrapping streamlines
+Kubernetes’ ability to add and remove nodes from the Contrail
+cluster.</p><h2 id="jd0e21">Priority Based Multitenancy</h2><p>Contrail supports priority on the various resource quotas through
+the ResourceQuotaScopeSelector feature starting in Contrail Networking
+Release 5.1.</p><h2 id="jd0e26">Improved Autoscaling</h2><p>Contrail Networking supports improved pod autoscaling by creating
+and deleting pods based on the load starting in Contrail Networking
+Release 5.1.</p><h2 id="jd0e31">Reachability to Kubernetes Pods Using the IP Fabric Forwarding
+Feature</h2><p>A Kubernetes pod is a group of one or more containers (such
+as Docker containers), the shared storage for those containers, and
+options on how to run the containers. Since pods are in the overlay
+network, they cannot be reached directly from the underlay without
+a gateway or vRouter. Starting in Contrail Networking Release 5.0,
+the IP fabric forwarding (<span class="cli" v-pre="">ip-fabric-forwarding</span>) feature
+enables virtual networks to be created as part of the underlay network
+and eliminates the need for encapsulation and decapsulation of data.
+The ip-fabric-forwarding feature is only applicable for pod networks.
+If <span class="cli" v-pre="">ip-fabric-forwarding</span> is enabled, pod-networks are associated
+to ip-fabric-ipam instead of pod-ipam which is also a flat subnet.</p><p>The ip-fabric-forwarding feature is enabled and disabled in
+the global and namespace levels. By default, <span class="cli" v-pre="">ip-fabric-forwarding</span> is disabled in the global level. To enable it in global level, you
+must set <span class="cli" v-pre="">“ip_fabric_forwarding”</span> to <span class="cli" v-pre="">“true”</span> in the <span class="cli" v-pre="">“[KUBERNETES]”</span> section of the <code class="filepath">/etc/contrail/contrail-kubernetes.conf</code> file. To
+enable or disable the feature in namespace level, you must set <span class="cli" v-pre="">“ip_fabric_forwarding”</span> to <span class="cli" v-pre="">“true”</span> or <span class="cli" v-pre="">“false”</span> respectively in namespace annotation.
+For example, <span class="cli" v-pre="">“opencontrail.org/ip_fabric_forwarding”:
+“true”</span>. Once the feature is enabled, it cannot be
+disabled.</p><p>For more information, see <a href="https://github.com/tungstenfabric/tf-specs/blob/master/gateway-less-forwarding.md">Gateway-less Forwarding</a>.</p><h2 id="jd0e76">Service Isolation Through Virtual Networks</h2><p>In namespace isolation mode, services in one namespace are not
+accessible from other namespaces, unless security groups or network
+policies are explicitly defined to allow access. If any Kubernetes
+service is implemented by pods in an isolated namespace, those services
+are reachable only to pods in the same namespace through the Kubernetes <span class="cli" v-pre="">service-ip</span>.  </p><p>The Kubernetes <span class="cli" v-pre="">service-ip</span> is allocated from the cluster
+network despite being in an isolated namespace. So, by default, service
+from one namespace can reach services from another namespace. However,
+security groups in isolated namespaces prevent reachability from external
+namespace and also prevent reachability from outside of the cluster.
+In order to enable access by external namespaces, the security group
+must be edited to allow access to all namespaces which defeats the
+purpose of isolation. </p><p>Contrail Networking—starting in Contrail Networking Release
+5.0—enables service or ingress reachability from external clusters
+in isolated namespaces. Two virtual networks are created in isolated
+namespaces. One network is dedicated to pods and one is dedicated
+to services. Contrail network-policy is created between the pod network
+and the service network for reachability between pods and services.
+Service uses the same service-ipam which is a flat-subnet like pod-ipam.
+It is applicable for default namespace as well.</p><h2 id="jd0e91">Contrail ip-fabric-snat Feature</h2><p>With the Contrail ip-fabric-snat feature, pods that are in the
+overlay can reach the Internet without floating IPs or a logical-router.
+The ip-fabric-snat feature uses compute node IP for creating a source
+NAT to reach the required services and is applicable only to pod networks.
+The kube-manager reserves ports 56000 through 57023 for TCP and 57024
+through 58047 for UDP to create a source NAT in global-config during
+the initialization.  </p><p>The ip-fabric-snat feature can be enabled or disabled in the
+global or namespace levels. By default, the feature is disabled in
+the global level. To enable the ip-fabric-snat feature in the global
+level, you must set <span class="cli" v-pre="">“ip-fabric-snat”</span> to <span class="cli" v-pre="">“true”</span> in the <span class="cli" v-pre="">“[KUBERNETES]”</span> section in the <code class="filepath">/etc/contrail/contrail-kubernetes.conf</code> file. To enable or disable it in the namespace level, you must set <span class="cli" v-pre="">“ip_fabric_snat”</span> to <span class="cli" v-pre="">“true”</span> or <span class="cli" v-pre="">“false”</span> respectively in namespace annotation.
+For example, <span class="cli" v-pre="">“opencontrail.org/ip_fabric_snat”: “true”</span>. The ip_fabric_snat feature can be at enabled and disabled any time.
+To enable or disable the ip_fabric_snat feature in the default-pod-network,
+default namespace must be used. If the <span class="cli" v-pre="">ip_fabric_forwarding</span> is enabled, <span class="cli" v-pre="">ip_fabric_snat</span> is ignored.</p><p>For more information, see <a href="https://github.com/tungstenfabric/tf-specs/blob/master/distributed-snat.md">Distributed SNAT</a>.</p><h2 id="jd0e133">Third-Party Ingress Controllers</h2><p>Multiple ingress controllers can co-exist in Contrail. If <span class="cli" v-pre="">“kubernetes.io/ingress.class”</span> is absent or is <span class="cli" v-pre="">“opencontrail”</span> in the annotations of the Kubernetes
+ingress resource, the kube-manager creates a HAProxy loadbalancer.
+Otherwise it is ignored and the respective ingress controller handles
+the ingress resource. Since Contrail ensures the reachability between
+pods and services, any ingress controller can reach the endpoints
+or pods directly or through services.</p><h2 id="jd0e144">Custom Network Support for Ingress Resources</h2><p>Contrail supports custom networks in namespace level for pods.
+Starting with Contrail Release 5.0, custom networks are supported
+for ingress resources as well.</p><h2 id="jd0e149">Kubernetes Probes and Kubernetes Service Node-Port</h2><p>The Kubelet needs reachability to pods for liveness and readiness
+probes. Contrail network policy is created between the IP fabric network
+and pod network to provide reachability between node and pods. Whenever
+the pod network is created, the network policy is attached to the
+pod network to provide reachability between node and pods. So, any
+process in the node can reach the pods. </p><p>Kubernetes Service Node-Port is based on node reachability to
+pods. Since Contrail provides connectivity between node and pods through
+Contrail the network policy, Node Port is supported.</p><h2 id="jd0e156"> Kubernetes Network-Policy Support</h2><p>Contrail Networking supports the following Kubernetes release
+1.12 network policy features:</p><ul><li style=""><p>Egress support for network policy—Each <span class="cli" v-pre="">NetworkPolicy</span> includes a <span class="cli" v-pre="">policyTypes</span> list which can include either <span class="cli" v-pre="">Ingress</span>, <span class="cli" v-pre="">Egress</span>, or both. The <span class="cli" v-pre="">policyTypes</span> field indicates whether or not the given policy applies to ingress
+traffic to selected pod, egress traffic from the selected pod, or
+both. Contrail Networking—starting in Contrail Networking Release
+5.1—supports the <span class="cli" v-pre="">podSelector&amp;namespaceSelector</span> egress specification. Contrail Networking—starting in Contrail
+Networking Release 5.0—supports  <span class="cli" v-pre="">podSelector</span>, <span class="cli" v-pre="">namespaceSelector</span>, and <span class="cli" v-pre="">egress CIDR</span> egress specifications.</p></li><li style=""><p>Classless Interdomain Routing (CIDR) selector support
+for egress and ingress network policies</p></li><li style=""><p>Contrail-ansible-deployer provisioning—Contrail-ansible-deployer
+is updated to support Kubernetes 1.12.</p></li></ul><p>Contrail Networking supports Kubernetes release 1.9.2 and enables
+implementing Kubernetes network policy in Contrail using the Contrail
+firewall security policy framework. While Kubernetes network policy
+can be implemented using other security objects in Contrail like security
+groups and Contrail network policies, the support of tags by Contrail
+firewall security policy aids in the simplification and abstraction
+of workloads.</p><p>For more information, see <a href="k8s-network-policy.html">Implementation of Kubernetes Network Policy with Contrail Firewall Policy</a>.</p><sw-prev-next> </sw-prev-next></p>

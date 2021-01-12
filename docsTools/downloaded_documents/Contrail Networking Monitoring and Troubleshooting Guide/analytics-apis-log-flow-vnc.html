@@ -1,0 +1,259 @@
+<p id="topic-content"><h1 id="jd0e2">Log and Flow Information APIs</h1><sw-topic-details date="2020-09-14"> </sw-topic-details><p>In Contrail, log and flow analytics information is collected
+and stored using a horizontally scalable Contrail collector and NoSQL
+database. The <code class="inline" v-pre="">analytics-api </code>server provides
+REST APIs to extract this information using queries. The queries use
+well-known SQL syntax, hiding the underlying complexity of the NoSQL
+tables.</p><h2 id="id-http-get-apis">HTTP GET APIs</h2><p>Use the following GET APIs to identify tables and APIs available
+for querying.</p><p><code class="inline" v-pre="">/analytics/tables</code> -- lists the SQL-type
+tables available for querying, including the hrefs for each of the
+tables</p><p><code class="inline" v-pre="">/analytics/table/<var v-pre="">&lt;table&gt;</var></code> -- lists the APIs available to get information for
+a given table</p><p><code class="inline" v-pre="">/analytics/table/<var v-pre="">&lt;table&gt;</var>/schema</code> -- lists the schema for a given table</p><h2 id="id-http-post-api">HTTP POST API</h2><p>Use the following POST API information to extract data from
+a table.</p><p><code class="inline" v-pre="">/analytics/query</code> -- format your query
+using the following SQL syntax:</p><ul><li class="unmarked-list" style=""><p>SELECT <var v-pre="">field1, field2</var> ...</p></li><li class="unmarked-list" style=""><p>FROM <var v-pre="">table1</var> </p></li><li class="unmarked-list" style=""><p>WHERE <var v-pre="">field1</var> = <var v-pre="">value1</var> AND <var v-pre="">field2</var> = <var v-pre="">value2</var> ... </p></li><li class="unmarked-list" style=""><p>FILTER BY ...</p></li><li class="unmarked-list" style=""><p>SORT BY ...</p></li><li class="unmarked-list" style=""><p>LIMIT <var v-pre="">n</var></p></li></ul><p>Additionally, it is mandatory to include the start time and
+the end time for the data range to define the time period for the
+query data. The parameters of the query are passed through POST data,
+using the following fields:</p><ul><li class="unmarked-list" style=""><p><code class="inline" v-pre="">start_time</code> — the start
+of the time period</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">end_time </code> — the end of
+the time period</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">table</code> — the table from
+which to extract data</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">select_fields</code> — the columns
+to display in the extracted data</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">where</code> — the list of match
+conditions</p></li></ul><h2 id="id-post-data-format-example">POST Data Format Example</h2><p>The POST data is in <code class="inline" v-pre="">JSON</code> format,
+stored in an <code class="inline" v-pre="">idl</code> file. A sample file is
+displayed in the following.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The result of the query API is also in <code class="inline" v-pre="">JSON</code> format.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e135"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>/*
+* Copyright (c) 2013 Juniper Networks, Inc. All rights reserved.
+*/
+
+/*
+*  query_rest.idl
+*
+*  IDL definitions for query engine REST API
+*
+*  PLEASE NOTE: After updating this file, do update json_parse.h
+*
+*/
+
+enum match_op {
+    EQUAL = 1,
+    NOT_EQUAL = 2,
+    IN_RANGE = 3,
+    NOT_IN_RANGE = 4,   // not supported currently
+    // following are only for numerical column fields
+    LEQ = 5, // column value is less than or equal to filter value
+    GEQ = 6, // column value is greater than or equal to filter value
+    PREFIX = 7, // column value has the "value" field as prefix
+    REGEX_MATCH = 8 // for filters only
+}
+
+enum sort_op {
+    ASCENDING = 1,
+    DESCENDING = 2,
+}     
+    
+struct match {
+    1: string name;
+    2: string value;
+    3: match_op op;
+    4: optional string value2;   // this is for only RANGE match
+}
+
+typedef list&lt;match&gt; term; (AND of match)  
+
+enum flow_dir_t {
+     EGRESS = 0,
+     INGRESS = 1 
+}
+struct query {
+    1: string table; // Table to query (FlowSeriesTable, MessageTable, ObjectVNTable, ObjectVMTable, FlowRecordTable)
+    2: i64 start_time; // Microseconds in UTC since Epoch
+    3: i64 end_time; // Microseconds in UTC since Epoch
+    4: list&lt;string&gt;&gt; select_fields; // List of SELECT fields
+    5: list&lt;term&gt; where; // WHERE (OR of terms)
+    6: optional sort_op sort;
+    7: optional list&lt;string&gt; sort_fields; 
+    8: optional i32 limit;
+    9: optional flow_dir_t dir; // direction of flows being queried
+    10: optional list&lt;match&gt; filter; // filter the processed result by value
+}
+
+struct flow_series_result_entry {
+    1: optional i64 T;  // Timestamp of the flow record
+    2: optional string sourcevn;
+    3: optional string sourceip;
+    4: optional string destvn;
+    5: optional string destip;
+    6: optional i32 protocol;
+    7: optional i32 sport;
+    8: optional i32 dport;
+    9: optional flow_dir_t direction_ing;
+    10: optional i64 packets;  // mutually exclusive to 12,13
+    11: optional i64 bytes; // mutually exclusive to 12,13
+    12: optional i64 sum_packets; // represented as "sum(packets)" in JSON
+    13: optional i64 sum_bytes; // represented as "sum(bytes)" in JSON
+};
+typedef list&lt;flow_series_result_entry&gt; flow_series_result;</pre></template></sw-code></div></div><h2 id="id-query-types">Query Types</h2><p>The <code class="inline" v-pre="">analytics-api </code>supports two types
+of queries. Both types use the same POST parameters as described in
+POST API.</p><ul><li style=""><p><code class="inline" v-pre="">sync</code> —  Default query
+mode. The results are sent inline with the query processing.</p></li><li style=""><p><code class="inline" v-pre="">async</code> — To execute a
+query in async mode. The result is "202 Accepted." This status code
+indicates the request has been accepted for processing but the processing
+has not been completed.</p></li></ul><h2 id="id-examining-asynchronous-query-status">Examining Asynchronous Query Status</h2><p>For an asynchronous query, the <code class="inline" v-pre="">analytics-api</code> responds with the code: <code class="inline" v-pre="">202 Accepted</code>.
+The response contents are a status entity href URL of the form: <code class="inline" v-pre="">/analytics/query/&lt;QueryID&gt;</code>. The QueryID is assigned
+by the <code class="inline" v-pre="">analytics-api</code>. To view the response
+contents, poll the status entity by performing a GET action on the
+URL. The status entity has a variable named <code class="inline" v-pre="">progress</code>, with a number between 0 and 100, representing the approximate percentage
+completion of the query. When progress is 100, the query processing
+is complete.</p><h2 id="id-examining-query-chunks">Examining Query Chunks</h2><p>The status entity has an element named <code class="inline" v-pre="">chunks</code> that lists portions (chunks) of query results. Each element of this
+list has three fields: <code class="inline" v-pre="">start_time, end_time, href</code>. The <code class="inline" v-pre="">analytics-api </code>determines how many
+chunks to list to represent the query data. A chunk can include an
+empty string ("") to indicate that the data query is not yet available.
+If a partial result is available, the chunk href is of the form: <code class="inline" v-pre="">/analytics/query/&lt;QueryID&gt;/chunk-partial/&lt;chunk number&gt;.</code> When the final result of a chunk is available, the href is of the
+form: <code class="inline" v-pre="">/analytics/query/&lt;QueryID&gt;/chunk-final/&lt;chunk
+number&gt;</code>. </p><h2 id="id-example-queries-for-log-and-flow-data">Example Queries for Log and Flow Data </h2><p>The following example query lists the tables available for query.</p><div class="sample" dir="ltr" id="jd0e207"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[root@host ~]# curl 127.0.0.1:8081/analytics/tables | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   846  100   846    0     0   509k      0 --:--:-- --:--:-- --:--:--  826k
+[
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/MessageTable",
+        "name": "MessageTable"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/ObjectVNTable",
+        "name": "ObjectVNTable"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/ObjectVMTable",
+        "name": "ObjectVMTable"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/ObjectVRouter",
+        "name": "ObjectVRouter"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/ObjectBgpPeer",
+        "name": "ObjectBgpPeer"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/ObjectRoutingInstance",
+        "name": "ObjectRoutingInstance"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/ObjectXmppConnection",
+        "name": "ObjectXmppConnection"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/FlowRecordTable",
+        "name": "FlowRecordTable"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/FlowSeriesTable",
+        "name": "FlowSeriesTable"
+    }
+]
+</pre></template></sw-code></div></div><p>The following example query lists details for the table named <code class="inline" v-pre="">MessageTable</code>.</p><div class="sample" dir="ltr" id="jd0e215"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[root@host ~]# curl 127.0.0.1:8081/analytics/table/MessageTable | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   192  100   192    0     0   102k      0 --:--:-- --:--:-- --:--:--  187k
+[
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/MessageTable/schema",
+        "name": "schema"
+    },
+    {
+        "href": "http://127.0.0.1:8081/analytics/table/MessageTable/column-values",
+        "name": "column-values"
+    }
+]</pre></template></sw-code></div></div><p>The following example query lists the schema for the table named
+MessageTable.</p><div class="sample" dir="ltr" id="jd0e220"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>[root@host ~]# curl 127.0.0.1:8081/analytics/table/MessageTable/schema | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   630  100   630    0     0   275k      0 --:--:-- --:--:-- --:--:--  307k
+{
+    "columns": [
+        {
+            "datatype": "int",
+            "index": "False",
+            "name": "MessageTS"
+        },
+        {
+            "datatype": "string",
+            "index": "True",
+            "name": "Source"
+        },
+        {
+            "datatype": "string",
+            "index": "True",
+            "name": "ModuleId"
+        },
+        {
+            "datatype": "string",
+            "index": "True",
+            "name": "Category"
+        },
+        {
+            "datatype": "int",
+            "index": "True",
+            "name": "Level"
+        },
+        {
+            "datatype": "int",
+            "index": "False",
+            "name": "Type"
+        },
+        {
+            "datatype": "string",
+            "index": "True",
+            "name": "Messagetype"
+        },
+        {
+            "datatype": "int",
+            "index": "False",
+            "name": "SequenceNum"
+        },
+        {
+            "datatype": "string",
+            "index": "False",
+            "name": "Context"
+        },
+        {
+            "datatype": "string",
+            "index": "False",
+            "name": "Xmlmessage"
+        }
+    ],
+    "type": "LOG"
+}
+
+</pre></template></sw-code></div></div><p>The following set of example queries explore a message table. </p><div class="sample" dir="ltr" id="jd0e225"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>root@a6s45:~# cat filename
+{ "end_time": "now" , "select_fields": ["MessageTS", "Source", "ModuleId", "Category", "Messagetype", "SequenceNum", "Xmlmessage", "Type", "Level", "NodeType", "InstanceId"] , "sort": 1 , "sort_fields": ["MessageTS"] , "start_time": "now-10m" , "table": "MessageTable" , "where": {"name": "ModuleId", "value": "contrail-control", "op": 1, "suffix": null, "value2": null}, {"name": "Messagetype", "value": "BGPRouterInfo", "op": 1, "suffix": null, "value2": null} }
+
+root@a6s45:~#
+root@a6s45:~# curl -X POST --data @filename 127.0.0.1:8081/analytics/query --header "Content-Type:application/json" | python -mjson.tool
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  9765    0  9297  100   468   9168    461  0:00:01  0:00:01 --:--:--  9177
+{
+    "value": [
+        {
+            "Category": null,
+            "InstanceId": "0",
+            "Level": 2147483647,
+            "MessageTS": 1428442589947392,
+            "Messagetype": "BGPRouterInfo",
+            "ModuleId": "contrail-control",
+            "NodeType": "Control",
+            "SequenceNum": 1302,
+            "Source": "a6s45",
+            "Type": 6,
+            "Xmlmessage": "&lt;BGPRouterInfo type=""&gt;&lt;data type=""&gt;&lt;BgpRouterState&gt;&lt;name type=""
+&gt;a6s45&lt;/name&gt;&lt;cpu_info type=""&gt;&lt;CpuLoadInfo&gt;&lt;num_cpu type=""&gt;4&lt;/num_cpu
+&gt;&lt;meminfo type=""&gt;&lt;MemInfo&gt;&lt;virt type=""&gt;438436&lt;/virt&gt;&lt;peakvirt type=""
+&gt;561048&lt;/peakvirt&gt;&lt;res type=""&gt;12016&lt;/res&gt;&lt;/MemInfo&gt;&lt;/meminfo&gt;&lt;cpu_share
+type=""&gt;0.0416667&lt;/cpu_share&gt;&lt;/CpuLoadInfo&gt;&lt;/cpu_info&gt;&lt;cpu_share type=""
+&gt;0.0416667&lt;/cpu_share&gt;&lt;/BgpRouterState&gt;&lt;/data&gt;&lt;/BGPRouterInfo&gt;"        },
+        {
+            "Category": null,
+            "InstanceId": "0",
+            "Level": 2147483647,
+
+...</pre></template></sw-code></div></div><sw-prev-next> </sw-prev-next></p>

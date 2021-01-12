@@ -1,0 +1,110 @@
+<p id="topic-content"><h1 id="jd0e3">Service Instance Health Checks</h1><sw-topic-details date="2020-11-11"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Contrail Networking enables you to use a service
+instance health check to determine the liveliness of a service provided
+by a virtual machine (VM).</p></div></div><h2 id="id-health-check-object">Health Check Object</h2><ul><li style=""><p><a href="service-instance-health-check.html#jd0e27">Health Check Overview</a></p></li><li style=""><p><a href="service-instance-health-check.html#jd0e36">Health Check Object Configuration </a></p></li><li style=""><p><a href="service-instance-health-check.html#jd0e191">Creating a Health Check with the Contrail Web UI</a></p></li><li style=""><p><a href="service-instance-health-check.html#jd0e281">Using the Health Check</a></p></li><li style=""><p><a href="service-instance-health-check.html#jd0e291">Health Check Process</a></p></li></ul><h3 id="jd0e27">Health Check Overview</h3><p>The service instance health check is used to determine the liveliness
+of a service provided by a VM, checking whether the service is operationally
+up or down. The vRouter agent uses ping and an HTTP URL to the link-local
+address to check the liveliness of the interface.</p><p>If the health check determines that a service is no longer operational,
+it removes the routes for the VM, thereby disabling packet forwarding
+to the VM.</p><p>The service instance health check is used with service template
+version 2.</p><h3 id="jd0e36">Health Check Object Configuration </h3><p><a href="service-instance-health-check.html#health1">Table 1</a> shows the configurable properties
+of the health check object.</p><sw-table><p class="SubTitle" id="health1">Table 1: Health Check Configurable Parameters</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Field</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- enabled</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Indicates that health check is enabled. The default is <code class="inline" v-pre="">False</code>.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- health-check-type</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Indicates the health check type: <code class="inline" v-pre="">link-local</code>, <code class="inline" v-pre="">end-to-end</code>, <code class="inline" v-pre="">bgp-as-a-service</code>, and so on.. The default is <code class="inline" v-pre="">link-local</code>.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- monitor-type</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The protocol type to be used: <code class="inline" v-pre="">PING</code> or <code class="inline" v-pre="">HTTP</code>.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- delay</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The delay, in seconds, to repeat the health check.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- timeout</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The number of seconds to wait for a response. </p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- max-retries</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The number of retries to attempt before declaring an instance
+health down.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- http-method</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>When the monitor protocol is HTTP, the type of HTTP method used,
+such as GET, PUT, POST, and so on. </p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- url-path</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>When the monitor protocol is HTTP, the URL to be used. For all
+other cases, such as ICMP, the destination IP address.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><code class="inline" v-pre="">- expected-codes</code></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>When the monitor protocol is HTTP, the expected return code
+for HTTP operations.</p></td></tr></tbody></table></sw-table><h4 id="jd0e150">Health Check Modes</h4><p>The following modes are supported for the service instance health
+check:</p><ul><li style=""><p><code class="inline" v-pre="">link-local</code>—A local check
+for the service VM on the vRouter where the VM is running. In this
+case, the source IP of the packet is the service chain IP.</p></li><li style=""><p><code class="inline" v-pre="">end-to-end</code>—A remote address
+or URL is provided for a service health check through a chain of services.
+The destination of the health check probe is allowed to be outside
+the service instance. However, the health check probe must be reachable
+through the interface of the service instance where the health check
+is attached. The end-to-end health check probe is transmitted all
+the way to the actual destination outside the service instance. The
+response to the health check probe is received and processed by the
+service health check to evaluate the status.</p><p>Restrictions include:</p><ul><li style=""><p>This check is applicable for a chain where the services
+are not scaled out.</p></li><li style=""><p>When this mode is configured, a new health check IP is
+allocated and used as the source IP of the packet.</p></li><li style=""><p>The health check IP is allocated per <code class="inline" v-pre="">virtual-machine-interface</code> of the service VM where the health check is attached. </p></li><li style=""><p>The agent relies on the <code class="inline" v-pre="">service-health-check-ip</code> flag to use as the source IP.</p></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Contrail Networking supports a segment-based health check for
+transparent service chain.</p></sw-admonition></li></ul><h3 id="jd0e191">Creating a Health Check with the Contrail Web UI</h3><p>To create a health check with the Contrail Web UI:</p><ol type="1"><li id="jd0e197" style="">Navigate to <strong v-pre="">Configure &gt; Services &gt; Health Check Service</strong>, and click to open the <strong v-pre="">Create</strong> screen. See <a href="service-instance-health-check.html#check1">Figure 1</a>.<figure id="check1"><figcaption>Figure 1: Create Health Check Screen</figcaption><div class="graphic"><img alt="Create Health Check Screen" src="images/s018766.png" style=""/></div></figure></li><li id="jd0e212" style="">Complete the fields to define the permissions for the
+health check, see <a href="service-instance-health-check.html#health2">Table 2</a>.<sw-table><p class="SubTitle" id="health2">Table 2: Create Health Check Fields</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Field</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Description</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Name</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Enter a name for the health check service you are creating.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Protocol</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Select from the list the protocol to use for the health check,
+PING, HTTP, BFD, and so on.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Monitor Target</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Select from the list the address of the target to be monitored
+by the health check.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Delay (secs)</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The delay, in seconds, to repeat the health check.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Timeout (secs)</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The number of seconds to wait for a response. </p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Retries</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>The number of retries to attempt before declaring an instance
+health down.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Health Check Type</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Select from the list the type of health check—link-local,
+end-to-end, segment-based, bgp-as-a-service, and so on.</p></td></tr></tbody></table></sw-table></li></ol><h3 id="jd0e281">Using the Health Check</h3><p>A REST API can be used to create a health check object and define
+its associated properties, then a link is added to the VM interface.</p><p>The health check object can be linked to multiple VM interfaces.
+Additionally, a VM interface can be associated with multiple health
+check objects. The following is an example:</p><div class="example" dir="ltr" id="jd0e288"><sw-code><template v-pre=""><pre>HealthCheckObject 1 ---------------- VirtualMachineInterface 1 ---------------- HealthCheckObject 2   
+      |  
+      |  
+VirtualMachineInterface 2 
+</pre></template></sw-code></div><h3 id="jd0e291">Health Check Process</h3><p>The Contrail vRouter agent is responsible for providing the
+health check service. The agent spawns a Python script to monitor
+the status of a service hosted on a VM on the same compute node, and
+the script updates the status to the vRouter agent. </p><p>The vRouter agent acts on the status provided by the script
+to withdraw or restore the exported interface routes. It is also responsible
+for providing a link-local metadata IP for allowing the script to
+communicate with the destination IP from the underlay network, using
+appropriate NAT translations. In a running system, this information
+is displayed in the vRouter agent introspect at: </p><p><code class="inline" v-pre="">http://<var v-pre="">&lt;compute-node-ip&gt;</var>:8085/Snh_HealthCheckSandeshReq?uuid=  </code></p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>Running health check creates flow entries to perform translation
+from underlay to overlay. Consequently, in a heavily loaded environment
+with a full flow table, it is possible to observe false failures. </p></sw-admonition><h2 id="id-bidirectional-forwarding-and-detection-health-check-over-virtual-machine-interfaces">Bidirectional Forwarding and Detection Health Check over Virtual
+Machine Interfaces</h2><p>Contrail Networking supports BFD-based health checks for VMIs.</p><p>Health check for VMIs is already supported as poll-based checks
+with ping and curl commands. When enabled, these health checks run
+periodically, once every few seconds. Consequently, failure detection
+times can be quite large, always in seconds.</p><p>Health checks based on the BFD protocol provide failure detection
+and recovery in sub-second intervals, because applications are notified
+immediately upon BFD session state changes.</p><p>If BFD-based health check is configured, whenever a BFD session
+status is detected as <span class="cli" v-pre="">Up</span> or <span class="cli" v-pre="">Down</span> by the health-checker,
+corresponding logs are generated.</p><p>Logging is enabled in the contrail-vrouter-agent.conf file with
+the log severity level <span class="cli" v-pre="">SYS_NOTICE</span>.</p><p>You can view the log file in the location <code class="filepath">/var/log/contrail/contrail-vrouter-agent.log</code></p><div class="sample" dir="ltr" id="jd0e343"><p><b>Snippet of sample log message related to BFD session events</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>2019-02-26 Tue 14:38:49:417.479 SYS_NOTICE BFD session Down  interface: test-bfd-hc-vmi.st2  vrf: default-domain:admin:VN.hc.st2:VN.hc.st2
+2019-02-26 Tue 14:38:49:479.733 PST SYS_NOTICE BFD session Up  interface: test-bfd-hc-vmi.st2  vrf: default-domain:admin:VN.hc.st2:VN.hc.st2
+</pre></template></sw-code></div></div><h2 id="id-bidirectional-forwarding-and-detection-health-check-for-bgpaas">Bidirectional Forwarding and Detection Health Check for BGPaaS</h2><p>Contrail Networking supports BFD-based health check for BGP
+as a Service (BGPaaS) sessions.</p><p>This health check should not be confused with the BFD-based
+health check over VMIs feature. The BFD-based health check for VMIs
+cannot be used for a BGPaaS session, because the session shares a
+tenant destination address over a set of VMIs, with only one virtual
+machine interface active at any given time. </p><p>When the BFD-based health check for BGP as a Service (BGPaaS)
+is configured, any time a BFD-for-BGP session is detected as down
+by the health-checker, corresponding logs and alarms are generated. </p><p>When the BFD-based health check is configured, whenever a BFD
+session is detected as <span class="cli" v-pre="">Up</span> or <span class="cli" v-pre="">Down</span> by the health-checker,
+corresponding logs are generated.</p><p>Logging for this scenario is enabled in the contrail-vrouter-agent.conf
+file with the log level <span class="cli" v-pre="">SYS_NOTICE</span>.</p><p>To enable this health check, configure the <code class="inline" v-pre="">ServiceHealthCheckType</code> property and associate it with a bgp-as-a-service configuration
+object. This can also be accomplished in the Contrail Web UI. </p><h2 id="id-health-check-of-transparent-service-chain">Health Check of Transparent Service Chain </h2><p>Contrail Networking enhances service chain redundancy by implementing
+an end-to-end health check for the transparent service chain. The
+service health check monitors the status of the service chain and
+if there is a failure, the control node no longer considers the service
+chain as a valid next hop, triggering traffic failover.</p><p>A segment-based health check is used to verify the health of
+a single instance in a transparent service chain. The user creates
+a service-health-check object, with type segment-based, and attaches
+it to either the left or right interface of the service instance.
+The service health check packet is injected to the interface to which
+it is attached. When the packet comes out of the other interface,
+a reply packet is injected on that interface. If health check requests
+fail after 30-second retries, the service instance is considered unhealthy
+and the service VLAN routes of the left and right interfaces are removed.
+When the agent receives health check replies successfully, it adds
+the retracted routes back onto both interfaces, which triggers the
+control node to start reoriginating routes to other service instances
+on that service chain.</p><p>For more information, see <a href="https://github.com/tungstenfabric/tf-specs/blob/master/transparent_sc_health_check.md">https://github.com/tungstenfabric/tf-specs/blob/master/transparent_sc_health_check.md</a></p><h2 id="id-service-instance-fate-sharing">Service Instance Fate Sharing</h2><p> Contrail Networking supports service instance (SI) fate sharing
+that prevents a SI failure from causing a null route. In earlier releases,
+when an SI fails, the service chain continues to forward packets and
+routes reoriginate on both sides of the service chain. The packets
+are dropped in the SI or by the vRouter causing a null route.</p><p> As part of SI fate sharing in Contrail Networking, a gateway
+node automatically reroutes traffic to an alternate cluster and stops
+the service chain. If one or more than one SI in a service chain fails,
+routes on both sides of the service chain stops reoriginating and
+routes automatically converge to a backup service chain that is part
+of another Contrail cluster. </p><p> Contrail Networking uses <strong v-pre="">segment-based</strong> health check
+to verify the health of a SI in a service chain. To identify a failure
+of an SI, segment-based health check is configured either on the egress
+or ingress interface of the SI. When SI health check fails, the vRouter
+agent drops an SI route or a connected route. A connected route is
+also dropped if the vRouter agent restarts due to a software failure,
+when a compute node reboots, or when long-lived graceful restart (LLGR)
+is not enabled. You can detect an SI failure by keeping track of corresponding
+connected routes of the service chain address.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>When an SI is scaled out, the connected route for an SI
+interface goes down only when all associated VMs have failed.</p></sw-admonition><p>The control node uses the <span class="cli" v-pre="">service-chain-id</span> in <span class="cli" v-pre="">ServiceChainInfo</span> to link all SIs in a service chain. When the
+control node detects that any SI of the same service-chain-id is down,
+it stops reoriginating routes in egress and ingress directions for
+all SIs. The control node reoriginates routes only when the connected
+routes of all the SIs are up.</p><sw-prev-next> </sw-prev-next></p>

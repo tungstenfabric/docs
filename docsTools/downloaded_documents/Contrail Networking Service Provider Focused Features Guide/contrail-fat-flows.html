@@ -1,0 +1,127 @@
+<p id="topic-content"><h1 id="jd0e3">Fat Flows</h1><sw-topic-details date="2020-11-11"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Service Providers provide services to several
+subscribers and as a result, large volume of flows are processed at
+the Contrail vRouter-level and Contrail Agent-level. Processing large
+volume of flows affects the flow setup rate and increases latency.
+Fat flow helps reduce the number of flows that are handled by Contrail. </p></div></div><h2 id="id-understanding-fat-flow">Understanding Fat Flow</h2><p> Contrail Networking optimizes the number of flows that are
+sent or received by a virtual machine by reusing a flow. A single
+flow pair or a fat flow comprises of a single forward and single reverse
+flow entry. A fat flow is used for a number of sessions between two
+end points that use the same application protocol.  </p><p>For example, multiple DNS sessions from a client to a server
+can be set up by using a single flow pair. In Contrail Neyworking,
+the flow key can be reduced from five tuples to two tuples, which
+consists of source IP address, destination IP address, server port,
+and internet protocol. This can be configured by specifying the fat
+flow protocol on the virtual machine interface. The client port, however,
+is not used in the flow key. </p><p>You can configure fat flows by specifying the list of fat-flow
+protocols on a virtual machine interface. For each such application
+protocol, the list contains the protocol and port pairs. If you want
+to enable the fat flow feature on the client side, the configuration
+must be applied on the client virtual machine interface as well. Contrail
+Networking also enables you to configure fat flow at the virtual network
+(VN) level. When configured at the VN level, the fat flow configuration
+is applied to all VMIs under the configured VN.</p><p>Contrail Networking supports aggregation of multiple
+flows into a single flow by ignoring source and destination ports
+or IP addresses, with the following possible options:</p><ul><li style=""><p>ignore source and/or destination ports</p></li><li style=""><p>ignore source and/or destination IP addresses</p></li><li style=""><p>ignore a combination of source and/or destination ports
+and IP addresses</p></li></ul><p><kbd class="user-typing" v-pre="">Prefix-Based Fat Flow</kbd></p><p>Contrail Networking enables you to configure the Ignore Address
+field that reduces the number of flows. You can also create fat flows
+by configuring prefix length. Service provider subscribers in a common
+IP address pool can access any IP address in the pool. Contrail Networking
+also supports prefix-based fat flows. Prefix-based fat flow supports
+mask processing where you can create flows based on a group of subscribers.
+This ensures that continuous flows in the same subnet are grouped
+into a common fat flow that is configured with the same protocol and
+port numbers. You can apply prefix length-based fat flow on source
+IP address while the Ignore Address option is configured on the destination
+IP address, resulting in a reduction of flow processing.</p><p>For example, you use prefix-based fat flow to create one flow
+for 255 IP end points in a /24 subnet (aggregate) mask or one flow
+for 65,535 IP end points in a /16 subnet (aggregate) mask. This results
+in a huge reduction on the number of flows created, and a corresponding
+increase in the number of traffic flows going through vRouter without
+being limited by vRouter flow setup rate.</p><h2 id="id-configuring-fat-flow">Configuring Fat Flow from Contrail Command</h2><p>You use the Contrail Command user interface (UI) to configure
+fat flow. </p><p>You can configure fat flow from:</p><ul><li style=""><p><strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Ports</strong> or</p></li><li style=""><p><strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Virtual Networks</strong></p></li></ul><p><kbd class="user-typing" v-pre="">Configuring Fat Flow from</kbd> <strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Ports</strong></p><p>To configure fat flow from <strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Ports</strong>:</p><ol type="1"><li id="jd0e98" style="">Click <strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Ports</strong>.<p>The Ports page is displayed. See <a href="contrail-fat-flows.html#ports-page">Figure 1</a>.</p><figure id="ports-page"><figcaption>Figure 1: Ports Page</figcaption><div class="graphic"><img alt="Ports Page" src="images/s007828.PNG" style=""/></div></figure></li><li id="jd0e115" style="">Select the port you want to configure by selecting the
+check box next to the name of the port, and then click the <strong v-pre="">Edit</strong> icon. <p>The Edit Port page is displayed. See <a href="contrail-fat-flows.html#edit-port">Figure 2</a>.</p><figure id="edit-port"><figcaption>Figure 2: Edit Port Page</figcaption><div class="graphic"><img alt="Edit Port Page" src="images/s007829.PNG" style=""/></div></figure></li><li id="jd0e129" style="">Click <strong v-pre="">Fat Flow(s)</strong> to display the fields that
+you can edit.<p>You can edit the fields listed in <a href="contrail-fat-flows.html#edit-fat-flows-5.1">Table 1</a>.</p><sw-table><p class="SubTitle" id="edit-fat-flows-5.1">Table 1: Edit Fat Flow(s)</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Field</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Action</p></th></tr></thead><tbody><tr valign="top"><td align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Protocol</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Change the protocol that is currently being used to any
+one of the following protocols given in the <strong v-pre="">Protocol</strong> list:</p><ul><li style=""><p>ICMP</p></li><li style=""><p>SCTP</p></li><li style=""><p>TCP (default)</p></li><li style=""><p>UDP</p></li></ul><p>You can select ICMP for both IPv4 and IPv6 traffic.</p></td></tr><tr valign="top"><td align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Port</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit the Port field to any value between 0 through 65,535.</p><p>Enter 0 to ignore both source and destination port numbers.</p><p><b>Note:
+					</b>If you select ICMP as the protocol, the <strong v-pre="">PORT</strong> field is not enabled.</p></td></tr><tr valign="top"><td align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Ignore Address</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Change the Ignore Address field to any one of the following
+options:</p><ul><li style=""><p><strong v-pre="">Destination</strong>—If you choose Destination
+as the option, Prefix Aggregation Source fields are only enabled.
+See <a href="contrail-fat-flows.html#ignore-add-destination">Figure 3</a>.</p></li><li style=""><p><strong v-pre="">None</strong> (default)—If you choose None as
+the option, both Prefix Aggregation Source and Prefix Aggregation
+Destination fields are enabled. See <a href="contrail-fat-flows.html#ignore-add-none">Figure 4</a>.</p></li><li style=""><p><strong v-pre="">Source</strong>—If you choose Source as the option,
+Prefix Aggregation Destination fields are only enabled. See <a href="contrail-fat-flows.html#ignore-add-source">Figure 5</a>.</p></li></ul><p><b>Note:
+					</b>Fat flow in Contrail Networking supports aggregation of
+multiple flows into a single flow by ignoring source and destination
+ports or IP addresses.</p></td></tr><tr valign="top"><td align="left" rowspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix Aggregation Source</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Source Subnet</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit source IP subnet.</p><p>Ensure that the source subnet of the flows match.  For example,
+to create fat flows with 192.0.2.0/24 as the subnet, enter 192.0.2.0/24
+in the <strong v-pre="">Source Subnet</strong> field. </p><p>Valid range of the subnet mask: /8 through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit source subnet prefix length.</p><p>The prefix length you enter is used to aggregate flows matching
+the source subnet. For example, when the source subnet is 10.1.0.0/16
+and prefix length is 24, the flows matching the source subnet is aggregated
+to 10.1.x.0/24 flows.</p><p>Valid range of the prefix length: /(subnet mask of the source
+subnet) through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p><p><b>Note:
+					</b>Contrail Networking enables you to configure subnet and
+prefix length.</p></td></tr><tr valign="top"><td align="left" rowspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix Aggregation Destination</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Destination Subnet</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit destination IP address.</p><p>Ensure that the destination subnet of the flows match.  For
+example, to create fat flows with 192.0.2.0/24 as the subnet, enter
+192.0.2.0/24 in the <strong v-pre="">Destination Subnet</strong> field. </p><p>Valid range of the subnet mask: /8 through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit destination subnet prefix length.</p><p>The prefix length you enter is used to aggregate flows matching
+the destination subnet. For example, when the destination subnet is
+10.1.0.0/16 and prefix length is 24, the flows matching the destination
+subnet is aggregated to 10.1.x.0/24 flows.</p><p>Valid range of the prefix length: /(subnet mask of the destination
+subnet) through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p><p><b>Note:
+					</b>Contrail Networking enables you to configure subnet and
+prefix length.</p></td></tr></tbody></table></sw-table><figure id="ignore-add-destination"><figcaption>Figure 3: Ignore Address—Destination</figcaption><div class="graphic"><img alt="Ignore Address—Destination" src="images/s051790.PNG" style=""/></div></figure><figure id="ignore-add-none"><figcaption>Figure 4: Ignore Address—None</figcaption><div class="graphic"><img alt="Ignore Address—None" src="images/s051792.PNG" style=""/></div></figure><figure id="ignore-add-source"><figcaption>Figure 5: Ignore Address—Source</figcaption><div class="graphic"><img alt="Ignore Address—Source" src="images/s051791.PNG" style=""/></div></figure></li><li id="jd0e332" style="">Click <strong v-pre="">Save</strong> to update new configuration information.</li></ol><sw-admonition name="note" style=""><strong class="title">Note</strong><p><kbd class="user-typing" v-pre="">Understanding Source
+and Destination</kbd></p><ul><li style=""><p><kbd class="user-typing" v-pre="">Source</kbd>—For
+packets from the local virtual machine, source refers to the source
+IP of the packet. For packets from the physical interface, source
+refers to the destination IP of the packet.</p></li><li style=""><p><kbd class="user-typing" v-pre="">Destination</kbd>—For packets from the local virtual machine, destination refers
+to the destination IP of the packet. For packets from the physical
+interface, destination refers to the source IP of the packet.</p></li></ul></sw-admonition><p><kbd class="user-typing" v-pre="">Configuring Fat Flow from</kbd> <strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Virtual Networks</strong></p><p>Contrail Networking also enables you to configure fat flow at
+the virtual network (VN) level. When you configure fat flow from the
+VN level, the fat flow configuration is applied to all VMIs under
+the configured VN.</p><p>To configure fat flow from <strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Virtual Networks</strong>:</p><ol type="1"><li id="jd0e375" style="">Click <strong v-pre="">Overlay</strong>&gt;<strong v-pre="">Virtual Networks</strong>.<p>The Virtual Networks page is displayed. See <a href="contrail-fat-flows.html#all-networks">Figure 6</a>.</p><figure id="all-networks"><figcaption>Figure 6: Virtual Networks Page</figcaption><div class="graphic"><img alt="Virtual Networks Page" src="images/s007830.PNG" style=""/></div></figure></li><li id="jd0e392" style="">Select the virtual network you want to edit by selecting
+the check box next to the name of the virtual network, and then click
+the <strong v-pre="">Edit</strong> icon. <p>The Edit Virtual Network page is displayed. See <a href="contrail-fat-flows.html#edit-vn">Figure 7</a>.</p><figure id="edit-vn"><figcaption>Figure 7: Edit Virtual Network Page</figcaption><div class="graphic"><img alt="Edit Virtual Network Page" src="images/s007831.PNG" style=""/></div></figure></li><li id="jd0e406" style="">Click <strong v-pre="">Fat Flows</strong> to display the fields that
+you can edit.<p>You can edit the fields listed in <a href="contrail-fat-flows.html#edit-fat-flow-5.1">Table 2</a>.</p><sw-table><p class="SubTitle" id="edit-fat-flow-5.1">Table 2: Edit Fat Flows</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Field</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Action</p></th></tr></thead><tbody><tr valign="top"><td align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Protocol</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Change the protocol that is currently being used to any
+one of the following protocols given in the <strong v-pre="">Protocol</strong> list:</p><ul><li style=""><p>ICMP</p></li><li style=""><p>SCTP</p></li><li style=""><p>TCP (default)</p></li><li style=""><p>UDP</p></li></ul><p>You can select ICMP for both IPv4 and IPv6 traffic.</p></td></tr><tr valign="top"><td align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Port</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit the Port field to any value between 0 through 65,535.</p><p>Enter 0 to ignore both source and destination port numbers.</p><p><b>Note:
+					</b>If you select ICMP as the protocol, the <strong v-pre="">PORT</strong> field is not enabled.</p></td></tr><tr valign="top"><td align="left" colspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Ignore Address</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Change the Ignore Address field to any one of the following
+options:</p><ul><li style=""><p><strong v-pre="">Destination</strong>—If you choose Destination
+as the option, Prefix Aggregation Source fields are only enabled.
+See <a href="contrail-fat-flows.html#ignore-add-destination">Figure 3</a>.</p></li><li style=""><p><strong v-pre="">None</strong> (default)—If you choose None as
+the option, both Prefix Aggregation Source and Prefix Aggregation
+Destination fields are enabled. See <a href="contrail-fat-flows.html#ignore-add-none">Figure 4</a>.</p></li><li style=""><p><strong v-pre="">Source</strong>—If you choose Source as the option,
+Prefix Aggregation Destination fields are only enabled. See <a href="contrail-fat-flows.html#ignore-add-source">Figure 5</a>.</p></li></ul><p><b>Note:
+					</b>Fat flow in Contrail Networking supports aggregation of
+multiple flows into a single flow by ignoring source and destination
+ports or IP addresses.</p></td></tr><tr valign="top"><td align="left" rowspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix Aggregation Source</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Source Subnet</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit source IP address.</p><p>Ensure that the source subnet of the flows match.  For example,
+to create fat flows with 192.0.2.0/24 as the subnet, enter 192.0.2.0/24
+in the <strong v-pre="">Source Subnet</strong> field. </p><p>Valid range of the subnet mask: /8 through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit source subnet prefix length.</p><p>The prefix length you enter is used to aggregate flows matching
+the source subnet. For example, when the source subnet is 10.1.0.0/16
+and prefix length is 24, the flows matching the source subnet is aggregated
+to 10.1.x.0/24 flows.</p><p>Valid range of the prefix length: /(subnet mask of the source
+subnet) through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p><p><b>Note:
+					</b>Contrail Networking enables you to configure subnet and prefix
+length.</p></td></tr><tr valign="top"><td align="left" rowspan="2" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix Aggregation Destination</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Destination Subnet</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit destination IP address.</p><p>Ensure that the destination subnet of the flows match.  For
+example, to create fat flows with 192.0.2.0/24 as the subnet, enter
+192.0.2.0/24 in the <strong v-pre="">Destination Subnet</strong> field. </p><p>Valid range of the subnet mask: /8 through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><strong v-pre="">Prefix</strong></p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Edit destination subnet prefix length.</p><p>The prefix length you enter is used to aggregate flows matching
+the destination subnet. For example, when the destination subnet is
+10.1.0.0/16 and prefix length is 24, the flows matching the destination
+subnet is aggregated to 10.1.x.0/24 flows.</p><p>Valid range of the prefix length: /(subnet mask of the destination
+subnet) through /32.</p><p>For more information, refer to the <kbd class="user-typing" v-pre="">Understanding
+Source and Destination</kbd> section.</p><p><b>Note:
+					</b>Contrail Networking enables you to configure subnet and
+prefix length.</p></td></tr></tbody></table></sw-table></li><li id="jd0e597" style="">(Optional) If you have not already added fat flow information,
+you can add information by clicking <strong v-pre="">+Add</strong>. You can enter
+information as given in <a href="contrail-fat-flows.html#edit-fat-flow-5.1">Table 2</a>.</li><li id="jd0e605" style="">Click <strong v-pre="">Save</strong> to add new configuration information.</li></ol><sw-admonition name="note" style=""><strong class="title">Note</strong><ul><li style=""><p>A service virtual machine (SVM) is a virtualized network
+function (VNF) that is a part of a service chain. Fat flow configuration
+on SVM is supported when:</p><ul><li style=""><p>Left virtual machine interface: Ignore source address
+and/or Prefix aggregation destination</p></li><li style=""><p>Right virtual machine interface: Ignore destination address
+and/or Prefix aggregation source</p></li></ul></li><li style=""><p>Fat flow on service virtual machine interfaces (SVMIs)
+in scale-out mode is supported when all SVMIs are on the same compute,
+and not on the source or destination compute. </p></li><li style=""><p>Fat flow configuration across all SVMs must be consistent.</p></li></ul></sw-admonition><h2 id="id-limitations-of-fat-flow">Limitations of Fat Flow </h2><p>The following are the limitations of fat flow.</p><ul><li style=""><p>Drop in packet per second (pps) performance depends on
+the number of rules or configuration.</p></li><li style=""><p>Network policy configuration must be consistent with fat
+flow configuration.</p></li></ul><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,28 @@
+<p id="topic-content"><h1 id="jd0e2">Support for EVPN Route Type 5</h1><sw-topic-details date="2019-04-25"> </sw-topic-details><p>Contrail Release 5.0.1 and later supports EVPN Route Type 5
+messages as defined in the IETF specification <em>IP Prefix
+Advertisement in EVPN</em>. EVPN Route Type 5 is an extension
+of EVPN Route Type 2, which carries MAC addresses along with their
+associated IP addresses. EVPN Route Type 5 facilitates in inter-subnet
+routing.</p><p>Type 5 network layer reachability information (NLRI) contains
+information in the following format:</p><div class="sample" dir="ltr" id="jd0e17"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>+---------------------------------------+
+|      RD   (8 octets)                  |
++---------------------------------------+
+|Ethernet Segment Identifier (10 octets)|
++---------------------------------------+
+|  Ethernet Tag ID (4 octets)           |
++---------------------------------------+
+|  IP Prefix Length (1 octet)           |
++---------------------------------------+
+|  IP Prefix (4 or 16 octets)           |
++---------------------------------------+
+|  GW IP Address (4 or 16 octets)       |
++---------------------------------------+
+|  MPLS Label (3 octets)                |
++---------------------------------------+</pre></template></sw-code></div></div><p> When Type-5 EVPN prefix is received from a BGP peer, it is
+first installed into bgp.evpn.0 like all other routes. From here,
+based on matching route targets, the route gets replicated into all
+*.evpn.0 tables as applicable. From there, the routes are advertised
+over Extensible messaging and presence protocol (XMPP) to all interested
+agents.</p><sw-admonition name="note" style=""><strong class="title">Note</strong><p>In Release 5.0.1, policy based route-leaking among different
+L3VRFs is not supported. Hence, service chaining for Type 5 L3VRFs
+is also not supported.</p></sw-admonition><sw-prev-next> </sw-prev-next></p>

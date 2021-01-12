@@ -1,0 +1,15 @@
+<p id="topic-content"><h1 id="jd0e3">High Availability for Analytics </h1><sw-topic-details date="2019-02-08"> </sw-topic-details><p>Contrail supports multiple instances of analytics for high availability
+and load balancing. </p><p>Contrail analytics provides two broad areas of functionality: </p><ul><li style=""><p><strong v-pre="">contrail-collector</strong> —Receives status,
+logs, and flow information from all Contrail processing elements (for
+example, generators) and records them. </p><p>Every generator is connected to one of the <strong v-pre="">contrail-collector</strong> instances at any given time. If an instance fails (or is shut down),
+all the generators that are connected to it are automatically moved
+to another functioning instance, typically in a few seconds or less.
+Some messages may be lost during this movement. UVEs are resilient
+to message loss, so the state shown in a UVE is kept consistent to
+the state in the generator.</p></li><li style=""><p><strong v-pre="">contrail-opserver</strong> —Provides an external
+API to report UVEs and to query logs and flows. </p><p>Each analytics component exposes a northbound REST API represented
+by the <strong v-pre="">contrail-opserver</strong> service (port 8081) so that the
+failure of one analytics component or one <strong v-pre="">contrail-opserver</strong> service should not impact the operation of other instances.  </p><p>These are the ways to manage connectivity to the <strong v-pre="">contrail-opserver</strong> endpoints: </p><ul><li style=""><p>Periodically poll the <strong v-pre="">contrail-opserver</strong> service
+on a set of analytics nodes to determine the list of functioning endpoints,
+then make API requests from one or more of the functioning endpoints.</p></li><li style=""><p>The Contrail user interface makes use of the same northbound
+REST API to present dashboards, and reacts to any <strong v-pre="">contrail-opserver</strong> high availability event automatically.   </p></li></ul></li></ul><sw-prev-next> </sw-prev-next></p>

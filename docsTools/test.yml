@@ -1,0 +1,44 @@
+- filename: contrail-networking-security-user-guide.html
+  name: Contrail Networking and Security User Guide
+  pages:
+  - fileName: ../../topics/task/configuration/load-balance-as-service-vnc.html
+    id: 51
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/task/configuration/load-balance-as-service-vnc.html
+  - fileName: contrail-fabric-lifecycle-management-feature-guide.pdf
+    id: 73
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-fabric-lifecycle-management-feature-guide.pdf
+  - fileName: ../../topics/concept/security-policy-enhancements.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/security-policy-enhancements.html
+  - fileName: ../../topics/concept/openstack-security-policy-features.html
+    id: 2
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/openstack-security-policy-features.html
+  - fileName: ../../topics/concept/security-policy-generation.html
+    id: 3
+    juniperAgreesToCopy: false
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/security-policy-generation.html
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-networking-security-user-guide.html
+- filename: contrail-install-and-upgrade-guide.html
+  name: Contrail Networking Installation and Upgrade Guide
+  pages:
+  - fileName: ../../topics/concept/understanding-contrail-networking.html
+    id: 1
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-contrail-networking.html
+  - fileName: ../../topics/concept/understanding-contrail-networking-components.html
+    id: 2
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/understanding-contrail-networking-components.html
+  - fileName: ../../topics/concept/summary-of-container-design.html
+    id: 3
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/summary-of-container-design.html
+  - fileName: ../../topics/concept/intro-microservices-contrail.html
+    id: 4 
+    juniperAgreesToCopy: true
+    url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/../../topics/concept/intro-microservices-contrail.html
+  url: https://www.juniper.net/documentation/en_US/contrail20/information-products/pathway-pages/contrail-install-and-upgrade-guide.html

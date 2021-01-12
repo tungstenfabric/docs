@@ -1,0 +1,50 @@
+<p id="topic-content"><h1 id="jd0e2">Optimizing DPDK vRouter Performance Through Full CPU Partitioning
+and Isolation</h1><sw-topic-details date="2020-03-19"> </sw-topic-details><p>Contrail Networking Release 2003 supports full CPU partitioning.
+CPU isolation is an RHEL method to partition and isolate the CPU cores
+on a compute node from the symmetric multiprocessing (SMP) balancing
+and scheduler algorithms. The full CPU isolation feature optimizes
+the performance of DPDK vRouter when deployed with the DPDK settings
+recommended for RHOSP.</p><p>CPU isolation helps isolate forwarding cores, VNF cores, and
+service cores so that VNF threads and service threads do not send
+processing requests to forwarding cores. By applying CPU isolation,
+you can allocate dedicated forwarding cores to the DPDK VM and ensure
+that other processes do not send processing requests to the cores
+allocated to DPDK vRouter, which in turn improves the performance
+of vRouter to a large extent. </p><p>For CPU isolation and partitioning, RedHat recommends two methods.
+The first method is by using a utility called <span class="cli" v-pre="">tuned</span>, which
+partitions the CPU to virtual network functions (VNFs) and isolates
+these cores from the host OS. The <span class="cli" v-pre="">tuned</span> method removes
+isolated CPUs from the common CPU list that is used to process all
+tasks and perform CPU isolation after the system boot, by using the <span class="cli" v-pre="">systemd</span> process.</p><p>The second is <span class="cli" v-pre="">isolcpus</span>, a kernel parameter that keeps
+CPUs away from the Linux scheduler. Similar to <span class="cli" v-pre="">tuned</span>, the <span class="cli" v-pre="">isolcpus</span> method also removes isolated CPUs from the common
+CPU list that is used to process all tasks, and performs CPU isolation
+at system startup. To enable <span class="cli" v-pre="">isolcpus</span>, you need to modify
+the GRUB configuration in <code class="filepath">/etc/default/grub</code> so that a new set of isolated CPU is considered. The node needs
+to be restarted for the changes to take effect.</p><p>To enable CPU isolation using <span class="cli" v-pre="">tuned</span>, configure the <span class="cli" v-pre="">ContrailDpdkParameters</span> in <code class="filepath">/tripleo-heat-templates/environments/contrail/contrail-services.yaml</code> for RHOSP and <span class="cli" v-pre="">SERVICE_CORE_MASK </span>and <span class="cli" v-pre="">DPDK_CTRL_THREAD_MASK</span> parameters in <code class="filepath">/vrouter/agent-dpdk/entrypoint.sh</code> file for Contrail Ansible Deployer.</p><div class="sample" dir="ltr" id="jd0e61"><p><b>In contrail-services.yaml</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># Tuned-d profile configuration
+#   TunedProfileName -  Name of tuned profile
+#   IsolCpusList     -  Logical CPUs list to be isolated from the host process (applied via cpu-partitioning tuned).
+#                       It is mandatory to provide isolated cpus for tuned to achive optimal performance.
+#                       Example: "3-8,12-15,18"
+# These paramters are to be set per a role, e.g.:
+#  ComputeParameters:
+#    TunedProfileName: "cpu-partitioning"
+#    IsolCpusList: "3-8,12-15,20"
+#  ContrailDpdkParameters:
+#    TunedProfileName: "cpu-partitioning"
+#    IsolCpusList: "3-20"
+#  ContrailSriovParameters:
+#    TunedProfileName: "cpu-partitioning"
+#    IsolCpusList: "3-20"</pre></template></sw-code></div></div><div class="sample" dir="ltr" id="jd0e66"><p><b>In entrypoint.sh</b></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre># Cpu coremask for DPDK
+# - forwarding threads pinning
+#CPU_CORE_MASK='0x01'
+# - service threads pinning
+#SERVICE_CORE_MASK=''
+# - dpdk ctrl threads pinning
+#DPDK_CTRL_THREAD_MASK=''</pre></template></sw-code></div></div><p>To configure <span class="cli" v-pre="">isolcpus</span>, modify the following parameters
+in GRUB:</p><div class="sample" dir="ltr" id="jd0e76"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>ContrailDpdkParameters:
+    KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=32 iommu=pt intel_iommu=on isolcpus=3-20"
+ 
+</pre></template></sw-code></div></div><p>The <span class="cli" v-pre="">isolcpu</span> tuning needs to be done for VNFs (VM)
+as well. This is to ensure that the VM can protect and isolate the
+Poll Mode Driver (PMD) thread cores from CPU usage by other processes.
+On Centos and RHEL, CPU tuning is done by using the utilities <span class="cli" v-pre="">isolcpu</span> and <span class="cli" v-pre="">tuned</span>.</p><sw-prev-next> </sw-prev-next></p>

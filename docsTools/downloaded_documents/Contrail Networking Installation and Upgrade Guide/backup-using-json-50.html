@@ -1,0 +1,607 @@
+<p id="topic-content"><h1 id="jd0e2">How to Backup and Restore Contrail Databases in JSON Format</h1><sw-topic-details date="2020-09-24"> </sw-topic-details><p>This document shows how to backup and restore the Contrail
+databases—Cassandra and Zookeeper—in JSON format.</p><h2 id="jd0e15">Before You Begin</h2><p>The backup and restore procedure must be completed for nodes
+running the same Contrail Networking release. The procedure is used
+to backup the Contrail Networking databases only; it does not include
+instructions for backing up orchestration system databases.</p><sw-admonition name="caution" style=""><strong class="title">Caution</strong><p>Database backups must be consistent across all systems because
+the state of the Contrail database is associated with other system
+databases, such as OpenStack databases. Database changes associated
+with northbound APIs must be stopped on all the systems before performing
+any backup operation. For example, you might block the external VIP
+for northbound APIs at the load balancer level, such as HAproxy.</p></sw-admonition><h2 id="simple-db-backup-json">Simple Database Backup in JSON Format</h2><p>This procedure provides a simple database backup in JSON format.
+This procedure is performed using the <code class="inline" v-pre="">db_json_exim.py</code> script located in the <code class="inline" v-pre="">/usr/lib/python2.7/site-packages/cfgm_common</code> on the controller node.</p><p>To perform this database backup:</p><ol type="1"><li id="jd0e37" style="">Log into one of the config nodes. Create the <code class="filepath">/tmp/db-dump</code> directory on any of the config node
+hosts.<div class="sample" dir="ltr" id="jd0e43"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>mkdir /tmp/db-dump</pre></template></sw-code></div></div></li><li id="jd0e46" style="">On the same config node, copy the <code class="inline" v-pre="">contrail-api.conf</code> file from the container to the host.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e56"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e63"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker cp contrail_config_api:/etc/contrail/contrail-api.conf /tmp/db-dump/</pre></template></sw-code></div></div><p>The Cassandra database instance on any configuration node includes
+the complete Cassandra database for all configuration nodes in the
+cluster. Steps 1 and 2, therefore, only need to be performed on one
+configuration node.</p></li><li id="jd0e68" style="">Stop the following docker configuration services on all
+of the Contrail configuration nodes.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e75"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop config_svcmonitor_1
+docker stop config_devicemgr_1
+docker stop config_schema_1
+docker stop config_api_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e82"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop contrail_config_svc_monitor
+docker stop contrail_config_device_manager
+docker stop contrail_config_schema
+docker stop contrail_config_api</pre></template></sw-code></div></div><p>This step must be performed on each individual config node in
+the cluster.</p></li><li id="ListTheDockerImageToFindTheNameOrID-C55BAB82" style="">Return
+to the config node where you performed steps 1 and 2.<p>List the docker image to find the name or ID of the <em>config api</em> image.</p><p><code class="inline" v-pre="">docker image ls | grep config-api</code></p><p>Example:</p><div class="sample" dir="ltr" id="jd0e100"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker image ls | grep config-api
+hub.juniper.net/contrail/contrail-controller-config-api <span data-fg-color="blue">1909.30-ocata</span> c9d757252a0c  4 months ago  583MB</pre></template></sw-code></div></div></li><li id="create-api-container-step-json-backup" style="">From the same
+config node, start the <em>config api</em> container pointing
+the <code class="inline" v-pre="">entrypoint.sh</code> script to <code class="filepath">/bin/bash</code> and mapping <code class="filepath">/tmp/db-dump</code> from the host to the <code class="filepath">/tmp</code> directory
+inside the container. You perform this step to ensure that the API
+services are not started on the config node.<p>Enter the <em>-v /etc/contrail/ssl:/etc/contrail/ssl:ro</em> command option when <span class="cli" v-pre="">cassandra_use_ssl</span> is used as api-server configuration parameter to ensure TLS
+certificates are mounted to the Contrail SSL directory. This mounting
+ensures that the backup procedure succeeds in environments with endpoints
+that require TLS authentication.</p><p>The <em>registry_name</em> and <em>container_tag</em> variables must match step <a href="backup-using-json-50.html#ListTheDockerImageToFindTheNameOrID-C55BAB82">4</a>.</p><div class="sample" dir="ltr" id="jd0e142"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash &lt;registry_name&gt;/contrail-controller-config_api:&lt;container_tag&gt;</pre></template></sw-code></div></div><p><em>Example</em>:</p><div class="sample" dir="ltr" id="jd0e149"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
+</pre></template></sw-code></div></div></li><li id="jd0e152" style="">From the docker container created on the config node in
+Step <a href="backup-using-json-50.html#create-api-container-step-json-backup">5</a>,
+use the <code class="inline" v-pre="">db_json_exim.py</code> script to backup
+data in JSON format.. The db dump file will be saved in the <code class="filepath">/tmp/db-dump/</code> on this config node.<div class="sample" dir="ltr" id="jd0e163"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cd /usr/lib/python2.7/site-packages/cfgm_common
+python db_json_exim.py --export-to /tmp/db-dump.json --api-conf /tmp/contrail-api.conf</pre></template></sw-code></div></div><p>The Cassandra database instance on any configuration node includes
+the complete Cassandra database for all configuration nodes in the
+cluster. You, therefore, only need to perform step 4 through 6 from
+one of the configuration nodes.</p></li><li id="jd0e168" style="">(Optional. Recommended) From the same config node, enter
+the <code class="inline" v-pre="">cat /tmp/db-dump.json | python -m json.tool | less</code> command to view a more readable version of the file transfer.<div class="sample" dir="ltr" id="jd0e174"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cat /tmp/db-dump.json | python -m json.tool | less</pre></template></sw-code></div></div></li><li id="jd0e177" style="">From the same config node, exit out of the <em>config
+api</em> container. This will stop the container.<div class="sample" dir="ltr" id="jd0e183"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>exit</pre></template></sw-code></div></div></li><li id="jd0e186" style="">Start the following configuration services on all of the
+Contrail configuration nodes.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e193"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start config_api_1
+docker start config_schema_1
+docker start config_svcmonitor_1
+docker start config_devicemgr_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e200"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start contrail_config_api
+docker start contrail_config_schema
+docker start contrail_config_svc_monitor
+docker start contrail_config_device_manager</pre></template></sw-code></div></div><p>This step must be performed on each individual config node.</p></li><li id="jd0e205" style="">On each config node, enter the <span class="cli" v-pre="">contrail-status</span> command to confirm that services are in the <var v-pre="">active</var> or <var v-pre="">running</var> states.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>Some command output and output fields are removed for readability.
+Output shown is from a node hosting config and analytics services. </p></sw-admonition><div class="sample" dir="ltr" id="jd0e220"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre><kbd class="user-typing" v-pre="">contrail-status</kbd>
+Pod             Service     Original Name                 State
+analytics       api         contrail-analytics-api        <span data-fg-color="blue">running</span>
+analytics       collector   contrail-analytics-collector  <span data-fg-color="blue">running</span>
+analytics       nodemgr     contrail-nodemgr              <span data-fg-color="blue">running</span>
+analytics       provisioner contrail-provisioner          <span data-fg-color="blue">running</span>
+analytics       redis       contrail-external-redis       <span data-fg-color="blue">running</span>
+analytics-alarm alarm-gen   contrail-analytics-alarm-gen  <span data-fg-color="blue">running</span>
+analytics-alarm kafka       contrail-external-kafka       <span data-fg-color="blue">running</span>
+&lt;some output removed for readability&gt;
+
+== Contrail control ==
+control: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+named: <span data-fg-color="blue">active</span>
+dns: <span data-fg-color="blue">active</span>
+
+== Contrail analytics-alarm ==
+nodemgr: <span data-fg-color="blue">active</span>
+kafka: <span data-fg-color="blue">active</span>
+alarm-gen: <span data-fg-color="blue">active</span>
+
+== Contrail database ==
+nodemgr: <span data-fg-color="blue">active</span>
+query-engine: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail analytics ==
+nodemgr: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+collector: <span data-fg-color="blue">active</span>
+
+== Contrail config-database ==
+nodemgr: <span data-fg-color="blue">active</span>
+zookeeper: <span data-fg-color="blue">active</span>
+rabbitmq: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail webui ==
+web: <span data-fg-color="blue">active</span>
+job: <span data-fg-color="blue">active</span>
+
+== Contrail analytics-snmp ==
+snmp-collector: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+topology: <span data-fg-color="blue">active</span>
+
+== Contrail config ==
+svc-monitor: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+device-manager: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+schema: <span data-fg-color="blue">active</span></pre></template></sw-code></div></div></li></ol><h2 id="jd0e326">Examples: Simple Database Backups in JSON Format</h2><p>These examples illustrate the process for creating a simple
+database backup in JSON format in both an Ansible deployer environment
+and a Red Hat Openstack deployer environment. </p><p>In each example, a cluster with three config nodes—<kbd class="user-typing" v-pre="">control_config1</kbd>, <kbd class="user-typing" v-pre="">control_config2</kbd>, and <kbd class="user-typing" v-pre="">control_config3</kbd>—is backed
+up. All tasks that need to be performed on a single config nodes are
+performed on <kbd class="user-typing" v-pre="">control-config1</kbd>. The tasks
+must be performed in the shown order.</p><p><em>Ansible Deployer Environment</em>:</p><div class="sample" dir="ltr" id="jd0e350"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>## control_config1 ##
+mkdir /tmp/db-dump
+docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/
+docker stop config_svcmonitor_1
+docker stop config_devicemgr_1
+docker stop config_schema_1
+docker stop config_api_1
+
+## control_config2 ##
+docker stop config_svcmonitor_1
+docker stop config_devicemgr_1
+docker stop config_schema_1
+docker stop config_api_1
+
+## control_config3 ##
+docker stop config_svcmonitor_1
+docker stop config_devicemgr_1
+docker stop config_schema_1
+docker stop config_api_1
+
+## control_config1 ##
+docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
+cd /usr/lib/python2.7/site-packages/cfgm_common
+python db_json_exim.py --export-to /tmp/db-dump.json --api-conf /tmp/contrail-api.conf
+cat /tmp/db-dump.json | python -m json.tool | less
+exit
+docker start config_api_1
+docker start config_schema_1
+docker start config_svcmonitor_1
+docker start config_devicemgr_1
+contrail-status
+
+## control_config2 ##
+docker start config_api_1
+docker start config_schema_1
+docker start config_svcmonitor_1
+docker start config_devicemgr_1
+contrail-status
+
+## control_config3 ##
+docker start config_api_1
+docker start config_schema_1
+docker start config_svcmonitor_1
+docker start config_devicemgr_1
+contrail-status</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer Environment</em>:</p><div class="sample" dir="ltr" id="jd0e357"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>## control_config1 ##
+mkdir /tmp/db-dump
+docker cp contrail_config_api:/etc/contrail/contrail-api.conf /tmp/db-dump/
+docker stop contrail_config_svc_monitor
+docker stop contrail_config_device_manager
+docker stop contrail_config_schema
+docker stop contrail_config_api
+
+## control_config2 ##
+docker stop contrail_config_svc_monitor
+docker stop contrail_config_device_manager
+docker stop contrail_config_schema
+docker stop contrail_config_api
+
+## control_config3 ##
+docker stop contrail_config_svc_monitor
+docker stop contrail_config_device_manager
+docker stop contrail_config_schema
+docker stop contrail_config_api
+
+## control_config1 ##
+docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
+cd /usr/lib/python2.7/site-packages/cfgm_common 
+python db_json_exim.py --export-to /tmp/db-dump.json --api-conf /tmp/contrail-api.conf
+cat /tmp/db-dump.json | python -m json.tool | less
+exit
+docker start contrail_config_api
+docker start contrail_config_schema
+docker start contrail_config_svc_monitor
+docker start contrail_config_device_manager
+contrail-status
+
+## control_config2 ##
+docker start contrail_config_api
+docker start contrail_config_schema
+docker start contrail_config_svc_monitor
+docker start contrail_config_device_manager
+contrail-status
+
+## control_config3 ##
+docker start contrail_config_api
+docker start contrail_config_schema
+docker start contrail_config_svc_monitor
+docker start contrail_config_device_manager
+contrail-status</pre></template></sw-code></div></div><h2 id="jd0e360">Restore Database from the Backup in JSON Format</h2><p>This procedure provides the steps to restore a system using
+the simple database backup JSON file that was created in <a href="backup-using-json-50.html#simple-db-backup-json">Simple Database Backup in JSON Format</a>.</p><p>To restore a system from a backup JSON file:</p><ol type="1"><li id="jd0e371" style="">Copy the <code class="inline" v-pre="">contrail-api.conf</code> file
+from the container to the host on any one of the config nodes.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e381"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e388"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker cp contrail_config_api:/etc/contrail/contrail-api.conf /tmp/db-dump/</pre></template></sw-code></div></div></li><li id="jd0e391" style="">Stop the configuration services on all of the controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e398"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop config_svcmonitor_1
+docker stop config_devicemgr_1
+docker stop config_schema_1
+docker stop config_api_1
+docker stop config_nodemgr_1
+docker stop config_database_nodemgr_1
+docker stop analytics_snmp_snmp-collector_1
+docker stop analytics_snmp_topology_1
+docker stop analytics_alarm_alarm-gen_1
+docker stop analytics_api_1
+docker stop analytics_collector_1
+docker stop analytics_alarm_kafka_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer—Node hosting Contrail
+Config containers</em>:</p><div class="sample" dir="ltr" id="jd0e405"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop contrail_config_svc_monitor
+docker stop contrail_config_device_manager
+docker stop contrail_config_schema
+docker stop contrail_config_api
+docker stop contrail_config_nodemgr
+docker stop contrail_config_database_nodemgr
+</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer—Node hosting Contrail
+Analytics containers</em>:</p><div class="sample" dir="ltr" id="jd0e412"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop contrail_analytics_snmp_collector
+docker stop contrail_analytics_topology
+docker stop contrail_analytics_alarmgen
+docker stop contrail_analytics_api
+docker stop contrail_analytics_collector
+docker stop contrail_analytics_kafka</pre></template></sw-code></div></div></li><li id="jd0e415" style="">Stop the Cassandra service on all the <code class="inline" v-pre="">config-db</code> controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e425"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop config_database_cassandra_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e432"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop contrail_config_database</pre></template></sw-code></div></div></li><li id="jd0e435" style="">Stop the Zookeeper service on all controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e442"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop config_database_zookeeper_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e449"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker stop contrail_config_zookeeper</pre></template></sw-code></div></div></li><li id="jd0e452" style="">Backup the Zookeeper data directory on all the controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e459"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cd /var/lib/docker/volumes/config_database_config_zookeeper/
+cp -R _data/version-2/ version-2-save</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e466"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cd /var/lib/docker/volumes/config_zookeeper/
+cp -R _data/version-2/ version-2-save
+</pre></template></sw-code></div></div></li><li id="jd0e469" style="">Delete the Zookeeper data directory contents on all the
+controllers. <div class="sample" dir="ltr" id="jd0e472"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>rm -rf _data/version-2/*</pre></template></sw-code></div></div></li><li id="jd0e475" style="">Backup the Cassandra data directory on all the controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e482"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cd /var/lib/docker/volumes/config_database_config_cassandra/
+cp -R _data/ Cassandra_data-save</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e489"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cd /var/lib/docker/volumes/config_cassandra/
+cp -R _data/ Cassandra_data-save</pre></template></sw-code></div></div></li><li id="jd0e492" style="">Delete the Cassandra data directory contents on all controllers.<div class="sample" dir="ltr" id="jd0e495"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>rm -rf _data/*</pre></template></sw-code></div></div></li><li id="jd0e498" style="">Start the Zookeeper service on all the controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e505"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start config_database_zookeeper_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e512"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start contrail_config_zookeeper</pre></template></sw-code></div></div></li><li id="jd0e515" style="">Start the Cassandra service on all the controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e522"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start config_database_cassandra_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e529"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start contrail_config_database</pre></template></sw-code></div></div></li><li id="DockerImageToFindTheNameIDOfCon-C55BD6F6" style="">List docker
+image to find the name or ID of the <code class="inline" v-pre="">config-api</code> image on the config node.<div class="sample" dir="ltr" id="jd0e538"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker image ls | grep config-api</pre></template></sw-code></div></div><p>Example:</p><div class="sample" dir="ltr" id="jd0e543"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker image ls | grep config-api
+hub.juniper.net/contrail/contrail-controller-config-api <span data-fg-color="blue">1909.30-ocata</span> c9d757252a0c  4 months ago  583MB</pre></template></sw-code></div></div></li><li id="jd0e549" style="">Run a new docker container using the name or ID of the <code class="inline" v-pre="">config_api</code> image on the same config node.<p>Enter the <em>-v /etc/contrail/ssl:/etc/contrail/ssl:ro</em> command option when <span class="cli" v-pre="">cassandra_use_ssl</span> is used as api-server configuration parameter to ensure
+TLS certificates are mounted to the Contrail SSL directory. This mounting
+ensures that this backup procedure succeeds in environments with endpoints
+that require TLS authentication.</p><p>Use the <em>registry_name</em> and <em>container_tag</em> from the output of the step <a href="backup-using-json-50.html#DockerImageToFindTheNameIDOfCon-C55BD6F6">11</a>.</p><div class="sample" dir="ltr" id="jd0e573"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash &lt;registry_name&gt;/contrail-controller-config_api:&lt;container tag&gt;</pre></template></sw-code></div></div><p>Example</p><div class="sample" dir="ltr" id="jd0e578"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata</pre></template></sw-code></div></div></li><li id="jd0e581" style="">Restore the data in new running docker on the same config
+node.<div class="sample" dir="ltr" id="jd0e584"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>cd /usr/lib/python2.7/site-packages/cfgm_common
+python db_json_exim.py --import-from /tmp/db-dump.json --api-conf /tmp/contrail-api.conf</pre></template></sw-code></div></div></li><li id="jd0e587" style="">Exit out of the <em>config api</em> container.
+This will stop the container.<div class="sample" dir="ltr" id="jd0e593"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>exit</pre></template></sw-code></div></div></li><li id="jd0e596" style="">Start config services on all the controllers.<p><em>Ansible Deployer</em>:</p><div class="sample" dir="ltr" id="jd0e603"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start config_svcmonitor_1
+docker start config_devicemgr_1
+docker start config_schema_1
+docker start config_api_1
+docker start config_nodemgr_1
+docker start config_database_nodemgr_1
+docker start analytics_snmp_snmp-collector_1
+docker start analytics_snmp_topology_1
+docker start analytics_alarm_alarm-gen_1
+docker start analytics_api_1
+docker start analytics_collector_1
+docker start analytics_alarm_kafka_1</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer—Node hosting Contrail
+Config containers</em>:</p><div class="sample" dir="ltr" id="jd0e610"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start contrail_config_svc_monitor
+docker start contrail_config_device_manager
+docker start contrail_config_schema
+docker start contrail_config_api
+docker start contrail_config_nodemgr
+docker start contrail_config_database_nodemgr
+</pre></template></sw-code></div></div><p><em>Red Hat Openstack Deployer—Node hosting Contrail
+Analytics containers</em>:</p><div class="sample" dir="ltr" id="jd0e617"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>docker start contrail_analytics_snmp_collector
+docker start contrail_analytics_topology
+docker start contrail_analytics_alarmgen
+docker start contrail_analytics_api
+docker start contrail_analytics_collector
+docker start contrail_analytics_kafka</pre></template></sw-code></div></div></li><li id="jd0e620" style="">Enter the <span class="cli" v-pre="">contrail-status</span> command on each configuration
+node and, when applicable, on each analytics node to confirm that
+services are in the <var v-pre="">active</var> or <var v-pre="">running</var> states.<sw-admonition name="note" style=""><strong class="title">Note</strong><p>Output shown for a config node. Some command output and output
+fields are removed for readability.</p></sw-admonition><div class="sample" dir="ltr" id="jd0e635"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre><kbd class="user-typing" v-pre="">contrail-status</kbd>
+Pod     Service         Original Name                         State
+config  api             contrail-controller-config-api        <span data-fg-color="blue">running</span>
+config  device-manager  contrail-controller-config-devicemgr  <span data-fg-color="blue">running</span>
+config  dnsmasq         contrail-controller-config-dnsmasq    <span data-fg-color="blue">running</span>
+config  nodemgr         contrail-nodemgr                      <span data-fg-color="blue">running</span>
+config  provisioner     contrail-provisioner                  <span data-fg-color="blue">running</span>
+config  schema          contrail-controller-config-schema     <span data-fg-color="blue">running</span>
+config  stats           contrail-controller-config-stats      <span data-fg-color="blue">running</span>
+&lt;some output removed for readability&gt;
+
+== Contrail control ==
+control: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+named: <span data-fg-color="blue">active</span>
+dns: <span data-fg-color="blue">active</span>
+
+
+== Contrail database ==
+nodemgr: <span data-fg-color="blue">active</span>
+query-engine: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail config-database ==
+nodemgr: <span data-fg-color="blue">active</span>
+zookeeper: <span data-fg-color="blue">active</span>
+rabbitmq: <span data-fg-color="blue">active</span>
+cassandra: <span data-fg-color="blue">active</span>
+
+== Contrail webui ==
+web: <span data-fg-color="blue">active</span>
+job: <span data-fg-color="blue">active</span>
+
+== Contrail config ==
+svc-monitor: <span data-fg-color="blue">active</span>
+nodemgr: <span data-fg-color="blue">active</span>
+device-manager: <span data-fg-color="blue">active</span>
+api: <span data-fg-color="blue">active</span>
+schema: <span data-fg-color="blue">active</span></pre></template></sw-code></div></div></li></ol><h2 id="jd0e714">Example: How to Restore a Database Using the JSON Backup (Ansible
+Deployer Environment)</h2><p>This example shows how to restore the databases for three controllers
+connected to the Contrail Configuration database (config-db). This
+example assumes a JSON backup file of the databases was previously
+created using the instructions provided in <a href="backup-using-json-50.html#simple-db-backup-json">Simple Database Backup in JSON Format</a>.The network was deployed using
+Ansible and the three controllers—nodec53, nodec54, and nodec55—have
+separate IP addresses.</p><div class="sample" dir="ltr" id="jd0e721"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>## Make db-dump directory. Copy contrail-api.conf to db-dump directory. ##
+root@nodec54 ~]# mkdir /tmp/db-dump
+root@nodec54 ~]# docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/
+
+## Stop Configuration Services on All Controllers ##
+[root@nodec53 ~]# docker stop config_schema_1
+[root@nodec53 ~]# docker stop config_api_1
+[root@nodec53 ~]# docker stop config_svcmonitor_1 
+[root@nodec53 ~]# docker stop config_devicemgr_1
+[root@nodec53 ~]# docker stop config_nodemgr_1
+[root@nodec53 ~]# docker stop config_database_nodemgr_1
+[root@nodec53 ~]# docker stop analytics_snmp_snmp-collector_1
+[root@nodec53 ~]# docker stop analytics_snmp_topology_1
+[root@nodec53 ~]# docker stop analytics_alarm_alarm-gen_1
+[root@nodec53 ~]# docker stop analytics_api_1
+[root@nodec53 ~]# docker stop analytics_collector_1
+[root@nodec53 ~]# docker stop analytics_alarm_kafka_1
+
+[root@nodec54 ~]# # docker stop config_schema_1
+[root@nodec54 ~]# docker stop config_api_1
+[root@nodec54 ~]# docker stop config_svcmonitor_1 
+[root@nodec54 ~]# docker stop config_devicemgr_1
+[root@nodec54 ~]# docker stop config_nodemgr_1
+[root@nodec54 ~]# docker stop config_database_nodemgr_1
+[root@nodec54 ~]# docker stop analytics_snmp_snmp-collector_1
+[root@nodec54 ~]# docker stop analytics_snmp_topology_1
+[root@nodec54 ~]# docker stop analytics_alarm_alarm-gen_1
+[root@nodec54 ~]# docker stop analytics_api_1
+[root@nodec54 ~]# docker stop analytics_collector_1
+[root@nodec54 ~]# docker stop analytics_alarm_kafka_1
+
+[root@nodec55 ~]# docker stop config_schema_1
+[root@nodec55 ~]# docker stop config_api_1
+[root@nodec55 ~]# docker stop config_svcmonitor_1 
+[root@nodec55 ~]# docker stop config_devicemgr_1
+[root@nodec55 ~]# docker stop config_nodemgr_1 
+[root@nodec55 ~]# docker stop config_database_nodemgr_1
+[root@nodec55 ~]# docker stop analytics_snmp_snmp-collector_1
+[root@nodec55 ~]# docker stop analytics_snmp_topology_1
+[root@nodec55 ~]# docker stop analytics_alarm_alarm-gen_1
+[root@nodec55 ~]# docker stop analytics_api_1
+[root@nodec55 ~]# docker stop analytics_collector_1
+[root@nodec55 ~]# docker stop analytics_alarm_kafka_1
+
+## Stop Cassandra ##
+[root@nodec53 ~]# docker stop config_database_cassandra_1
+[root@nodec54 ~]# docker stop config_database_cassandra_1
+[root@nodec55 ~]# docker stop config_database_cassandra_1
+
+## Stop Zookeeper ##
+[root@nodec53 ~]# docker stop config_database_zookeeper_1
+[root@nodec54 ~]# docker stop config_database_zookeeper_1
+[root@nodec55 ~]# docker stop config_database_zookeeper_1
+
+## Backup Zookeeper Directories Before Deleting Zookeeper Data Directory Contents ##
+[root@nodec53 _data]# cd /var/lib/docker/volumes/config_database_config_zookeeper/
+[root@nodec53 config_database_config_zookeeper]# cp -R _data/version-2/ version-2-save
+[root@nodec53 config_database_config_zookeeper]# rm -rf _data/version-2/*
+
+[root@nodec54 _data]# cd /var/lib/docker/volumes/config_database_config_zookeeper/
+[root@nodec54 config_database_config_zookeeper]# cp -R _data/version-2/ version-2-save
+[root@nodec54 config_database_config_zookeeper]# rm -rf _data/version-2/*
+
+[root@nodec55 _data]# cd /var/lib/docker/volumes/config_database_config_zookeeper/
+[root@nodec55 config_database_config_zookeeper]# cp -R _data/version-2/ version-2-save
+[root@nodec55 config_database_config_zookeeper]# rm -rf _data/version-2/*
+
+## Backup Cassandra Directory Before Deleting Cassandra Data Directory Contents ##
+[root@nodec53 ~]# cd /var/lib/docker/volumes/config_database_config_cassandra/
+[root@nodec53 config_database_config_cassandra]# cp -R _data/ Cassandra_data-save
+[root@nodec53 config_database_config_cassandra]# rm -rf _data/*
+
+[root@nodec54 ~]# cd /var/lib/docker/volumes/config_database_config_cassandra/
+[root@nodec54 config_database_config_cassandra]# cp -R _data/ Cassandra_data-save
+[root@nodec54 config_database_config_cassandra]# rm -rf _data/*
+
+[root@nodec55 ~]# cd /var/lib/docker/volumes/config_database_config_cassandra/
+[root@nodec55 config_database_config_cassandra]# cp -R _data/ Cassandra_data-save
+[root@nodec55 config_database_config_cassandra]# rm -rf _data/*
+
+## Start Zookeeper ##
+[root@nodec53 ~]# docker start config_database_zookeeper_1
+[root@nodec54 ~]# docker start config_database_zookeeper_1
+[root@nodec55 ~]# docker start config_database_zookeeper_1
+
+## Start Cassandra ##
+[root@nodec53 ~]# docker start config_database_cassandra_1
+[root@nodec54 ~]# docker start config_database_cassandra_1
+[root@nodec55 ~]# docker start config_database_cassandra_1
+
+## Run Docker Image &amp; Mount Contrail TLS Certificates to Contrail SSL Directory ##
+[root@nodec54 ~]# docker image ls | grep config-api
+hub.juniper.net/contrail/contrail-controller-config-api  1909.30-ocata c9d757252a0c  4 months ago  583MB
+[root@nodec54 ~]# docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
+
+## Restore Data in New Docker Containers ##
+(config_api_1)[root@nodec54 /root]$ cd /usr/lib/python2.7/site-packages/cfgm_common/
+(config_api_1)[root@nodec54 /usr/lib/python2.7/site-packages/cfgm_common]$ python db_json_exim.py --import-from /tmp/db-dump.json --api-conf /tmp/contrail-api.conf
+
+## Start Configuration Services ##
+[root@nodec53 ~]# docker start config_schema_1
+[root@nodec53 ~]# docker start config_svcmonitor_1 
+[root@nodec53 ~]# docker start config_devicemgr_1
+[root@nodec53 ~]# docker start config_nodemgr_1
+[root@nodec53 ~]# docker start config_database_nodemgr_1
+[root@nodec53 ~]# docker start config_api_1
+[root@nodec53 ~]# docker start analytics_snmp_snmp-collector_1
+[root@nodec53 ~]# docker start analytics_snmp_topology_1
+[root@nodec53 ~]# docker start analytics_alarm_alarm-gen_1
+[root@nodec53 ~]# docker start analytics_api_1
+[root@nodec53 ~]# docker start analytics_collector_1
+[root@nodec53 ~]# docker start analytics_alarm_kafka_1
+
+[root@nodec54 ~]# docker start config_schema_1
+[root@nodec54 ~]# docker start config_svcmonitor_1 
+[root@nodec54 ~]# docker start config_devicemgr_1
+[root@nodec54 ~]# docker start config_nodemgr_1
+[root@nodec54 ~]# docker start config_database_nodemgr_1
+[root@nodec54 ~]# docker start config_api_1
+[root@nodec54 ~]# docker start analytics_snmp_snmp-collector_1
+[root@nodec54 ~]# docker start analytics_snmp_topology_1
+[root@nodec54 ~]# docker start analytics_alarm_alarm-gen_1
+[root@nodec54 ~]# docker start analytics_api_1
+[root@nodec54 ~]# docker start analytics_collector_1
+[root@nodec54 ~]# docker start analytics_alarm_kafka_1
+
+[root@nodec55 ~]# docker start config_schema_1
+[root@nodec55 ~]# docker start config_svcmonitor_1 
+[root@nodec55 ~]# docker start config_devicemgr_1
+[root@nodec55 ~]# docker start config_nodemgr_1
+[root@nodec55 ~]# docker start config_database_nodemgr_1
+[root@nodec55 ~]# docker start config_api_1
+[root@nodec55 ~]# docker start analytics_snmp_snmp-collector_1
+[root@nodec55 ~]# docker start analytics_snmp_topology_1
+[root@nodec55 ~]# docker start analytics_alarm_alarm-gen_1
+[root@nodec55 ~]# docker start analytics_api_1
+[root@nodec55 ~]# docker start analytics_collector_1
+[root@nodec55 ~]# docker start analytics_alarm_kafka_1
+
+## Confirm Services are Active ##
+[root@nodec53 ~]# contrail-status
+[root@nodec54 ~]# contrail-status
+[root@nodec55 ~]# contrail-status</pre></template></sw-code></div></div><h2 id="jd0e724">Example: How to Restore a Database Using the JSON Backup (Red
+Hat Openstack Deployer Environment)</h2><p>This example shows how to restore the databases from an environment
+that was deployed using Red Hat Openstack and includes three config
+nodes—<var v-pre="">config1</var>, <var v-pre="">config2</var>, and <var v-pre="">config3</var>—connected to the Contrail
+Configuration database (config-db). All steps that need to be done
+from a single config node are performed from <var v-pre="">config1</var>.</p><p>The environment also contains three analytics nodes—<var v-pre="">analytics1</var>, <var v-pre="">analytics2</var>, and <var v-pre="">analytics3</var>—to provide analytics services.</p><p>This example assumes a JSON backup file of the databases was
+previously created using the instructions provided in <a href="backup-using-json-50.html#simple-db-backup-json">Simple Database Backup in JSON Format</a>.</p><div class="sample" dir="ltr" id="jd0e756"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>## Make db-dump directory. Copy contrail-api.conf to db-dump directory. ##
+[root@config1 ~]# mkdir /tmp/db-dump
+[root@config1 ~]# docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/
+
+## Stop Configuration Services on All Config Nodes ##
+[root@config1 ~]# docker stop contrail_config_svc_monitor
+[root@config1 ~]# docker stop contrail_config_device_manager
+[root@config1 ~]# docker stop contrail_config_schema
+[root@config1 ~]# docker stop contrail_config_api
+[root@config1 ~]# docker stop contrail_config_nodemgr
+[root@config1 ~]# docker stop contrail_config_database_nodemgr
+
+[root@config2 ~]# docker stop contrail_config_svc_monitor
+[root@config2 ~]# docker stop contrail_config_device_manager
+[root@config2 ~]# docker stop contrail_config_schema
+[root@config2 ~]# docker stop contrail_config_api
+[root@config2 ~]# docker stop contrail_config_nodemgr
+[root@config2 ~]# docker stop contrail_config_database_nodemgr
+
+[root@config3 ~]# docker stop contrail_config_svc_monitor
+[root@config3 ~]# docker stop contrail_config_device_manager
+[root@config3 ~]# docker stop contrail_config_schema
+[root@config3 ~]# docker stop contrail_config_api
+[root@config3 ~]# docker stop contrail_config_nodemgr
+[root@config3 ~]# docker stop contrail_config_database_nodemgr
+
+## Stop Analytics Services on All Analytics Nodes ##
+[root@analytics1 ~]# docker stop contrail_analytics_snmp_collector
+[root@analytics1 ~]# docker stop contrail_analytics_topology
+[root@analytics1 ~]# docker stop contrail_analytics_alarmgen
+[root@analytics1 ~]# docker stop contrail_analytics_api
+[root@analytics1 ~]# docker stop contrail_analytics_collector
+[root@analytics1 ~]# docker stop contrail_analytics_kafka
+
+[root@analytics2 ~]# docker stop contrail_analytics_snmp_collector
+[root@analytics2 ~]# docker stop contrail_analytics_topology
+[root@analytics2 ~]# docker stop contrail_analytics_alarmgen
+[root@analytics2 ~]# docker stop contrail_analytics_api
+[root@analytics2 ~]# docker stop contrail_analytics_collector
+[root@analytics2 ~]# docker stop contrail_analytics_kafka
+
+[root@analytics3 ~]# docker stop contrail_analytics_snmp_collector
+[root@analytics3 ~]# docker stop contrail_analytics_topology
+[root@analytics3 ~]# docker stop contrail_analytics_alarmgen
+[root@analytics3 ~]# docker stop contrail_analytics_api
+[root@analytics3 ~]# docker stop contrail_analytics_collector
+[root@analytics3 ~]# docker stop contrail_analytics_kafka
+
+## Stop Cassandra ##
+[root@config1 ~]# docker stop contrail_config_database
+[root@config2 ~]# docker stop contrail_config_database
+[root@config3 ~]# docker stop contrail_config_database
+
+## Stop Zookeeper ##
+[root@config1 ~]# docker stop contrail_config_zookeeper
+[root@config2 ~]# docker stop contrail_config_zookeeper
+[root@config3 ~]# docker stop contrail_config_zookeeper
+
+## Backup Zookeeper Directories Before Deleting Zookeeper Data Directory Contents ##
+[root@config1 _data]# cd /var/lib/docker/volumes/config_zookeeper/
+[root@config1 config_zookeeper]# cp -R _data/version-2/ version-2-save
+[root@config1 config_zookeeper]# rm -rf _data/version-2/*
+[root@config2 _data]# cd /var/lib/docker/volumes/config_zookeeper/
+[root@config2 config_zookeeper]# cp -R _data/version-2/ version-2-save
+[root@config2 config_zookeeper]# rm -rf _data/version-2/*
+[root@config3 _data]# cd /var/lib/docker/volumes/config_zookeeper/
+[root@config3 config_zookeeper]# cp -R _data/version-2/ version-2-save
+[root@config3 config_zookeeper]# rm -rf _data/version-2/*
+
+## Backup Cassandra Directory Before Deleting Cassandra Data Directory Contents ##
+[root@config1 ~]# cd /var/lib/docker/volumes/config_cassandra/
+[root@config1 config_cassandra]# cp -R _data/ Cassandra_data-save
+[root@config1 config_cassandra]# rm -rf _data/*
+
+[root@config2 ~]# cd /var/lib/docker/volumes/config_cassandra/
+[root@config2 config_cassandra]# cp -R _data/ Cassandra_data-save
+[root@config2 config_cassandra]# rm -rf _data/*
+
+[root@config3 ~]# cd /var/lib/docker/volumes/config_cassandra/
+[root@config3 config_cassandra]# cp -R _data/ Cassandra_data-save
+[root@config3 config_cassandra]# rm -rf _data/*
+
+## Start Zookeeper ##
+[root@config1 ~]# docker start contrail_config_zookeeper
+[root@config2 ~]# docker start contrail_config_zookeeper
+[root@config3 ~]# docker start contrail_config_zookeeper
+
+## Start Cassandra ##
+[root@config1 ~]# docker start contrail_config_database
+[root@config2 ~]# docker start contrail_config_database
+[root@config3 ~]# docker start contrail_config_database
+
+## Run Docker Image &amp; Mount Contrail TLS Certificates to Contrail SSL Directory ##
+[root@config1 ~]# docker image ls | grep config-api
+hub.juniper.net/contrail/contrail-controller-config-api  1909.30-ocata c9d757252a0c  4 months ago  583MB
+[root@config1 ~]# docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
+
+## Restore Data in New Docker Containers ##
+(config_api_1)[root@config1 /root]$ cd /usr/lib/python2.7/site-packages/cfgm_common/
+(config_api_1)[root@config1 /usr/lib/python2.7/site-packages/cfgm_common]$ python db_json_exim.py --import-from /tmp/db-dump.json --api-conf /tmp/contrail-api.conf
+
+## Start Configuration Services on All Config Nodes ##
+[root@config1 ~]# docker start contrail_config_svc_monitor
+[root@config1 ~]# docker start contrail_config_device_manager
+[root@config1 ~]# docker start contrail_config_schema
+[root@config1 ~]# docker start contrail_config_api
+[root@config1 ~]# docker start contrail_config_nodemgr
+[root@config1 ~]# docker start contrail_config_database_nodemgr
+
+[root@config2 ~]# docker start contrail_config_svc_monitor
+[root@config2 ~]# docker start contrail_config_device_manager
+[root@config2 ~]# docker start contrail_config_schema
+[root@config2 ~]# docker start contrail_config_api
+[root@config2 ~]# docker start contrail_config_nodemgr
+[root@config2 ~]# docker start contrail_config_database_nodemgr
+
+[root@config3 ~]# docker start contrail_config_svc_monitor
+[root@config3 ~]# docker start contrail_config_device_manager
+[root@config3 ~]# docker start contrail_config_schema
+[root@config3 ~]# docker start contrail_config_api
+[root@config3 ~]# docker start contrail_config_nodemgr
+[root@config3 ~]# docker start contrail_config_database_nodemgr
+
+## Start Configuration Services on All Analytics Nodes ##
+[root@analytics1 ~]# docker start contrail_analytics_snmp_collector
+[root@analytics1 ~]# docker start contrail_analytics_topology
+[root@analytics1 ~]# docker start contrail_analytics_alarmgen
+[root@analytics1 ~]# docker start contrail_analytics_api
+[root@analytics1 ~]# docker start contrail_analytics_collector
+[root@analytics1 ~]# docker start contrail_analytics_kafka
+
+[root@analytics2 ~]# docker start contrail_analytics_snmp_collector
+[root@analytics2 ~]# docker start contrail_analytics_topology
+[root@analytics2 ~]# docker start contrail_analytics_alarmgen
+[root@analytics2 ~]# docker start contrail_analytics_api
+[root@analytics2 ~]# docker start contrail_analytics_collector
+[root@analytics2 ~]# docker start contrail_analytics_kafka
+
+[root@analytics3 ~]# docker start contrail_analytics_snmp_collector
+[root@analytics3 ~]# docker start contrail_analytics_topology
+[root@analytics3 ~]# docker start contrail_analytics_alarmgen
+[root@analytics3 ~]# docker start contrail_analytics_api
+[root@analytics3 ~]# docker start contrail_analytics_collector
+[root@analytics3 ~]# docker start contrail_analytics_kafka
+
+
+## Confirm Services are Active ##
+[root@config1 ~]# contrail-status
+[root@config2 ~]# contrail-status
+[root@config3 ~]# contrail-status
+
+[root@analytics1 ~]# contrail-status
+[root@analytics2 ~]# contrail-status
+[root@analytics3 ~]# contrail-status</pre></template></sw-code></div></div><sw-prev-next> </sw-prev-next></p>

@@ -1,0 +1,101 @@
+<p id="topic-content"><h1 id="jd0e2">Contrail Alert Streaming</h1><sw-topic-details date="2020-09-11"> </sw-topic-details><p>Contrail alerts are provided on a per-user visible entity
+(UVE) basis. Contrail analytics raise or clear alerts using Python-coded
+rules that examine the contents of the UVE and the configuration of
+the object. Some rules are built in. Others can be added using Python <em>stevedore</em> plugins.</p><p>This topic describes Contrail alerts capabilities.</p><h2 id="jd0e24">Alert API Format</h2><p>The Contrail alert analytics API provides the following:</p><ul><li style=""><p>Read access to the alerts as part of the UVE GET APIs.</p></li><li style=""><p>Alert acknowledgement using POST requests.</p></li><li style=""><p>UVE and alert streaming using server-sent events (SSEs).</p></li></ul><p>For example:</p><p><span class="cli" v-pre="">GET http://<var v-pre="">&lt;analytics-ip&gt;</var>:8081/analytics/alarms</span></p><div class="example" dir="ltr" id="jd0e48"><sw-code><template v-pre=""><pre>{
+    analytics-node: [
+        {
+            name: "nodec40",
+            value: {
+                UVEAlarms: {
+                    alarms: [
+                        {
+                            any_of: [
+                                {
+                                    all_of: [
+                                        {
+                                            json_operand1_value: ""PROCESS_STATE_STOPPED"",
+                                            rule: {
+                                                oper: "!=",
+                                                operand1: {
+                                                    keys: [
+                                                        "NodeStatus",
+                                                        "process_info",
+                                                        "process_state"
+                                                    ]
+                                                },
+                                                operand2: {
+                                                    json_value: ""PROCESS_STATE_RUNNING""
+                                                }
+                                            },
+                                            json_vars: {
+                                                NodeStatus.process_info.process_name: "contrail-topology"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            severity: 3,
+                            ack: false,
+                            timestamp: 1457395052889182,
+                            token: "eyJ0aW1lc3RhbXAiOiAxNDU3Mzk1MDUyODg5MTgyLCAiaHR0cF9wb3J0I
+................................... jogNTk5NSwgImhvc3RfaXAiOiAiMTAuMjA0LjIxNy4yNCJ9",
+                            type: "ProcessStatus"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}</pre></template></sw-code></div><p>In the example:</p><ul><li style=""><p>An <code class="inline" v-pre="">any_of</code> attribute contains
+alarm rules defined in the format <code class="inline" v-pre="">[ [rule1 AND rule2
+AND ... AND ruleN] ... OR [rule11 AND rule22 AND ... AND ruleNN] ]</code></p></li><li style=""><p>Alerts are raised on a per-UVE basis and can be retrieved
+by a GET on a UVE.</p></li><li style=""><p>An <code class="inline" v-pre="">ack</code> indicates if the alert
+has been acknowledged or not.</p></li><li style=""><p>A <code class="inline" v-pre="">token</code> is used by clients
+when requesting acknowledgements.</p></li></ul><h2 id="jd0e78">Analytics APIs for Alerts</h2><p>The following examples show the API to use to display alerts
+and alarms and to acknowledge alarms.</p><ul><li style=""><p>To retrieve a list of alerts raised against the control
+node named <code class="inline" v-pre="">aXXsYY</code>.</p><div class="example" dir="ltr" id="jd0e91"><sw-code><template v-pre=""><pre>GET http://<var v-pre="">&lt;analytics-ip&gt;</var>:<var v-pre="">&lt;rest-api-port&gt;</var>/analytics/uves/control-node/aXXsYY&amp;cfilt=UVEAlarms</pre></template></sw-code></div><p>This is available for all UVE table types.</p></li><li style=""><p>To retrieve a list of all alarms in the system.</p><div class="example" dir="ltr" id="jd0e105"><sw-code><template v-pre=""><pre>GET http://<var v-pre="">&lt;analytics-ip&gt;:&lt;rest-api-port&gt;</var>/analytics/alarms</pre></template></sw-code></div></li><li style=""><p>To acknowledge an alarm.</p><div class="example" dir="ltr" id="jd0e114"><sw-code><template v-pre=""><pre>POST http:/<var v-pre="">/&lt;analytics-ip&gt;:&lt;rest-api-port&gt;</var>/analytics/alarms/acknowledge
+Body: {“table”: <var v-pre="">&lt;object-type&gt;</var>,“name”: <var v-pre="">&lt;key&gt;</var>, “type”: <var v-pre="">&lt;alarm type&gt;</var>, “token”: <var v-pre="">&lt;token&gt;</var>}
+</pre></template></sw-code></div><p>Acknowledged and unacknowledged alarms can be queried specifically
+using the following URL query parameters along with the GET operations
+listed previously.</p><div class="example" dir="ltr" id="jd0e134"><sw-code><template v-pre=""><pre>ackFilt=True
+ackFilt=False
+</pre></template></sw-code></div></li></ul><h2 id="jd0e137">Analytics APIs for SSE Streaming</h2><p>The following examples show the API to use to retrieve all or
+portions of SE streams. </p><ul><li style=""><p>To retrieve an SSE-based stream of UVE updates for the
+control node alarms.</p><div class="example" dir="ltr" id="jd0e146"><sw-code><template v-pre=""><pre>GET http://<var v-pre="">&lt;analytics-ip&gt;:&lt;rest-api-port&gt;</var>/analytics/uve-stream?tablefilt=control-node</pre></template></sw-code></div><p>This is available for all UVE table types. If the <code class="inline" v-pre="">tablefilt</code> URL query parameter is not provided, all
+UVEs are retrieved. </p></li><li style=""><p>To retrieve only the alerts portion of the SSE-based stream
+of UVE updates instead of the entire content.</p><div class="example" dir="ltr" id="jd0e160"><sw-code><template v-pre=""><pre>GET http://<var v-pre="">&lt;analytics-ip&gt;:&lt;rest-api-port&gt;</var>/analytics/alarm-stream?tablefilt=control-node</pre></template></sw-code></div><p>This is available for all UVE table types. If the <code class="inline" v-pre="">tablefilt</code> URL query parameter is not provided, all
+UVEs are retrieved. </p></li></ul><h2 id="jd0e172">Built-in Node Alerts</h2><p>The following built-in node alerts can be retrieved using the
+APIs listed in <em>Analytics APIs for Alerts</em>.</p><div class="example" dir="ltr" id="jd0e180"><sw-code><template v-pre=""><pre>control‐node: {
+PartialSysinfoControl: "Basic System Information is absent for this node in BgpRouterState.build_info",
+ProcessStatus: "NodeMgr reports abnormal status for process(es) in NodeStatus.process_info",
+XmppConnectivity: "Not enough XMPP peers are up in BgpRouterState.num_up_bgp_peer",
+BgpConnectivity: "Not enough BGP peers are up in BgpRouterState.num_up_bgp_peer",
+AddressMismatch: “Mismatch between configured IP Address and operational IP Address",
+ProcessConnectivity: "Process(es) are reporting non‐functional components in NodeStatus.process_status"
+},
+
+vrouter: {
+PartialSysinfoCompute: "Basic System Information is absent for this node in VrouterAgent.build_info",
+ProcessStatus: "NodeMgr reports abnormal status for process(es) in NodeStatus.process_info",
+ProcessConnectivity: "Process(es) are reporting non‐functional components in NodeStatus.process_status",
+VrouterInterface: "VrouterAgent has interfaces in error state in VrouterAgent.error_intf_list”,
+VrouterConfigAbsent: “Vrouter is not present in Configuration”,
+},
+
+config‐node: {
+PartialSysinfoConfig: "Basic System Information is absent for this node in ModuleCpuState.build_info",
+ProcessStatus: "NodeMgr reports abnormal status for process(es) in NodeStatus.process_info",
+ProcessConnectivity: "Process(es) are reporting non‐functional components in NodeStatus.process_status"
+},
+
+analytics‐node: {
+ProcessStatus: "NodeMgr reports abnormal status for process(es) in NodeStatus.process_info"
+PartialSysinfoAnalytics: "Basic System Information is absent for this node in CollectorState.build_info",
+ProcessConnectivity: "Process(es) are reporting non‐functional components in NodeStatus.process_status"
+},
+
+database‐node: {
+ProcessStatus: "NodeMgr reports abnormal status for process(es) in NodeStatus.process_info",
+ProcessConnectivity: "Process(es) are reporting non‐functional components in NodeStatus.process_status"
+},
+</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

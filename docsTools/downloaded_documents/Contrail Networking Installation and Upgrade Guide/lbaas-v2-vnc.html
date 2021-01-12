@@ -1,0 +1,63 @@
+<p id="topic-content"><h1 id="jd0e2">Support for OpenStack LBaaS</h1><sw-topic-details date="2020-05-26"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Starting with Release 3.1, Contrail provides
+support for the OpenStack Load Balancer as a Service (LBaaS) Version
+2.0 APIs in the Liberty release of OpenStack. </p></div></div><h2 id="jd0e14">OpenStack Neutron LBaaS Version 2.0</h2><ul><li style=""><p><a href="lbaas-v2-vnc.html#jd0e19">Platform Support</a></p></li><li style=""><p><a href="lbaas-v2-vnc.html#jd0e63">Using OpenStack LBaaS Version 2.0</a></p></li><li style=""><p><a href="lbaas-v2-vnc.html#jd0e108">Support for Multiple Certificates per Listener</a></p></li><li style=""><p><a href="lbaas-v2-vnc.html#jd0e123">Neutron Load-Balancer Creation </a></p></li></ul><h3 id="jd0e19">Platform Support</h3><p><a href="lbaas-v2-vnc.html#lbaast1">Table 1</a> shows which Contrail with OpenStack
+release combinations support which version of OpenStack LBaaS APIs.</p><sw-table><p class="SubTitle" id="lbaast1">Table 1: Contrail OpenStack Platform Support for
+LBaaS Versions</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Contrail OpenStack Platform</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>LBaaS Support</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Contrail-3.1-Liberty (and subsequent OS releases)</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Only LBaaS v2 is supported.</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Contrail-3.0-Liberty (and subsequent OS releases)</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>LBaaS v1 is default. LBaaS v2 is Beta. </p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p><var v-pre="">&lt;Contrail-any-release&gt;</var>-Kilo (and previous
+OS releases)</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Only LBaaS v1 is supported.</p></td></tr></tbody></table></sw-table><h3 id="jd0e63">Using OpenStack LBaaS Version 2.0</h3><p>The OpenStack LBaaS Version 2.0 extension enables tenants to
+manage load balancers for VMs, for example, load-balancing client
+traffic from a network to application services, such as VMs, on the
+same network. The LBaaS Version 2.0 extension is used to create and
+manage load balancers, listeners, pools, members of a pool, and health
+monitors, and to view the status of a resource. </p><p>For LBaaS v2.0, the Contrail controller aggregates the configuration
+by provider. For example, if <code class="inline" v-pre="">haproxy</code> is
+the provider, the controller generates the configuration for <code class="inline" v-pre="">haproxy</code> and eliminates the need to send all of the
+load-balancer resources to the <code class="inline" v-pre="">vrouter-agent</code>; only the generated configuration is sent, as part of the service
+instance. </p><p>For more information about OpenStack v2.0 APIs, refer to the
+section <cite>LBaaS 2.0 (STABLE) (lbaas, loadbalancers, listeners,
+health_monitors, pools, members)</cite>, at <a href="http://developer.openstack.org/api-ref-networking-v2-ext.html">http://developer.openstack.org/api-ref-networking-v2-ext.html</a>. </p><p>LBaaS v2.0 also allows users to listen to multiple ports for
+the same virtual IP, by decoupling the virtual IP address from the
+port. </p><p>The object model has the following resources:</p><ul><li style=""><p>Load balancer—Holds the virtual IP address</p></li><li style=""><p>Listeners—One or many listeners with different ports,
+protocols, and so on</p></li><li style=""><p>Pools</p></li><li style=""><p>Members</p></li><li style=""><p>Health monitors</p></li></ul><h3 id="jd0e108">Support for Multiple Certificates per Listener</h3><p>Multiple certificates per listener are supported, with OpenStack
+Barbican as the storage for certificates. OpenStack Barbican is a
+REST API designed for the secure storage, provisioning, and management
+of secrets such as passwords, encryption keys, and X.509 certificates.</p><p>The following is an example CLI to store certificates in Barbican:</p><p><code class="inline" v-pre=""> - barbican --os-identity-api-version 2.0 secret
+store --payload-content-type='text/plain' --name='certificate' --payload="$(cat
+server.crt)"  </code></p><p>For more information about OpenStack Barbican, see: <a href="https://wiki.openstack.org/wiki/Barbican">https://wiki.openstack.org/wiki/Barbican</a>.</p><h3 id="jd0e123">Neutron Load-Balancer Creation </h3><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The <em>Neutron</em> LBaaS plugin is not supported
+in OpenStack Train release. From OpenStack Train release, <em>neutron-lbaas</em> is replaced by <em>Octavia</em>.</p></sw-admonition><p>The following is an example of Neutron load-balancer creation: </p><div class="example" dir="ltr" id="jd0e140"><sw-code><template v-pre=""><pre>- neutron net-create private-net
+
+- neutron subnet-create --name private-subnet private-net 10.30.30.0/24
+
+- neutron lbaas-loadbalancer-create $(neutron subnet-list | awk '/ private-subnet / {print $2}') --name lb1
+
+- neutron lbaas-listener-create --loadbalancer lb1 --protocol-port 443 --protocol TERMINATED_HTTPS --name listener1 --default-tls-container=$(barbican --os-identity-api-version 2.0 container list | awk '/ tls_container / {print $2}')
+
+- neutron lbaas-pool-create --name pool1 --protocol HTTP --listener listener1 --lb-algorithm ROUND_ROBIN
+
+- neutron lbaas-member-create --subnet private-subnet --address 30.30.30.10 --protocol-port 80 mypool
+
+- neutron lbaas-member-create --subnet private-subnet --address 30.30.30.11 --protocol-port 80 mypool
+</pre></template></sw-code></div><h2 id="jd0e143">OpenStack Octavia LBaaS</h2><ul><li style=""><p><a href="lbaas-v2-vnc.html#jd0e148">Using Octavia Load-Balancer</a></p></li><li style=""><p><a href="lbaas-v2-vnc.html#jd0e183">Octavia Load-Balancer Creation</a></p></li></ul><h3 id="jd0e148">Using Octavia Load-Balancer</h3><p><span id="jd0e152">Contrail Networking Release
+2005 supports Octavia as LBaaS.</span> The deployment
+supports RHOSP and Juju platforms.</p><p>With Octavia as LBaaS, Contrail Networking is only maintaining
+network connectivity and is not involved in any load balancing functions.</p><p>For each OpenStack load balancer creation, Octavia launches
+a VM known as <em>amphora VM</em>. The VM starts the HAPROXY
+when listener is created for the load balancer in OpenStack. Whenever
+the load balancer gets updated in OpenStack, <em>amphora VM</em> updates the running HAPROXY configuration. The <em>amphora
+VM</em> is deleted on deleting the load balancer.</p><p>Contrail Networking provides connectivity to <em>amphora
+VM</em> interfaces. <em>Amphora VM</em> has two
+interfaces; one for management and the other for data. The management
+interface is used by the Octavia services for the management communication.
+Since, Octavia services are running in the underlay network and <em>amphora VM</em> is running in the overlay network, SDN gateway is needed to reach
+the overlay network. The data interface is used for load balancing
+the traffic.</p><p>If the load balancer
+service is exposed to public, you must create the load balancer VIP
+in the public subnet. The load balancer members can be in the public
+or private subnet.</p><p>You must create network policy between
+public network and private network if the load balancer members are
+in the private network.</p><h3 id="jd0e183">Octavia Load-Balancer Creation</h3><p>The following is an example of Octavia load-balancer creation: </p><div class="example" dir="ltr" id="jd0e188"><sw-code><template v-pre=""><pre>openstack loadbalancer listener create --protocol HTTP --protocol-port 80 --name listener1 lb1
+openstack loadbalancer show lb1 # Wait for the provisioning_status to be ACTIVE.
+openstack loadbalancer pool create --lb-algorithm ROUND_ROBIN --listener listener1 --protocol HTTP --name pool1
+openstack loadbalancer healthmonitor create --delay 5 --timeout 2 --max-retries 1 --type HTTP pool1
+openstack loadbalancer member create --subnet-id private --address 10.10.10.50 --protocol-port 80 pool1
+openstack loadbalancer member create --subnet-id private --address 10.10.10.51 --protocol-port 80 pool1</pre></template></sw-code></div><div class="table"><div class="caption">Release History Table</div><div class="table-row table-head"><div class="table-cell">Release</div><div class="table-cell">Description</div></div><div class="table-row"><div class="table-cell"><a href="#jd0e152">2005</a></div><div class="table-cell">Contrail Networking Release
+2005 supports Octavia as LBaaS.</div></div></div><sw-prev-next> </sw-prev-next></p>

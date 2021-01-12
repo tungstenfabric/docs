@@ -1,0 +1,41 @@
+<p id="topic-content"><h1 id="jd0e3">Support for Broadcast and Multicast</h1><sw-topic-details date="2019-01-30"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>This section describes how the Contrail Controller
+supports broadcast and multicast.</p></div></div><h2 id="jd0e16">Subnet Broadcast</h2><p>Multiple subnets can be
+attached to a virtual network when it is spawned. Each of the subnets
+has one subnet broadcast route installed in the unicast routing table
+assigned to that virtual network. The recipient list for the subnet
+broadcast route includes all of the virtual machines that belong to
+that subnet. Packets originating from any VM in that subnet are replicated
+to all members of the recipient list, except the originator. Because
+the next hop is the list of recipients, it is called a composite next
+hop. </p><p>If there is no virtual machine spawned under a subnet, the subnet
+routing entry discards the packets received. If all of the virtual
+machines in a subnet are turned off, the routing entry points to discard.
+If the IPAM is deleted, the subnet route corresponding to that IPAM
+is deleted. If the virtual network is turned off, all of the subnet
+routes associated with the virtual network are removed.</p><p><em>Subnet Broadcast Example</em></p><p>The following configuration is made:</p><ul><li class="unmarked-list" style=""><p>Virtual network name – <strong v-pre="">vn1</strong></p></li><li class="unmarked-list" style=""><p>Unicast routing instance – <code class="inline" v-pre="">vn1.uc.inet </code></p></li><li class="unmarked-list" style=""><p>Subnets (IPAM) allocated – <code class="inline" v-pre="">1.1.1.0/24;
+2.2.0.0/16; 3.3.0.0/16 </code></p></li><li class="unmarked-list" style=""><p>Virtual machines spawned – <code class="inline" v-pre="">vm1 (1.1.1.253);
+vm2 (1.1.1.252); vm3 (1.1.1.251); vm4 (3.3.1.253)</code></p></li></ul><p>The following subnet route additions are made to the routing
+instance <code class="inline" v-pre="">vn1.uc.inet.0</code>:</p><ul><li class="unmarked-list" style=""><p><code class="inline" v-pre="">1.1.1.255</code> -&gt; forward to NH1
+(composite next hop)</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">2.2.255.255</code> -&gt; DROP</p></li><li class="unmarked-list" style=""><p><code class="inline" v-pre="">3.3.255.255</code> -&gt; forward to NH2</p></li><li class="unmarked-list" style=""><p>The following entries are made to the next-hop table:</p></li><li class="unmarked-list" style=""><p>NH1 – <code class="inline" v-pre="">1.1.1.253; 1.1.1.252; 1.1.1.251 </code></p></li><li class="unmarked-list" style=""><p>NH2 – <code class="inline" v-pre="">3.3.1.253</code></p></li></ul><p>If traffic originates for <code class="inline" v-pre="">1.1.1.255</code> from <code class="inline" v-pre="">vm1 (1.1.1.253)</code>, it will be forwarded
+to <code class="inline" v-pre="">vm2 (1.1.1.252)</code> and <code class="inline" v-pre="">vm3
+(1.1.1.251)</code>. The originator <code class="inline" v-pre="">vm1 (1.1.1.253)</code> will not receive the traffic even though it is listed as a recipient
+in the next hop. </p><h2 id="jd0e105">All-Broadcast/Limited-Broadcast and Link-Local Multicast</h2><p>The address group <code class="inline" v-pre="">255.255.255.255</code> is used with all-broadcast (limited-broadcast) and multicast traffic.
+The route is installed in the multicast routing instance. The source
+address is recorded as ANY, so the route is <code class="inline" v-pre="">ANY/255.255.255.255
+(*,G)</code>. It is unique per routing instance, and is associated
+with its corresponding virtual network. When a virtual network is
+spawned, it usually contains multiple subnets, in which virtual machines
+are added. All of the virtual machines, regardless of their subnets,
+are part of the recipient list for <code class="inline" v-pre="">ANY/255.255.255.255</code>. The replication is sent to every recipient except the originator. </p><p>Link-local multicast also uses the all-broadcast method for
+replication. The route is deleted when all virtual machines in this
+virtual network are turned off or the virtual network itself is deleted.</p><p><em>All-Broadcast Example</em></p><p>The following configuration is made:</p><ul><li class="unmarked-list" style=""><p>Virtual network name – <code class="inline" v-pre="">vn1</code></p></li><li class="unmarked-list" style=""><p>Unicast routing instance – <code class="inline" v-pre="">vn1.uc.inet</code></p></li><li class="unmarked-list" style=""><p>Subnets (IPAM) allocated – <code class="inline" v-pre="">1.1.1.0/24;
+2.2.0.0/16; 3.3.0.0/16</code></p></li><li class="unmarked-list" style=""><p>Virtual machines spawned – <code class="inline" v-pre="">vm1 (1.1.1.253);
+vm2 (1.1.1.252); vm3 (1.1.1.251); vm4 (3.3.1.253)</code></p></li></ul><p>The following subnet route addition is made to the routing instance <code class="inline" v-pre="">vn1.uc.inet.0</code>:</p><ul><li class="unmarked-list" style=""><p><code class="inline" v-pre="">255.255.255.255/*</code> -&gt; NH1</p></li></ul><p>The following entries are made to the next-hop table:</p><ul><li class="unmarked-list" style=""><p>NH1 – <code class="inline" v-pre="">1.1.1.253; 1.1.1.252; 1.1.1.251;
+3.3.1.253 </code></p></li></ul><p>If traffic originates for <code class="inline" v-pre="">1.1.1.255</code> from <code class="inline" v-pre="">vm1 (1.1.1.253)</code>, the traffic is
+forwarded to <code class="inline" v-pre="">vm2 (1.1.1.252), vm3 (1.1.1.251)</code>, and <code class="inline" v-pre="">vm4 (3.3.1.253)</code>. The originator <code class="inline" v-pre="">vm1 (1.1.1.253)</code> will not receive the traffic even though
+it is listed as a recipient in the next hop. </p><h2 id="jd0e187">Host Broadcast</h2><p>The host broadcast route is present in the host routing instance
+so that the host operating system can send a subnet broadcast/all-broadcast
+(limited-broadcast). This type of broadcast is sent to the fabric
+by means of a <strong v-pre="">vhost</strong> interface. Additionally, any subnet
+broadcast/all-broadcast received from the fabric will be handed over
+to the host operating system.</p><sw-prev-next> </sw-prev-next></p>

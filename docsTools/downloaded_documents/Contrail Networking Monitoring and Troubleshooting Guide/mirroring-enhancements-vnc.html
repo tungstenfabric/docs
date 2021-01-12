@@ -1,0 +1,21 @@
+<p id="topic-content"><h1 id="jd0e2">Mirroring Enhancements</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><h2 id="jd0e9">Mirroring Specified Traffic</h2><p>Specific traffic can be mirrored to a traffic analyzer in Contrail
+by:</p><ul><li style=""><p>Configuring rules to identify the flows to be mirrored,
+and</p></li><li style=""><p>Specifying the analyzer to which the traffic is mirrored </p></li></ul><p>Additionally, mirroring can be configured on virtual machine
+(VM) interfaces to send all the traffic to and from the interface
+to the specified analyzer.  </p><h2 id="jd0e23">Configuring Headers and Next Hops</h2><p>When a packet is mirrored, a Juniper header is added to provide
+additional information in the analyzer, then the packet is encapsulated
+and sent to the destination.  </p><p>Starting with Contrail 3.x releases, mirroring is enhanced with
+the following options:</p><ul><li style=""><p>Option to control addition of the Juniper header in the
+mirrored packet. </p><ul><li style=""><p>When disabled, the Juniper header is not added to the
+mirrored packet. </p></li></ul></li><li style=""><p>Option to control whether the next hop used is dynamic
+or static.  </p><ul><li style=""><p>If dynamic is selected, the next hop based on the destination
+is used. Packets are forwarded to the destination based on the encapsulation
+priority. </p></li><li style=""><p>If static is chosen, the next hop is created for the specified
+destination with VxLAN encapsulation using the configured VNI, destination
+VTEP, and MAC to transmit the mirrored packets. </p><p>The following combinations are supported:</p><ul><li style=""><p>Dynamic next hop with Juniper header added </p><p>The default combination and the only supported case up to Release
+3.0.2</p></li><li style=""><p>Dynamic next hop, without Juniper header </p></li><li style=""><p>Static next hop, without Juniper header, with the original
+Layer 2 packet </p></li></ul></li></ul></li></ul><h2 id="jd0e63">How Mirroring is Implemented </h2><p> </p><p>The Contrail vrouter agent adds a mirror entry in the vrouter
+and points to the next hop to be used. The data for the Juniper header
+is taken from the flow entry. For interface mirroring, the Juniper
+header has a TLV in the metadata to use the interface name instead
+of providing a destination VN.  </p><p>For more information about implementation details, see <a href="https://github.com/Juniper/contrail-controller/wiki/Mirroring">https://github.com/Juniper/contrail-controller/wiki/Mirroring</a>.</p><sw-prev-next> </sw-prev-next></p>

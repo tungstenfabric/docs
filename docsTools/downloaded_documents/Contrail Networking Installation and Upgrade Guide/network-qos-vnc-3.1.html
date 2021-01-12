@@ -1,0 +1,121 @@
+<p id="topic-content"><h1 id="jd0e3">Quality of Service in Contrail</h1><sw-topic-details date="2020-04-03"> </sw-topic-details><h2 id="jd0e11">Overview: Quality of Service</h2><p>Quality of service (QoS) in networking provides the ability
+to control reliability, bandwidth, latency, and other traffic management
+features. Network traffic can be marked with QoS bits (DSCP, 802.1p,
+and MPLS EXP) that intermediate network switches and routers can use
+to provide service guarantees.</p><h2 id="jd0e16">Contrail QoS Model</h2><p>The QoS model in Contrail Networking has the following features:</p><ul><li style=""><p>All packet forwarding devices, such as vRouter and the
+gateway, combine to form a system. </p></li><li style=""><p>Interfaces to the system are the ports from which the
+system sends and receives packets, such as tap interfaces and physical
+ports. </p></li><li style=""><p>Fabric interfaces are where the overlay traffic is tunneled. </p></li><li style=""><p>QoS is applied at the ingress to the system, for example,
+upon traffic from the interfaces to the fabric. </p></li><li style=""><p>At egress, packets are stripped of their tunnel headers
+and sent to interface queues, based on the forwarding class. No marking
+from the outer packet to the inner packet is considered at this time.</p></li></ul><h2 id="jd0e38">Features of Fabric Interfaces</h2><p>Fabric interfaces, unlike other interfaces, are always shared.
+Therefore, fabric interfaces are common property. Consequently, traffic
+classes and QoS marking on the fabric must be controlled by the system
+administrator. The administrator might choose to provision different
+classes of service on the fabric.</p><p>In Contrail, classes of service are determined by both of the
+following:</p><ul><li style=""><p>Queueing on the fabric interface, including queues, scheduling
+of queues, and drop policies, and </p></li><li style=""><p> forwarding class, a method of marking that controls how
+packets are sent to the fabric, including marking and identifying
+which queue to use.</p></li></ul><p>Tenants can define which forwarding class their traffic can
+use, deciding which packets use which forwarding class. The Contrail
+QoS configuration object has a mapping table, mapping the incoming
+DSCP or 802.1p value to the forwarding class mapping.  </p><p>The QoS configuration can also be applied to a virtual network,
+an interface, or a network policy.</p><h2 id="jd0e56">QoS Configuration Parameters for Provisioning</h2><h2 id="jd0e61">Configuring QoS in Contrail Networking Release 5.0 and Later</h2><p>This section describes how to provision QoS in Contrail Networking
+release 5.0 and later.</p><ol type="1"><li id="jd0e68" style="">Define the hardware queues and priority group in the <code class="filepath">instances.yaml</code> file under the vrouter role as shown
+below.<div class="sample" dir="ltr" id="jd0e74"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>nodeh5:
+    ip: 10.xxx.xxx.109
+    provider: bms
+    roles:
+      vrouter:
+        VROUTER_GATEWAY: 192.168.1.45
+        PRIORITY_ID: 0,1,2,3,4,5,6,7
+        PRIORITY_BANDWIDTH: 0,10,0,20,0,30,0,40
+        PRIORITY_SCHEDULING: strict,rr,strict,rr,strict,rr,strict,rr
+        QOS_QUEUE_ID: 3,11,18,28,36,43,61,53
+        QOS_LOGICAL_QUEUES: "[ 1, 6-10, 12-15];[40-46];[70-74, 75, 80-95];[115];[140-143, 145];[175];[245];[215]"
+        QOS_DEF_HW_QUEUE: True
+      openstack_compute:
+</pre></template></sw-code></div></div></li><li id="jd0e77" style="">In the already provisioned setup, define the QoS configuration
+in the <code class="filepath">/etc/contrail/common_vrouter.env</code> file as shown in the following sample.<div class="sample" dir="ltr" id="jd0e83"><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>PRIORITY_ID=0,1,2,3,4,5,6,7
+PRIORITY_BANDWIDTH=0,10,0,20,0,30,0,40
+PRIORITY_SCHEDULING=strict,rr,strict,rr,strict,rr,strict,rr
+QOS_QUEUE_ID=3,11,18,28,36,43,61,53
+QOS_LOGICAL_QUEUES="[ 1, 6-10, 12-15];[40-46];[70-74, 75, 80-95];[115];[140-143, 145];[175];[245];[215]"
+QOS_DEF_HW_QUEUE=True
+</pre></template></sw-code></div></div></li><li id="jd0e86" style="">Execute the <span class="cli" v-pre="">execute docker-compose up -d under /etc/contrail/vrouter/</span> command.</li></ol><h2 id="jd0e92">Queuing Implementation</h2><p>The vRouter provides the infrastructure
+to use queues supplied by the network interface, a method that is
+also called hardware queueing. Network interface cards (NICs) that
+implement hardware queueing have their own set of scheduling algorithms
+associated with the queues. The Contrail implementation is designed
+to work with most NICs, however, the method is tested only on an Intel-based
+10G NIC, also called Niantic.</p><h2 id="jd0e97">Contrail QoS Configuration Objects</h2><p>Contrail QoS configuration objects include the:</p><ul><li style=""><p>forwarding class </p></li><li style=""><p>QoS configuration object (<code class="inline" v-pre="">qos-config</code>)</p></li></ul><p>The forwarding class object specifies parameters for marking
+and queuing, including:</p><ul><li style=""><p>The DSCP, 802.1p, and MPLS EXP values to be written on
+packets.</p></li><li style=""><p>The queue index to be used for the packet.</p></li></ul><p>The QoS configuration object specifies a mapping from DSCP,
+802.1p, and MPLS EXP values to the corresponding forwarding class. </p><p>The QoS configuration has an option to specify the default forwarding
+class ID to use to select the forwarding class for all unspecified
+DSCP, 802.1p, and MPLS EXP values. </p><p>If the default forwarding class ID is not specified by the user,
+it defaults to the forwarding class with ID 0.</p><p>Processing of QoS marked packets to look up the corresponding
+forwarding class to be applied works as follows:</p><ul><li style=""><p>For an IP packet, the DSCP map is used .</p></li><li style=""><p>For a Layer 2 packet, the 802.1p map is used.</p></li><li style=""><p>For an MPLS-tunneled packet with MPLS EXP values specified,
+the EXP bit value is used with the MPLS EXP map.</p></li><li style=""><p>If the QoS configuration is untrusted, only the default
+forwarding class is specified, and all incoming values of the DSCP,
+802.1p, and EXP bits in the packet are mapped to the same default
+forwarding class.</p></li></ul><p><a href="network-qos-vnc-3.1.html#qos1">Figure 1</a> shows the processing of QoS packets.</p><figure id="qos1"><figcaption>Figure 1: Processing of QoS Packets</figcaption><div class="graphic"><img alt="Processing of QoS Packets" src="images/g300445.png" style=""/></div></figure><p>A virtual machine interface, virtual network, and network policy
+can refer to the QoS configuration object. The QoS configuration object
+can be specified on the vhost so that underlay traffic can also be
+subjected to marking and queuing. See <a href="network-qos-vnc-3.1.html#qos2">Figure 2</a>.</p><figure id="qos2"><figcaption>Figure 2: Referring to the QoS Object</figcaption><div class="graphic"><img alt="Referring to the QoS Object" src="images/g300442.png" style=""/></div></figure><h2 id="jd0e161">Example: Mapping Traffic to Forwarding Classes</h2><p>This example shows how traffic forwarding classes are defined
+and how the QoS configuration object is defined to map the QoS bits
+to forwarding classes.</p><p><a href="network-qos-vnc-3.1.html#forward1">Table 1</a> shows two forwarding class objects
+defined. FC1 marks the traffic with high priority values and queues
+it to Queue 0. FC2 marks the traffic as best effort and queues the
+traffic to Queue 1.</p><sw-table><p class="SubTitle" id="forward1">Table 1: Forwarding Class Mapping </p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Name</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>ID</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>DSCP</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>802.1p</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>MPLS EXP</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Queue</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>FC1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>10</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>7</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>7</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>0</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>FC2</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>38</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>0</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>0</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td></tr></tbody></table></sw-table><p>In <a href="network-qos-vnc-3.1.html#forward2">Table 2</a>, the QoS configuration object
+DSCP values of 10, 18, and 26 are mapped to a forwarding class with
+ID 1, which is forwarding class FC1. All other IP packets are mapped
+to the forwarding class with ID 2, which is FC2. All traffic with
+an 802.1p value of 6 or 7 are mapped to forwarding class FC1, and
+the remaining traffic is mapped to FC2.</p><sw-table><p class="SubTitle" id="forward2">Table 2: QoS Configuration Object Mapping</p><table cellspacing="0" style="border-top:thin solid black;" width="99%"><thead><tr valign="bottom"><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>DSCP</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Forwarding Class ID</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>802.1p</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Forwarding Class ID</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>MPLS EXP</p></th><th align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>Forwarding Class ID</p></th></tr></thead><tbody><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>10</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>6</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>5</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>18</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>7</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>7</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td></tr><tr valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>26</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>*</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>*</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>1</p></td></tr><tr class="row-with-bg" valign="top"><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>*</p></td><td align="left" style="border-bottom:thin solid black;text-align: left;padding-right: 10px;padding-left: 10px;"><p>2</p></td></tr></tbody></table></sw-table><h2 id="jd0e345">QoS Configuration Object Marking on the Packet</h2><p>The following sections describes how QoS configuration object
+marking is handled in various circumstances.</p><ul><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e352">Traffic Originated by a Virtual Machine Interface</a></p></li><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e365">Traffic Destined to a Virtual Machine Interface</a></p></li><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e370">Traffic from a vhost Interface</a></p></li><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e375">Traffic from fabric interface</a></p></li><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e380">QoS Configuration Priority by Level</a></p></li></ul><h3 id="jd0e352">Traffic Originated by a Virtual Machine Interface</h3><ul><li style=""><p>If a VM interface sends an IP packet to another VM in
+a remote compute node, the DSCP value in the IP header is used to
+look into the qos-config table, and the tunnel header is marked with
+DSCP, 802.1p, and MPLS EXP bits as specified by the forwarding class. </p></li><li style=""><p>If a VM sends a Layer 2 non-IP packet with an 802.1p value,
+the 802.1p value is used to look into the qos-config table, and the
+corresponding forwarding class DSCP, 802.1p, and MPLS EXP value is
+written to the tunnel header. </p></li><li style=""><p>If a VM sends an IP packet to a VM in same compute node, the
+packet headers are not changed while forwarding. The original packet
+remains unchanged.</p></li></ul><h3 id="jd0e365">Traffic Destined to a Virtual Machine Interface</h3><p>For traffic destined to a VMI, if a tunneled packet is received,
+the tunnel headers are stripped off and the packet is sent to the
+interface. No marking is done from the outer packet to inner packet. </p><h3 id="jd0e370">Traffic from a vhost Interface</h3><p>The QoS configuration can be applied on IP traffic coming from
+a vhost interface. The DSCP value in the packet is used to look into
+the qos-config object specified on the vhost, and the corresponding
+forwarding class DSCP and 802.1p values are overwritten on the packet.</p><h3 id="jd0e375">Traffic from fabric interface</h3><p>The QoS configuration can be applied while receiving the packet
+on an Ethernet interface of a compute node, and the corresponding
+forwarding class DSCP and 802.1p values are overwritten on the packet.
+ </p><h3 id="jd0e380">QoS Configuration Priority by Level</h3><p>The QoS configuration can be specified at different levels. </p><p>The levels that can be configured with QoS and their order of
+priority:</p><ol><li style=""><p>in policy</p></li><li style=""><p>on <code class="inline" v-pre="">virtual-network</code></p></li><li style=""><p>on <code class="inline" v-pre="">virtual-machine-interface</code></p></li></ol><h2 id="jd0e402">Queuing</h2><p>Contrail Networking supports QoS. These sections provide an
+overview of the queuing features available in Contrail Networking.</p><p>The queue to which a packet is sent is specified by the forwarding
+class. </p><ul><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e411">Queue Selection in Datapath</a></p></li><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e416">Hardware Queueing in Linux kernel based vRouter  </a></p></li><li style=""><p><a href="network-qos-vnc-3.1.html#jd0e436">Parameters for QoS Scheduling Configuration</a></p></li></ul><h3 id="jd0e411">Queue Selection in Datapath</h3><p>In vRouter, in the data path, the forwarding class number specifies
+the actual physical hardware queue to which the packet needs to be
+sent, not to a logical selection as in other parts of Contrail. There
+is a mapping table in the vRouter configuration file, to translate
+the physical queue number from the logical queue number.</p><h3 id="jd0e416">Hardware Queueing in Linux kernel based vRouter  </h3><p>If Xmit-Packet-Steering (XPS) is enabled, the kernel chooses
+the queue, from those available in a list of queues. If the kernel
+selects the queue, packets will not be sent to the vRouter-specified
+queue. </p><p>To disable this mapping:</p><ul><li style=""><p>have a kernel without CONFIG_XPS option </p></li><li style=""><p>write zeros to the mapping file in /sys/class/net//queues/tx-X/xps_cpus
+. </p></li></ul><p>When this mapping is disabled, the kernel will send packets
+to the specific hardware queue. </p><p>To verify:</p><p>See individual queue statistics in the output of 'ethtool -S
+' command.</p><h3 id="jd0e436">Parameters for QoS Scheduling Configuration</h3><p>The following shows sample scheduling configuration for hardware
+queues on the compute node. </p><p>The priority group ID and the corresponding scheduling algorithm
+and bandwidth to be used by the priority group can be configured. </p><p>Possible values for the scheduling algorithm include:</p><ul><li style=""><p>strict</p></li><li style=""><p>rr (round-robin)</p></li></ul><p>When round-robin scheduling is used, the percentage of total
+hardware queue bandwidth that can be used by the priority group is
+specified in the bandwidth parameter.  </p><p>The following configuration and provisioning is applicable only
+for compute nodes running Niantic NICs and running kernel based vrouter.</p><div class="example" dir="ltr" id="jd0e457"><sw-code><template v-pre=""><pre>qos_niantic =  {
+       ‘compute1': [ 
+                         { 'priority_id': '1', 'scheduling': 'strict', 'bandwidth': '0'},
+                         { 'priority_id': '2', 'scheduling': 'rr', 'bandwidth': '20'},
+                         { 'priority_id': '3', 'scheduling': 'rr', 'bandwidth': '10’}
+       ],
+       ‘compute2' :[ 
+                         { 'priority_id': '1', 'scheduling': 'strict', 'bandwidth': '0'},
+                         { 'priority_id': '1', 'scheduling': 'rr', 'bandwidth': '30’}
+        ]
+}
+</pre></template></sw-code></div><sw-prev-next> </sw-prev-next></p>

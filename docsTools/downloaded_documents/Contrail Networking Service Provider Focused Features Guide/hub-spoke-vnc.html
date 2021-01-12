@@ -1,0 +1,162 @@
+<p id="topic-content"><h1 id="jd0e3">Configuring Virtual Networks for Hub-and-Spoke Topology</h1><sw-topic-details date="2020-11-11"> </sw-topic-details><div id="intro"><div class="mini-toc-intro"><p>Contrail Networking supports hub-and-spoke topology,
+which can be used to ensure that virtual machines (VMs) don’t
+communicate with each other directly; their communication is only
+allowed indirectly by means of a designated hub virtual network. </p></div></div><h2 id="jd0e14">Route Targets for Virtual Networks in Hub-and-Spoke Topology</h2><p>Hub-and-spoke topology can be used to ensure that virtual
+machines (VMs) don’t communicate with each other directly; their
+communication is only allowed indirectly by means of  a designated
+hub virtual network (VN). The VMs are configured in spoke VNs.  </p><p>This is useful for enabling VMs in a spoke VN to communicate
+by means of a  policy or firewall, where the firewall exists in a
+hub site.</p><p>hub-and-spoke topology is implemented using two route targets
+(<code class="inline" v-pre="">hub-rt</code> and <code class="inline" v-pre="">spoke-rt</code>), as follows:</p><ul><li style=""><p>Hub route target (<code class="inline" v-pre="">hub-rt</code>):</p><ul><li style=""><p>The hub VN <em>exports</em> all routes tagged
+with <code class="inline" v-pre="">hub-rt</code>. </p></li><li style=""><p>The spoke VN <em>imports</em> routes tagged
+with <code class="inline" v-pre="">hub-rt</code>, ensuring  that the spoke VN
+has only routes exported by the hub VN.</p></li><li style=""><p>To attract spoke traffic, the hub VN readvertises the
+spoke routes or advertises the default route. </p></li></ul></li><li style=""><p>Spoke route target (<code class="inline" v-pre="">spoke-rt</code>):</p><ul><li style=""><p>All spoke VNs export routes with route target <code class="inline" v-pre="">spoke-rt</code>.</p></li><li style=""><p>The hub VN imports all spoke routes, ensuring  that hub
+VN has all spoke routes.</p></li></ul></li></ul><sw-admonition name="note" style=""><strong class="title">Note</strong><p>The hub VN or VRF can reside in an external gateway, such
+as an MX Series router, while the spoke VN resides in the Contrail
+controller.</p></sw-admonition><h2 id="jd0e79">Example: Hub-and-Spoke Topology</h2><p> In the example shown in <a href="hub-spoke-vnc.html#hub-and-spoke-topology">Figure 1</a>, the <code class="inline" v-pre="">hub-vn</code> is configured
+as a hub virtual network, and the three <code class="inline" v-pre="">spoke-vn</code>s are configured as spoke virtual networks. The hub and spokes each
+use a unique export route target. The <code class="inline" v-pre="">hub-vn</code> exports its <code class="inline" v-pre="">hub-rt</code> <code class="inline" v-pre="">(target:1:1)</code> routes to the spokes, and each <code class="inline" v-pre="">spoke-vn</code> imports them. Each <code class="inline" v-pre="">spoke-vn</code> exports its <code class="inline" v-pre="">spoke-rt</code> <code class="inline" v-pre="">(target:1:2, target:1:3, target:1:4)</code> routes to the hub, and the <code class="inline" v-pre="">hub-vn</code> imports
+them.</p><figure id="hub-and-spoke-topology"><figcaption>Figure 1: Hub-and-Spoke Topology</figcaption><div class="graphic"><img alt="Hub-and-Spoke Topology" src="images/g300884.png" style=""/></div></figure><h2 id="jd0e122">Troubleshooting Hub-and-Spoke Topology</h2><p>The following examples provide methods to help you troubleshoot
+hub-and-spoke configurations.</p><div class="sample" dir="ltr" id="jd0e128"><p><b>Example: Validating the Configuration on the Virtual Network</b></p><p>The following example uses the api-server HTTP get request to
+validate the configuration on the virtual network.</p><p>Hub VN configuration:</p><p><code class="inline" v-pre="">curl -u admin:&lt;password&gt; http://&lt;host ip&gt;/virtual-network/&lt;hub-vn-uuid&gt;|
+python -m json.tool</code></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+    "virtual-network": {
+        "display_name": "hub-vn",
+        "fq_name": [
+            "default-domain",
+            "admin",
+            "hub-vn"
+        ],
+        "export_route_target_list": {
+            "route_target": [
+                "target:1:2"
+            ]
+        },
+        "import_route_target_list": {
+            "route_target": [
+                "target:1:1"
+            ]
+        },
+    }
+}
+
+</pre></template></sw-code></div><p>Spoke VN configuration:</p><p><code class="inline" v-pre="">curl -u admin:&lt;password&gt; http://&lt;host ip&gt;:8095/virtual-network/&lt;spoke-vn-uuid&gt;
+| python -m json.tool</code></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+{
+    "virtual-network": {
+        "display_name": "spoke-vn1",
+        "fq_name": [
+            "default-domain",
+            "admin",
+            "spoke-vn1"
+        ],
+        "export_route_target_list": {
+            "route_target": [
+                "target:1:1"
+            ]
+        },
+        "import_route_target_list": {
+            "route_target": [
+                "target:1:2"
+            ]
+        },
+    }
+}
+
+</pre></template></sw-code></div></div><div class="sample" dir="ltr" id="jd0e147"><p><b>Example: Validate the Configuration on the Routing Instance</b></p><p>The following example uses <code class="inline" v-pre="">api-server HTTP get </code>request to validate the configuration on the routing instance.</p><p>Spoke VRF configuration (with a system-created VRF by schema
+transformer):</p><p><code class="inline" v-pre="">user@node:/opt/contrail/utils# curl -u admin:&lt;password&gt;
+http://&lt;host ip&gt;:8095/routing-instance/&lt;spoke-vrf-uuid&gt;| python
+-m json.tool</code></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+    "routing-instance": {
+        "display_name": "spoke-vn1",
+        "fq_name": [
+            "default-domain",
+            "admin",
+            "spoke-vn1",
+            "spoke-vn1"
+        ],
+        "route_target_refs": [
+            {
+                "attr": {
+                    "import_export": "export"
+                },
+                "href": "http://&lt;host ip&gt;:8095/route-target/446a3bbe-f263-4b58-a537-8333878dd7c3",
+                "to": [
+                    "target:1:1"
+                ],
+                "uuid": "446a3bbe-f263-4b58-a537-8333878dd7c3"
+            },
+            {
+                "attr": {
+                    "import_export": null
+                },
+                "href": "http://&lt;host ip&gt;:8095/route-target/7668088d-e403-414f-8f5d-649ed80e0689",
+                "to": [
+                    "target:64512:8000012"
+                ],
+                "uuid": "7668088d-e403-414f-8f5d-649ed80e0689"
+            },
+            {
+                "attr": {
+                    "import_export": "import"
+                },
+                "href": "http://&lt;host ip&gt;:8095/route-target/8f216064-8488-4486-8fce-b4afb87266bb",
+                "to": [
+                    "target:1:2"
+                ],
+                "uuid": "8f216064-8488-4486-8fce-b4afb87266bb"
+            }
+        ],
+        "routing_instance_is_default": true,
+    }
+}
+
+</pre></template></sw-code></div><p>Hub VRF configuration: </p><p><code class="inline" v-pre="">curl -u admin:&lt;password&gt; http://&lt;host ip&gt;:8095/routing-instance/&lt;hub-vrf-uuid&gt;
+| python -m json.tool</code></p><div class="output" dir="ltr"><sw-code><template v-pre=""><pre>{
+    "routing-instance": {
+        "display_name": "hub-vn",
+        "fq_name": [
+            "default-domain",
+            "admin",
+            "hub-vn",
+            "hub-vn"
+        ],
+        "route_target_refs": [
+            {
+                "attr": {
+                    "import_export": "import"
+                },
+                "href": "http://&lt;host ip&gt;:8095/route-target/446a3bbe-f263-4b58-a537-8333878dd7c3",
+                "to": [
+                    "target:1:1"
+                ],
+                "uuid": "446a3bbe-f263-4b58-a537-8333878dd7c3"
+            },
+            {
+                "attr": {
+                    "import_export": "export"
+                },
+                "href": "http://&lt;host ip&gt;:8095/route-target/8f216064-8488-4486-8fce-b4afb87266bb",
+                "to": [
+                    "target:1:2"
+                ],
+                "uuid": "8f216064-8488-4486-8fce-b4afb87266bb"
+            },
+            {
+                "attr": {
+                    "import_export": null
+                },
+                "href": "http://&lt;host ip&gt;:8095/route-target/a85fec19-eed2-430c-af23-9919aca1dd12",
+                "to": [
+                    "target:64512:8000016"
+                ],
+                "uuid": "a85fec19-eed2-430c-af23-9919aca1dd12"
+            }
+        ],
+        "routing_instance_is_default": true,
+    }
+}
+
+</pre></template></sw-code></div></div><div class="sample" dir="ltr" id="jd0e169"><p><b>Example: Using Contrail Control Introspect</b></p><p><a href="hub-spoke-vnc.html#introspect">Figure 2</a> shows the import and export
+targets for <code class="inline" v-pre="">hub-vn</code> and <code class="inline" v-pre="">spoke-vns</code>, by invoking <code class="inline" v-pre="">contrail-control-introspect</code>.</p></div><figure id="introspect"><figcaption>Figure 2: Contrail Introspect</figcaption><div class="graphic"><img alt="Contrail Introspect" src="images/S018552.png" style=""/></div></figure><sw-prev-next> </sw-prev-next></p>

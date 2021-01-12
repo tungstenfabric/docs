@@ -1,0 +1,14 @@
+<p id="topic-content"><h1 id="jd0e2">System Log Receiver in Contrail Analytics</h1><sw-topic-details date="2019-02-08"> </sw-topic-details><h2 id="jd0e10">Overview</h2><p>The contrail-collector process on the Contrail Analytics node
+can act as a system log receiver.</p><h2 id="jd0e18">Redirecting System Logs to Contrail Collector</h2><p>You can enable the contrail-collector  to receive system logs
+by giving a valid <code class="inline" v-pre="">syslog_port</code> as a command
+line option:</p><p><code class="inline" v-pre="">--DEFAULT.syslog_port &lt;arg&gt;</code></p><p>or by adding <code class="inline" v-pre="">syslog_port</code> in the DEFAULT
+section​ of the configuration file at  <code class="inline" v-pre="">/etc/contrail/contrail-collector.conf</code> .</p><p>For nodes to send system logs to the contrail-collector, the
+system log configuration for the node should be set up to direct the
+system logs  to contrail-collector.</p><div class="example" dir="ltr" id="jd0e40"><p><b><h3 id="jd0e41">Example</h3></b></p><p>Add the following line in <code class="inline" v-pre="">/etc/rsyslog.d/50-default.conf </code>on an Ubuntu system to redirect the system logs to contrail-collector.</p><sw-code><template v-pre=""><pre>*.* @&lt;collector_ip&gt;:&lt;collector_syslog_port&gt; :: @ for udp, @@ for tcp</pre></template></sw-code></div><p>The logs can be retrieved by using Contrail tool, either by
+using the contrail-logs utility on the analytics node or by using
+the Contrail user interface on the system log query page.</p><h2 id="jd0e54">Exporting Logs from Contrail Analytics</h2><p>You can also export logs stored in Contrail analytics to another
+system log receiver by using the <code class="inline" v-pre="">contrail-logs </code>utility.   </p><p>The contrail-logs utility can take these options: <code class="inline" v-pre="">--send-syslog, --syslog-server, --syslog-port,</code> to query
+Contrail analytics, then send the results as system logs to a system
+log server. This is an on-demand command, one can write a cron job
+or a job that continuously invokes <code class="inline" v-pre="">contrail-logs</code> to achieve continuous sending of logs to another system log server.
+ </p><sw-prev-next> </sw-prev-next></p>
