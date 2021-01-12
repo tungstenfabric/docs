@@ -19,6 +19,7 @@ exclude_patterns:
   - _build
   - Thumbs.db
   - .tox
+  - docsTools
 todo_include_todos: false
 
 html_favicon: _static/favicon.ico
