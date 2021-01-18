@@ -1,4 +1,4 @@
-How to Backup and Restore Contrail Databases in JSON Format
+How to Backup and Restore TF databases in JSON Format
 ===========================================================
 
  
@@ -10,8 +10,8 @@ Before You Begin
 ----------------
 
 The backup and restore procedure must be completed for nodes running the
-same Contrail Networking release. The procedure is used to backup the
-Contrail Networking databases only; it does not include instructions for
+same Tungsten Fabric Networking release. The procedure is used to backup the
+Tungsten Fabric Networking databases only; it does not include instructions for
 backing up orchestration system databases.
 
 **Caution**
@@ -36,25 +36,11 @@ To perform this database backup:
 1.  Log into one of the config nodes. Create the ``/tmp/db-dump``
     directory on any of the config node hosts.
 
-    .. raw:: html
-
-       <div id="jd0e43" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
-
     ::
 
        mkdir /tmp/db-dump
 
-    .. raw:: html
 
-       </div>
-
-    .. raw:: html
-
-       </div>
 
 2.  On the same config node, copy the ``contrail-api.conf`` file from
     the container to the host.
@@ -109,7 +95,7 @@ To perform this database backup:
     configuration node.
 
 3.  Stop the following docker configuration services on all of the
-    Contrail configuration nodes.
+    TF configuration nodes.
 
     *Ansible Deployer*:
 
@@ -202,7 +188,7 @@ To perform this database backup:
 
     Enter the *-v /etc/contrail/ssl:/etc/contrail/ssl:ro* command option
     when cassandra_use_ssl is used as api-server configuration parameter
-    to ensure TLS certificates are mounted to the Contrail SSL
+    to ensure TLS certificates are mounted to the TF SSL
     directory. This mounting ensures that the backup procedure succeeds
     in environments with endpoints that require TLS authentication.
 
@@ -330,8 +316,7 @@ To perform this database backup:
 
        </div>
 
-9.  Start the following configuration services on all of the Contrail
-    configuration nodes.
+9.  Start the following configuration services on all of the TF configuration nodes.
 
     *Ansible Deployer*:
 
@@ -699,7 +684,7 @@ To restore a system from a backup JSON file:
 
        </div>
 
-    *Red Hat Openstack Deployer—Node hosting Contrail Config
+    *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Config
     containers*:
 
     .. raw:: html
@@ -727,7 +712,7 @@ To restore a system from a backup JSON file:
 
        </div>
 
-    *Red Hat Openstack Deployer—Node hosting Contrail Analytics
+    *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Analytics
     containers*:
 
     .. raw:: html
@@ -1130,7 +1115,7 @@ To restore a system from a backup JSON file:
 
     Enter the *-v /etc/contrail/ssl:/etc/contrail/ssl:ro* command option
     when cassandra_use_ssl is used as api-server configuration parameter
-    to ensure TLS certificates are mounted to the Contrail SSL
+    to ensure TLS certificates are mounted to the TF SSL
     directory. This mounting ensures that this backup procedure succeeds
     in environments with endpoints that require TLS authentication.
 
@@ -1261,7 +1246,7 @@ To restore a system from a backup JSON file:
 
        </div>
 
-    *Red Hat Openstack Deployer—Node hosting Contrail Config
+    *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Config
     containers*:
 
     .. raw:: html
@@ -1289,7 +1274,7 @@ To restore a system from a backup JSON file:
 
        </div>
 
-    *Red Hat Openstack Deployer—Node hosting Contrail Analytics
+    *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Analytics
     containers*:
 
     .. raw:: html
@@ -1386,7 +1371,7 @@ Example: How to Restore a Database Using the JSON Backup (Ansible Deployer Envir
 ---------------------------------------------------------------------------------------
 
 This example shows how to restore the databases for three controllers
-connected to the Contrail Configuration database (config-db). This
+connected to the Tungsten Fabric Configuration database (config-db). This
 example assumes a JSON backup file of the databases was previously
 created using the instructions provided in `Simple Database Backup in
 JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.The
@@ -1493,7 +1478,7 @@ nodec54, and nodec55—have separate IP addresses.
    [root@nodec54 ~]# docker start config_database_cassandra_1
    [root@nodec55 ~]# docker start config_database_cassandra_1
 
-   ## Run Docker Image & Mount Contrail TLS Certificates to Contrail SSL Directory ##
+   ## Run Docker Image & Mount TF TLS Certificates to TF SSL Directory ##
    [root@nodec54 ~]# docker image ls | grep config-api
    hub.juniper.net/contrail/contrail-controller-config-api  1909.30-ocata c9d757252a0c  4 months ago  583MB
    [root@nodec54 ~]# docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
@@ -1561,7 +1546,7 @@ Example: How to Restore a Database Using the JSON Backup (Red Hat Openstack Depl
 This example shows how to restore the databases from an environment that
 was deployed using Red Hat Openstack and includes three config
 nodes—``config1``, ``config2``, and ``config3``—connected to the
-Contrail Configuration database (config-db). All steps that need to be
+Tungsten Fabric Configuration database (config-db). All steps that need to be
 done from a single config node are performed from ``config1``.
 
 The environment also contains three analytics nodes—``analytics1``,
@@ -1673,7 +1658,7 @@ JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.
    [root@config2 ~]# docker start contrail_config_database
    [root@config3 ~]# docker start contrail_config_database
 
-   ## Run Docker Image & Mount Contrail TLS Certificates to Contrail SSL Directory ##
+   ## Run Docker Image & Mount TF TLS Certificates to TF SSL Directory ##
    [root@config1 ~]# docker image ls | grep config-api
    hub.juniper.net/contrail/contrail-controller-config-api  1909.30-ocata c9d757252a0c  4 months ago  583MB
    [root@config1 ~]# docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
@@ -1743,5 +1728,3 @@ JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.
 .. raw:: html
 
    </div>
-
- 
