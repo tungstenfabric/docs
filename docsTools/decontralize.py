@@ -50,7 +50,10 @@ class DeContralizeDocument(object):
             content=re.sub("{}(?=( |:|\n|.))".format(fromto[0]),fromto[1],content)
         print("\nOccurences left: "+str(len(re.findall("[Cc]ontrail( |:|\n|\.)",content)))+"\n")
         #remove obsolete HTML tags
-        #content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-]*>","",content)
+        #opening <div> for samples and output
+        content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-\d]*(sample|output)[a-zA-z =\"-\d]*>","",content)
+        #closing </div>
+        content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-]*>","",content)
         #write down the new file
         t.seek(0, 0)
         t.write(str(content))              
