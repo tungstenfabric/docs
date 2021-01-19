@@ -14,14 +14,13 @@ same Tungsten Fabric Networking release. The procedure is used to backup the
 Tungsten Fabric Networking databases only; it does not include instructions for
 backing up orchestration system databases.
 
-**Caution**
-
-Database backups must be consistent across all systems because the state
-of the TF database is associated with other system databases, such
-as OpenStack databases. Database changes associated with northbound APIs
-must be stopped on all the systems before performing any backup
-operation. For example, you might block the external VIP for northbound
-APIs at the load balancer level, such as HAproxy.
+.. Caution::
+   Database backups must be consistent across all systems because the state
+   of the TF database is associated with other system databases, such
+   as OpenStack databases. Database changes associated with northbound APIs
+   must be stopped on all the systems before performing any backup
+   operation. For example, you might block the external VIP for northbound
+   APIs at the load balancer level, such as HAproxy.
 
 Simple Database Backup in JSON Format
 -------------------------------------
@@ -110,8 +109,7 @@ To perform this database backup:
     directory. This mounting ensures that the backup procedure succeeds
     in environments with endpoints that require TLS authentication.
 
-    The *registry_name* and *container_tag* variables must match step
-    `4 <backup-using-json-50.html#ListTheDockerImageToFindTheNameOrID-C55BAB82>`__.
+    The *registry_name* and *container_tag* variables must match step 4.
 
     ::
 
@@ -123,8 +121,7 @@ To perform this database backup:
 
        docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
 
-6.  From the docker container created on the config node in Step
-    `5 <backup-using-json-50.html#create-api-container-step-json-backup>`__,
+6.  From the docker container created on the config node in Step 5,
     use the ``db_json_exim.py`` script to backup data in JSON format..
     The db dump file will be saved in the ``/tmp/db-dump/`` on this
     config node.
@@ -178,11 +175,10 @@ To perform this database backup:
 
 10. On each config node, enter the contrail-status command to confirm
     that services are in the ``active`` or ``running``
-    states.\ **Note**\ 
-
-    Some command output and output fields are removed for readability.
-    Output shown is from a node hosting config and analytics services.
-
+    states. 
+    
+    .. note:: Some command output and output fields are removed for readability. Output shown is from a node hosting config and analytics services.
+   
     ::
 
        contrail-status
@@ -355,8 +351,7 @@ Restore Database from the Backup in JSON Format
 -----------------------------------------------
 
 This procedure provides the steps to restore a system using the simple
-database backup JSON file that was created in `Simple Database Backup in
-JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.
+database backup JSON file that was created in `Simple Database Backup in JSON Format`_.
 
 To restore a system from a backup JSON file:
 
@@ -542,8 +537,7 @@ To restore a system from a backup JSON file:
     in environments with endpoints that require TLS authentication.
 
     Use the *registry_name* and *container_tag* from the output of the
-    step
-    `11 <backup-using-json-50.html#DockerImageToFindTheNameIDOfCon-C55BD6F6>`__.
+    step 11.
 
     ::
 
@@ -616,10 +610,9 @@ To restore a system from a backup JSON file:
 
 16. Enter the contrail-status command on each configuration node and,
     when applicable, on each analytics node to confirm that services are
-    in the ``active`` or ``running`` states.\ **Note**\ 
-
-    Output shown for a config node. Some command output and output
-    fields are removed for readability.
+    in the ``active`` or ``running`` states.
+    
+    .. note:: Output shown for a config node. Some command output and output fields are removed for readability.
 
     ::
 
@@ -670,7 +663,7 @@ This example shows how to restore the databases for three controllers
 connected to the Tungsten Fabric Configuration database (config-db). This
 example assumes a JSON backup file of the databases was previously
 created using the instructions provided in `Simple Database Backup in
-JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.The
+JSON Format`_. The
 network was deployed using Ansible and the three controllers—nodec53,
 nodec54, and nodec55—have separate IP addresses.
 
@@ -834,7 +827,7 @@ The environment also contains three analytics nodes—``analytics1``,
 
 This example assumes a JSON backup file of the databases was previously
 created using the instructions provided in `Simple Database Backup in
-JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.
+JSON Format`_.
 
 ::
 
