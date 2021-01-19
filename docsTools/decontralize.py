@@ -51,9 +51,11 @@ class DeContralizeDocument(object):
         print("\nOccurences left: "+str(len(re.findall("[Cc]ontrail( |:|\n|\.)",content)))+"\n")
         #remove obsolete HTML tags
         #opening <div> for samples and output
-        content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-\d]*(sample|output)[a-zA-z =\"-\d]*>","",content)
+        content=re.sub(".*raw:: html\n\n.*<div[a-zA-z =\"\-\d]*(sample|output)[a-zA-z =\"\-\d]*>","",content)
         #closing </div>
         content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-]*>","",content)
+        #remove 4 or 3 newlines in a row
+        content=re.sub("(?<=\n)\n{3,4}","",content)
         #write down the new file
         t.seek(0, 0)
         t.write(str(content))              
