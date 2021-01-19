@@ -37,7 +37,7 @@ class DeContralizeDocument(object):
 
             #if there are more than zero occurences then show the number
             if content.count(fromto[0])>0:
-                print(str(content.count(fromto[0]))+" "+fromto[0])
+                print(str(len(re.findall("{}( |:|\n|\.)".format(fromto[0]),content)))+" "+fromto[0])
             #if marked as manually then skip it
             if "manually" in str(fromto[1]):
                 continue
