@@ -1,10 +1,8 @@
 How to Backup and Restore TF databases in JSON Format
 ===========================================================
 
- 
-
-This document shows how to backup and restore the Contrail
-databases—Cassandra and Zookeeper—in JSON format.
+This document shows how to backup and restore the TF
+databases — Cassandra and Zookeeper — in JSON format.
 
 Before You Begin
 ----------------
