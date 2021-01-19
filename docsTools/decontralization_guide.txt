@@ -30,6 +30,8 @@ Contrail Command GUI >> manually: proprietary
 Contrail Command UI >> manually: proprietary
 Contrail Config >> Tungsten Fabric Config
 Contrail Configuration >> Tungsten Fabric Configuration
+Contrail Configuration >> Tungsten Fabric Configuration
+Contrail configuration >> TF configuration
 Contrail Container Network Interface >> TF Container Network Interface 
 Contrail Containers >> TF Containers
 Contrail Contoller >> Contrail Controller
@@ -42,6 +44,7 @@ Contrail Controller Topology >>  Tungsten Fabric Controller topology
 Contrail Controller >>  Tungsten Fabric Controller
 Contrail Controllers >>  Tungsten Fabric Controllers
 Contrail Databases >> TF databases
+Contrail database >> TF database
 Contrail Device Manager >> Tungsten Fabric Device Manager
 Contrail Dpdk Node >> Tungsten Fabric DPDK Node
 Contrail Dpdk >> TF DPDK
