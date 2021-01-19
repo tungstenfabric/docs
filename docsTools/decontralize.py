@@ -14,10 +14,10 @@ class DeContralizeDocument(object):
         pp = pprint.PrettyPrinter(indent=4)
 
         #open file
-        t = open(args.textFile, "r+")
+        t = open(args.textFile, "r")
         #load content
         content=t.read()
-
+        #close file as we will re-open it aggain for overwrite
         #open dictionary
         d = open(args.dictionary, "r")
         print("Looking for: [Cc]ontrail( |:|\\n|\.)")
@@ -57,7 +57,7 @@ class DeContralizeDocument(object):
         #remove 4 or 3 newlines in a row
         content=re.sub("(?<=\n)\n{3,4}","",content)
         #write down the new file
-        t.seek(0, 0)
+        t = open(args.textFile, "w")
         t.write(str(content))              
         t.close()
         d.close()
