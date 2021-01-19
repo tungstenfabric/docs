@@ -45,31 +45,15 @@ To perform this database backup:
 
     *Ansible Deployer*:
 
-
-
-
-
     ::
 
        docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        docker cp contrail_config_api:/etc/contrail/contrail-api.conf /tmp/db-dump/
-
-
-
-
 
     The Cassandra database instance on any configuration node includes
     the complete Cassandra database for all configuration nodes in the
@@ -81,10 +65,6 @@ To perform this database backup:
 
     *Ansible Deployer*:
 
-
-
-
-
     ::
 
        docker stop config_svcmonitor_1
@@ -92,15 +72,7 @@ To perform this database backup:
        docker stop config_schema_1
        docker stop config_api_1
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
@@ -108,10 +80,6 @@ To perform this database backup:
        docker stop contrail_config_device_manager
        docker stop contrail_config_schema
        docker stop contrail_config_api
-
-
-
-
 
     This step must be performed on each individual config node in the
     cluster.
@@ -125,18 +93,10 @@ To perform this database backup:
 
     Example:
 
-
-
-
-
     ::
 
        docker image ls | grep config-api
        hub.juniper.net/contrail/contrail-controller-config-api 1909.30-ocata c9d757252a0c  4 months ago  583MB
-
-
-
-
 
 5.  From the same config node, start the *config api* container pointing
     the ``entrypoint.sh`` script to ``/bin/bash`` and mapping
@@ -153,31 +113,15 @@ To perform this database backup:
     The *registry_name* and *container_tag* variables must match step
     `4 <backup-using-json-50.html#ListTheDockerImageToFindTheNameOrID-C55BAB82>`__.
 
-
-
-
-
     ::
 
        docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash <registry_name>/contrail-controller-config_api:<container_tag>
 
-
-
-
-
     *Example*:
-
-
-
-
 
     ::
 
        docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
-
-
-
-
 
 6.  From the docker container created on the config node in Step
     `5 <backup-using-json-50.html#create-api-container-step-json-backup>`__,
@@ -185,18 +129,10 @@ To perform this database backup:
     The db dump file will be saved in the ``/tmp/db-dump/`` on this
     config node.
 
-
-
-
-
     ::
 
        cd /usr/lib/python2.7/site-packages/cfgm_common
        python db_json_exim.py --export-to /tmp/db-dump.json --api-conf /tmp/contrail-api.conf
-
-
-
-
 
     The Cassandra database instance on any configuration node includes
     the complete Cassandra database for all configuration nodes in the
@@ -207,40 +143,20 @@ To perform this database backup:
     ``cat /tmp/db-dump.json | python -m json.tool | less`` command to
     view a more readable version of the file transfer.
 
-
-
-
-
     ::
 
        cat /tmp/db-dump.json | python -m json.tool | less
 
-
-
-
-
 8.  From the same config node, exit out of the *config api* container.
     This will stop the container.
-
-
-
-
 
     ::
 
        exit
 
-
-
-
-
 9.  Start the following configuration services on all of the TF configuration nodes.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
@@ -249,15 +165,7 @@ To perform this database backup:
        docker start config_svcmonitor_1
        docker start config_devicemgr_1
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
@@ -265,10 +173,6 @@ To perform this database backup:
        docker start contrail_config_schema
        docker start contrail_config_svc_monitor
        docker start contrail_config_device_manager
-
-
-
-
 
     This step must be performed on each individual config node.
 
@@ -278,10 +182,6 @@ To perform this database backup:
 
     Some command output and output fields are removed for readability.
     Output shown is from a node hosting config and analytics services.
-
-
-
-
 
     ::
 
@@ -339,10 +239,6 @@ To perform this database backup:
        api: active
        schema: active
 
-
-
-
-
 Examples: Simple Database Backups in JSON Format
 ------------------------------------------------
 
@@ -356,10 +252,6 @@ to be performed on a single config nodes are performed on
 control-config1. The tasks must be performed in the shown order.
 
 *Ansible Deployer Environment*:
-
-
-
-
 
 ::
 
@@ -409,15 +301,7 @@ control-config1. The tasks must be performed in the shown order.
    docker start config_devicemgr_1
    contrail-status
 
-
-
-
-
 *Red Hat Openstack Deployer Environment*:
-
-
-
-
 
 ::
 
@@ -467,10 +351,6 @@ control-config1. The tasks must be performed in the shown order.
    docker start contrail_config_device_manager
    contrail-status
 
-
-
-
-
 Restore Database from the Backup in JSON Format
 -----------------------------------------------
 
@@ -485,39 +365,19 @@ To restore a system from a backup JSON file:
 
     *Ansible Deployer*:
 
-
-
-
-
     ::
 
        docker cp config_api_1:/etc/contrail/contrail-api.conf /tmp/db-dump/
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        docker cp contrail_config_api:/etc/contrail/contrail-api.conf /tmp/db-dump/
 
-
-
-
-
 2.  Stop the configuration services on all of the controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
@@ -534,16 +394,8 @@ To restore a system from a backup JSON file:
        docker stop analytics_collector_1
        docker stop analytics_alarm_kafka_1
 
-
-
-
-
     *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Config
     containers*:
-
-
-
-
 
     ::
 
@@ -554,16 +406,8 @@ To restore a system from a backup JSON file:
        docker stop contrail_config_nodemgr
        docker stop contrail_config_database_nodemgr
 
-
-
-
-
     *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Analytics
     containers*:
-
-
-
-
 
     ::
 
@@ -574,251 +418,119 @@ To restore a system from a backup JSON file:
        docker stop contrail_analytics_collector
        docker stop contrail_analytics_kafka
 
-
-
-
-
 3.  Stop the Cassandra service on all the ``config-db`` controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
        docker stop config_database_cassandra_1
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        docker stop contrail_config_database
 
-
-
-
-
 4.  Stop the Zookeeper service on all controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
        docker stop config_database_zookeeper_1
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        docker stop contrail_config_zookeeper
 
-
-
-
-
 5.  Backup the Zookeeper data directory on all the controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
        cd /var/lib/docker/volumes/config_database_config_zookeeper/
        cp -R _data/version-2/ version-2-save
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        cd /var/lib/docker/volumes/config_zookeeper/
        cp -R _data/version-2/ version-2-save
 
-
-
-
-
 6.  Delete the Zookeeper data directory contents on all the controllers.
-
-
-
-
 
     ::
 
        rm -rf _data/version-2/*
 
-
-
-
-
 7.  Backup the Cassandra data directory on all the controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
        cd /var/lib/docker/volumes/config_database_config_cassandra/
        cp -R _data/ Cassandra_data-save
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        cd /var/lib/docker/volumes/config_cassandra/
        cp -R _data/ Cassandra_data-save
 
-
-
-
-
 8.  Delete the Cassandra data directory contents on all controllers.
-
-
-
-
 
     ::
 
        rm -rf _data/*
 
-
-
-
-
 9.  Start the Zookeeper service on all the controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
        docker start config_database_zookeeper_1
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        docker start contrail_config_zookeeper
 
-
-
-
-
 10. Start the Cassandra service on all the controllers.
 
     *Ansible Deployer*:
-
-
-
-
 
     ::
 
        docker start config_database_cassandra_1
 
-
-
-
-
     *Red Hat Openstack Deployer*:
-
-
-
-
 
     ::
 
        docker start contrail_config_database
 
-
-
-
-
 11. List docker image to find the name or ID of the ``config-api`` image
     on the config node.
-
-
-
-
 
     ::
 
        docker image ls | grep config-api
 
-
-
-
-
     Example:
-
-
-
-
 
     ::
 
        docker image ls | grep config-api
        hub.juniper.net/contrail/contrail-controller-config-api 1909.30-ocata c9d757252a0c  4 months ago  583MB
-
-
-
-
 
 12. Run a new docker container using the name or ID of the
     ``config_api`` image on the same config node.
@@ -833,37 +545,17 @@ To restore a system from a backup JSON file:
     step
     `11 <backup-using-json-50.html#DockerImageToFindTheNameIDOfCon-C55BD6F6>`__.
 
-
-
-
-
     ::
 
        docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash <registry_name>/contrail-controller-config_api:<container tag>
 
-
-
-
-
     Example
-
-
-
-
 
     ::
 
        docker run --rm -it -v /tmp/db-dump/:/tmp/ -v /etc/contrail/ssl:/etc/contrail/ssl:ro --network host --entrypoint=/bin/bash hub.juniper.net/contrail/contrail-controller-config-api:1909.30-ocata
 
-
-
-
-
 13. Restore the data in new running docker on the same config node.
-
-
-
-
 
     ::
 
@@ -898,16 +590,8 @@ To restore a system from a backup JSON file:
        docker start analytics_collector_1
        docker start analytics_alarm_kafka_1
 
-
-
-
-
     *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Config
     containers*:
-
-
-
-
 
     ::
 
@@ -918,16 +602,8 @@ To restore a system from a backup JSON file:
        docker start contrail_config_nodemgr
        docker start contrail_config_database_nodemgr
 
-
-
-
-
     *Red Hat Openstack Deployer—Node hosting Tungsten Fabric Analytics
     containers*:
-
-
-
-
 
     ::
 
@@ -938,20 +614,12 @@ To restore a system from a backup JSON file:
        docker start contrail_analytics_collector
        docker start contrail_analytics_kafka
 
-
-
-
-
 16. Enter the contrail-status command on each configuration node and,
     when applicable, on each analytics node to confirm that services are
     in the ``active`` or ``running`` states.\ **Note**\ 
 
     Output shown for a config node. Some command output and output
     fields are removed for readability.
-
-
-
-
 
     ::
 
@@ -995,10 +663,6 @@ To restore a system from a backup JSON file:
        api: active
        schema: active
 
-
-
-
-
 Example: How to Restore a Database Using the JSON Backup (Ansible Deployer Environment)
 ---------------------------------------------------------------------------------------
 
@@ -1009,10 +673,6 @@ created using the instructions provided in `Simple Database Backup in
 JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.The
 network was deployed using Ansible and the three controllers—nodec53,
 nodec54, and nodec55—have separate IP addresses.
-
-
-
-
 
 ::
 
@@ -1160,10 +820,6 @@ nodec54, and nodec55—have separate IP addresses.
    [root@nodec54 ~]# contrail-status
    [root@nodec55 ~]# contrail-status
 
-
-
-
-
 Example: How to Restore a Database Using the JSON Backup (Red Hat Openstack Deployer Environment)
 -------------------------------------------------------------------------------------------------
 
@@ -1179,14 +835,6 @@ The environment also contains three analytics nodes—``analytics1``,
 This example assumes a JSON backup file of the databases was previously
 created using the instructions provided in `Simple Database Backup in
 JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.
-
-.. raw:: html
-
-   <div id="jd0e756" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1344,11 +992,3 @@ JSON Format <backup-using-json-50.html#simple-db-backup-json>`__.
    [root@analytics1 ~]# contrail-status
    [root@analytics2 ~]# contrail-status
    [root@analytics3 ~]# contrail-status
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
