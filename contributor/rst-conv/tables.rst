@@ -10,7 +10,7 @@ formatting details.
 
 .. seealso::
 
-   For the style guidelines on table titles, see :ref:`figure_table_titles`.
+   For the style guidelines on table titles, see figure table titles.
 
 Graphic tables
 ~~~~~~~~~~~~~~
