@@ -7,4 +7,4 @@
 .DS_Store
 _build
 docsTools/folder/
-.vscode/settings.json
+.vscode/*
