@@ -24,13 +24,22 @@ Result: you have a file that contains:
 1. For changed files:
    1. Look up the same file in docs repo and see if corrections are needed.
 1. For new files:
+   1. If it's a new file in new folder then create new folder in root folder of docs repo
+   1. Folder name should be written using *kebab-case* naming convention
+   1. Inside that folder put index.rst file that will contain toc tree mentioning your new file. Use index.rst from root folder as an example
+   1. In root folder of docs, in index.rst file in toc tree section add reference to your new index.rst
    1. Search for any mentions of Contrail ```grep  -rho "[cC]ontrail-[^ ,'\"\:\{\)\.\;\`/]*\|[cC]ontrail [a-zA-Z]* [a-zA-Z]*" --exclude=\*.{md,html,css} * > occurences.txt```
    1. Check in what files they appear using grep. For example: ```grep  -r "Contrail vRouter Next" --exclude=\*.{md,html,css,txt} docsTools/*```
-   1. Check file ```decontralization_guide.txt``` to see which mentions should be corrected and which should be left unchanged.
+   1. Use ```decontralize.py``` script to de-contralize document and to remove obsolete newlines and html tags.
+   1. Replace admonitions like ```**NOTES**``` ```**CAUTION**``` with rst admonitions like ```.. notes::```
+   1. Correct internal hyperlinks to headers using ``` `header text`_ ```
+   1. Remove internal hyperlinks to elements that cannot be hyperlinked in RST (for example hyperlinks to bullet points)
+   1. Correct or remove hyperlinks to external documents
    1. After de-contralization run the search again for any Contrail references. Correct them manually.
 1. For all images:
    1. Manually check all changed ones with their previous version. Sometimes you will get false-positive because a change that is not visible to a user (for example, in EXIF fields) will be treated as a change by git.
    1. In case a new image was added, use ```grep -r "<FILE_NAME" *``` to find the document in which that image was used. For example: ```grep -r "s041998.gif" *```. Open that document and make the same screenshot using Tungsten Fabric. If you don't have access to the latest TF version, ask community members for help.
+1. Run ```tox -d docs``` to see if there are no errors in your new file
 1. Commit ```documentation_pages_output``` with a flag ```-m "<RELEASE NAME>```. For example for release r2020 it will be ```-m "r2020"```
 1. Commit any changes done to docs with a flag ```-m "<RELEASE NAME>```. For example, for release r2020 it will be ```-m "r2020"```
 
