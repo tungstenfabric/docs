@@ -8,3 +8,4 @@
 _build
 docsTools/folder/
 .vscode/*
+.vscode/settings.json
