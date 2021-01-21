@@ -27,3 +27,8 @@ In addition to building, we can and should run a linter against the content.
 ```
 $ tox -e docs-linkcheck
 ```
+
+## Troubleshooting
+
+In case tox will report errors like ```module not found``` when that module was previously used
+then remove .tox folder and run tox again.
