@@ -33,8 +33,7 @@ For descriptions of the options and their possible values, refer to the
 
 .. seealso::
 
-   For the style guidelines on figure titles, see figure table titles.
-
+   For the style guidelines on figure titles, see :ref:`figure_table_titles`.
 
 |
 

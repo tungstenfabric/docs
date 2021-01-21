@@ -12,3 +12,4 @@ There are a number of ways you can contribute to the project.
    getting-started/Tungsten_Fabric_JIRA_Workflow
    ../gerrit_patchreview.rst
    rst-conv
+   writing-style
