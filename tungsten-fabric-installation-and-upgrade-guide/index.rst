@@ -16,6 +16,7 @@ Documentation Structure
    :maxdepth: 3
    :titlesonly:
 
-   backup-using-json-50.rst
+   backup-using-json-50
+   canonical-octavia
 
 
