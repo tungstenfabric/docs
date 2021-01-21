@@ -117,7 +117,7 @@ directives.
       :widths: 2, 2, 2, 2, 4
 
       *N/S*, *N/S*, Off, Not Defined, Backwards compatibility with pre-Juno IPv6 behavior.
-      *N/S*, slaac, Off, "1,0,0", Guest instance obtains IPv6 address from non-OpenStack
+      *N/S*, slaac, Off, "1,0,0", Guest instance obtains IPv6 address from vRouter
       *N/S*, dhcpv6-stateful, Off, "0,1,1", Not currently implemented in the reference implementation.
 
 **Output**
@@ -127,7 +127,7 @@ directives.
    :widths: 2, 2, 2, 2, 4
 
    *N/S*, *N/S*, Off, Not Defined, Backwards compatibility with pre-Juno IPv6 behavior.
-   *N/S*, slaac, Off, "1,0,0", Guest instance obtains IPv6 address from non-OpenStack
+   *N/S*, slaac, Off, "1,0,0", Guest instance obtains IPv6 address from vRouter
    *N/S*, dhcpv6-stateful, Off, "0,1,1", Not currently implemented in the reference implementation.
 
 Useful links on table formatting
