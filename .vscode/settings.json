@@ -1,4 +1,5 @@
 {
     "restructuredtext.confPath": "",
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.pythonPath": "/usr/local/bin/python3"
 }

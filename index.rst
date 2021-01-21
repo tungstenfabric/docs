@@ -30,6 +30,7 @@ Documentation Structure
    infrastructure/index.rst
    administration/index.rst
    governance/index.rst
+   tungsten-fabric-installation-and-upgrade-guide/index.rst
 
 We welcome new contributors!
 ----------------------------

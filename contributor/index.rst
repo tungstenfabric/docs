@@ -7,7 +7,8 @@ There are a number of ways you can contribute to the project.
    :maxdepth: 2
    :titlesonly:
 
-   getting-started/index.rst
-   getting-started/Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions.rst
-   getting-started/Tungsten_Fabric_JIRA_Workflow.rst
+   getting-started/index
+   getting-started/Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions
+   getting-started/Tungsten_Fabric_JIRA_Workflow
    ../gerrit_patchreview.rst
+   rst-conv
