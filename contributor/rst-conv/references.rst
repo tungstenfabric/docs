@@ -12,6 +12,7 @@ have the underscore preceding the reference. For example, ``example``.
 For more information on referencing, see `Internal Hyperlink Targets
 <http://docutils.sourceforge.net/docs/user/rst/quickref.html#internal-hyperlink-targets>`_.
 
+
 **Input**
 
 .. code-block:: none
@@ -40,6 +41,30 @@ the defined label using this section heading as a link title.
 
 A link label and a reference can be defined in separate source files,
 but within one directory. Otherwise, use the external linking.
+
+Reference works only if it points to heading or section. For making link to
+any location you must give your reference an explicit title, using this syntax: ``:ref:`Link title <label-name>`.``
+
+**Input**
+
+.. code-block:: none
+
+  .. _label used in referencing file:
+
+  **Input**
+
+  This is the section we want to reference to.
+
+  ...
+
+  Here is a link to :ref:`that label located in another file 
+  <label used in referencing file>`.  
+
+**Output**
+
+Here is a link to :ref:`that label located in another file 
+<label used in referencing file>`.  
+
 
 External references
 ~~~~~~~~~~~~~~~~~~~
@@ -72,23 +97,25 @@ Here is a link to the Linux Foundation home page: https://www.linuxfoundation.or
 Here is an external web link with a link title:
 `Linux Foundation <https://www.linuxfoundation.org>`_.
 
-Repeared references
-~~~~~~~~~~~~~~~~~~~
+Links
+~~~~~
 
 In some cases same locations might be mentioned many times in the same document. 
-Instead of embeding URI each time use hyperlink target. All hyperlink target should be put at the end of the file.
+Instead of embeding URI inline each time use links. All hyperlink target should be put at the end of the file.
 
 **Input**
 
 .. code-block:: none
 
   Here is a link to `Signed CLAs wiki page`_.
+  And here is another paragraph with a link to the same `Signed CLAs wiki page`_.
 
   .. _Signed CLAs wiki page: https://wiki.tungsten.io/display/TUN/Signed+CLAs
 
 **Output**
 
-Here is a link to `Signed CLAs wiki page`_.
+  Here is a link to `Signed CLAs wiki page`_.
+  And here is another paragraph with a link to the same `Signed CLAs wiki page`_.
 
 .. _Signed CLAs wiki page: https://wiki.tungsten.io/display/TUN/Signed+CLAs
 

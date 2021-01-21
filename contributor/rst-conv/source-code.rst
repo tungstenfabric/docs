@@ -68,6 +68,8 @@ To optimize the output of code for a specific programming language, specify
 the corresponding argument with ``code-block``. Use ``ini`` for configuration
 files, ``console`` for console inputs and outputs, and so on.
 
+.. _label used in referencing file:
+
 **Input**
 
 .. code-block:: rst
