@@ -35,7 +35,6 @@ For descriptions of the options and their possible values, refer to the
 
    For the style guidelines on figure titles, see :ref:`figure_table_titles`.
 
-
 |
 
 This documentation, is a derivative of `RST conventions <https://docs.openstack.org/doc-contrib-guide/rst-conv.html>`_ by OpenStack, used under CC BY. 
