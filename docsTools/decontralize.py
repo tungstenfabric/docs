@@ -14,10 +14,10 @@ class DeContralizeDocument(object):
         pp = pprint.PrettyPrinter(indent=4)
 
         #open file
-        t = open(args.textFile, "r+")
+        t = open(args.textFile, "r")
         #load content
         content=t.read()
-
+        #close file as we will re-open it aggain for overwrite
         #open dictionary
         d = open(args.dictionary, "r")
         print("Looking for: [Cc]ontrail( |:|\\n|\.)")
@@ -37,7 +37,7 @@ class DeContralizeDocument(object):
 
             #if there are more than zero occurences then show the number
             if content.count(fromto[0])>0:
-                print(str(content.count(fromto[0]))+" "+fromto[0])
+                print(str(len(re.findall("{}( |:|\n|\.)".format(fromto[0]),content)))+" "+fromto[0])
             #if marked as manually then skip it
             if "manually" in str(fromto[1]):
                 continue
@@ -51,11 +51,13 @@ class DeContralizeDocument(object):
         print("\nOccurences left: "+str(len(re.findall("[Cc]ontrail( |:|\n|\.)",content)))+"\n")
         #remove obsolete HTML tags
         #opening <div> for samples and output
-        content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-\d]*(sample|output)[a-zA-z =\"-\d]*>","",content)
+        content=re.sub(".*raw:: html\n\n.*<div[a-zA-z =\"\-\d]*(sample|output)[a-zA-z =\"\-\d]*>","",content)
         #closing </div>
         content=re.sub(".*raw:: html\n\n.*<(div|/div)[a-zA-z =\"-]*>","",content)
+        #remove 4 or 3 newlines in a row
+        content=re.sub("(?<=\n)\n{3,4}","",content)
         #write down the new file
-        t.seek(0, 0)
+        t = open(args.textFile, "w")
         t.write(str(content))              
         t.close()
         d.close()
