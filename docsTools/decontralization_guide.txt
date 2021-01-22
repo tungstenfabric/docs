@@ -74,9 +74,9 @@ Contrail manifests >> TF manifests
 Contrail Microservices Architecture >> Contrail microservices architecture
 Contrail microservices >> TF microservices
 Contrail Msg >> Tungsten Fabric Msg
-Contrail Network >> Tungsten Fabric Network
-Contrail Networking Architecture >> Contrail Networking architecture 
 Contrail Networking >> Tungsten Fabric 
+Contrail Networking Architecture >> Contrail Networking architecture 
+Contrail Network >> Tungsten Fabric Network
 Contrail Neutron Plugin >> Contrail Neutron plugin
 Contrail Neutron plugin >> TF Neutron plugin
 Contrail Neutron >> TF Neutron
