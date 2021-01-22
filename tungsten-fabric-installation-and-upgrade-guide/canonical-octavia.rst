@@ -131,7 +131,7 @@ deployment:
    ``project=$(openstack project list --domain service_domain | awk '/services/{print $2}')openstack network create octavia --tag charm-octavia --project $projectopenstack subnet create --subnet-range 172.x.0.0/24 --network octavia --tag charm-octavia octavia# security group for octaviaopenstack security group create octavia --tag charm-octavia --project $projectopenstack security group rule create --ingress --ethertype IPv4 --protocol icmp octaviaopenstack security group rule create --ingress --ethertype IPv6 --protocol icmp octaviaopenstack security group rule create --ingress --ethertype IPv4 --protocol tcp --dst-port 22:22 octaviaopenstack security group rule create --ingress --ethertype IPv6 --protocol tcp --dst-port 22:22 octaviaopenstack security group rule create --ingress --ethertype IPv6 --protocol tcp --dst-port 9443:9443 octaviaopenstack security group rule create --ingress --ethertype IPv4 --protocol tcp --dst-port 9443:9443 octavia # security group for octavia-healthopenstack security group create octavia-health --tag charm-octavia-health --project $projectopenstack security group rule create --ingress --ethertype IPv4 --protocol icmp octavia-healthopenstack security group rule create --ingress --ethertype IPv6 --protocol icmp octavia-healthopenstack security group rule create --ingress --ethertype IPv4 --protocol udp --dst-port 5555:5555 octavia-healthopenstack security group rule create --ingress --ethertype IPv6 --protocol udp --dst-port 5555:5555 octavia-health``
 
 7. The management network created in step
-   `6 <canonical-octavia.html#mgmtnetwork>`__ is in overlay network and
+   6 is in overlay network and
    Octavia services are running in the underlay network. Verify network
    connectivity between overlay and underlay network via SDN gateway.
 
@@ -204,8 +204,7 @@ Prerequisites:
 
     ``openstack loadbalancer listener create --protocol HTTP --protocol-port 80 --name listener1 lb1openstack loadbalancer show lb1  # Wait for the provisioning_status to be ACTIVE.openstack loadbalancer pool create --lb-algorithm ROUND_ROBIN --listener listener1 --protocol HTTP --name pool1openstack loadbalancer healthmonitor create --delay 5 --timeout 2 --max-retries 1 --type HTTP pool1openstack loadbalancer member create --subnet-id private --address 10.10.10.50 --protocol-port 80 pool1openstack loadbalancer member create --subnet-id private --address 10.10.10.51 --protocol-port 80 pool1``
     IP addresses 10.10.10.50 and 10.10.10.51 belong to VMs created with
-    test http server in step
-    `7 <canonical-octavia.html#CreateSimpleHTTPServerOnEveryCirros>`__.
+    test http server in step 7.
 10. Check the status of load balancer.
 
     ``openstack loadbalancer show lb1  # Wait for the provisioning_status to be ACTIVE. openstack loadbalancer pool listopenstack loadbalancer pool show pool1openstack loadbalancer member list pool1openstack loadbalancer listener list``
@@ -213,6 +212,7 @@ Prerequisites:
 11. Login to load balancer client and verify if round robin works.
 
     ``ubuntu@comp-1:~$ ssh cirros@169.x.0.9The authenticity of host '169.x.0.9 (169.x.0.9)' can't be established.RSA key fingerprint is SHA256:jv0qgZkorxxxxxxxmykOSVQV3fFl0.Are you sure you want to continue connecting (yes/no)? yesWarning: Permanently added '169.x.0.9' (RSA) to the list of known hosts.cirros@169.x.0.9's password:$ curl 10.10.10.50Welcome to 10.10.10.52$ curl 10.10.10.50Welcome to 10.10.10.53$ curl 10.10.10.50Welcome to 10.10.10.52$ curl 10.10.10.50Welcome to 10.10.10.53$ curl 10.10.10.50Welcome to 10.10.10.52$ curl 10.10.10.50Welcome to 10.10.10.53``
+
 .. _Sample octavia-bundle.yaml file:
 
 **Sample octavia-bundle.yaml file**
