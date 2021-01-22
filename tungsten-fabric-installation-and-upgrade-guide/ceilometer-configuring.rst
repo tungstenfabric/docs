@@ -1,15 +1,7 @@
-Ceilometer Support in Contrail
-==============================
+Ceilometer Support in Tungsten Fabric
+=====================================
 
  
-
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
 
 Ceilometer is an OpenStack feature that provides an infrastructure for
 collecting SDN metrics from OpenStack projects. The metrics can be used
@@ -17,20 +9,12 @@ by various rating engines to transform events into billable items. The
 Ceilometer collection process is sometimes referred to as “metering”.
 The Ceilometer service provides data that can be used by platforms that
 provide metering, tracking, billing, and similar services. This topic
-describes how to configure the Ceilometer service for Contrail.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
+describes how to configure the Ceilometer service for Tungsten Fabric.
 
 Overview
 --------
 
-Contrail Release 2.20 and later supports the OpenStack Ceilometer
+Tungsten Fabric Release 2.20 and later supports the OpenStack Ceilometer
 service, on the OpenStack Juno release on Ubuntu 14.04.1 LTS.
 
 The prerequisites for installing Ceilometer are:
@@ -43,7 +27,7 @@ The prerequisites for installing Ceilometer are:
 **Note**
 
 Ceilometer services are only installed on the first OpenStack controller
-node and do not support high availability in Contrail Release 2.20.
+node and do not support high availability in Tungsten Fabric Release 2.20.
 
 Ceilometer Details
 ------------------
@@ -55,81 +39,25 @@ actions when defined criteria are met.
 
 The Ceilometer architecture consists of:
 
-.. raw:: html
-
-   <div class="definitionList">
-
-.. raw:: html
-
-   <div>
-
 Polling agent—Agent designed to poll OpenStack services and build
 meters. The polling agents are also run on the compute nodes in addition
 to the OpenStack controller.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 Notification agent—Agent designed to listen to notifications on message
 queue and convert them to events and samples.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
 
 Collector —Gathers and records event and metering data created by the
 notification and polling agents.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 API server—Provides a REST API to query and view data recorded by the
 collector service.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 Alarms—Daemons to evaluate and notify based on defined alarming rules.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
 
 Database—Stores the metering data, notifications, and alarms. The
 supported databases are MongoDB, SQL-based databases compatible with
 SQLAlchemy, and HBase. The recommended database is MongoDB, which has
-been thoroughly tested with Contrail and deployed on a production scale.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
+been thoroughly tested with TF and deployed on a production scale.
 
 Verification of Ceilometer Operation
 ------------------------------------
@@ -139,140 +67,39 @@ RHEL Server 7.0.
 
 On Ubuntu, the service names are:
 
-.. raw:: html
-
-   <div class="definitionList">
-
-.. raw:: html
-
-   <div>
-
 Polling agent—\ ``ceilometer-agent-central`` and
 ``ceilometer-agent-compute``
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 Notification agent—\ ``ceilometer-agent-notification``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
 
 Collector —\ ``ceilometer-collector``
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 API Server—\ ``ceilometer-api``\ 
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
 
 Alarms—\ ``ceilometer-alarm-evaluator``\ and
 ``ceilometer-alarm-notifier``
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 On RHEL Server 7.0, the service names are:
-
-.. raw:: html
-
-   <div class="definitionList">
-
-.. raw:: html
-
-   <div>
 
 Polling agent—\ ``openstack-ceilometer-central``\ and
 ``openstack-ceilometer-compute``
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 Notification agent—\ ``openstack-ceilometer-notification``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
 
 Collector —\ ``openstack-ceilometer-collector``\ 
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
 API server—\ ``openstack-ceilometer-api``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
 
 Alarms—\ ``openstack-ceilometer-alarm-evaluator`` and
 ``openstack-ceilometer-alarm-notifier``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 To verify the Ceilometer installation, users can verify that the
 Ceilometer services are up and running by using the ``openstack-status``
 command.
 
 For example, using the ``openstack-status`` command on an all-in-one
-node running Ubuntu 14.04.1 LTS with release 2.2 of Contrail installed
+node running Ubuntu 14.04.1 LTS with release 2.2 of Tungsten Fabric installed
 shows the following Ceilometer services as active:
-
-.. raw:: html
-
-   <div id="jd0e207" class="example" dir="ltr">
-
 ::
 
    == Ceilometer services ==
@@ -284,18 +111,9 @@ shows the following Ceilometer services as active:
    ceilometer-alarm-evaluator:   active
    ceilometer-agent-notification:active
 
-.. raw:: html
-
-   </div>
-
 You can issue the ceilometer meter-list command on the OpenStack
 controller node to verify that meters are being collected, stored, and
 reported via the REST API. The following is an example of the output:
-
-.. raw:: html
-
-   <div id="jd0e215" class="example" dir="ltr">
-
 ::
 
    user@host:~# (source /etc/contrail/openstackrc; ceilometer meter-list)
@@ -326,10 +144,6 @@ reported via the REST API. The following is an example of the output:
    | subnet.create                | delta      | subnet  | 4bf00aac-407c-4266-a048-6ff52721ad82 | 15c0240142084d16b3127d6f844adbd9 | ded208991de34fe4bb7dd725097f1c7e |
    +------------------------------+------------+---------+--------------------------------------+----------------------------------+----------------------------------+
 
-.. raw:: html
-
-   </div>
-
 **Note**
 
 The ceilometer meter-list command lists the meters only if images have
@@ -338,17 +152,12 @@ floating IP addresses have been created, otherwise the meter list is
 empty. You also need to source the ``/etc/contrail/openstackrc`` file
 when executing the command.
 
-Contrail Ceilometer Plugin
---------------------------
+Tungsten Fabric Ceilometer plugin
+---------------------------------
 
-The Contrail Ceilometer plugin adds the capability to meter the traffic
+The Tungsten Fabric Ceilometer plugin adds the capability to meter the traffic
 statistics of floating IP addresses in Ceilometer. The following meters
 for each floating IP resource are added by the plugin in Ceilometer.
-
-.. raw:: html
-
-   <div id="jd0e235" class="example" dir="ltr">
-
 ::
 
    ip.floating.receive.bytes
@@ -356,20 +165,11 @@ for each floating IP resource are added by the plugin in Ceilometer.
    ip.floating.transmit.bytes
    ip.floating.transmit.packets
 
-.. raw:: html
-
-   </div>
-
-The Contrail Ceilometer plugin configuration is done in the
-``/etc/ceilometer/pipeline.yaml`` file when Contrail is installed by the
+The Tungsten Fabric Ceilometer plugin configuration is done in the
+``/etc/ceilometer/pipeline.yaml`` file when Tungsten Fabric is installed by the
 Fabric provisioning scripts.
 
 The following example shows the configuration that is added to the file:
-
-.. raw:: html
-
-   <div id="jd0e245" class="example" dir="ltr">
-
 ::
 
    sources:
@@ -390,17 +190,8 @@ The following example shows the configuration that is added to the file:
            - rpc://
          transformers:
 
-.. raw:: html
-
-   </div>
-
 The following example shows the Ceilometer meter list output for the
 floating IP meters:
-
-.. raw:: html
-
-   <div id="jd0e250" class="example" dir="ltr">
-
 ::
 
    +-------------------------------+------------+-----------+-----------------------------------------------------------------------+----------------------------------+----------------------------------+
@@ -414,20 +205,12 @@ floating IP meters:
    | ip.floating.transmit.bytes    | cumulative | B         | 9cf76844-8f09-4518-a09e-e2b8832bf894                                  | None                             | None                             |
    | ip.floating.transmit.packets  | cumulative | packet    | 451c93eb-e728-4ba1-8665-6e7c7a8b49e2                                  | None                             | None                             |
    | ip.floating.transmit.packets  | cumulative | packet    | 9cf76844-8f09-4518-a09e-e2b8832bf894                                  | None                             | None                             |
-
-.. raw:: html
-
-   </div>
+   +-------------------------------+------------+-----------+-----------------------------------------------------------------------+----------------------------------+----------------------------------+
 
 In the meter -list output, the Resource ID refers to the floating IP.
 
 The following example shows the output from the ceilometer resource-show
 -r 451c93eb-e728-4ba1-8665-6e7c7a8b49e2 command:
-
-.. raw:: html
-
-   <div id="jd0e260" class="example" dir="ltr">
-
 ::
 
    +-------------+-------------------------------------------------------------------------+
@@ -446,18 +229,9 @@ The following example shows the output from the ceilometer resource-show
    | user_id     | None                                                                    |
    +-------------+-------------------------------------------------------------------------+
 
-.. raw:: html
-
-   </div>
-
 The following example shows the output from the ceilometer statistics
 command and the ceilometer sample-list command for the
 ``ip.floating.receive.packets`` meter:
-
-.. raw:: html
-
-   <div id="jd0e274" class="example" dir="ltr">
-
 ::
 
    +--------+----------------------------+----------------------------+-------+-----+-------+--------+----------------+------------+----------------------------+----------------------------+
@@ -472,19 +246,16 @@ command and the ceilometer sample-list command for the
    | 9cf76844-8f09-4518-a09e-e2b8832bf894 | ip.floating.receive.packets | cumulative | 208.0  | packet | 2015-02-18T21:48:30.469000 |
    | 451c93eb-e728-4ba1-8665-6e7c7a8b49e2 | ip.floating.receive.packets | cumulative | 325.0  | packet | 2015-02-18T21:48:28.354000 |
    | 9cf76844-8f09-4518-a09e-e2b8832bf894 | ip.floating.receive.packets | cumulative | 0.0    | packet | 2015-02-18T21:38:30.350000 |
-
-.. raw:: html
-
-   </div>
+   +--------------------------------------+-----------------------------+------------+--------+--------+----------------------------+
 
 Ceilometer Installation and Provisioning
 ----------------------------------------
 
-There are two scenarios possible for Contrail Ceilometer plugin
+There are two scenarios possible for Tungsten Fabric Ceilometer plugin
 installation.
 
 1. If you install your own OpenStack distribution, you can install the
-   Contrail Ceilometer plugin on the OpenStack controller node.
+   Tungsten Fabric Ceilometer plugin on the OpenStack controller node.
 
 2. When using Contrail Cloud services, the Ceilometer controller
    services are installed and provisioned as part of the OpenStack

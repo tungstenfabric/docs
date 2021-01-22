@@ -18,5 +18,6 @@ Documentation Structure
 
    backup-using-json-50
    canonical-octavia
+   ceilometer-configuring
 
 
