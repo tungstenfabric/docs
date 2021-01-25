@@ -25,3 +25,4 @@ Documentation Structure
    creating-security-groups
    creating-virtual-network-vnc
    deploying-contrail-using-juju-charms-kubernetes
+   deploying-contrail-using-juju-charms
