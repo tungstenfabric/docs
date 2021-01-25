@@ -1,9 +1,7 @@
-Creating Projects in OpenStack for Configuring Tenants in Contrail
-==================================================================
+Creating Projects in OpenStack for Configuring Tenants in Tungsten Fabric
+=========================================================================
 
- 
-
-In Contrail, a tenant configuration is called a project. A project is
+In Tungsten Fabric, a tenant configuration is called a project. A project is
 created for each set of virtual machines (VMs) and virtual networks
 (VNs) that are configured as a discrete entity for the tenant.
 
