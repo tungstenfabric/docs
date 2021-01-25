@@ -27,26 +27,23 @@ date.
 
 To add rules to a security group:
 
-1. From the OpenStack interface, click the **Project** tab, select
-   **Access & Security**, and click the **Security Groups** tab.
+1. From the OpenStack interface, click the :guilabel:`Project` tab, select
+   :guilabel:`Access & Security`, and click the :guilabel:`Security Groups` tab.
 
-   Any existing security groups are listed under the **Security Groups**
-   tab, including the default security group; see
-   `Figure 1 <creating-security-groups.html#secur-grps>`__.
+   Any existing security groups are listed under the :guilabel:`Security Groups`
+   tab, including the default security group.
 
    |Figure 1: Security Groups|
 
-2. Select the **default-security-group** and click **Edit Rules** in the
-   **Actions** column.
+2. Select the :guilabel:`default-security-group` and click :guilabel:`Edit Rules` in the
+   :guilabel:`Actions` column.
 
-   The **Edit Security Group Rules** window is displayed; see
-   `Figure 2 <creating-security-groups.html#edit-sec-rules>`__. Any
+   The :guilabel:`Edit Security Group Rules` window is displayed. Any
    rules already associated with the security group are listed.
 
    |Figure 2: Edit Security Group Rules|
 
-3. Click **Add Rule** to add a new rule; see
-   `Figure 3 <creating-security-groups.html#add-rule-sg>`__.
+3. Click :guilabel:`Add Rule` to add a new rule.
 
    |Figure 3: Add Rule|
 
@@ -65,7 +62,7 @@ To add rules to a security group:
    +-----------------+---------------------------------------------------+
    | **To Port**     | The port to which traffic is destined that        |
    |                 | applies to this rule, using the same options as   |
-   |                 | in the **From Port** field.                       |
+   |                 | in the :guilabel:`From Port` field.                       |
    +-----------------+---------------------------------------------------+
    | **Source**      | Select the source of traffic to be allowed by     |
    |                 | this rule. Specify subnet—the CIDR IP address or  |
@@ -77,10 +74,9 @@ To add rules to a security group:
    |                 | other instance via this rule.                     |
    +-----------------+---------------------------------------------------+
 
-4. Click **Create Security Group** to create additional security groups.
+4. Click :guilabel:`Create Security Group` to create additional security groups.
 
-   The **Create Security Group** window is displayed; see
-   `Figure 4 <creating-security-groups.html#creat-sec-grp>`__.
+   The :guilabel:`Create Security Group` window is displayed.
 
    Each new security group has a unique 32-bit security group ID and an
    ACL is associated with the configured rules.
@@ -88,10 +84,9 @@ To add rules to a security group:
    |Figure 4: Create Security Group|
 
 5. When an instance is launched, there is an opportunity to associate a
-   security group; see
-   `Figure 5 <creating-security-groups.html#launch-sg>`__.
+   security group.
 
-   In the **Security Groups** list, select the security group name to
+   In the :guilabel:`Security Groups` list, select the security group name to
    associate with the instance.
 
    |Figure 5: Associate Security Group at Launch Instance|
