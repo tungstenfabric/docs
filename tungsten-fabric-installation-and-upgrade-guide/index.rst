@@ -20,6 +20,7 @@ Documentation Structure
    canonical-octavia
    config-TLS-vncDocument1
    config-control-node-with-bgp
+   creating-image-vnc
 
 
 
