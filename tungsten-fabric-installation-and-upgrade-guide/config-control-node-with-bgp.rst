@@ -68,7 +68,7 @@ To configure BGP peering in the control node:
    select **Edit**. In the Edit BGP Router window enter the new number.
 
 3. To create control nodes and BGP routers, on the **BGP Routers**
-   summary screen, click the \ |image1|\  icon. The **Create BGP
+   summary screen, click the |image1|  icon. The **Create BGP
    Router** window is displayed; see
    `Figure 3 <config-control-node-with-bgp.html#add-bgp-peer>`__.
 
