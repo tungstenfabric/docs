@@ -22,6 +22,4 @@ Documentation Structure
    config-control-node-with-bgp
    creating-image-vnc
    creating-projects-vnc
-
-
-
+   creating-security-groups

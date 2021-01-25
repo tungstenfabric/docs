@@ -20,6 +20,7 @@ exclude_patterns:
   - Thumbs.db
   - .tox
   - docsTools
+  - .git
 todo_include_todos: false
 
 html_favicon: _static/favicon.ico
