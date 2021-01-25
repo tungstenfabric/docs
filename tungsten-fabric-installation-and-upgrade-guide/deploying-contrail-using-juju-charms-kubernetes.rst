@@ -7,10 +7,10 @@ You can deploy Tungsten Fabric using Juju Charms. Juju helps you
 deploy, configure, and efficiently manage applications on private clouds
 and public clouds. Juju accesses the cloud with the help of a Juju
 controller. A Charm is a module containing a collection of scripts and
-metadata and is used with Juju to deploy Contrail.
+metadata and is used with Juju to deploy TF.
 
 A Juju Charm helps you deploy Docker containers to the cloud. For more
-information on containerized Contrail, see `Understanding Contrail
+information on containerized TF, see `Understanding Contrail
 Containers <../concept/summary-of-container-design.html>`__. Juju Charms
 simplifies TF deployment by providing a simple way to deploy,
 configure, scale, and manage TF operations.
@@ -18,7 +18,7 @@ configure, scale, and manage TF operations.
 Understanding Juju Charms with Kubernetes
 -----------------------------------------
 
-Contrail supports the following charms:
+TF supports the following charms:
 
 -  contrail-agent
 
@@ -32,8 +32,8 @@ Contrail supports the following charms:
 
 -  contrail-kubernetes-node
 
-Preparing to Deploy Contrail with Kubernetes by Using Juju Charms
------------------------------------------------------------------
+Preparing to Deploy TF with Kubernetes by Using Juju Charms
+-----------------------------------------------------------
 
 You can deploy Tungsten Fabric by using Juju bundle.
 
@@ -364,8 +364,7 @@ Follow these steps to deploy TF Charms in a bundle.
       Each TF Charm has a specific set of options. The options you
       choose depend on the charms you select. For more information on
       the options that are available, see ``config.yaml`` file for each
-      charm located at `Contrail
-      Charms <https://github.com/tungstenfabric/tf-charms>`__.
+      charm located at `TF Charms <https://github.com/tungstenfabric/tf-charms>`__.
 
 2. (Optional) Check the status of deployment.
 
@@ -421,7 +420,7 @@ Before you begin deployment, ensure that you have:
 Follow these steps to deploy Juju Charms with Kubernetes manually:
 
 1. Create machine instances for Kubernetes master, Kubernetes workers,
-   and Contrail.
+   and TF.
 
    ::
 
@@ -433,7 +432,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
    ::
 
-      juju add-machine ssh:<sshusername>@<IP> --constraints mem=16G cores=4 root-disk=32G --series=xenial #for Contrail machine
+      juju add-machine ssh:<sshusername>@<IP> --constraints mem=16G cores=4 root-disk=32G --series=xenial #for TF machine
 
 2. Deploy the Kubernetes services.
 
@@ -450,7 +449,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
    .. note::
 
-      You must use the same docker version for Contrail and Kubernetes.
+      You must use the same docker version for TF and Kubernetes.
 
    For more details, refer to `Juju Application Configuration <https://old-docs.jujucharms.com/2.4/en/charms-config>`__.
 
@@ -495,7 +494,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
           docker_runtime_key_url="https://download.docker.com/linux/ubuntu/gpg" \
           docker_runtime_package="docker-ce"
 
-4. Deploy and configure Contrail services.
+4. Deploy and configure TF services.
 
    Deploy contrail-analyticsdb, contrail-analytics, contrail-controller,
    contrail-kubernetes-master, contrail-kubernetes-node, contrail-agent
@@ -504,7 +503,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
    .. note::
 
       You must set the ``auth-mode`` parameter of the contrail-controller
-      charm to no-auth if Contrail is deployed without a keystone.
+      charm to no-auth if TF is deployed without a keystone.
 
    ::
 
@@ -539,7 +538,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
 7. Apply SSL.
 
-   You can apply SSL if needed. To use SSL with Contrail services,
+   You can apply SSL if needed. To use SSL with TF services,
    deploy easy-rsa service and ``add-relation`` command to create
    relations to contrail-controller service and contrail-agent services.
 

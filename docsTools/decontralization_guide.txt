@@ -122,7 +122,10 @@ Contrail Web User Interface >> Tungsten Fabric WebUI
 Contrail Web user interface >> Tungsten Fabric WebUI
 Contrail WebUI >> Tungsten Fabric WebUI 
 Contrail analytics >> TF analytics
+Contrail deployment >> TF deployment
 Contrail operator >> TF operator
+Contrail operations >> TF operations
+Contrail supports >> TF supports
 Contrail vCenter playbook >> TF vCenter playbook
 Contrail vCenter >> TF vCenter
 Contrail vRO Plugin >> TF vRO plugin
