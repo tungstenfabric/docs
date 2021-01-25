@@ -21,6 +21,7 @@ Documentation Structure
    config-TLS-vncDocument1
    config-control-node-with-bgp
    creating-image-vnc
+   creating-projects-vnc
 
 
 
