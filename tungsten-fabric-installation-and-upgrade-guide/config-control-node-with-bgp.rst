@@ -51,8 +51,8 @@ Configuring the Control Node from Contrail Web UI
 To configure BGP peering in the control node:
 
 1. From the Contrail Controller module control node
-   (**http://``nn.nn.nn.nn``:8143**), select **Configure >
-   Infrastructure > BGP Routers**.
+   (**http://``nn.nn.nn.nn``:8143**), select :guilabel:`Configure` >
+   :guilabel:`Infrastructure` > :guilabel:`BGP Routers`.
 
    |Figure 1: Configure> Infrastructure > BGP Routers|
 
@@ -62,17 +62,17 @@ To configure BGP peering in the control node:
    |Figure 2: BGP Routers Summary|
 
 2. (Optional) The global AS number is 64512 by default. To change the AS
-   number, on the **BGP Router** summary screen click the gear wheel and
-   select **Edit**. In the Edit BGP Router window enter the new number.
+   number, on the :guilabel:`BGP Router` summary screen click the gear wheel and
+   select :guilabel:`Edit`. In the Edit BGP Router window enter the new number.
 
-3. To create control nodes and BGP routers, on the **BGP Routers**
-   summary screen, click the |image1|  icon. The **Create BGP
-   Router** window is displayed.
+3. To create control nodes and BGP routers, on the :guilabel:`BGP Routers`
+   summary screen, click the |image1|  icon. The :guilabel:`Create BGP
+   Router` window is displayed.
 
    |Figure 3: Create BGP Router|
 
-4. In the **Create BGP Router** window, click **BGP Router** to add a
-   new BGP router or click **Control Node** to add control nodes.
+4. In the :guilabel:`Create BGP Router` window, click :guilabel:`BGP Router` to add a
+   new BGP router or click :guilabel:`Control Node` to add control nodes.
 
    For each node you want to add, populate the fields with values for
    your system.
@@ -114,25 +114,25 @@ To configure BGP peering in the control node:
    | **Configured Peers**    | Displays peers currently configured.      |
    +-------------------------+-------------------------------------------+
 
-5. Click **Save** to add each node that you create.
+5. Click :guilabel:`Save` to add each node that you create.
 
 6. To configure an existing node as a peer, select it from the list in
-   the **Available Peers** box, then click **>>** to move it into the
-   **Configured Peers** box.
+   the :guilabel:`Available Peers` box, then click :guilabel:`>>` to move it into the
+   :guilabel:`Configured Peers` box.
 
-   Click **<<** to remove a node from the **Configured Peers** box.
+   Click :guilabel:`<<` to remove a node from the :guilabel:`Configured Peers` box.
 
-7. You can check for peers by selecting **Monitor > Infrastructure >
-   Control Nodes**.
+7. You can check for peers by selecting :guilabel:`Monitor` > :guilabel:`Infrastructure` >
+   :guilabel:`Control Nodes`.
 
    |Figure 4: Control Nodes|
 
-   In the **Control Nodes** window, click any hostname in the memory map
+   In the :guilabel:`Control Nodes` window, click any hostname in the memory map
    to view its details.
 
    |Figure 5: Control Node Details|
 
-8. Click the **Peers** tab to view the peers of a control node.
+8. Click the :guilabel:`Peers` tab to view the peers of a control node.
 
    |Figure 6: Control Node Peers Tab|
 
