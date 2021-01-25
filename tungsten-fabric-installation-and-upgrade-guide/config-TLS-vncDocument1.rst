@@ -23,10 +23,10 @@ ciphers to secure the stream from potential tampering and eavesdropping.
 The RFC 6120 highlights a basic stream message exchange format for TLS
 negotiation between an XMPP server and an XMPP client.
 
-**Note**
+.. note::
 
-Simple Authentication and Security Layer (SASL) authentication is not
-supported in the Contrail environment.
+   Simple Authentication and Security Layer (SASL) authentication is not
+   supported in the Contrail environment.
 
 Configuring XMPP Client and Server in Contrail
 ----------------------------------------------
@@ -48,45 +48,26 @@ XMPP server.
 | On the control node, enable the parameters in the configuration file:
 | ``/etc/contrail/contrail-control.conf``.
 
-.. raw:: html
+.. list-table:: 
+      :header-rows: 1
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Parameter</p></th>
-   <th style="text-align: left;"><p>Description</p></th>
-   <th style="text-align: left;"><p>Default</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_server_cert</code></p></td>
-   <td style="text-align: left;"><p>Path to the node's public certificate</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/server.pem</code></p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_server_key</code></p></td>
-   <td style="text-align: left;"><p>Path to server's or node's private key</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/private/server-privkey.pem</code></p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_ca_cert</code></p></td>
-   <td style="text-align: left;"><p>Path to CA certificate</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/ca-cert.pem</code></p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_auth_enable=true</code></p></td>
-   <td style="text-align: left;"><p>Enables SSL based XMPP</p></td>
-   <td style="text-align: left;"><p>Default is set to false, XMPP is disabled.</p>
-   <p><strong>Note:</strong> The keyword <code class="inline" data-v-pre="">true</code> is case sensitive.</p></td>
-   </tr>
-   </tbody>
-   </table>
+      * - Parameter
+        - Description
+        - Default
+      * - ``xmpp_server_cert``
+        - Path to the node's public certificate
+        - ``/etc/contrail/ssl/certs/server.pem``
+      * - ``xmpp_server_key``
+        - Path to server's or node's private key
+        - ``/etc/contrail/ssl/certs/server-privkey.pem``
+      * - ``xmpp_ca_cert``
+        - Path to CA certificate
+        - ``/etc/contrail/ssl/certs/ca-cert.pem``
+      * - ``xmpp_auth_enable=true``
+        - Enables SSL based XMPP
+        - Default is set to false, XMPP is disabled.
+          *Note*: The keyword ``true`` is case sensitive.
+
 
 Configuring DNS Server for XMPP Server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,45 +79,27 @@ XMPP DNS server.
   configuration file:
 | ``/etc/contrail/contrail-control.conf``
 
-.. raw:: html
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Parameter</p></th>
-   <th style="text-align: left;"><p>Description</p></th>
-   <th style="text-align: left;"><p>Default</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_server_cert</code></p></td>
-   <td style="text-align: left;"><p>Path to the node's public certificate</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/server.pem</code></p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_server_key</code></p></td>
-   <td style="text-align: left;"><p>Path to server's/node's private key</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/server-privkey.pem</code></p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_ca_cert</code></p></td>
-   <td style="text-align: left;"><p>Path to CA certificate</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/ca-cert.pem</code></p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_dns_auth_enable=true</code></p></td>
-   <td style="text-align: left;"><p>Enables SSL based XMPP</p></td>
-   <td style="text-align: left;"><p>Default is set to false, XMPP is disabled.</p>
-   <p><strong>Note:</strong> The keyword <code class="inline" data-v-pre="">true</code> is case sensitive.</p></td>
-   </tr>
-   </tbody>
-   </table>
+.. list-table:: 
+      :header-rows: 1
+
+      * - Parameter
+        - Description
+        - Default
+      * - ``xmpp_server_cert``
+        - Path to the node's public certificate
+        - ``/etc/contrail/ssl/certs/server.pem``
+      * - ``xmpp_server_key``
+        - Path to server's or node's private key
+        - ``/etc/contrail/ssl/certs/server-privkey.pem``
+      * - ``xmpp_ca_cert``
+        - Path to CA certificate
+        - ``/etc/contrail/ssl/certs/ca-cert.pem``
+      * - ``xmpp_dns_auth_enable=true``
+        - Enables SSL based XMPP
+        - Default is set to false, XMPP is disabled.
+          *Note*: The keyword ``true`` is case sensitive.
+
 
 Configuring Control Node for XMPP Client
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -147,44 +110,24 @@ XMPP client.
 | On the compute node, enable the parameters in the configuration file:
 | ``/etc/contrail/contrail-vrouter-agent.conf``
 
-.. raw:: html
+.. list-table:: 
+      :header-rows: 1
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Parameter</p></th>
-   <th style="text-align: left;"><p>Description</p></th>
-   <th style="text-align: left;"><p>Default</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_server_cert</code></p></td>
-   <td style="text-align: left;"><p>Path to the node's public certificate</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/server.pem</code></p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_server_key</code></p></td>
-   <td style="text-align: left;"><p>Path to server's/node's private key</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/private/server-privkey.pem</code></p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_ca_cert</code></p></td>
-   <td style="text-align: left;"><p>Path to CA certificate</p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">/etc/contrail/ssl/certs/ca-cert.pem</code></p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">xmpp_auth_enable=true  xmpp_dns_auth_enable=true</code></p></td>
-   <td style="text-align: left;"><p>Enables SSL based XMPP</p></td>
-   <td style="text-align: left;"><p>Default is set to false, XMPP is disabled.</p>
-   <p><strong>Note:</strong> The keyword <code class="inline" data-v-pre="">true</code> is case sensitive.</p></td>
-   </tr>
-   </tbody>
-   </table>
+      * - Parameter
+        - Description
+        - Default
+      * - ``xmpp_server_cert``
+        - Path to the node's public certificate
+        - ``/etc/contrail/ssl/certs/server.pem``
+      * - ``xmpp_server_key``
+        - Path to server's/node's private key
+        - ``/etc/contrail/ssl/private/server-privkey.pem``
+      * - ``xmpp_ca_cert``
+        - Path to CA certificate
+        - ``/etc/contrail/ssl/certs/ca-cert.pem``
+      * - ``xmpp_auth_enable=true``
+          ``xmpp_dns_auth_enable=true``
+        - Enables SSL based XMPP
+        - Default is set to false, XMPP is disabled.
+          *Note*: The keyword ``true`` is case sensitive.
 
- 
