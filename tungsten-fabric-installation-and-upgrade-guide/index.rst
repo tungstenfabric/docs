@@ -23,3 +23,4 @@ Documentation Structure
    creating-image-vnc
    creating-projects-vnc
    creating-security-groups
+   creating-virtual-network-vnc
