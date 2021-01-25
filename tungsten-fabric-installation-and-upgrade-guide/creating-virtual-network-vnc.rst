@@ -1,11 +1,11 @@
 Creating a Virtual Network with OpenStack TF
 ============================================
 
-You can create virtual networks in Contrail Networking from the
+You can create virtual networks in Tungsten Fabric from the
 OpenStack. The following procedure shows how to create a virtual network
 when using OpenStack.
 
-1. To create a virtual network when using OpenStack Contrail, select
+1. To create a virtual network when using OpenStack TF, select
    :menuselection:`Project > Network > Networks`. The :guilabel:`Networks` page is displayed.
 
    |Figure 1: Networks Page|
