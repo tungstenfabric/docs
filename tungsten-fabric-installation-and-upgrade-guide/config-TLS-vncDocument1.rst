@@ -1,5 +1,5 @@
-Configuring Transport Layer Security-Based XMPP in Contrail
-===========================================================
+Configuring Transport Layer Security-Based XMPP in Tungsten Fabric
+==================================================================
 
  
 
@@ -8,15 +8,15 @@ Overview: TLS-Based XMPP
 
 Transport Layer Security (TLS)-based XMPP can be used to secure all
 Extensible Messaging and Presence Protocol (XMPP)-based communication
-that occurs in the Contrail environment.
+that occurs in the TF environment.
 
 Secure XMPP is based on RFC 6120, Extensible Messaging and Presence
 Protocol (XMPP): Core.
 
-TLS XMPP in Contrail
-~~~~~~~~~~~~~~~~~~~~
+TLS XMPP in Tungsten Fabric
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the Contrail environment, the Transport Layer Security (TLS) protocol
+In the TF environment, the Transport Layer Security (TLS) protocol
 is used for certificate exchange, mutual authentication, and negotiating
 ciphers to secure the stream from potential tampering and eavesdropping.
 
@@ -26,12 +26,12 @@ negotiation between an XMPP server and an XMPP client.
 .. note::
 
    Simple Authentication and Security Layer (SASL) authentication is not
-   supported in the Contrail environment.
+   supported in the TF environment.
 
-Configuring XMPP Client and Server in Contrail
+Configuring XMPP client and server in Tungsten Fabric
 ----------------------------------------------
 
-In the Contrail environment, XMPP based communications are used in
+In the TF environment, XMPP based communications are used in
 client and server exchanges, between the compute node (as the XMPP
 client), and:
 
