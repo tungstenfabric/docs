@@ -3,15 +3,7 @@ Installing Contrail with Kubernetes by Using Juju Charms
 
  
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-You can deploy Contrail Networking using Juju Charms. Juju helps you
+You can deploy Tungsten Fabric using Juju Charms. Juju helps you
 deploy, configure, and efficiently manage applications on private clouds
 and public clouds. Juju accesses the cloud with the help of a Juju
 controller. A Charm is a module containing a collection of scripts and
@@ -20,16 +12,8 @@ metadata and is used with Juju to deploy Contrail.
 A Juju Charm helps you deploy Docker containers to the cloud. For more
 information on containerized Contrail, see `Understanding Contrail
 Containers <../concept/summary-of-container-design.html>`__. Juju Charms
-simplifies Contrail deployment by providing a simple way to deploy,
-configure, scale, and manage Contrail operations.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
+simplifies TF deployment by providing a simple way to deploy,
+configure, scale, and manage TF operations.
 
 Understanding Juju Charms with Kubernetes
 -----------------------------------------
@@ -51,33 +35,17 @@ Contrail supports the following charms:
 Preparing to Deploy Contrail with Kubernetes by Using Juju Charms
 -----------------------------------------------------------------
 
-You can deploy Contrail Networking by using Juju bundle.
+You can deploy Tungsten Fabric by using Juju bundle.
 
 Follow these steps to prepare for deployment:
 
 1. Install Juju.
-
-   .. raw:: html
-
-      <div id="jd0e67" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       apt install bridge-utils -y 
       apt install snapd -y 
       snap install juju --classic
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 2. Configure Juju.
 
@@ -89,25 +57,9 @@ Follow these steps to prepare for deployment:
    Juju already has knowledge of the AWS cloud, which means adding your
    AWS account to Juju is quick and easy.
 
-   .. raw:: html
-
-      <div id="jd0e80" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju show-cloud --local aws
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    .. note::
 
@@ -118,25 +70,9 @@ Follow these steps to prepare for deployment:
    region support). Run the following command to update Juju’s public
    cloud data:
 
-   .. raw:: html
-
-      <div id="jd0e94" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju update-public-clouds
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    Juju recognizes a wide range of cloud types. You can use any one of
    the following methods to add a cloud credentials to Juju:
@@ -144,14 +80,6 @@ Follow these steps to prepare for deployment:
    -  Adding a Cloud Credentials by Using Interactive Command
 
       *Example: Adding AWS cloud credentials to Juju*
-
-      .. raw:: html
-
-         <div id="jd0e108" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -167,38 +95,12 @@ Follow these steps to prepare for deployment:
 
          Credential "jlaurin" added locally for cloud "aws".
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    -  Adding a Cloud Credentials Manually
-
-      .. raw:: html
-
-         <div id="jd0e117" class="sample" dir="ltr">
-
       You can use a YAML configuration file to add AWS cloud
       credentials. Run the following command:
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          juju add-credential aws -f <mycreds.yaml>
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
       For details, refer to `Juju Adding Credentials from a
       File <https://discourse.jujucharms.com/t/credentials/1112#heading--adding-credentials-from-a-file>`__.
@@ -207,14 +109,6 @@ Follow these steps to prepare for deployment:
 
    Use the ``juju clouds`` command to list cloud types that are
    supported by Juju.
-
-   .. raw:: html
-
-      <div id="jd0e135" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -232,79 +126,34 @@ Follow these steps to prepare for deployment:
       rackspace          6  dfw              rackspace   Rackspace Cloud
       localhost          1  localhost        lxd         LXD Container Hypervisor
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 3. Create a Juju controller.
-
-   .. raw:: html
-
-      <div id="jd0e141" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju bootstrap --bootstrap-series=xenial <cloud name> <controller name>
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    A Juju controller manages and keeps track of applications in the Juju
    cloud environment.
 
-4. Download the Contrail bundle from `JAAS - Contrail Kubernetes <https://jaas.ai/u/juniper-os-software/contrail-k8s>`__.
+4. Download the Contrail bundle from `JAAS - TF Kubernetes <https://jaas.ai/u/juniper-os-software/contrail-k8s>`__.
 
-Deploying Contrail Charms with Kubernetes
+Deploying TF Charms with Kubernetes
 -----------------------------------------
+Juju Charms simplifies TF deployment by providing a simple way to
+deploy, configure, scale, and manage TF operations.
 
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-Juju Charms simplifies Contrail deployment by providing a simple way to
-deploy, configure, scale, and manage Contrail operations.
-
-You can deploy Contrail Charms in a bundle or manually.
-
-.. raw:: html
-
-   </div>
-
-
-Deploying Contrail Charms in a Bundle
+You can deploy TF Charms in a bundle or manually.
+Deploying TF Charms in a Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Follow these steps to deploy Contrail Charms in a bundle.
+Follow these steps to deploy TF Charms in a bundle.
 
-1. Deploy Contrail Charms.
+1. Deploy TF Charms.
 
-   To deploy Contrail Charms in a bundle, use the
+   To deploy TF Charms in a bundle, use the
    ``juju deploy <bundle_yaml_file>`` command.
-
-   .. raw:: html
-
-      <div id="jd0e189" class="sample" dir="ltr">
-
    The following example shows you how to use a bundle YAML file to
    deploy Contrail on Amazon Web Services (AWS) Cloud.
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       series: "bionic"
@@ -321,7 +170,7 @@ Follow these steps to deploy Contrail Charms in a bundle.
           series: "bionic"
           constraints: mem=8G cores=2 root-disk=60G
 
-        # contrail components
+        # TF components
         5:
           series: "bionic"
           constraints: mem=16G cores=4 root-disk=60G
@@ -504,23 +353,15 @@ Follow these steps to deploy Contrail Charms in a bundle.
       - [ contrail-agent:juju-info, kubernetes-master:juju-info ]
       - [ contrail-kubernetes-master:contrail-kubernetes-config, contrail-kubernetes-node:contrail-kubernetes-config ]
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-   You can create or modify the Contrail Charm deployment bundle YAML
+   You can create or modify the TF Charm deployment bundle YAML
    file to:
 
-   -  Point to machines or instances where the Contrail Charms must be
+   -  Point to machines or instances where the TF Charms must be
       deployed.
 
    -  Include the options you need.
 
-      Each Contrail Charm has a specific set of options. The options you
+      Each TF Charm has a specific set of options. The options you
       choose depend on the charms you select. For more information on
       the options that are available, see ``config.yaml`` file for each
       charm located at `Contrail
@@ -582,49 +423,17 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 1. Create machine instances for Kubernetes master, Kubernetes workers,
    and Contrail.
 
-   .. raw:: html
-
-      <div id="jd0e311" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju add-machine ssh:<sshusername>@<IP> --constraints mem=8G cores=2 root-disk=32G --series=xenial  #for Kubernetes worker machine
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju add-machine ssh:<sshusername>@<IP> --constraints mem=18G cores=2 root-disk=32G --series=xenial #for Kubernetes master machine
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju add-machine ssh:<sshusername>@<IP> --constraints mem=16G cores=4 root-disk=32G --series=xenial #for Contrail machine
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 2. Deploy the Kubernetes services.
 
@@ -647,14 +456,6 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
 3. Deploy and configure ntp, easyrsa, etcd, kubernetes-master,
    kubernetes-worker.
-
-   .. raw:: html
-
-      <div id="jd0e349" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -694,14 +495,6 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
           docker_runtime_key_url="https://download.docker.com/linux/ubuntu/gpg" \
           docker_runtime_package="docker-ce"
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 4. Deploy and configure Contrail services.
 
    Deploy contrail-analyticsdb, contrail-analytics, contrail-controller,
@@ -712,14 +505,6 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
       You must set the ``auth-mode`` parameter of the contrail-controller
       charm to no-auth if Contrail is deployed without a keystone.
-
-   .. raw:: html
-
-      <div id="jd0e369" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -737,74 +522,26 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
       juju deploy contrail-agent contrail-agent
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 5. Enable applications to be available to external traffic:
-
-   .. raw:: html
-
-      <div id="jd0e375" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju expose kubernetes-master
       juju expose kubernetes-worker
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 6. Enable contrail-controller and contrail-analytics services to be
    available to external traffic if you do not use HAProxy.
-
-   .. raw:: html
-
-      <div id="jd0e381" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju expose contrail-controller
       juju expose contrail-analytics
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 7. Apply SSL.
 
    You can apply SSL if needed. To use SSL with Contrail services,
    deploy easy-rsa service and ``add-relation`` command to create
    relations to contrail-controller service and contrail-agent services.
-
-   .. raw:: html
-
-      <div id="jd0e392" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -814,23 +551,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
       juju add-relation easyrsa contrail-kubernetes-master
       juju add-relation easyrsa contrail-agent
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 8. Add other necessary relations.
-
-   .. raw:: html
-
-      <div id="jd0e398" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -858,13 +579,5 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
       juju add-relation "contrail-agent:juju-info" "kubernetes-worker:juju-info"
       juju add-relation "contrail-agent:juju-info" "kubernetes-master:juju-info"
       juju add-relation "contrail-kubernetes-master:contrail-kubernetes-config" "contrail-kubernetes-node:contrail-kubernetes-config"
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
  
