@@ -6,29 +6,28 @@ Creating an Image for a Project in OpenStack Contrail
 To specify an image to upload to the Image Service for a project in your
 system by using the OpenStack dashboard:
 
-1. In OpenStack, select **Project > Compute > Images**. The Images
-   window is displayed. See
-   `Figure 1 <creating-image-vnc.html#images>`__.
+1. In OpenStack, select :guilabel:`Project` > :guilabel:`Compute` > :guilabel:`Images`. The Images
+   window is displayed.
 
    |Figure 1: OpenStack Images Window|
 
 2. Make sure you have selected the correct project to which you are
    associating an image.
 
-3. Click **Create Image**.
+3. Click :guilabel:`Create Image`.
 
-   The **Create An Image** window is displayed. See
-   `Figure 2 <creating-image-vnc.html#create-image>`__.
+   The :guilabel:`Create An Image` window is displayed.
 
    |Figure 2: OpenStack Create An Image Window|
 
 4. Complete the fields to specify your image.
-   `Table 1 <creating-image-vnc.html#images-fields>`__ describes each of
-   the fields on the window.\ **Note**\ 
+   Table 1 describes each of the fields on the window.
+   
+   .. note:: 
 
-   Only images available through an HTTP URL are supported, and the
-   image location must be accessible to the Image Service. Compressed
-   image binaries are supported (``*.zip`` and ``*.tar.gz``).
+      Only images available through an HTTP URL are supported, and the
+      image location must be accessible to the Image Service. Compressed
+      image binaries are supported (``*.zip`` and ``*.tar.gz``).
 
    Table 1: Create an Image Fields
 
@@ -100,7 +99,7 @@ system by using the OpenStack dashboard:
       </tbody>
       </table>
 
-5. When you are finished, click **Create Image**.
+5. When you are finished, click *:guilabel:`Create Image`.
 
  
 
