@@ -52,14 +52,12 @@ To configure BGP peering in the control node:
 
 1. From the Contrail Controller module control node
    (**http://``nn.nn.nn.nn``:8143**), select **Configure >
-   Infrastructure > BGP Routers**; see
-   `Figure 1 <config-control-node-with-bgp.html#config-bgp-peers>`__.
+   Infrastructure > BGP Routers**.
 
    |Figure 1: Configure> Infrastructure > BGP Routers|
 
    A summary screen of the control nodes and BGP routers is displayed;
-   see
-   `Figure 2 <config-control-node-with-bgp.html#control-nodes-summary>`__.
+   see.
 
    |Figure 2: BGP Routers Summary|
 
@@ -69,8 +67,7 @@ To configure BGP peering in the control node:
 
 3. To create control nodes and BGP routers, on the **BGP Routers**
    summary screen, click the |image1|  icon. The **Create BGP
-   Router** window is displayed; see
-   `Figure 3 <config-control-node-with-bgp.html#add-bgp-peer>`__.
+   Router** window is displayed.
 
    |Figure 3: Create BGP Router|
 
@@ -78,8 +75,7 @@ To configure BGP peering in the control node:
    new BGP router or click **Control Node** to add control nodes.
 
    For each node you want to add, populate the fields with values for
-   your system. See
-   `Table 1 <config-control-node-with-bgp.html#bgp-peers>`__.
+   your system.
 
    Table 1: Create BGP Router Fields
 
@@ -127,19 +123,16 @@ To configure BGP peering in the control node:
    Click **<<** to remove a node from the **Configured Peers** box.
 
 7. You can check for peers by selecting **Monitor > Infrastructure >
-   Control Nodes**; see
-   `Figure 4 <config-control-node-with-bgp.html#control-node-summ>`__.
+   Control Nodes**.
 
    |Figure 4: Control Nodes|
 
    In the **Control Nodes** window, click any hostname in the memory map
-   to view its details; see
-   `Figure 5 <config-control-node-with-bgp.html#control-node-details>`__.
+   to view its details.
 
    |Figure 5: Control Node Details|
 
-8. Click the **Peers** tab to view the peers of a control node; see
-   `Figure 6 <config-control-node-with-bgp.html#peer-details>`__.
+8. Click the **Peers** tab to view the peers of a control node.
 
    |Figure 6: Control Node Peers Tab|
 
