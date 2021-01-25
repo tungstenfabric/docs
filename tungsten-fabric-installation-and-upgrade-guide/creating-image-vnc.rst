@@ -1,7 +1,5 @@
-Creating an Image for a Project in OpenStack Contrail
-=====================================================
-
- 
+Creating an Image for a Project in OpenStack
+============================================
 
 To specify an image to upload to the Image Service for a project in your
 system by using the OpenStack dashboard:
@@ -30,7 +28,6 @@ system by using the OpenStack dashboard:
       image binaries are supported (``*.zip`` and ``*.tar.gz``).
 
    Table 1: Create an Image Fields
-
 
    .. list-table:: 
          :header-rows: 1
@@ -77,7 +74,6 @@ system by using the OpenStack dashboard:
 
 5. When you are finished, click :guilabel:`Create Image`.
 
- 
 
 .. |Figure 1: OpenStack Images Window| image:: images/s018516.png
 .. |Figure 2: OpenStack Create An Image Window| image:: images/s018515.png
