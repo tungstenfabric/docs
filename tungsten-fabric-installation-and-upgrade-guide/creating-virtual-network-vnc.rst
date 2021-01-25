@@ -6,25 +6,18 @@ OpenStack. The following procedure shows how to create a virtual network
 when using OpenStack.
 
 1. To create a virtual network when using OpenStack Contrail, select
-   **Project > Network > Networks**. The **Networks** page is displayed.
-   See
-   `Figure 1 <creating-virtual-network-vnc.html#networks-openstack>`__.
+   :menuselection:`Project > Network > Networks`. The :guilabel:`Networks` page is displayed.
 
    |Figure 1: Networks Page|
 
-2. Click **Create Network**. The **Create Network** window is displayed.
-   See
-   `Figure 2 <creating-virtual-network-vnc.html#create-network-os>`__
-   and
-   `Figure 3 <creating-virtual-network-vnc.html#create-network-tab>`__.
+2. Click :guilabel:`Create Network`. The :guilabel:`Create Network` window is displayed.
 
    |Figure 2: Create Networks|
 
    |Figure 3: Subnet and Gateway Details|
 
-3. Click the **Network** and **Subnet** tabs to complete the fields in
-   the **Create Network** window. See field descriptions in
-   `Table 1 <creating-virtual-network-vnc.html#net-field-desc-os>`__.
+3. Click the :guilabel:`Network` and :guilabel:`Subnet` tabs to complete the fields in
+   the :guilabel:`Create Network` window. See field descriptions below.
 
    Table 1: Create Network Fields
 
@@ -37,7 +30,7 @@ when using OpenStack.
    +---------------------+-----------------------------------------------+
    | **Network Address** | Enter the network address in CIDR format.     |
    +---------------------+-----------------------------------------------+
-   | **IP Version\***    | Select IPv4 or IPv6.                          |
+   | **IP Version**      | Select IPv4 or IPv6.                          |
    +---------------------+-----------------------------------------------+
    | **Gateway IP**      | Optionally, enter an explicit gateway IP      |
    |                     | address for the IP address block. Check the   |
@@ -45,12 +38,12 @@ when using OpenStack.
    |                     | used.                                         |
    +---------------------+-----------------------------------------------+
 
-4. Click the **Subnet Details** tab to specify the Allocation Pool, DNS
+4. Click the :guilabel:`Subnet Details` tab to specify the Allocation Pool, DNS
    Name Servers, and Host Routes.
 
    |Figure 4: Additional Subnet Attributes|
 
-5. To save your network, click **Create** , or click **Cancel** to
+5. To save your network, click :guilabel:`Create` , or click :guilabel:`Cancel` to
    discard your work and start over.
 
  
