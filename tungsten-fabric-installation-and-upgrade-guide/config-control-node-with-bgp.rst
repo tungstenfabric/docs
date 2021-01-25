@@ -32,8 +32,7 @@ Configuring the Control Node from Tungsten Fabric WebUI
 To configure BGP peering in the control node:
 
 1. From the Tungsten Fabric Controller module control node
-   (**http://``nn.nn.nn.nn``:8143**), select :guilabel:`Configure` >
-   :guilabel:`Infrastructure` > :guilabel:`BGP Routers`.
+   (**http://``nn.nn.nn.nn``:8143**), select :menuselection:`Configure > Infrastructure > BGP Routers`.
 
    |Figure 1: Configure> Infrastructure > BGP Routers|
 
@@ -103,8 +102,7 @@ To configure BGP peering in the control node:
 
    Click :guilabel:`<<` to remove a node from the :guilabel:`Configured Peers` box.
 
-7. You can check for peers by selecting :guilabel:`Monitor` > :guilabel:`Infrastructure` >
-   :guilabel:`Control Nodes`.
+7. You can check for peers by selecting :menuselection:`Monitor > Infrastructure > Control Nodes`.
 
    |Figure 4: Control Nodes|
 
