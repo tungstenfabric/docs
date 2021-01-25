@@ -62,7 +62,7 @@ To add rules to a security group:
    +-----------------+---------------------------------------------------+
    | **To Port**     | The port to which traffic is destined that        |
    |                 | applies to this rule, using the same options as   |
-   |                 | in the :guilabel:`From Port` field.                       |
+   |                 | in the :guilabel:`From Port` field.               |
    +-----------------+---------------------------------------------------+
    | **Source**      | Select the source of traffic to be allowed by     |
    |                 | this rule. Specify subnet—the CIDR IP address or  |
