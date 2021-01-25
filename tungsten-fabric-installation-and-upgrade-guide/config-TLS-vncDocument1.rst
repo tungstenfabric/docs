@@ -29,7 +29,7 @@ negotiation between an XMPP server and an XMPP client.
    supported in the TF environment.
 
 Configuring XMPP client and server in Tungsten Fabric
-----------------------------------------------
+-----------------------------------------------------
 
 In the TF environment, XMPP based communications are used in
 client and server exchanges, between the compute node (as the XMPP
