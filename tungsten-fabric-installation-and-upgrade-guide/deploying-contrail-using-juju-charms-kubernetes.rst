@@ -265,8 +265,7 @@ Follow these steps to prepare for deployment:
    A Juju controller manages and keeps track of applications in the Juju
    cloud environment.
 
-4. Download the Contrail bundle from `JAAS - Contrail
-   Kubernetes <https://jaas.ai/u/juniper-os-software/contrail-k8s>`__.
+4. Download the Contrail bundle from `JAAS - Contrail Kubernetes <https://jaas.ai/u/juniper-os-software/contrail-k8s>`__.
 
 Deploying Contrail Charms with Kubernetes
 -----------------------------------------
@@ -284,11 +283,6 @@ You can deploy Contrail Charms in a bundle or manually.
 
    </div>
 
--  `Deploying Contrail Charms in a
-   Bundle <deploying-contrail-using-juju-charms-kubernetes.html#DeployingContrailCharmsInABundlek8s>`__
-
--  `Deploying Juju Charms with Kubernetes
-   Manually <deploying-contrail-using-juju-charms-kubernetes.html#id-deploying-juju-charmsk8s>`__
 
 Deploying Contrail Charms in a Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -649,8 +643,7 @@ Follow these steps to deploy Juju Charms with Kubernetes manually:
 
       You must use the same docker version for Contrail and Kubernetes.
 
-   For more details, refer to `Juju Application
-   Configuration <https://old-docs.jujucharms.com/2.4/en/charms-config>`__.
+   For more details, refer to `Juju Application Configuration <https://old-docs.jujucharms.com/2.4/en/charms-config>`__.
 
 3. Deploy and configure ntp, easyrsa, etcd, kubernetes-master,
    kubernetes-worker.
