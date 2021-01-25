@@ -1,16 +1,6 @@
 Configuring the Control Node with BGP
 =====================================
 
- 
-
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
 An important task after a successful installation is to configure the
 control node with BGP. This procedure shows how to configure basic BGP
 peering between one or more virtual network controller control nodes and
@@ -20,37 +10,28 @@ virtual network from an external infrastructure or a public network.
 
 Before you begin, ensure that the following tasks are completed:
 
--  The Contrail Controller base system image has been installed on all
+-  The Tungsten Fabric Controller base system image has been installed on all
    servers.
 
 -  The role-based services have been assigned and provisioned.
 
--  IP connectivity has been verified between all nodes of the Contrail
-   Controller.
+-  IP connectivity has been verified between all nodes of the
+   Tungsten Fabric Controller.
 
--  You have access to Contrail Web User Interface (UI) or Contrail
-   Command User Interface (UI). You can access the user interface at
+-  You have access to Tungsten Fabric Web User Interface (WebUI). You can access the user interface at
    **http://``nn.nn.nn.nn``:8143**, where **``nn.nn.nn.nn``** is the IP
-   address of the configuration node server that is running the contrail
+   address of the configuration node server that is running the TF
    service.
 
 These topics provide instructions to configure the Control Node with
 BGP.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-Configuring the Control Node from Contrail Web UI
--------------------------------------------------
+Configuring the Control Node from Tungsten Fabric WebUI
+-------------------------------------------------------
 
 To configure BGP peering in the control node:
 
-1. From the Contrail Controller module control node
+1. From the Tungsten Fabric Controller module control node
    (**http://``nn.nn.nn.nn``:8143**), select :guilabel:`Configure` >
    :guilabel:`Infrastructure` > :guilabel:`BGP Routers`.
 
