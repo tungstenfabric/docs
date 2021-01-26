@@ -637,4 +637,4 @@ Provisioning a nested OpenShift cluster is a two-step process.
 
    The /etc/resolv.conf must have write permissions.
 
-.. |image1| image:: images/s008143.PNG
+.. |image1| image:: images/s008143.png
