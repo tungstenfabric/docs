@@ -132,9 +132,9 @@ Follow these steps to prepare for deployment:
 
             </div>
 
-         **Note**
+         .. note::
 
-         Juju 2.x is compatible with MAAS series 1.x and 2.x.
+            Juju 2.x is compatible with MAAS series 1.x and 2.x.
 
       -  Adding a Cloud Manually
 
@@ -214,9 +214,9 @@ Follow these steps to prepare for deployment:
 
             </div>
 
-         **Note**
+         .. note::
 
-         The ``auth-types`` for a MAAS cloud type is ``oauth1``.
+            The ``auth-types`` for a MAAS cloud type is ``oauth1``.
 
    -  Identifying a supported cloud
 
@@ -278,10 +278,10 @@ Follow these steps to prepare for deployment:
 
       </div>
 
-   **Note**
+   .. note::
 
-   A Juju controller manages and keeps track of applications in the Juju
-   cloud environment.
+      A Juju controller manages and keeps track of applications in the Juju
+      cloud environment.
 
 Deploying Contrail Charms
 -------------------------
@@ -803,10 +803,10 @@ Follow these steps to deploy Juju Charms manually:
       To deploy OpenStack services by using a combination of
       YAML-formatted file and CLI:
 
-      **Note**
+      .. note::
 
-      Use the ``--to <machine number>`` command to point to a machine or
-      container where you want the application to be deployed.
+         Use the ``--to <machine number>`` command to point to a machine or
+         container where you want the application to be deployed.
 
       .. raw:: html
 
@@ -835,10 +835,10 @@ Follow these steps to deploy Juju Charms manually:
 
          </div>
 
-      **Note**
+      .. note::
 
-      You set OpenStack services on different machines or on different
-      containers to prevent HAProxy conflicts from applications.
+         You set OpenStack services on different machines or on different
+         containers to prevent HAProxy conflicts from applications.
 
 3. Deploy and configure nova-compute.
 
@@ -862,9 +862,9 @@ Follow these steps to deploy Juju Charms manually:
 
       </div>
 
-   **Note**
+   .. note::
 
-   You can deploy nova-compute to more than one compute machine.
+      You can deploy nova-compute to more than one compute machine.
 
    (Optional) To add additional computes:
 
@@ -1052,11 +1052,10 @@ Follow these steps to deploy Juju Charms manually:
 
          </div>
 
-      **Note**
+      .. note::
 
-      If you enable HAProxy to be available to external traffic, do not
-      follow step
-      `6 <deploying-contrail-using-juju-charms.html#enable-contrail-controller-analytics>`__.
+         If you enable HAProxy to be available to external traffic, do not
+         follow step 6.
 
    3. Add HAProxy and Keepalived relations.
 
@@ -1169,607 +1168,343 @@ various options you can choose:
 
    Table 1: Options for contrail-agent
 
-   .. raw:: html
+.. list-table:: 
+   :header-rows: 1
 
-      <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-      <colgroup>
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      </colgroup>
-      <thead>
-      <tr class="header">
-      <th style="text-align: left;"><p>Option</p></th>
-      <th style="text-align: left;"><p>Default option</p></th>
-      <th style="text-align: left;"><p>Description</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">physical-interface</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the interface where you want to install vhost0 on. If you do not specify an interface, vhost0 is installed on the default gateway interface.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">vhost-gateway</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">auto</code></p></td>
-      <td style="text-align: left;"><p>Specify the gateway for vhost0. You can enter either an IP address or the keyword (<span class="cli" data-v-pre="">auto</span>) to automatically set a gateway based on the existing vhost routes.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">remove-juju-bridge</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">true</code></p></td>
-      <td style="text-align: left;"><p>To install vhost0 directly on the interface, enable this option to remove any bridge created to deploy LXD/LXC and KVM workloads.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Specify DPDK vRouter.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk-driver</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">uio_pci_generic</code></p></td>
-      <td style="text-align: left;"><p>Specify DPDK driver for the physical interface.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk-hugepages</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">70%</code></p></td>
-      <td style="text-align: left;"><p>Specify the percentage of huge pages reserved for DPDK vRouter and OpenStack instances.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk-coremask</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">1</code></p></td>
-      <td style="text-align: left;"><p>Specify the vRouter CPU affinity mask to determine on which CPU the DPDK vRouter will run.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk-main-mempool-size</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the main packet pool size.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk-pmd-txd-size</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the DPDK PMD Tx Descriptor size.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">dpdk-pmd-rxd-size</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the DPDK PMD Rx Descriptor size.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">opencontrailnightly</code></p></td>
-      <td style="text-align: left;"><p>Specify the URL of the docker-registry.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry-insecure</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Specify if the docker-registry should be configured.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-user</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Log in to the docker registry.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-password</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the docker-registry password.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">image-tag</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">latest</code></p></td>
-      <td style="text-align: left;"><p>Specify the docker image tag.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">log-level</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">SYS_NOTICE</code></p></td>
-      <td style="text-align: left;"><p>Specify the log level for Contrail services.</p>
-      <p>Options: <code class="inline" data-v-pre="">SYS_EMERG, SYS_ALERT, SYS_CRIT, SYS_ERR, SYS_WARN, SYS_NOTICE, SYS_INFO, SYS_DEBUG</code></p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">http_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">https_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">kernel-hugepages-1g</code></p></td>
-      <td style="text-align: left;"><p>Parameter not enabled by default.</p>
-      <p><strong>Note:</strong> 2MB huge pages for kernel-mode vRouters are enabled by default.</p></td>
-      <td style="text-align: left;"><p>Specify the number of 1G huge pages for use with vRouters in kernel mode.</p>
-      <p>You can enable huge pages to avoid compute node reboots during software upgrades.</p>
-      <p>This parameter must be specified at initial deployment. It cannot be modified in an active deployment. If you need to migrate to huge page usage in an active deployment, use 2MB huge pages if suitable for your environment.</p>
-      <p>We recommend allotting 2GB of memory—either using the default 1024x2MB huge page size setting or the 2x1GB size setting—for huge pages. Other huge page size settings should only be set by expert users in specialized circumstances.</p>
-      <p>1GB and 2MB huge pages cannot be enabled simultaneously in environments using Juju. If you are using this command parameter to enable 1GB huge pages, you must also disable 2MB huge pages. 2MB huge pages can be disabled by entering the <kbd class="user-typing" data-v-pre="">juju config contrail-agent kernel-hugepages-2m=““</kbd> command with an empty value.</p>
-      <p>A compute node reboot is required to enable a huge page setting configuration change. After this initial reboot, compute nodes can complete software upgrades without a reboot.</p>
-      <p>Huge pages are disabled for kernel-mode vRouters if the <code class="inline" data-v-pre="">kernel-hugepages-1g</code> and the <code class="inline" data-v-pre="">kernel-hugepages-2m</code> options are not set.</p>
-      <p>This parameter was introduced in Contrail Networking Release 2005.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">kernel-hugepages-2m</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">1024</code></p></td>
-      <td style="text-align: left;"><p>Specify the number of 2MB huge pages for use with vRouters in kernel mode. Huge pages in Contrail Networking are used primarily to allocate flow and bridge table memory within the vRouter. Huge pages for kernel-mode vRouters provide enough flow and bridge table memory to avoid compute node reboots to complete future Contrail Networking software upgrades.</p>
-      <p>1024x2MB huge pages are configured by default starting in Contrail Networking Release 2005. A compute node reboot is required to enable a kernel-mode vRouter huge page setting configuration change, however, so this huge page setting is not enabled on a compute node until the compute node is rebooted.</p>
-      <p>After a compute node is rebooted to enable a vRouter huge page setting, compute nodes can complete software upgrades without a reboot.</p>
-      <p>We recommend allotting 2GB of memory—either using the default 1024x2MB huge page size setting or the 2x1GB size setting—for kernel-mode vRouter huge pages. Other huge page size settings should only be set by expert users in specialized circumstances.</p>
-      <p>1GB and 2MB huge pages cannot be enabled simultaneously in environments using Juju. If you are using this command parameter to enable 2MB huge pages, you must also disable 1GB huge pages. 1GB huge pages are disabled by default and can also be disabled by entering the <kbd class="user-typing" data-v-pre="">juju config contrail-agent kernel-hugepages-1g=““</kbd> command with an empty value. 1GB huge pages can only be enabled at initial deployment; you cannot initially enable 1GB huge pages in an active deployment.</p>
-      <p>Huge pages are disabled for kernel-mode vRouters if the <code class="inline" data-v-pre="">kernel-hugepages-1g</code> and the <code class="inline" data-v-pre="">kernel-hugepages-2m</code> options are not set.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">no_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the list of destinations that must be directly accessed.</p></td>
-      </tr>
-      </tbody>
-      </table>
+   * - Option
+     - Default option
+     - Description
+   * - physical-interface
+     - 
+     - Specify the interface where you want to install vhost0 on. 
+       If you do not specify an interface, vhost0 is installed on the default gateway interface.
+   * - vhost-gateway
+     - auto
+     - Specify the gateway for vhost0. You can enter either an IP address or the keyword 
+       (<span class="cli" data-v-pre="">auto</span>) to automatically set a gateway based on 
+       the existing vhost routes.
+   * - remove-juju-bridge
+     - true
+     - To install vhost0 directly on the interface, enable this option to remove any bridge created to deploy LXD/LXC and KVM workloads.
+   * - dpdk
+     - false
+     - Specify DPDK vRouter
+   * - dpdk-driver
+     - uio_pci_generic
+     - Specify DPDK driver for the physical interface
+   * - dpdk-hugepages
+     - 70%
+     - Specify the percentage of huge pages reserved for DPDK vRouter and OpenStack instances
+   * - dpdk-coremask
+     - 1
+     - Specify the vRouter CPU affinity mask to determine on which CPU the DPDK vRouter will run
+   * - dpdk-main-mempool-size
+     - 
+     - Specify the main packet pool size
+   * - dpdk-pmd-txd-size
+     - 
+     - Specify the DPDK PMD Tx Descriptor size
+   * - dpdk-pmd-rxd-size
+     - 
+     - Specify the DPDK PMD Rx Descriptor size
+   * - docker-registry
+     - opencontrailnightly
+     - Specify the URL of the docker-registry
+   * - docker-registry-insecure
+     - false
+     - Specify if the docker-registry should be configured
+   * - docker-user
+     - 
+     - Log in to the docker registry
+   * - docker-password
+     - 
+     - Specify the docker-registry password
+   * - image-tag
+     - latest
+     - Specify the docker image tag
+   * - log-level
+     - SYS_NOTICE
+     - Specify the log level for Contrail services.
+       Options:`SYS_EMERG`, `SYS_ALERT`, `SYS_CRIT`, `SYS_ERR`, `SYS_WARN`, `SYS_NOTICE`, `SYS_INFO`, `SYS_DEBUG`
+   * - http_proxy
+     - 
+     - Specify URL
+   * - kernel-hugepages-1g
+     - Parameter not enabled by default
+       **Note:** 2MB huge pages for kernel-mode vRouters are enabled by default
+     - Specify the number of 1G huge pages for use with vRouters in kernel mode.
+       You can enable huge pages to avoid compute node reboots during software upgrades.
+       This parameter must be specified at initial deployment. It cannot be modified in an active deployment. 
+       If you need to migrate to huge page usage in an active deployment, use 2MB huge pages if suitable for your environment.
+       We recommend allotting 2GB of memory—either using the default 1024x2MB huge page size
+       setting or the 2x1GB size setting—for huge pages. Other huge page size settings should only be set by expert users in specialized circumstances.
+       1GB and 2MB huge pages cannot be enabled simultaneously in environments using Juju. 
+       If you are using this command parameter to enable 1GB huge pages, you must also disable 2MB huge pages. 
+       2MB huge pages can be disabled by entering the ``juju config contrail-agent kernel-hugepages-2m=““`` command with an empty value.
+       A compute node reboot is required to enable a huge page setting configuration change. After this initial reboot,
+       compute nodes can complete software upgrades without a reboot. Huge pages are disabled for kernel-mode vRouters if the
+       ``kernel-hugepages-1g`` and the ``kernel-hugepages-2m`` options are not set.
+   * - kernel-hugepages-2m
+     - 1024
+     - Specify the number of 2MB huge pages for use with vRouters in kernel mode. Huge pages in Contrail Networking
+       are used primarily to allocate flow and bridge table memory within the vRouter. Huge pages for kernel-mode vRouters
+       provide enough flow and bridge table memory to avoid compute node reboots to complete future Contrail Networking software upgrades.
+       1024x2MB huge pages are configured by default starting in Contrail Networking Release 2005. A compute node reboot is
+       required to enable a kernel-mode vRouter huge page setting configuration change, however, so this huge page setting is
+       not enabled on a compute node until the compute node is rebooted. After a compute node is rebooted to enable a vRouter
+       huge page setting, compute nodes can complete software upgrades without a reboot. We recommend allotting 2GB of memory—either
+       using the default 1024x2MB huge page size setting or the 2x1GB size setting—for kernel-mode vRouter huge pages.
+       Other huge page size settings should only be set by expert users in specialized circumstances. 1GB and 2MB huge pages cannot
+       be enabled simultaneously in environments using Juju. If you are using this command parameter to enable 2MB huge pages,
+       you must also disable 1GB huge pages. 1GB huge pages are disabled by default and can also be disabled by entering the
+       ``juju config contrail-agent kernel-hugepages-1g=““`` command with an empty value. 1GB huge pages can only be enabled at
+       initial deployment; you cannot initially enable 1GB huge pages in an active deployment.
+       Huge pages are disabled for kernel-mode vRouters if the ``kernel-hugepages-1g`` and the ``kernel-hugepages-2m`` options are not set.
+   * - no_proxy
+     - 
+     - Specify the list of destinations that must be directly accessed      
+
+|
 
 -  Options for contrail-analytics Charms.
 
    Table 2: Options for contrail-analytics
 
-   .. raw:: html
+.. list-table:: 
+   :header-rows: 1
 
-      <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-      <colgroup>
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      </colgroup>
-      <thead>
-      <tr class="header">
-      <th style="text-align: left;"><p>Option</p></th>
-      <th style="text-align: left;"><p>Default option</p></th>
-      <th style="text-align: left;"><p>Description</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">control-network</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the IP address and network mask of the control network.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the URL of the docker-registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry-insecure</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Specify if the docker-registry should be configured.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-user</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Log in to the docker registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-password</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the docker-registry password.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">image-tag</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the docker image tag.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">log-level</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">SYS_NOTICE</code></p></td>
-      <td style="text-align: left;"><p>Specify the log level for Contrail services.</p>
-      <p>Options: <code class="inline" data-v-pre="">SYS_EMERG, SYS_ALERT, SYS_CRIT, SYS_ERR, SYS_WARN, SYS_NOTICE, SYS_INFO, SYS_DEBUG</code></p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">http_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">https_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">no_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the list of destinations that must be directly accessed.</p></td>
-      </tr>
-      </tbody>
-      </table>
+   * - Option
+     - Default option
+     - Description
+   * - control-network
+     - 
+     - Specify the IP address and network mask of the control network
+   * - docker-registry
+     - 
+     - Specify the URL of the docker-registry
+   * - docker-registry-insecure
+     - false
+     - Specify if the docker-registry should be configured
+   * - docker-user
+     - 
+     - Log in to the docker registry
+   * - docker-password
+     - 
+     - Specify the docker-registry password
+   * - image-tag
+     - 
+     - Specify the docker image tag.
+   * - log-level
+     - SYS_NOTICE
+     - Specify the log level for Contrail services.
+       Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
+   * - http_proxy
+     - 
+     - Specify URL.
+   * - https_proxy
+     - 
+     - Specify URL.
+   * - no_proxy
+     - 
+     - Specify the list of destinations that must be directly accessed.
+
+|
 
 -  Options for contrail-analyticsdb Charms.
 
    Table 3: Options for contrail-analyticsdb
 
-   .. raw:: html
+.. list-table:: 
+   :header-rows: 1
 
-      <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-      <colgroup>
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      </colgroup>
-      <thead>
-      <tr class="header">
-      <th style="text-align: left;"><p>Option</p></th>
-      <th style="text-align: left;"><p>Default option</p></th>
-      <th style="text-align: left;"><p>Description</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">control-network</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the IP address and network mask of the control network.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">cassandra-minimum-diskgb</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">256</code></p></td>
-      <td style="text-align: left;"><p>Specify the minimum disk requirement.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">cassandra-jvm-extra-opts</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the memory limit.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the URL of the docker-registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry-insecure</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Specify if the docker-registry should be configured.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-user</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Log in to the docker registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-password</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the docker-registry password.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">image-tag</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the docker image tag.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">log-level</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">SYS_NOTICE</code></p></td>
-      <td style="text-align: left;"><p>Specify the log level for Contrail services.</p>
-      <p>Options: <code class="inline" data-v-pre="">SYS_EMERG, SYS_ALERT, SYS_CRIT, SYS_ERR, SYS_WARN, SYS_NOTICE, SYS_INFO, SYS_DEBUG</code></p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">http_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">https_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">no_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the list of destinations that must be directly accessed.</p></td>
-      </tr>
-      </tbody>
-      </table>
+   * - Option
+     - Default option
+     - Description
+   * - control-network
+     - 
+     - Specify the IP address and network mask of the control network
+   * - cassandra-minimum-diskgb
+     - 256
+     - Specify the minimum disk requirement
+   * - cassandra-jvm-extra-opts
+     -    
+     - Specify the memory limit
+   * - docker-registry
+     -  	
+     - Specify the URL of the docker-registry
+   * - docker-registry-insecure
+     - false
+     - Specify if the docker-registry should be configured
+   * - docker-user
+     -
+     - Log in to the docker registry
+   * - docker-password
+     - 
+     - Specify the docker-registry password
+   * - image-tag
+     -
+     - Specify the docker image tag.
+   * - log-level
+     - SYS_NOTICE
+     - Specify the log level for Contrail services.
+       Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
+   * - http_proxy
+     -
+     - Specify URL.
+   * - https_proxy
+     -
+     - Specify URL.
+   * - no_proxy
+     -
+     - Specify the list of destinations that must be directly accessed.
+
+|
 
 -  Options for contrail-controller Charms.
 
    Table 4: Options for contrail-controller
 
-   .. raw:: html
+.. list-table:: 
+   :header-rows: 1
 
-      <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-      <colgroup>
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      </colgroup>
-      <thead>
-      <tr class="header">
-      <th style="text-align: left;"><p>Option</p></th>
-      <th style="text-align: left;"><p>Default option</p></th>
-      <th style="text-align: left;"><p>Description</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">control-network</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the IP address and network mask of the control network.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">auth-mode</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">rbac</code></p></td>
-      <td style="text-align: left;"><p>Specify the authentication mode.</p>
-      <p>Options: <code class="inline" data-v-pre="">rbsc</code>, <code class="inline" data-v-pre="">cloud-admin</code>, <code class="inline" data-v-pre="">no-auth</code>.</p>
-      <p>For more information, see <a href="https://github.com/Juniper/contrail-controller/wiki/RBAC">https://github.com/Juniper/contrail-controller/wiki/RBAC</a>.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">cassandra-minimum-diskgb</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">20</code></p></td>
-      <td style="text-align: left;"><p>Specify the minimum disk requirement.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">cassandra-jvm-extra-opts</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the memory limit.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">cloud-admin-role</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">admin</code></p></td>
-      <td style="text-align: left;"><p>Specify the role name in keystone for users who have admin-level access.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">global-read-only-role</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the role name in keystone for users who have read-only access.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">vip</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify if the Contrail API VIP is used for configuring client-side software. If not specified, private IP of the first Contrail API VIP unit will be used.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">use-external-rabbitmq</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>To enable the Charm to use the internal RabbitMQ server, set <code class="inline" data-v-pre="">use-external-rabbitmq</code> to <code class="inline" data-v-pre="">false</code>.</p>
-      <p>To use an external AMQP server, set<code class="inline" data-v-pre="">use-external-rabbitmq</code> to <code class="inline" data-v-pre="">true</code>.</p>
-      <p><strong>Note:</strong> Do not change the flag after deployment.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">flow-export-rate</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">0</code></p></td>
-      <td style="text-align: left;"><p>Specify how many flow records are exported by vRouter agent to the Contrail Collector when a flow is created or deleted.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the URL of the docker-registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry-insecure</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Specify if the docker-registry should be configured.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-user</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Log in to the docker registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-password</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the docker-registry password.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">image-tag</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the docker image tag.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">log-level</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">SYS_NOTICE</code></p></td>
-      <td style="text-align: left;"><p>Specify the log level for Contrail services.</p>
-      <p>Options: <code class="inline" data-v-pre="">SYS_EMERG, SYS_ALERT, SYS_CRIT, SYS_ERR, SYS_WARN, SYS_NOTICE, SYS_INFO, SYS_DEBUG</code></p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">http_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">https_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">no_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the list of destinations that must be directly accessed.</p></td>
-      </tr>
-      </tbody>
-      </table>
+   * - Option
+     - Default option
+     - Description
+   * - control-network
+     - 
+     - Specify the IP address and network mask of the control network
+   * - auth-mode
+     - rbac
+     - Specify the authentication mode.
+       Options: ``rbsc``, ``cloud-admin``, ``no-auth``.
+       For more information, see `https://github.com/tungstenfabric/docs/blob/master/wiki/tf-controller/RBAC.md <https://github.com/tungstenfabric/docs/blob/master/wiki/tf-controller/RBAC.md>`_
+   * - cassandra-minimum-diskgb
+     - 20
+     - Specify the minimum disk requirement
+   * - cassandra-jvm-extra-opts
+     - 
+     - Specify the memory limit
+   * - cloud-admin-role
+     - admin
+     - Specify the role name in keystone for users who have admin-level access
+   * - global-read-only-role
+     - 
+     - Specify the role name in keystone for users who have read-only access
+   * - vip
+     - 
+     - Specify if the Contrail API VIP is used for configuring client-side software. If not specified, private IP of the first Contrail API VIP unit will be used
+   * - use-external-rabbitmq
+     - false
+     - To enable the Charm to use the internal RabbitMQ server, set ``use-external-rabbitmq`` to ``false.
+       To use an external AMQP server, set ``use-external-rabbitmq`` to ``true``.
+       **Note:** Do not change the flag after deployment.
+   * - flow-export-rate
+     - 0
+     - Specify how many flow records are exported by vRouter agent to the Contrail Collector when a flow is created or deleted
+   * - docker-registry
+     - 
+     - Specify the URL of the docker-registry.
+   * - docker-registry-insecure
+     - false
+     - Specify if the docker-registry should be configured.
+   * - docker-user
+     - 
+     - Log in to the docker registry.
+   * - docker-password
+     - 
+     - Specify the docker-registry password.
+   * - image-tag
+     - 
+     - Specify the docker image tag.
+   * - log-level
+     - SYS_NOTICE
+     - Specify the log level for Contrail services.
+       Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
+   * - http_proxy
+     - 
+     - Specify URL.
+   * - no_proxy
+     - 
+     - Specify the list of destinations that must be directly accessed.
+
+|
 
 -  Options for contrail-keystone-auth Charms.
 
    Table 5: Options for contrail-keystone-auth
 
-   .. raw:: html
+.. list-table:: 
+   :header-rows: 1
 
-      <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-      <colgroup>
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      </colgroup>
-      <thead>
-      <tr class="header">
-      <th style="text-align: left;"><p>Option</p></th>
-      <th style="text-align: left;"><p>Default option</p></th>
-      <th style="text-align: left;"><p>Description</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">ssl_ca</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify if the base64-encoded SSL CA certificate is provided to Contrail keystone clients.</p>
-      <p><strong>Note:</strong> This certificate is required if you use a privately signed ssl_cert and ssl_key.</p></td>
-      </tr>
-      </tbody>
-      </table>
+   * - Option
+     - Default option
+     - Description
+   * - ssl_ca
+     - 
+     - Specify if the base64-encoded SSL CA certificate is provided to Contrail keystone clients.
+       **Note:** This certificate is required if you use a privately signed ssl_cert and ssl_key.
+
+|
 
 -  Options for contrail-openstack Charms.
 
    Table 6: Options for contrail-controller
 
-   .. raw:: html
+.. list-table:: 
+   :header-rows: 1
 
-      <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-      <colgroup>
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      <col style="width: 33%" />
-      </colgroup>
-      <thead>
-      <tr class="header">
-      <th style="text-align: left;"><p>Option</p></th>
-      <th style="text-align: left;"><p>Default option</p></th>
-      <th style="text-align: left;"><p>Description</p></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">enable-metadata-server</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">true</code></p></td>
-      <td style="text-align: left;"><p>Set <code class="inline" data-v-pre="">enable-metadata-server</code> to <code class="inline" data-v-pre="">true </code> to configure metadata and enable nova to run a local instance of <code class="inline" data-v-pre="">nova-api-metadata</code> for virtual machines</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">use-internal-endpoints</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Set <code class="inline" data-v-pre="">use-internal-endpoints</code> to <code class="inline" data-v-pre="">true</code> for OpenStack to configure services to use internal endpoints.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">heat-plugin-dirs</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">/usr/lib64/heat,/usr/lib/heat/usr/lib/python2.7/dist-packages/vnc_api/gen/heat/resources</code></p></td>
-      <td style="text-align: left;"><p>Specify the heat plugin directories.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the URL of the docker-registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-registry-insecure</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">false</code></p></td>
-      <td style="text-align: left;"><p>Specify if the docker-registry should be configured.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-user</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Log in to the docker registry.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">docker-password</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the docker-registry password.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">image-tag</code></p></td>
-      <td style="text-align: left;"> </td>
-      <td style="text-align: left;"><p>Specify the docker image tag.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">log-level</code></p></td>
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">SYS_NOTICE</code></p></td>
-      <td style="text-align: left;"><p>Specify the log level for Contrail services.</p>
-      <p>Options: <code class="inline" data-v-pre="">SYS_EMERG, SYS_ALERT, SYS_CRIT, SYS_ERR, SYS_WARN, SYS_NOTICE, SYS_INFO, SYS_DEBUG</code></p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">http_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="odd">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">https_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify URL.</p></td>
-      </tr>
-      <tr class="even">
-      <td style="text-align: left;"><p><code class="inline" data-v-pre="">no_proxy</code></p></td>
-      <td style="text-align: left;"></td>
-      <td style="text-align: left;"><p>Specify the list of destinations that must be directly accessed.</p></td>
-      </tr>
-      </tbody>
-      </table>
+   * - Option
+     - Default option
+     - Description
+   * - enable-metadata-server
+     - true
+     - Set enable-metadata-server to true to configure metadata and enable nova to run a local instance of nova-api-metadata for virtual machines
+   * - use-internal-endpoints
+     - false
+     - Set use-internal-endpoints to true for OpenStack to configure services to use internal endpoints.
+   * - heat-plugin-dirs
+     - /usr/lib64/heat,/usr
+       /lib/heat/usr/lib/
+       python2.7/dist-packages/
+       vnc_api/gen/heat/
+       resources
+     - Specify the heat plugin directories.
+   * - docker-registry
+     - 
+     - Specify the URL of the docker-registry.
+   * - docker-registry-insecure
+     - false
+     - Specify if the docker-registry should be configured.
+   * - docker-user
+     - 
+     - Log in to the docker registry.
+   * - docker-password
+     - 
+     - Specify the docker-registry password.
+   * - image-tag
+     - 
+     - Specify the docker image tag.
+   * - log-level
+     - SYS_NOTICE
+     - Specify the log level for Contrail services.
+       Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
+   * - http_proxy
+     - 
+     - Specify URL.
+   * - https_proxy
+     - 
+     - Specify URL.
+   * - no_proxy
+     - 
+     - Specify the list of destinations that must be directly accessed.
 
-.. raw:: html
+.. list-table:: **Release History Table**
+   :header-rows: 1
 
-   <div class="table">
+   * - Release
+     - Description
+   * - 2011
+     - Starting in Contrail Networking Release 2011, Contrail Networking
+       supports OpenStack Ussuri with Ubuntu version 18.04 (Bionic Beaver) and
+       Ubuntu version 20.04 (Focal Fossa).
 
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e14>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting in Contrail Networking Release 2011, Contrail Networking
-supports OpenStack Ussuri with Ubuntu version 18.04 (Bionic Beaver) and
-Ubuntu version 20.04 (Focal Fossa).
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
- 
