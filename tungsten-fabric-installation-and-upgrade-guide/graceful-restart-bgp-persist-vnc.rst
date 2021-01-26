@@ -3,24 +3,8 @@ Configuring Graceful Restart and Long-lived Graceful Restart
 
  
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
 Graceful restart and long-lived graceful restart BGP helper modes are
-supported for the Contrail control node and XMPP helper mode.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
+supported for the TF control node and XMPP helper mode.
 
 Application of Graceful Restart and Long-lived Graceful Restart
 ---------------------------------------------------------------
@@ -34,10 +18,10 @@ Graceful restart and long-lived graceful restart features can be used to
 alleviate traffic disruption caused by downs.
 
 When configured, graceful restart features enable existing network
-traffic to be unaffected if Contrail controller processes go down. The
-Contrail implementation ensures that if a Contrail control module
+traffic to be unaffected if TF controller processes go down. The
+TF implementation ensures that if a TF control module
 restarts, it can use graceful restart functionality provided by its BGP
-peers. Or when the BGP peers restart, Contrail provides a graceful
+peers. Or when the BGP peers restart, TF provides a graceful
 restart helper mode to minimize the impact to the network. The graceful
 restart features can be used to ensure that traffic is not affected by
 temporary outage of processes.
@@ -54,7 +38,7 @@ After a certain duration, if a downed session does not come back up, all
 remaining stale routes are deleted and withdrawn from advertised peers.
 
 The graceful restart and long-lived graceful restart features can be
-enabled only for BGP peers in Contrail 3.2.
+enabled only for BGP peers in TF 3.2.
 
 BGP Graceful Restart Helper Mode
 --------------------------------
@@ -108,9 +92,9 @@ graceful restart features.
 XMPP Helper Mode
 ----------------
 
-Contrail supports for long-lived graceful restart (LLGR) with XMPP
+TF supports for long-lived graceful restart (LLGR) with XMPP
 helper mode. Graceful restart and long lived graceful restart can be
-enabled using the Contrail web UI or by using the provision_control
+enabled using the Tungsten Fabric WebUI or by using the provision_control
 script.
 
 The helper modes can also be enabled via schema, and can be disabled
@@ -123,7 +107,7 @@ Configuration Parameters
 
 Graceful restart parameters are configured in the
 ``global-system-config`` of the schema. They can be configured by means
-of a provisioning script or by using the Contrail Web UI.
+of a provisioning script or by using the Tungsten Fabric WebUI.
 
 Configure a non-zero restart time to advertise for graceful restart and
 long-lived graceful restart capabilities from peers.
@@ -146,17 +130,7 @@ Configuration parameters include:
 
 -  ``xmpp-helper-enable`` to enable graceful restart helper mode for
    XMPP peers (agents) in contrail-control
-
-.. raw:: html
-
-   <div id="jd0e117" class="sample" dir="ltr">
-
 The following shows configuration by a provision script.
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    /opt/contrail/utils/provision_control.py 
@@ -173,23 +147,7 @@ The following shows configuration by a provision script.
                --graceful_restart_enable 
                --graceful_restart_bgp_helper_enable
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 The following are sample parameters:
-
-.. raw:: html
-
-   <div id="jd0e124" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -200,25 +158,9 @@ The following are sample parameters:
                --graceful_restart_enable 
                --graceful_restart_bgp_helper_enable 
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 When BGP peering with Juniper Networks devices, Junos must also be
 explicitly configured for graceful restart/long-lived graceful restart,
 as shown in the following example:
-
-.. raw:: html
-
-   <div id="jd0e129" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -230,14 +172,6 @@ as shown in the following example:
    set protocols bgp group <a1234> family route-target graceful-restart long-lived restarter stale-time 20
    set protocols bgp group <a1234> graceful-restart restart-time 600
    set protocols bgp group <a1234> neighbor 10.xx.xx.20 peer-as 64512
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 The graceful restart helper modes can be enabled in the schema. The
 helper modes can be disabled selectively in the
