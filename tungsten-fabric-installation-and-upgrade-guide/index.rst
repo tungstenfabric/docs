@@ -29,3 +29,4 @@ Documentation Structure
    graceful-restart-bgp-persist-vnc
    hardware-reqs-vnc
    heat-template-vnc
+   how-to-install-contrail-networking-openshift4
