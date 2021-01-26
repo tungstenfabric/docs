@@ -65,8 +65,7 @@ Follow the steps given below to access and log in to vRO Control Center:
    |Figure 1: vCenter SSO service page|
 
 2. On the vCenter SSO service page, enter the **User name** and
-   **Password** in the respective fields and click :guilabel:`Login`. See
-   `Figure 1 <install-contrail-vRO-plugin.html#vCenter-sso>`__.
+   **Password** in the respective fields and click :guilabel:`Login`. 
 
    The :guilabel:`Orchestrator Control Center` home page is displayed.
 
@@ -162,8 +161,7 @@ You connect to the vRO server by using the vRO desktop client.
       The **Host name** also includes the port number and must be in the
       **{vRO}:8281** format.
 
-3. Click :guilabel:`Login` to connect to the vRO server. See
-   `Figure 6 <install-contrail-vRO-plugin.html#vRO-login-page>`__.
+3. Click :guilabel:`Login` to connect to the vRO server.
 
 Connecting to Contrail Controller
 ---------------------------------
