@@ -547,37 +547,21 @@ Openstack as the orchestration platform:
 
 11. Individually update the compute nodes.
 
-.. note:: 
+    .. note:: 
 
-   The compute node agent will be down during this step. The estimated
-   downtime varies by environment, but is typically between 1 and 5
-   minutes.
+      The compute node agent will be down during this step. The estimated
+      downtime varies by environment, but is typically between 1 and 5
+      minutes.
 
-    Consider migrating workloads that can’t tolerate this downtime
-    before performing this step
+      Consider migrating workloads that can’t tolerate this downtime
+      before performing this step
 
-    .. raw:: html
+      ::
 
-       <div id="jd0e416" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
-
-    ::
-
-       openstack overcloud update run --nodes overcloud-novacompute-1
-       openstack overcloud update run --nodes overcloud-novacompute-2
-       openstack overcloud update run --nodes overcloud-novacompute-3
-       ...
-
-    .. raw:: html
-
-       </div>
-
-    .. raw:: html
-
-       </div>
+         openstack overcloud update run --nodes overcloud-novacompute-1
+         openstack overcloud update run --nodes overcloud-novacompute-2
+         openstack overcloud update run --nodes overcloud-novacompute-3
+         ...
 
     Reboot your compute node to complete the update.
 
@@ -708,8 +692,7 @@ Openstack as the orchestration platform:
 
        The options used in the openstack overcloud update converge in this
        step will match the options used with the openstack overcloud update
-       prepare command entered in
-       `7 <install-contrail-rhosp-ziu.html#overcloud-prepare-step>`__.
+       prepare command entered in step 7.
 
     .. raw:: html
 
