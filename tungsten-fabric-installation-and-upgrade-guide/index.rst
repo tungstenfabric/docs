@@ -27,3 +27,4 @@ Documentation Structure
    deploying-contrail-using-juju-charms-kubernetes
    deploying-contrail-using-juju-charms
    graceful-restart-bgp-persist-vnc
+   hardware-reqs-vnc
