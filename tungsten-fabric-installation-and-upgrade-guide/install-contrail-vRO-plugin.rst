@@ -1,5 +1,5 @@
 Installing and Provisioning TF VMware vRealize Orchestrator Plugin
-========================================================================
+==================================================================
 
 A dedicated TF plugin is used to connect to VMware vRealize
 Orchestrator (vRO). TF Release 5.0 supported a Beta version of the
@@ -148,7 +148,7 @@ You connect to the vRO server by using the vRO desktop client.
 3. Click :guilabel:`Login` to connect to the vRO server.
 
 Connecting to Tungsten Fabric Controller
----------------------------------
+----------------------------------------
 
 To connect TF vRO to the Tungsten Fabric Controller:
 
@@ -192,7 +192,7 @@ To connect TF vRO to the Tungsten Fabric Controller:
    TF workflows to make configuration changes to TF.
 
 Deploying TF vRO plugin
------------------------------
+-----------------------
 
 You can deploy the TF plugin in any Java Virtual Machine (JVM)
 compatible environment and load it on an active vRO instance.
