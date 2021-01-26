@@ -51,14 +51,14 @@ Accessing vRO Control Center
 Follow the steps given below to access and log in to vRO Control Center:
 
 1. To access vRO Control Center through a Web browser, navigate to the
-   https://%7BvRO%7D:8283/vco-controlcenter URL.
+   https://{vRO}:8283/vco-controlcenter URL.
 
    .. note::
 
       Replace *{vRO}* given in the URL with the *host name* of the deployed
       vRO Appliance.
 
-   The *host name* is the IP address or the FQDN of the vRO node.
+      The *host name* is the IP address or the FQDN of the vRO node.
 
    The :guilabel:`vCenter SSO` service page is displayed.
 
@@ -119,8 +119,7 @@ Perform the following steps to install the vRO plugin:
       If you use ``*.vmoapp`` file format, you are directed to the Accept
       EULA page before you proceed with the installation.
 
-   If you use ``*.dar`` file format, you can directly proceed with
-   installation.
+      If you use ``*.dar`` file format, you can directly proceed with installation.
 
    The vRO plugin is installed.
 
@@ -132,7 +131,7 @@ download vRealize Orchestrator Client version 7.3.0 to access the vRO
 server.
 
 To download and install the vRO desktop client application, click
-https://%7BvRO%7D:8281/vco/.
+https://{vRO}:8281/vco/.
 
 .. note::
 
