@@ -1,8 +1,6 @@
 How to Perform a Zero Impact Contrail Networking Upgrade using the Ansible Deployer
 ===================================================================================
 
- 
-
 Starting in Contrail Networking Release 2005, you can perform a Zero
 Impact Upgrade (ZIU) of Contrail Networking using the Contrail Ansible
 Deployer container. The Contrail Ansible Deployer container image can be
@@ -240,9 +238,9 @@ To perform the ZIU using the Ansible deployer:
     This contrail-status command provides this output after a successful
     upgrade:
 
-    **Note**
+    .. note::
 
-    Some output fields and data have been removed for readability.
+       Some output fields and data have been removed for readability.
 
     .. raw:: html
 
@@ -370,11 +368,7 @@ To perform the ZIU using the Ansible deployer:
        orchestrator=openstack -e config_file=../instances.yaml
        playbooks/ziu.yml
 
-10. Repeat Steps
-    `8 <installing-contrail-ansible-ziu.html#mark-compute-nodes-for-migration>`__
-    and
-    `9 <installing-contrail-ansible-ziu.html#upgrade-compute-nodes>`__
-    until all compute nodes are upgraded.
+10. Repeat Steps 8 and 9 until all compute nodes are upgraded.
 
 You can access the Ansible playbook logs of the upgrade at
 ``/var/log/ansible.log``.
