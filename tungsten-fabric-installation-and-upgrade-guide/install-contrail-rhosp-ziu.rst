@@ -362,12 +362,12 @@ Openstack as the orchestration platform:
           from the `README Access to Contrail Registry
           20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
 
-          **Note**
+          .. note::
 
-          Some older deployments use the CONTRAIL_IMAGE_TAG variable in
-          place of the CONTRAIL_NEW_IMAGE_TAG variable. Both variables
-          are recognized by the update_contrail_preparation.sh script
-          and perform the same function.
+             Some older deployments use the CONTRAIL_IMAGE_TAG variable in
+             place of the CONTRAIL_NEW_IMAGE_TAG variable. Both variables
+             are recognized by the update_contrail_preparation.sh script
+             and perform the same function.
 
        -  SSH_USER—The SSH username for logging into overcloud nodes.
           The default value is heat-admin.
@@ -384,9 +384,9 @@ Openstack as the orchestration platform:
 
     -  Run the script:
 
-       **Caution**
+       .. caution::
 
-       Contrail services stop working when the script starts running.
+          Contrail services stop working when the script starts running.
 
        .. raw:: html
 
@@ -545,11 +545,13 @@ Openstack as the orchestration platform:
 
        </div>
 
-11. Individually update the compute nodes.\ **Note**\ 
+11. Individually update the compute nodes.
 
-    The compute node agent will be down during this step. The estimated
-    downtime varies by environment, but is typically between 1 and 5
-    minutes.
+.. note:: 
+
+   The compute node agent will be down during this step. The estimated
+   downtime varies by environment, but is typically between 1 and 5
+   minutes.
 
     Consider migrating workloads that can’t tolerate this downtime
     before performing this step
@@ -579,14 +581,14 @@ Openstack as the orchestration platform:
 
     Reboot your compute node to complete the update.
 
-    **Note**
+    .. note::
 
-    A reboot is required to complete this procedure only if a kernel
-    update is also needed. If you would like to avoid rebooting your
-    compute node, check the log files in the /var/log/yum.log file to
-    see if kernel packages were updated during the compute node update.
-    A reboot is required only if kernel updates occurred as part of the
-    compute node update procedure.
+       A reboot is required to complete this procedure only if a kernel
+       update is also needed. If you would like to avoid rebooting your
+       compute node, check the log files in the /var/log/yum.log file to
+       see if kernel packages were updated during the compute node update.
+       A reboot is required only if kernel updates occurred as part of the
+       compute node update procedure.
 
     .. raw:: html
 
@@ -615,10 +617,10 @@ Openstack as the orchestration platform:
     This contrail-status command provides output after a successful
     upgrade:
 
-    **Note**
+    .. note::
 
-    Some output fields and data have been removed from this
-    contrail-status command sample for readability.
+       Some output fields and data have been removed from this
+       contrail-status command sample for readability.
 
     .. raw:: html
 
@@ -700,12 +702,14 @@ Openstack as the orchestration platform:
        </div>
 
 12. Enter the openstack overcloud update converge command to finalize
-    the update.\ **Note**\ 
+    the update.
+    
+    .. note:: 
 
-    The options used in the openstack overcloud update converge in this
-    step will match the options used with the openstack overcloud update
-    prepare command entered in
-    `7 <install-contrail-rhosp-ziu.html#overcloud-prepare-step>`__.
+       The options used in the openstack overcloud update converge in this
+       step will match the options used with the openstack overcloud update
+       prepare command entered in
+       `7 <install-contrail-rhosp-ziu.html#overcloud-prepare-step>`__.
 
     .. raw:: html
 
