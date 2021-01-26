@@ -1,10 +1,10 @@
 .. _installing-a-standalone-red-hat-openshift-container-platform-311-cluster-with-contrail-using-contrail-openshift-deployer:
 
-Installing a Standalone Red Hat OpenShift Container Platform 3.11 Cluster with Contrail Using Contrail OpenShift Deployer
-=========================================================================================================================
+Installing a Standalone Red Hat OpenShift Container Platform 3.11 Cluster with Contrail Using TF OpenShift Deployer
+===================================================================================================================
 
-You can install Contrail Networking together with a standalone Red Hat
-OpenShift Container Platform 3.11 cluster using Contrail OpenShift
+You can install Tungsten Fabric together with a standalone Red Hat
+OpenShift Container Platform 3.11 cluster using TF OpenShift
 deployer. Consider the topology illustrated here.
 
 |Figure 1: Sample installation topology|
@@ -13,29 +13,21 @@ Prerequisites
 
 The recommended system requirements are:
 
-System Requirements
+.. list-table:: 
+   :header-rows: 1
 
-Primary Node
-
-Infrastructure Node
-
-Compute Node
-
-CPU/RAM
-
-8 vCPU, 16 GB RAM
-
-16 vCPU, 64 GB RAM
-
-As per
-`OpenShift <https://docs.openshift.com/container-platform/3.11/install/prerequisites.html>`__
-recommendations.
-
-Disk
-
-100 GB
-
-250 GB
+   * - System Requirements
+     - Master Node
+     - Infrastructure Node
+     - Compute Node
+   * - CPU/RAM
+     - 8 vCPU, 16 GB RAM
+     - 16 vCPU, 64 GB RAM
+     - As per OpenShift recommendations.
+   * - Disk
+     - 100 GB
+     - 250 GB
+     - 
 
 .. note::
 
@@ -43,7 +35,7 @@ Disk
    openshift-logging with NFS is not recommended.
 
 Perform the following steps to install a standalone OpenShift 3.11
-cluster along with Contrail Networking using
+cluster along with Tungsten Fabric using
 contrail-openshift-deployer.
 
 1. 
@@ -69,14 +61,6 @@ contrail-openshift-deployer.
 
    4. Enable only the required repositories.
 
-      .. raw:: html
-
-         <div id="jd0e107" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
           (all-nodes)# subscription-manager repos \
@@ -86,14 +70,6 @@ contrail-openshift-deployer.
              --enable=rhel-7-fast-datapath-rpms \
              --enable="rhel-7-server-ansible-2.6-rpms"
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    5. Install required packages, such as python-netaddr,
       iptables-services, and so on.
 
@@ -101,11 +77,6 @@ contrail-openshift-deployer.
 
    .. note::
       CentOS OpenShift Origin installations are not supported.
-
-   .. raw:: html
-
-      </div>
-
 2. Get the files from the latest tar ball. Download the OpenShift
    Container Platform install package from Juniper software download
    site and modify the contents of the ``openshift-ansible`` inventory
@@ -115,7 +86,7 @@ contrail-openshift-deployer.
       (``contrail-openshift-deployer-release-tag.tgz``) installer from
       the Juniper software download site,
       https://www.juniper.net/support/downloads/?p=contrail#sw. See
-      `README Access for Contrail Networking Registry
+      `README Access for Tungsten Fabric Registry
       19xx <https://www.juniper.net/documentation/en_US/contrail19/information-products/topic-collections/release-notes/readme-contrail-19.pdf>`__  
       for appropriate release tags.
 
@@ -137,17 +108,9 @@ contrail-openshift-deployer.
    5. Modify the ``inventory/ose-install`` file to match your OpenShift
       environment.
 
-      Populate the ``inventory/ose-install`` file with Contrail
+      Populate the ``inventory/ose-install`` file with TF
       configuration parameters specific to your system. The following
       mandatory parameters must be set. For example:
-
-      .. raw:: html
-
-         <div id="jd0e188" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -160,14 +123,6 @@ contrail-openshift-deployer.
          os_sdn_network_plugin_name='cni'
          openshift_use_contrail=true
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
       .. note::
 
          The ``contrail_container_tag`` value for this release can be found
@@ -175,19 +130,11 @@ contrail-openshift-deployer.
          19XX </documentation/en_US/contrail19/information-products/topic-collections/release-notes/readme-contrail-19.pdf>`__  
          file.
 
-      Juniper Networks recommends that you obtain the Ansible source
-      files from the latest release.
+         Juniper Networks recommends that you obtain the Ansible source
+         files from the latest release.
 
    This procedure assumes that there is one primary node, one
    infrastructure node, and one compute node.
-
-   .. raw:: html
-
-      <div id="jd0e207" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -195,23 +142,7 @@ contrail-openshift-deployer.
       infrastructure : server2 (1x.xx.xx.22)
       compute : server3 (1x.xx.xx.33)
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 3. Edit ``/etc/hosts`` to include all the nodes information.
-
-   .. raw:: html
-
-      <div id="jd0e216" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -223,24 +154,8 @@ contrail-openshift-deployer.
       1x.xx.xx.22 server2.contrail.juniper.net server2
       1x.xx.xx.33 server3.contrail.juniper.net server3
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 4. Set up password-free SSH access to the Ansible node and all the
    nodes.
-
-   .. raw:: html
-
-      <div id="jd0e222" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -249,39 +164,15 @@ contrail-openshift-deployer.
       ssh-copy-id root@1x.xx.xx.22
       ssh-copy-id root@1x.xx.xx.33
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 5. Run Ansible playbook to install OpenShift Container Platform with
-   Contrail. Before you run Ansible playbook, ensure that you have
+   TF. Before you run Ansible playbook, ensure that you have
    edited ``inventory/ose-install`` file.
-
-   .. raw:: html
-
-      <div id="jd0e231" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       (ansible-node)# cd /root/openshift-ansible
       (ansible-node)# ansible-playbook -i inventory/ose-install playbooks/prerequisites.yml
       (ansible-node)# ansible-playbook -i inventory/ose-install playbooks/deploy_cluster.yml
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    For a sample ``inventory/ose-install`` file, see `Sample
    inventory/ose-install
@@ -290,25 +181,9 @@ contrail-openshift-deployer.
 6. Create a password for the admin user to log in to the UI from the
    primary node.
 
-   .. raw:: html
-
-      <div id="jd0e244" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       (master-node)# htpasswd /etc/origin/master/htpasswd admin
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    .. note::
 
@@ -317,49 +192,17 @@ contrail-openshift-deployer.
 
 7. Assign cluster-admin role to admin user.
 
-   .. raw:: html
-
-      <div id="jd0e253" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       (master-node)# oc adm policy add-cluster-role-to-user cluster-admin admin
       (master-node)# oc login -u admin
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 8. Open a Web browser and type the entire fqdn name of your primary node
    or load balancer node, followed by :8443/console.
-
-   .. raw:: html
-
-      <div id="jd0e262" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       https://<your host name from your ose-install inventory>:8443/console
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    Use the user name and password created in step
    `6 <install-openshift-using-anible-311.html#loginpass>`__ to log in
@@ -371,17 +214,7 @@ contrail-openshift-deployer.
 .. note::
 
    OpenShift 3.11 cluster upgrades are not supported.
-
-.. raw:: html
-
-   <div id="sample_ose_install" class="sample" dir="ltr">
-
 **Sample inventory/ose-install File**
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    [OSEv3:vars]
@@ -464,10 +297,6 @@ contrail-openshift-deployer.
    openshift_hosted_etcd_storage_volume_name=etcd-asb
    openshift_hosted_etcd_storage_access_modes=['ReadWriteOnce']
    openshift_hosted_etcd_storage_volume_size=2G
-
-
-
-
 
    ###########################################################################
    ### OpenShift Metrics and Logging Vars
@@ -552,13 +381,13 @@ contrail-openshift-deployer.
 
 
    #########################################################################
-   ### Contrail Variables
+   ### TF Variables
    ########################################################################
 
    service_subnets="172.30.0.0/16"
    pod_subnets="10.128.0.0/14"
 
-   # Below are Contrail variables. Comment them out if you don't want to install Contrail through ansible-playbook
+   # Below are TF variables. Comment them out if you don't want to install Contrail through ansible-playbook
    contrail_version=5.1
    contrail_container_tag=<>
    contrail_registry=hub.juniper.net/contrail
@@ -611,14 +440,6 @@ contrail-openshift-deployer.
    kube-master-1-3eba0c20dc494dfc93d5d50d06bbde89
    kube-master-0-3eba0c20dc494dfc93d5d50d06bbde89
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 .. note::
 
    The /etc/resolv.conf must have write permissions.
@@ -634,7 +455,7 @@ Caveats and Troubleshooting Instructions
    in its search line, and the nameserver as host IP address.
 
 -  NTP is installed by OpenShift and must be synchronized by the user.
-   This does not affect any Contrail functionality but is displayed in
+   This does not affect any TF functionality but is displayed in
    the contrail-status output.
 
 -  If the ansible_service_broker component of OpenShift is not up and
