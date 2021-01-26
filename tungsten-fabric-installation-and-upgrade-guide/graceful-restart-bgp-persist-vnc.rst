@@ -287,14 +287,14 @@ Configuring Graceful Restart using Contrail Command
 ---------------------------------------------------
 
 To configure graceful restart in Contrail Command, navigate to
-**Infrastructure > Cluster > Advanced Options** and select the Edit icon
+:menuselection:`Infrastructure > Cluster > Advanced Options` and select the Edit icon
 near the top right corner of the screen.
 
 |Figure 1: Global Config System Configuration Screen|
 
-The **Edit System Configuration** window opens. Click the box for
-**Graceful Restart** to enable graceful restart, and enter a non-zero
-number to define the **Restart Time** in seconds. You can also specify
+The :guilabel:`Edit System Configuration` window opens. Click the box for
+:guilabel:`Graceful Restart` to enable graceful restart, and enter a non-zero
+number to define the :guilabel:`Restart Time` in seconds. You can also specify
 the times for the long-lived graceful restart (LLGR) and the end of RIB
 timers from this window.
 
