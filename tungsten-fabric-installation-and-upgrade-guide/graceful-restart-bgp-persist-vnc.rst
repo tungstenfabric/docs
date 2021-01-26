@@ -254,7 +254,7 @@ The following are examples:
 ``service contrail-control restart``
 
 For more details about graceful restart configuration, see
-https://github.com/Juniper/contrail-controller/wiki/Graceful-Restart .
+`https://github.com/tungstenfabric/docs/blob/master/wiki/tf-controller/Graceful-Restart.md <https://github.com/tungstenfabric/docs/blob/master/wiki/tf-controller/Graceful-Restart.md>`_.
 
 Cautions for Graceful Restart
 -----------------------------
