@@ -214,7 +214,9 @@ contrail-openshift-deployer.
 .. note::
 
    OpenShift 3.11 cluster upgrades are not supported.
+
 **Sample inventory/ose-install File**
+
 ::
 
    [OSEv3:vars]
