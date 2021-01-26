@@ -128,7 +128,9 @@ Configuration parameters include:
 
 -  ``xmpp-helper-enable`` to enable graceful restart helper mode for
    XMPP peers (agents) in contrail-control
+
 The following shows configuration by a provision script.
+
 ::
 
    /opt/contrail/utils/provision_control.py 
