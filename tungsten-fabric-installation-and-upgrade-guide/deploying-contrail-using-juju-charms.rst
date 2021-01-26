@@ -3,25 +3,17 @@ Installing Contrail with OpenStack by Using Juju Charms
 
  
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
 You can deploy Contrail by using Juju Charms. Juju helps you deploy,
 configure, and efficiently manage applications on private clouds and
 public clouds. Juju accesses the cloud with the help of a Juju
 controller. A Charm is a module containing a collection of scripts and
 metadata and is used with Juju to deploy Contrail.
 
-Starting in Contrail Networking Release 2011, Contrail Networking
+Starting in Tungsten Fabric Release 2011, Tungsten Fabric
 supports OpenStack Ussuri with Ubuntu version 18.04 (Bionic Beaver) and
 Ubuntu version 20.04 (Focal Fossa).
 
-Contrail supports the following charms:
+TF supports the following charms:
 
 -  contrail-agent
 
@@ -35,44 +27,20 @@ Contrail supports the following charms:
 
 -  contrail-openstack
 
-These topics describe how to deploy Contrail by using Juju Charms.
+These topics describe how to deploy TF by using Juju Charms.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-Preparing to Deploy Contrail by Using Juju Charms
+Preparing to Deploy TF by Using Juju Charms
 -------------------------------------------------
 
 Follow these steps to prepare for deployment:
 
 1. Install Juju.
 
-   .. raw:: html
-
-      <div id="jd0e58" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       sudo apt-get update
       sudo apt-get upgrade
       sudo apt-get install juju
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 2. Configure Juju.
 
@@ -86,25 +54,9 @@ Follow these steps to prepare for deployment:
 
          *Example: Adding an MAAS cloud to Juju*
 
-         .. raw:: html
-
-            <div id="jd0e80" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
-
          ::
 
             juju add-cloud
-
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
 
          ::
 
@@ -124,78 +76,26 @@ Follow these steps to prepare for deployment:
             Cloud "maas-cloud" successfully added
             You may bootstrap with 'juju bootstrap maas-cloud'
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
          .. note::
 
             Juju 2.x is compatible with MAAS series 1.x and 2.x.
 
       -  Adding a Cloud Manually
-
-         .. raw:: html
-
-            <div id="jd0e98" class="sample" dir="ltr">
-
          You use a YAML configuration file to add a cloud manually.
          Enter the following command:
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
-
          ::
 
             juju add-cloud <cloud-name>
             juju add-credential <cloud name>
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
          For an example, to add the cloud *junmaas*, assuming that the
          name of the configuration file in the directory is
          ``maas-clouds.yaml``, you run the following command:
 
-         .. raw:: html
-
-            <div id="jd0e111" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
-
          ::
 
             juju add-cloud junmaas maas-clouds.yaml
-
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            <div id="jd0e114" class="sample" dir="ltr">
-
          The following is the format of the YAML configuration file:
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
-
          ::
 
             clouds:
@@ -206,14 +106,6 @@ Follow these steps to prepare for deployment:
                   <region-name>:
                     endpoint: <http://<ip-address>:<node>/MAAS>
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
          .. note::
 
             The ``auth-types`` for a MAAS cloud type is ``oauth1``.
@@ -223,14 +115,6 @@ Follow these steps to prepare for deployment:
       Juju recognizes the cloud types given below. You use the
       ``juju clouds`` command to list cloud types that are supported by
       Juju.
-
-      .. raw:: html
-
-         <div id="jd0e143" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -248,75 +132,31 @@ Follow these steps to prepare for deployment:
          rackspace          6  dfw              rackspace   Rackspace Cloud
          localhost          1  localhost        lxd         LXD Container Hypervisor
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
 3. Create a Juju controller.
-
-   .. raw:: html
-
-      <div id="jd0e149" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju bootstrap --bootstrap-series=xenial <cloud name> <controller name>
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    .. note::
 
       A Juju controller manages and keeps track of applications in the Juju
       cloud environment.
 
-Deploying Contrail Charms
+Deploying TF Charms
 -------------------------
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-You can deploy Contrail Charms in a bundle or manually.
-
-.. raw:: html
-
-   </div>
-
-Deploy Contrail Charms in a Bundle
+You can deploy TF Charms in a bundle or manually.
+Deploy TF Charms in a Bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Follow these steps to deploy Contrail Charms in a bundle.
+Follow these steps to deploy TF Charms in a bundle.
 
-1. Deploy Contrail Charms.
+1. Deploy TF Charms.
 
-   To deploy Contrail Charms in a bundle, use the
+   To deploy TF Charms in a bundle, use the
    ``juju deploy <bundle_yaml_file>`` command.
-
-   .. raw:: html
-
-      <div id="jd0e192" class="sample" dir="ltr">
-
    The following example shows you how to use ``bundle_yaml_file`` to
-   deploy Contrail on Amazon Web Services (AWS) Cloud.
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
+   deploy TF on Amazon Web Services (AWS) Cloud.
    ::
 
       series: bionic
@@ -596,23 +436,15 @@ Follow these steps to deploy Contrail Charms in a bundle.
         - [ "contrail-openstack", "nova-compute-accel" ]
         - [ "agilio-vrouter5:juju-info", "nova-compute-accel:juju-info"  ]
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-   You can create or modify the Contrail Charm deployment bundle YAML
+   You can create or modify the TF Charm deployment bundle YAML
    file to:
 
-   -  Point to machines or instances where the Contrail Charms must be
+   -  Point to machines or instances where the TF Charms must be
       deployed.
 
    -  Include the options you need.
 
-      Each Contrail Charm has a specific set of options. The options you
+      Each TF Charm has a specific set of options. The options you
       choose depend on the charms you select. For more information on
       the options that are available, see `Options for Juju
       Charms <deploying-contrail-using-juju-charms.html#options-for-juju-charms>`__.
@@ -670,51 +502,19 @@ Before you begin deployment, ensure that you have:
 
 Follow these steps to deploy Juju Charms manually:
 
-1. Create machine instances for OpenStack, compute, and Contrail.
-
-   .. raw:: html
-
-      <div id="jd0e314" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+1. Create machine instances for OpenStack, compute, and Tungsten Fabric.
 
    ::
 
       juju add-machine --constraints mem=8G cores=2 root-disk=40G --series=xenial   #for openstack machine(s) 0
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju add-machine --constraints mem=7G cores=4 root-disk=40G --series=xenial   #for compute machine(s) 1,(3)
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
-      juju add-machine --constraints mem=15G cores=2 root-disk=300G --series=xenial #for contrail  machine 2
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
+      juju add-machine --constraints mem=15G cores=2 root-disk=300G --series=xenial #for TF machine 2
 
 2. Deploy OpenStack services.
 
@@ -726,14 +526,6 @@ Follow these steps to deploy Juju Charms manually:
       The following is an example of a YAML-formatted
       (``nova-compute-config.yaml``) file.
 
-      .. raw:: html
-
-         <div id="jd0e336" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          nova-compute:
@@ -743,60 +535,20 @@ Follow these steps to deploy Juju Charms manually:
              enable-live-migration: True
              migration-auth-type: ssh
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
       Use this command to deploy OpenStack services by using a
       YAML-formatted file:
-
-      .. raw:: html
-
-         <div id="jd0e341" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          juju deploy cs:xenial/nova-compute --config ./nova-compute-config.yaml
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    -  By using CLI
 
       To deploy OpenStack services through the CLI:
 
-      .. raw:: html
-
-         <div id="jd0e350" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          juju deploy cs:xenial/nova-cloud-controller --config console-access-protocol=novnc --config openstack-origin=cloud:xenial-ocata
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
    -  By using a combination of YAML-formatted file and CLI
 
@@ -807,14 +559,6 @@ Follow these steps to deploy Juju Charms manually:
 
          Use the ``--to <machine number>`` command to point to a machine or
          container where you want the application to be deployed.
-
-      .. raw:: html
-
-         <div id="jd0e365" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -827,14 +571,6 @@ Follow these steps to deploy Juju Charms manually:
          juju deploy cs:xenial/glance --config openstack-origin=cloud:xenial-ocata --to lxd:0
          juju deploy cs:xenial/keystone --config admin-password=<admin-password> --config admin-role=admin --config openstack-origin=cloud:xenial-ocata --to lxd:0
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
       .. note::
 
          You set OpenStack services on different machines or on different
@@ -842,25 +578,9 @@ Follow these steps to deploy Juju Charms manually:
 
 3. Deploy and configure nova-compute.
 
-   .. raw:: html
-
-      <div id="jd0e374" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju deploy cs:xenial/nova-compute --config ./nova-compute-config.yaml --to 1
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    .. note::
 
@@ -868,35 +588,11 @@ Follow these steps to deploy Juju Charms manually:
 
    (Optional) To add additional computes:
 
-   .. raw:: html
-
-      <div id="jd0e382" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju add-unit nova-compute --to 3 # Add one more unit
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-4. Deploy and configure Contrail services.
-
-   .. raw:: html
-
-      <div id="jd0e388" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+4. Deploy and configure TF services.
 
    ::
 
@@ -907,23 +603,7 @@ Follow these steps to deploy Juju Charms manually:
       juju deploy --series=xenial $CHARMS_DIRECTORY/contrail-charms/contrail-openstack
       juju deploy --series=xenial $CHARMS_DIRECTORY/contrail-charms/contrail-agent
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 5. Enable applications to be available to external traffic:
-
-   .. raw:: html
-
-      <div id="jd0e394" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -933,65 +613,25 @@ Follow these steps to deploy Juju Charms manually:
       juju expose glance
       juju expose keystone
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 6. Enable contrail-controller and contrail-analytics services to be
    available to external traffic if you do not use HAProxy.
-
-   .. raw:: html
-
-      <div id="jd0e400" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju expose contrail-controller
       juju expose contrail-analytics
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 7. Apply SSL.
 
-   You can apply SSL if needed. To use SSL with Contrail services,
+   You can apply SSL if needed. To use SSL with TF services,
    deploy easy-rsa service and ``add-relation`` command to create
    relations to contrail-controller service and contrail-agent services.
-
-   .. raw:: html
-
-      <div id="jd0e411" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju deploy cs:~containers/xenial/easyrsa --to 0
       juju add-relation easyrsa contrail-controller
       juju add-relation easyrsa contrail-agent
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 8. (Optional) HA configuration.
 
@@ -1000,21 +640,13 @@ Follow these steps to deploy Juju Charms manually:
 
    1. Deploy HAProxy and Keepalived services.
 
-      HAProxy charm is deployed on machines with Contrail controllers.
+      HAProxy charm is deployed on machines with TF controllers.
       HAProxy charm must have ``peering_mode`` set to ``active-active``.
       If ``peering_mode`` is set to ``active-passive``, HAProxy creates
-      additional listeners on the same ports as other Contrail services.
+      additional listeners on the same ports as other TF services.
       This leads to port conflicts.
 
       Keepalived charm does not require ``to`` option.
-
-      .. raw:: html
-
-         <div id="jd0e442" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -1022,35 +654,11 @@ Follow these steps to deploy Juju Charms manually:
          juju add-unit haproxy --to <another contrail-controller machine>
          juju deploy cs:~boucherv29/keepalived-19 --config virtual_ip=<vip>
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    2. Enable HAProxy to be available to external traffic.
-
-      .. raw:: html
-
-         <div id="jd0e448" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          juju expose haproxy
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
       .. note::
 
@@ -1059,14 +667,6 @@ Follow these steps to deploy Juju Charms manually:
 
    3. Add HAProxy and Keepalived relations.
 
-      .. raw:: html
-
-         <div id="jd0e459" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          juju add-relation haproxy:juju-info keepalived:juju-info
@@ -1074,45 +674,13 @@ Follow these steps to deploy Juju Charms manually:
          juju add-relation contrail-controller:http-services haproxy
          juju add-relation contrail-controller:https-services haproxy
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    4. Configure contrail-controller service with VIP.
-
-      .. raw:: html
-
-         <div id="jd0e465" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          juju set contrail-controller vip=<vip>
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
 9. Add other necessary relations.
-
-   .. raw:: html
-
-      <div id="jd0e471" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -1149,18 +717,10 @@ Follow these steps to deploy Juju Charms manually:
       juju add-relation contrail-agent:juju info nova-compute:juju info
       juju add-relation contrail-agent contrail-controller
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 Options for Juju Charms
 -----------------------
 
-Each Contrail Charm has a specific set of options. The options you
+Each TF Charm has a specific set of options. The options you
 choose depend on the charms you select. The following tables list the
 various options you can choose:
 
@@ -1224,7 +784,7 @@ various options you can choose:
      - Specify the docker image tag
    * - log-level
      - SYS_NOTICE
-     - Specify the log level for Contrail services.
+     - Specify the log level for TF services.
        Options:`SYS_EMERG`, `SYS_ALERT`, `SYS_CRIT`, `SYS_ERR`, `SYS_WARN`, `SYS_NOTICE`, `SYS_INFO`, `SYS_DEBUG`
    * - http_proxy
      - 
@@ -1246,10 +806,10 @@ various options you can choose:
        ``kernel-hugepages-1g`` and the ``kernel-hugepages-2m`` options are not set.
    * - kernel-hugepages-2m
      - 1024
-     - Specify the number of 2MB huge pages for use with vRouters in kernel mode. Huge pages in Contrail Networking
+     - Specify the number of 2MB huge pages for use with vRouters in kernel mode. Huge pages in Tungsten Fabric
        are used primarily to allocate flow and bridge table memory within the vRouter. Huge pages for kernel-mode vRouters
-       provide enough flow and bridge table memory to avoid compute node reboots to complete future Contrail Networking software upgrades.
-       1024x2MB huge pages are configured by default starting in Contrail Networking Release 2005. A compute node reboot is
+       provide enough flow and bridge table memory to avoid compute node reboots to complete future Tungsten Fabric software upgrades.
+       1024x2MB huge pages are configured by default starting in Tungsten Fabric Release 2005. A compute node reboot is
        required to enable a kernel-mode vRouter huge page setting configuration change, however, so this huge page setting is
        not enabled on a compute node until the compute node is rebooted. After a compute node is rebooted to enable a vRouter
        huge page setting, compute nodes can complete software upgrades without a reboot. We recommend allotting 2GB of memory—either
@@ -1296,7 +856,7 @@ various options you can choose:
      - Specify the docker image tag.
    * - log-level
      - SYS_NOTICE
-     - Specify the log level for Contrail services.
+     - Specify the log level for TF services.
        Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
    * - http_proxy
      - 
@@ -1346,7 +906,7 @@ various options you can choose:
      - Specify the docker image tag.
    * - log-level
      - SYS_NOTICE
-     - Specify the log level for Contrail services.
+     - Specify the log level for TF services.
        Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
    * - http_proxy
      -
@@ -1392,7 +952,7 @@ various options you can choose:
      - Specify the role name in keystone for users who have read-only access
    * - vip
      - 
-     - Specify if the Contrail API VIP is used for configuring client-side software. If not specified, private IP of the first Contrail API VIP unit will be used
+     - Specify if the Tungsten Fabric API VIP is used for configuring client-side software. If not specified, private IP of the first Tungsten Fabric API VIP unit will be used
    * - use-external-rabbitmq
      - false
      - To enable the Charm to use the internal RabbitMQ server, set ``use-external-rabbitmq`` to ``false.
@@ -1400,7 +960,7 @@ various options you can choose:
        **Note:** Do not change the flag after deployment.
    * - flow-export-rate
      - 0
-     - Specify how many flow records are exported by vRouter agent to the Contrail Collector when a flow is created or deleted
+     - Specify how many flow records are exported by vRouter agent to the Tungsten Fabric Collector when a flow is created or deleted
    * - docker-registry
      - 
      - Specify the URL of the docker-registry.
@@ -1418,7 +978,7 @@ various options you can choose:
      - Specify the docker image tag.
    * - log-level
      - SYS_NOTICE
-     - Specify the log level for Contrail services.
+     - Specify the log level for TF services.
        Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
    * - http_proxy
      - 
@@ -1441,7 +1001,7 @@ various options you can choose:
      - Description
    * - ssl_ca
      - 
-     - Specify if the base64-encoded SSL CA certificate is provided to Contrail keystone clients.
+     - Specify if the base64-encoded SSL CA certificate is provided to TF keystone clients.
        **Note:** This certificate is required if you use a privately signed ssl_cert and ssl_key.
 
 |
@@ -1486,7 +1046,7 @@ various options you can choose:
      - Specify the docker image tag.
    * - log-level
      - SYS_NOTICE
-     - Specify the log level for Contrail services.
+     - Specify the log level for TF services.
        Options: ``SYS_EMERG``, ``SYS_ALERT``, ``SYS_CRIT``, ``SYS_ERR``, ``SYS_WARN``, ``SYS_NOTICE``, ``SYS_INFO``, ``SYS_DEBUG``
    * - http_proxy
      - 
@@ -1504,7 +1064,7 @@ various options you can choose:
    * - Release
      - Description
    * - 2011
-     - Starting in Contrail Networking Release 2011, Contrail Networking
+     - Starting in Tungsten Fabric Release 2011, Tungsten Fabric
        supports OpenStack Ussuri with Ubuntu version 18.04 (Bionic Beaver) and
        Ubuntu version 20.04 (Focal Fossa).
 
