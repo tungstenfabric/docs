@@ -1,38 +1,42 @@
 .. _installing-a-nested-red-hat-openshift-container-platform-311-cluster-using-contrail-ansible-deployer:
 
-Installing a Nested Red Hat OpenShift Container Platform 3.11 Cluster Using Contrail Ansible Deployer
-=====================================================================================================
-
- 
+Installing a Nested Red Hat OpenShift Container Platform 3.11 Cluster Using Tungsten Fabric Ansible Deployer
+============================================================================================================
 
 You can install a nested Red Hat OpenShift Container Platform 3.11
-cluster along with Contrail Networking using Contrail Ansible deployer.
+cluster along with Tungsten Fabric using Tungsten Fabric Ansible Deployer.
 
 Prerequisites
 
 Ensure that the following prerequisites are met for a successful
-provisioning of a nested Contrail-OpenShift cluster.
+provisioning of a nested TF-OpenShift cluster.
 
 -  The recommended system requirements are:
 
-   System Requirements
+.. list-table:: 
+   :header-rows: 1
+
+   * - System Requirements
+     - Master Node
+     - Infrastructure Node
+     - Compute Node
+   * - CPU/RAM
+     - 8 vCPU, 16 GB RAM
+     - 16 vCPU, 64 GB RAM
+     - As per OpenShift recommendations.
+   * - Disk
+     - 100 GB
+     - 250 GB
+     - 
 
 -  A running Red Hat OpenStack Platform Director (RHOSPD) 13 cluster
-   with Contrail. OpenShift Contrail release must be same as RHOSPD 13
-   Contrail release.
+   with TF. OpenShift TF release must be same as RHOSPD 13
+   TF release.
 
--  RHOSPD environments require that the Contrail vrouter, Contrail
+-  RHOSPD environments require that the Tungsten Fabric vRouter, TF
    config and OpenStack keystone are in “internal-api” network. Modify
    the ServiceNetMap parameters in the ``contrail-services.yaml`` file
    to configure in “internal-api” network.
-
-   .. raw:: html
-
-      <div id="jd0e81" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -50,38 +54,14 @@ provisioning of a nested Contrail-OpenShift cluster.
           ContrailCertmongerUserNetwork: internal_api
           KeystoneAdminApiNetwork: internal_api
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 -  Ensure that the vRouter gateway in the ``contrail-services.yaml``
    file is part of “internal-api” network.
 
-   .. raw:: html
-
-      <div id="jd0e90" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
-      # Custom Contrail container configuration settings
+      # Custom TF container configuration settings
         ContrailSettings:
           VROUTER_GATEWAY: 10.1.0.254
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 -  OpenShift nodes (VMs) must have Internet connectivity.
 
@@ -96,50 +76,50 @@ Provisioning Nested OpenShift Cluster
 
 Provisioning a nested OpenShift cluster is a two-step process.
 
-1. Create link-local services in the Contrail-OpenStack cluster.
+1. Create link-local services in the TF-OpenStack cluster.
 
-   A nested OpenShift cluster is managed by the same Contrail controller
+   A nested OpenShift cluster is managed by the same TF controller
    that manages the underlying OpenStack cluster. Hence, the nested
-   Openshift cluster needs IP reachability to the Contrail controller
+   Openshift cluster needs IP reachability to the TF controller
    and OpenStack keystone service. Since the OpenShift cluster is
    actually an overlay on the OpenStack cluster, we use the Link Local
-   Service feature of Contrail to provide IP reachability to and from
+   Service feature of TF to provide IP reachability to and from
    the overlay OpenShift cluster and OpenStack cluster.
 
    To configure a Link Local Service, we need a Fabric IP and Service
-   IP. Fabric IP is the node IP on which the Contrail Controller and
+   IP. Fabric IP is the node IP on which the Tungsten Fabric Controller and
    OpenStack services are running. Service IP is a unique and unused IP
    in the entire OpenStack cluster and is shared with the OpenShift
-   cluster to reach Contrail Controller and OpenStack services. Service
+   cluster to reach Tungsten Fabric Controller and OpenStack services. Service
    IP (along with port number) is used by the data plane to identify the
    fabric IP. For each node of the OpenStack cluster, one service IP
    must be identified.
 
-   You must configure the following Link Local Services in Contrail.
+   You must configure the following Link Local Services in TF.
 
    +-------------+-------------+-------------+-------------+-------------+
-   | Contrail    | Service IP  | Service     | Fabric IP   | Fabric Port |
+   | TF          | Service IP  | Service     | Fabric IP   | Fabric Port |
    | Controller  |             | Port        |             |             |
    | and         |             |             |             |             |
    | OpenStack   |             |             |             |             |
    | Process     |             |             |             |             |
    +-------------+-------------+-------------+-------------+-------------+
-   | Contrail    | <Service IP | 8082        | <Node IP of | 8082        |
+   | TF          | <Service IP | 8082        | <Node IP of | 8082        |
    | Config      | for the     |             | running     |             |
    |             | running     |             | node>       |             |
    |             | node>       |             |             |             |
    +-------------+-------------+-------------+-------------+-------------+
-   | Contrail    | <Service IP | 8086        | <Node IP of | 8086        |
+   | TF          | <Service IP | 8086        | <Node IP of | 8086        |
    | Analytics   | for the     |             | running     |             |
    |             | running     |             | node>       |             |
    |             | node>       |             |             |             |
    +-------------+-------------+-------------+-------------+-------------+
-   | Contrail    | <Service IP | 5673        | <Node IP of | 5673        |
+   | TF          | <Service IP | 5673        | <Node IP of | 5673        |
    | Msg Queue   | for the     |             | running     |             |
    |             | running     |             | node>       |             |
    |             | node>       |             |             |             |
    +-------------+-------------+-------------+-------------+-------------+
-   | Contrail    | <Service IP | 9161        | <Node IP of | 9161        |
+   | TF          | <Service IP | 9161        | <Node IP of | 9161        |
    | VNC DB      | for the     |             | running     |             |
    |             | running     |             | node>       |             |
    |             | node>       |             |             |             |
@@ -157,40 +137,16 @@ Provisioning a nested OpenShift cluster is a two-step process.
 
    For example, consider a sample cluster of seven nodes.
 
-   .. raw:: html
-
-      <div id="jd0e239" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
-      Contrail Config : 192.168.1.100
-      Contrail Analytics : 192.168.1.100, 192.168.1.101
-      Contrail Msg Queue : 192.168.1.100
-      Contrail VNC DB : 192.168.1.100, 192.168.1.101, 192.168.1.102
+      Tungsten Fabric Config : 192.168.1.100
+      Tungsten Fabric Analytics : 192.168.1.100, 192.168.1.101
+      Tungsten Fabric Msg Queue : 192.168.1.100
+      Tungsten Fabric VNC DB : 192.168.1.100, 192.168.1.101, 192.168.1.102
       Keystone: 192.168.1.200
       Vrouter: 192.168.1.201, 192.168.1.202, 192.168.1.203
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    Allocate seven unused IP addresses for the seven nodes.
-
-   .. raw:: html
-
-      <div id="jd0e244" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -200,14 +156,6 @@ Provisioning a nested OpenShift cluster is a two-step process.
       192.168.1.200  --> 10.10.10.4
       192.168.1.201/192.168.1.202/192.168.1.203  --> 10.10.10.5 
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    .. note::
 
       One Service IP address can represent all vRouter nodes.
@@ -215,31 +163,31 @@ Provisioning a nested OpenShift cluster is a two-step process.
    The following link-local services must be created:
 
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | Service IP | Service     | Fabric IP   | Fabric Port |
+   | TF          | Service IP | Service     | Fabric IP   | Fabric Port |
    | controller  |            | Port        |             |             |
    | and         |            |             |             |             |
    | OpenStack   |            |             |             |             |
    | process     |            |             |             |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.1 | 8082        | 19          | 8082        |
+   | TF          | 10.10.10.1 | 8082        | 19          | 8082        |
    | Config      |            |             | 2.168.1.100 |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.1 | 8086        | 19          | 8086        |
+   | TF          | 10.10.10.1 | 8086        | 19          | 8086        |
    | Analytics 1 |            |             | 2.168.1.100 |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.1 | 8086        | 19          | 8086        |
+   | TF          | 10.10.10.1 | 8086        | 19          | 8086        |
    | Analytics 2 |            |             | 2.168.1.101 |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.2 | 5673        | 19          | 5673        |
+   | TF          | 10.10.10.2 | 5673        | 19          | 5673        |
    | Msg Queue   |            |             | 2.168.1.100 |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.1 | 9161        | 19          | 9161        |
+   | TF          | 10.10.10.1 | 9161        | 19          | 9161        |
    | VNC DB 1    |            |             | 2.168.1.100 |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.2 | 9161        | 19          | 9161        |
+   | TF          | 10.10.10.2 | 9161        | 19          | 9161        |
    | VNC DB 2    |            |             | 2.168.1.101 |             |
    +-------------+------------+-------------+-------------+-------------+
-   | Contrail    | 10.10.10.2 | 9161        | 19          | 9161        |
+   | TF          | 10.10.10.2 | 9161        | 19          | 9161        |
    | VNC DB 3    |            |             | 2.168.1.102 |             |
    +-------------+------------+-------------+-------------+-------------+
    | Keystone    | 10.10.10.4 | 35357       | 19          | 35357       |
@@ -252,15 +200,10 @@ Provisioning a nested OpenShift cluster is a two-step process.
 2. Install OpenShift using OpenShift Ansible deployer.
 
    Perform the following steps to install the nested OpenShift 3.11
-   cluster along with Contrail Networking using OpenShift Ansible
+   cluster along with Tungsten Fabric using OpenShift Ansible
    deployer.
 
    1. 
-
-      .. raw:: html
-
-         <div id="jd0e427">
-
       Set up environment nodes for RHEL OpenShift enterprise
       installations:
 
@@ -279,14 +222,6 @@ Provisioning a nested OpenShift cluster is a two-step process.
 
       4. Enable only the required repositories.
 
-         .. raw:: html
-
-            <div id="jd0e456" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
-
          ::
 
              (all-nodes)# subscription-manager repos \
@@ -296,14 +231,6 @@ Provisioning a nested OpenShift cluster is a two-step process.
                 --enable=rhel-7-fast-datapath-rpms \
                 --enable="rhel-7-server-ansible-2.6-rpms"
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
       5. Install required packages, such as python-netaddr,
          iptables-services, and so on.
 
@@ -312,11 +239,6 @@ Provisioning a nested OpenShift cluster is a two-step process.
       .. note:: 
          
          CentOS OpenShift Origin installations are not supported.
-
-      .. raw:: html
-
-         </div>
-
    2. Get the files from the latest tar ball. Download the OpenShift
       Container Platform install package from Juniper software download
       site and modify the contents of the ``openshift-ansible``
@@ -326,7 +248,7 @@ Provisioning a nested OpenShift cluster is a two-step process.
          (``contrail-ansible-deployer-release-tag.tgz``) installer from
          the Juniper software download site,
          https://www.juniper.net/support/downloads/?p=contrail#sw. See
-         `README Access to Contrail Networking Registry
+         `README Access to Tungsten Fabric Registry
          20xx <https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  
          for appropriate release tags.
 
@@ -348,17 +270,9 @@ Provisioning a nested OpenShift cluster is a two-step process.
       5. Modify the ``inventory/ose-install`` file to match your
          OpenShift environment.
 
-         Populate the ``inventory/ose-install`` file with Contrail
+         Populate the ``inventory/ose-install`` file with TF
          configuration parameters specific to your system. The following
          mandatory parameters must be set.
-
-         .. raw:: html
-
-            <div id="jd0e537" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
 
          ::
 
@@ -371,18 +285,10 @@ Provisioning a nested OpenShift cluster is a two-step process.
             os_sdn_network_plugin_name='cni'
             openshift_use_contrail=true
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
          .. note::
 
             The ``contrail_container_tag`` value for this release can be
-            found in the `README Access to Contrail Networking Registry
+            found in the `README Access to Tungsten Fabric Registry
             20xx <https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  
             file.
 
@@ -394,37 +300,13 @@ Provisioning a nested OpenShift cluster is a two-step process.
          This procedure assumes that there is one primary node, one
          infrastructure node, and one compute node.
 
-      .. raw:: html
-
-         <div id="jd0e554" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          master : server1 (1x.xx.xx.11)
          infrastructure : server2 (1x.xx.xx.22)
          compute : server3 (1x.xx.xx.33)
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    3. Edit ``/etc/hosts`` to include all the nodes information.
-
-      .. raw:: html
-
-         <div id="jd0e563" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -436,24 +318,8 @@ Provisioning a nested OpenShift cluster is a two-step process.
          1x.xx.xx.22 server2.contrail.juniper.net server2
          1x.xx.xx.33 server3.contrail.juniper.net server3
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    4. Set up password-free SSH access to the Ansible node and all the
       nodes.
-
-      .. raw:: html
-
-         <div id="jd0e569" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -462,39 +328,15 @@ Provisioning a nested OpenShift cluster is a two-step process.
          ssh-copy-id root@1x.xx.xx.22
          ssh-copy-id root@1x.xx.xx.33
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    5. Run Ansible playbook to install OpenShift Container Platform with
-      Contrail. Before you run Ansible playbook, ensure that you have
+      TF. Before you run Ansible playbook, ensure that you have
       edited ``inventory/ose-install`` file.
-
-      .. raw:: html
-
-         <div id="jd0e578" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          (ansible-node)# cd /root/openshift-ansible
          (ansible-node)# ansible-playbook -i inventory/ose-install playbooks/prerequisites.yml
          (ansible-node)# ansible-playbook -i inventory/ose-install playbooks/deploy_cluster.yml
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
       For a sample ``inventory/ose-install`` file, see `Sample
       inventory/ose-install
@@ -503,25 +345,9 @@ Provisioning a nested OpenShift cluster is a two-step process.
    6. Create a password for the admin user to log in to the UI from the
       primary node.
 
-      .. raw:: html
-
-         <div id="jd0e591" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          (master-node)# htpasswd /etc/origin/master/htpasswd admin
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
       .. note::
 
@@ -530,49 +356,17 @@ Provisioning a nested OpenShift cluster is a two-step process.
 
    7. Assign cluster-admin role to admin user.
 
-      .. raw:: html
-
-         <div id="jd0e600" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          (master-node)# oc adm policy add-cluster-role-to-user cluster-admin admin
          (master-node)# oc login -u admin
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    8. Open a Web browser and type the entire fqdn name of your primary
       node or load balancer node, followed by :8443/console.
-
-      .. raw:: html
-
-         <div id="jd0e606" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          https://<your host name from your ose-install inventory>:8443/console
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
       Use the user name and password created in step
       `6 <install-nested-openshift-311-using-anible.html#loginpass>`__
@@ -586,15 +380,7 @@ Provisioning a nested OpenShift cluster is a two-step process.
 
       OpenShift 3.11 cluster upgrades are not supported.
 
-.. raw:: html
-
-   <div id="sample_ose_install" class="sample" dir="ltr">
-
 **Sample inventory/ose-install File**
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -606,7 +392,7 @@ Provisioning a nested OpenShift cluster is a two-step process.
    ###########################################################################
    nested_mode_contrail=true
    rabbitmq_node_port=5673
-   contrail_nested_masters_ip="1.1.1.1 2.2.2.2 3.3.3.3"          <---  ips of contrail controllers
+   contrail_nested_masters_ip="1.1.1.1 2.2.2.2 3.3.3.3"          <---  ips of TF controllers
    auth_mode=keystone
    keystone_auth_host=<w.x.y.z>        <--- This should be the IP where Keystone service is running.
    keystone_auth_admin_tenant=admin
@@ -705,10 +491,6 @@ Provisioning a nested OpenShift cluster is a two-step process.
    openshift_hosted_etcd_storage_access_modes=['ReadWriteOnce']
    openshift_hosted_etcd_storage_volume_size=2G
 
-
-
-
-
    ###########################################################################
    ### OpenShift Metrics and Logging Vars
    ###########################################################################
@@ -792,13 +574,13 @@ Provisioning a nested OpenShift cluster is a two-step process.
 
 
    #########################################################################
-   ### Contrail Variables
+   ### TF Variables
    ########################################################################
 
    service_subnets="172.30.0.0/16"
    pod_subnets="10.128.0.0/14"
 
-   # Below are Contrail variables. Comment them out if you don't want to install Contrail through ansible-playbook
+   # Below are TF variables. Comment them out if you don't want to install Contrail through ansible-playbook
    contrail_version=1907
    contrail_container_tag=<>
    contrail_registry=hub.juniper.net/contrail
@@ -850,14 +632,6 @@ Provisioning a nested OpenShift cluster is a two-step process.
    kube-master-2-3eba0c20dc494dfc93d5d50d06bbde89
    kube-master-1-3eba0c20dc494dfc93d5d50d06bbde89
    kube-master-0-3eba0c20dc494dfc93d5d50d06bbde89
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 .. note::
 
