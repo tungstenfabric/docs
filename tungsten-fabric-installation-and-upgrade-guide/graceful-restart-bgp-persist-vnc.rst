@@ -1,8 +1,6 @@
 Configuring Graceful Restart and Long-lived Graceful Restart
 ============================================================
 
- 
-
 Graceful restart and long-lived graceful restart BGP helper modes are
 supported for the TF control node and XMPP helper mode.
 
