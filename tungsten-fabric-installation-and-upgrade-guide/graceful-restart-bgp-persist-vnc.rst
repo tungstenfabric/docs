@@ -216,25 +216,3 @@ restart.
 -  Graceful restart/long-lived graceful restart helper mode may not work
    correctly for EVPN routes, if the restarting node does not preserve
    forwarding state for EVPN routes.
-
-Configuring Graceful Restart using Contrail Command
----------------------------------------------------
-
-To configure graceful restart in Contrail Command, navigate to
-:menuselection:`Infrastructure > Cluster > Advanced Options` and select the Edit icon
-near the top right corner of the screen.
-
-|Figure 1: Global Config System Configuration Screen|
-
-The :guilabel:`Edit System Configuration` window opens. Click the box for
-:guilabel:`Graceful Restart` to enable graceful restart, and enter a non-zero
-number to define the :guilabel:`Restart Time` in seconds. You can also specify
-the times for the long-lived graceful restart (LLGR) and the end of RIB
-timers from this window.
-
-|Figure 2: Edit System Configuration Window|
-
- 
-
-.. |Figure 1: Global Config System Configuration Screen| image:: images/s060275.png
-.. |Figure 2: Edit System Configuration Window| image:: images/s060276.png
