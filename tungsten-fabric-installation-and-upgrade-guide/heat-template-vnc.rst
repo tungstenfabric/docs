@@ -198,6 +198,7 @@ Heat.
    ::
 
       heat stack create stack1 –f service_template.yaml –e service_template.env
+   
    OR use this command for recent versions of OpenStack
    ::
 
