@@ -95,8 +95,9 @@ Follow these steps to prepare for deployment:
          ::
 
             juju add-cloud junmaas maas-clouds.yaml
-         The following is the format of the YAML configuration file:
-         
+        
+        The following is the format of the YAML configuration file:
+
          ::
 
             clouds:
