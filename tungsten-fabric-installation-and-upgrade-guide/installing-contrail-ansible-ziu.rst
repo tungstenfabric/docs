@@ -1,15 +1,15 @@
-How to Perform a Zero Impact Contrail Networking Upgrade using the Ansible Deployer
-===================================================================================
+How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer
+===============================================================================
 
-Starting in Contrail Networking Release 2005, you can perform a Zero
-Impact Upgrade (ZIU) of Contrail Networking using the Contrail Ansible
-Deployer container. The Contrail Ansible Deployer container image can be
+Starting in Tungsten Fabric Release 2005, you can perform a Zero
+Impact Upgrade (ZIU) of Tungsten Fabric using the TF Ansible
+Deployer container. The Tungsten Fabric Ansible Deployer container image can be
 loaded from the Juniper Networks Contrail Container Registry hosted at
 ``hub.juniper.net/contrail``.
 
 Use the procedure in this document to perform a Zero Impact Upgrade
-(ZIU) of Contrail Networking using the Contrail Ansible Deployer
-container. This ZIU allows Contrail Networking to upgrade while
+(ZIU) of Tungsten Fabric using the Tungsten Fabric Ansible Deployer
+container. This ZIU allows Tungsten Fabric to upgrade while
 sustaining minimal network downtime.
 
 Before you begin:
@@ -18,38 +18,38 @@ Before you begin:
    later.
 
 -  You can use this procedure to incrementally upgrade to the next
-   Contrail Networking release only. For instance, if you are running
-   Contrail Networking Release 2003 and want to upgrade to the next
-   Contrail Release—which is Contrail Networking Release 2005—you can
+   Tungsten Fabric release only. For instance, if you are running
+   Tungsten Fabric Release 2003 and want to upgrade to the next
+   TF Release—which is Tungsten Fabric Release 2005—you can
    use this procedure to perform the upgrade.
 
    This procedure is not validated for upgrades between releases that
    are two or more releases apart. For instance, it could not be used to
-   upgrade from Contrail Networking Release 2002 to Contrail Networking
+   upgrade from Tungsten Fabric Release 2002 to Tungsten Fabric
    Release 2005.
 
-   For a list of Contrail Networking releases in a table that
-   illustrates Contrail Networking release order, see `Contrail
+   For a list of Tungsten Fabric releases in a table that
+   illustrates Tungsten Fabric release order, see `Contrail
    Networking Supported
    Platforms <https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf>`__  .
 
--  The Contrail Ansible Deployer container can only be used in CentOS
+-  The Tungsten Fabric Ansible Deployer container can only be used in CentOS
    environments.
 
 -  Take snapshots of your current configurations before you proceed with
    the upgrade process. For details, refer to `How to Backup and Restore
-   Contrail Databases in JSON
+   TF databases in JSON
    Format <../../concept/backup-using-json-50.html>`__.
 
 This procedure illustrates how to perform a ZIU using the Ansible
 deployer container. It includes a representative example of the steps
-being performed to upgrade from Contrail Networking Release 2005 to
+being performed to upgrade from Tungsten Fabric Release 2005 to
 Release 2008.
 
 To perform the ZIU using the Ansible deployer:
 
 1.  Pull the ``contrail-ansible-deployer`` file for the target upgrade
-    release. This procedure is typically performed from a Contrail
+    release. This procedure is typically performed from a TF
     controller running in your environment, but it can also be performed
     from a separate server which has network connectivity to the
     deployment that is being upgraded.
@@ -65,26 +65,10 @@ To perform the ZIU using the Ansible deployer:
     Enter the following commands to pull the
     ``contrail-ansible-deployer`` file from the registry:
 
-    .. raw:: html
-
-       <div id="jd0e71" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
-
     ::
 
        sudo docker login -u <username> -p <password> hub.juniper.net 
        sudo docker pull hub.juniper.net/contrail/contrail-kolla-ansible-deployer:2008.<contrail_container_tag>
-
-    .. raw:: html
-
-       </div>
-
-    .. raw:: html
-
-       </div>
 
     where:
 
@@ -97,49 +81,25 @@ To perform the ZIU using the Ansible deployer:
        and ``password`` credentials.
 
     -  ``contrail_container_tag``—the container tag ID for your target
-       Contrail Networking release. The ``contrail_container_tag`` for
+       Tungsten Fabric release. The ``contrail_container_tag`` for
        any Contrail Release 20 software can be obtained from `README
-       Access to Contrail Networking Registry
+       Access to Tungsten Fabric Registry
        20xx <https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
 
-2.  Start the Contrail Ansible Deployer:
-
-    .. raw:: html
-
-       <div id="jd0e121" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
+2.  Start the Tungsten Fabric Ansible Deployer:
 
     ::
 
        docker run -t --net host -d --privileged --name contrail-kolla-ansible-deployer hub.juniper.net/contrail/contrail-kolla-ansible-deployer:2008.<contrail_container_tag>
 
-    .. raw:: html
-
-       </div>
-
-    .. raw:: html
-
-       </div>
-
 3.  Navigate to the ``instances.yaml`` file and open it for editing.
 
     The ``instances.yaml`` file was used to initially deploy the setup.
-    The ``instances.yaml`` can be loaded into the Contrail Ansible
+    The ``instances.yaml`` can be loaded into the TF Ansible
     Deployer and edited to supported the target upgrade version.
 
-    *Contrail Release 2008 Target Upgrade Example using VI as the
+    *TF Release 2008 Target Upgrade Example using VI as the
     editor*:
-
-    .. raw:: html
-
-       <div id="jd0e142" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
 
     ::
 
@@ -148,33 +108,17 @@ To perform the ZIU using the Ansible deployer:
        cd /root/contrail-ansible-deployer/config/
        vi instances.yaml
 
-    .. raw:: html
-
-       </div>
-
-    .. raw:: html
-
-       </div>
-
 4.  Update the ``CONTRAIL_CONTAINER_TAG`` to the desired version tag in
     the ``instances.yaml`` file from the existing deployment. The
     ``CONTRAIL_CONTAINER_TAG`` variable is in the
     ``contrail_configuration:`` hierarchy within the ``instances.yaml``
     file.
 
-    The ``CONTRAIL_CONTAINER_TAG`` for any Contrail Release 20 software
-    can be obtained from `README Access to Contrail Networking Registry
+    The ``CONTRAIL_CONTAINER_TAG`` for any TF Release 20 software
+    can be obtained from `README Access to Tungsten Fabric Registry
     20xx <https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
 
     Here is an example instances.yml file configuration:
-
-    .. raw:: html
-
-       <div id="jd0e173" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
 
     ::
 
@@ -187,18 +131,10 @@ To perform the ZIU using the Ansible deployer:
          LOG_LEVEL: SYS_DEBUG
          CLOUD_ORCHESTRATOR: kubernetes
 
-    .. raw:: html
-
-       </div>
-
-    .. raw:: html
-
-       </div>
-
 5.  Upgrade the control plane by running the ziu.yml playbook file from
-    inside the contrail ansible deployer container.
+    inside the  container.
 
-    -  For Contrail Networking Release 2005 to Contrail Networking
+    -  For Tungsten Fabric Release 2005 to Tungsten Fabric
        Release 2008:
 
        Upgrade the control plane by running the ``ziu.yml`` playbook
@@ -207,7 +143,7 @@ To perform the ZIU using the Ansible deployer:
        sudo -E ansible-playbook -v -e orchestrator=openstack -e
        config_file=instances.yaml playbooks/ziu.yml
 
-    -  For Contrail Networking Release 2011 and later:
+    -  For Tungsten Fabric Release 2011 and later:
 
        Upgrade the control plane by running the controller stage of
        ``ziu.yml`` playbook file.
@@ -219,13 +155,13 @@ To perform the ZIU using the Ansible deployer:
 6.  Upgrade the Openstack plugin by running the install_openstack.yml
     playbook file.
 
-    -  For Contrail Networking Release 2005 to Contrail Networking
+    -  For Tungsten Fabric Release 2005 to Tungsten Fabric
        Release 2008:
 
        sudo -E ansible-playbook -v -e orchestrator=openstack -e
        config_file=instances.yaml playbooks/install_openstack.yml
 
-    -  For Contrail Networking Release 2011 and later:
+    -  For Tungsten Fabric Release 2011 and later:
 
        sudo -E ansible-playbook -v -e stage=openstack -e
        orchestrator=openstack -e config_file=../instances.yaml
@@ -241,14 +177,6 @@ To perform the ZIU using the Ansible deployer:
     .. note::
 
        Some output fields and data have been removed for readability.
-
-    .. raw:: html
-
-       <div id="jd0e241" class="sample" dir="ltr">
-
-    .. raw:: html
-
-       <div class="output" dir="ltr">
 
     ::
 
@@ -330,13 +258,6 @@ To perform the ZIU using the Ansible deployer:
        api: active
        schema: active
 
-    .. raw:: html
-
-       </div>
-
-    .. raw:: html
-
-       </div>
 
 8.  Migrate workloads VM from one group of compute nodes. Leave them
     uncommented in the instances.yaml file. Comment other computes not
@@ -344,24 +265,22 @@ To perform the ZIU using the Ansible deployer:
 
 9.  Upgrade compute nodes.
 
-    -  For Contrail Networking Release 2005 to Contrail Networking
+    -  For Tungsten Fabric Release 2005 to Tungsten Fabric
        Release 2008:
 
        Run the install_contrail.yml playbook file to upgrade the compute
        nodes that were uncommented in the instances.yaml file. Only the
-       compute nodes that were left uncommented in
-       `8 <installing-contrail-ansible-ziu.html#mark-compute-nodes-for-migration>`__
+       compute nodes that were left uncommented in step 8
        are upgraded to the target release in this step.
 
        sudo -E ansible-playbook -v -e orchestrator=openstack -e
        config_file=instances.yaml playbooks/install_contrail.yml
 
-    -  For Contrail Networking Release 2011 and later:
+    -  For Tungsten Fabric Release 2011 and later:
 
        Run the compute stage of ziu.yml playbook file to upgrade the
        compute nodes that were uncommented in the instances.yaml file.
-       Only the compute nodes that were left uncommented in
-       `8 <installing-contrail-ansible-ziu.html#mark-compute-nodes-for-migration>`__
+       Only the compute nodes that were left uncommented in step 8
        are upgraded to the target release in this step.
 
        sudo -E ansible-playbook -v -e stage=compute -e
@@ -373,80 +292,9 @@ To perform the ZIU using the Ansible deployer:
 You can access the Ansible playbook logs of the upgrade at
 ``/var/log/ansible.log``.
 
-.. raw:: html
 
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2005 <#jd0e10>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting in Contrail Networking Release 2005, you can perform a Zero
-Impact Upgrade (ZIU) of Contrail Networking using the Contrail Ansible
-Deployer container.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
- 
+.. note::
+   
+   Starting in Tungsten Fabric Release 2005, you can perform a Zero
+   Impact Upgrade (ZIU) of Tungsten Fabric using the TF Ansible
+   Deployer container.
