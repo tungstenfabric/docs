@@ -1,12 +1,12 @@
-Installing and Provisioning Contrail VMware vRealize Orchestrator Plugin
+Installing and Provisioning TF VMware vRealize Orchestrator Plugin
 ========================================================================
 
-A dedicated Contrail plugin is used to connect to VMware vRealize
-Orchestrator (vRO). Contrail Release 5.0 supported a Beta version of the
-plugin. Starting with Contrail Release 5.1, a fully supported version of
+A dedicated TF plugin is used to connect to VMware vRealize
+Orchestrator (vRO). TF Release 5.0 supported a Beta version of the
+plugin. Starting with TF Release 5.1, a fully supported version of
 the plugin is available.
 
-You must install the Contrail VMware vRealize Orchestrator (vRO) plugin
+You must install the TF VMware vRealize Orchestrator (vRO) plugin
 to connect to the vRO server.
 
 Before you begin installation, ensure the following:
@@ -23,27 +23,11 @@ Before you begin installation, ensure the following:
    You can download the plugin from
    https://www.juniper.net/support/downloads/?p=contrail.
 
-You can deploy the Contrail plugin in any Java Virtual Machine (JVM)
+You can deploy the TF plugin in any Java Virtual Machine (JVM)
 compatible environment and load it on an active vRO instance.
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-The following topics describe how to install and provision the Contrail
+The following topics describe how to install and provision the TF
 vRO plugin.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Accessing vRO Control Center
 ----------------------------
@@ -163,15 +147,15 @@ You connect to the vRO server by using the vRO desktop client.
 
 3. Click :guilabel:`Login` to connect to the vRO server.
 
-Connecting to Contrail Controller
+Connecting to Tungsten Fabric Controller
 ---------------------------------
 
-To connect Contrail vRO to the Contrail Controller:
+To connect TF vRO to the Tungsten Fabric Controller:
 
 1. Navigate to the :menuselection:`Contrail > Configuration` folder in the workflow
    library. 
 
-2. Select :guilabel:`Create Contrail controller connection`.
+2. Select :guilabel:`Create TF controller connection`.
 
    |Figure 7: Workflow Library|
 
@@ -179,18 +163,18 @@ To connect Contrail vRO to the Contrail Controller:
 
    -  **Connection name**—a unique name to identify the connection
 
-   -  **Controller host**—host name of the Contrail Connector
+   -  **Controller host**—host name of the TF Connector
 
-   -  **Controller port**—port used to access the Contrail Controller
+   -  **Controller port**—port used to access the Tungsten Fabric Controller
 
    |Figure 8: Controller Tab|
 
 4. Click the :guilabel:`Credentials` tab and enter the following credentials to
-   manage the Contrail Controller:
+   manage the Tungsten Fabric Controller:
 
-   -  **User name**—user name to access the Contrail Controller
+   -  **User name**—user name to access the Tungsten Fabric Controller
 
-   -  **User password**—password to access the Contrail Controller
+   -  **User password**—password to access the Tungsten Fabric Controller
 
    -  **Authentication server**—URL of the authentication server
 
@@ -198,22 +182,21 @@ To connect Contrail vRO to the Contrail Controller:
 
 5. Click the :guilabel:`Tenant` tab to define tenant information.
 
-   In the :guilabel:`Tenant` field, enter the name of the Contrail tenant.
+   In the :guilabel:`Tenant` field, enter the name of the TF tenant.
 
    |Figure 10: Tenant Tab|
 
 6. Click :guilabel:`Submit` to establish connection.
 
-   Once you connect Contrail vRO to the Contrail Controller, you use
-   Contrail workflows to make configuration changes to Contrail.
+   Once you connect TF vRO to the Tungsten Fabric Controller, you use
+   TF workflows to make configuration changes to TF.
 
-Deploying Contrail vRO Plugin
+Deploying TF vRO plugin
 -----------------------------
 
-You can deploy the Contrail plugin in any Java Virtual Machine (JVM)
+You can deploy the TF plugin in any Java Virtual Machine (JVM)
 compatible environment and load it on an active vRO instance.
 
- 
 
 .. |Figure 1: vCenter SSO service page| image:: images/s007052.png
 .. |Figure 2: Orchestrator Control Center| image:: images/s007053.png
