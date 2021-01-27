@@ -35,4 +35,6 @@ Documentation Structure
    install-contrail-vRO-plugin
    install-nested-openshift-311-using-anible
    install-openshift-using-anible-311
+   installing-contrail-ansible-ziu
    install-contrail-rhosp-ziu
+
