@@ -18,6 +18,7 @@ Documentation Structure
 
    backup-using-json-50
    canonical-octavia
+   ceilometer-configuring
    config-TLS-vncDocument1
    config-control-node-with-bgp
    creating-image-vnc
@@ -31,3 +32,4 @@ Documentation Structure
    heat-template-vnc
    how-to-install-contrail-networking-openshift4
    install-contrail-rhosp-ziu
+
