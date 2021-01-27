@@ -1,4 +1,6 @@
-Installing Contrail with Kubernetes by Using Juju Charms
+.. _Installing TF with Kubernetes by Using Juju Charms:
+
+Installing TF with Kubernetes by Using Juju Charms
 ========================================================
 
  
@@ -153,7 +155,8 @@ Follow these steps to deploy TF Charms in a bundle.
    To deploy TF Charms in a bundle, use the
    ``juju deploy <bundle_yaml_file>`` command.
    The following example shows you how to use a bundle YAML file to
-   deploy Contrail on Amazon Web Services (AWS) Cloud.
+   deploy TF on Amazon Web Services (AWS) Cloud.
+   
    ::
 
       series: "bionic"
