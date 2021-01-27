@@ -26,7 +26,7 @@ Documentation Structure
    creating-security-groups
    creating-virtual-network-vnc
    deploying-tf-using-juju-charms-kubernetes
-   deploying-contrail-using-juju-charms
+   deploying-tf-using-juju-charms
    graceful-restart-bgp-persist-vnc
    hardware-reqs-vnc
    heat-template-vnc
