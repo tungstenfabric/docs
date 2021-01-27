@@ -1,14 +1,12 @@
 .. _integrating-contrail-release-50x-with-vmware-vrealize-orchestrator:
 
-Integrating Contrail Release 5.0.X with VMware vRealize Orchestrator
-====================================================================
+Integrating Tungsten Fabric Release 5.0.X with VMware vRealize Orchestrator
+===========================================================================
 
- 
-
-A dedicated Contrail plugin is used to connect to VMware vRealize
-Orchestrator (vRO). Contrail Release 5.0 supported a Beta version of the
-plugin. Starting with Contrail Release 5.0.1, a fully supported version
-of the plugin is available. The plugin is used to view the Contrail
+A dedicated TF plugin is used to connect to VMware vRealize
+Orchestrator (vRO). Tungsten Fabric 5.0 supported a Beta version of the
+plugin. Starting with Tungsten Fabric 5.0.1, a fully supported version
+of the plugin is available. The plugin is used to view the TF
 controller configuration in the vRO inventory, and to modify
 configurations by using vRO workflows. You can also create network
 policies, security groups, and automate both simple and complex
@@ -19,12 +17,12 @@ Components of vRealize Orchestrator
 
 vRO consists of the following components:
 
--  vRO Inventory—The vRO inventory displays the Contrail plugin and the
-   Contrail node or endpoint. All Contrail plugin objects that represent
+-  vRO Inventory—The vRO inventory displays the TF plugin and the
+   TF node or endpoint. All TF plugin objects that represent
    your system are displayed in the vRO Inventory. Objects are displayed
-   in a hierarchical order and are based on the Contrail schema.
+   in a hierarchical order and are based on the TF schema.
 
-   With Release 5.0, Contrail inventory objects such as projects,
+   With Release 5.0, TF inventory objects such as projects,
    security groups, virtual networks, network IPAMs, network policies,
    ports, floating IP pools, and service templates are displayed in the
    vRO inventory. Relevant API objects are also displayed in the vRO
@@ -36,24 +34,24 @@ vRO consists of the following components:
    processes and manages them. Multiple workflows are used to create
    blueprints in vRA.
 
-   **Note**
+   .. note::
 
-   VMware vCenter plugin workflows are represented as simple workflows
-   in vRO plugin.
+      VMware vCenter plugin workflows are represented as simple workflows
+      in vRO plugin.
 
-Contrail Workflows
-------------------
+Tungsten Fabric workflows
+-------------------------
 
-You must connect to the Contrail controller or an endpoint before you
-create Contrail workflows. You must use **Create Contrail controller
-connection** to connect to an endpoint. You must use **Delete Contrail
+You must connect to the TF controller or an endpoint before you
+create TF workflows. You must use **Create TF controller
+connection** to connect to an endpoint. You must use **Delete TF
 controller connection** to terminate a connection with an endpoint. Once
 you connect to the Control controller, the vRO plugin accesses the
-Contrail inventory objects and then updates the vRO inventory with the
-Contrail inventory objects.
+TF inventory objects and then updates the vRO inventory with the
+TF inventory objects.
 
 The following workflows are defined for simple networking operations in
-Contrail Release 5.0:
+Tungsten Fabric 5.0:
 
 -  Network
 
@@ -61,10 +59,10 @@ Contrail Release 5.0:
 
    -  Delete network
 
-   **Note**
+   .. note::
 
-   You must use the **Create network** workflow to create a network on
-   the Contrail controller.
+      You must use the **Create network** workflow to create a network on
+      the TF controller.
 
 -  Network Policy
 
@@ -122,7 +120,7 @@ Contrail Release 5.0:
 
    -  Edit floating IP pool
 
-Starting with Contrail Release 5.0.1, the following workflows are also
+Starting with Tungsten Fabric 5.0.1, the following workflows are also
 defined:
 
 -  Tag

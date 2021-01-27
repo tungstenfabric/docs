@@ -37,4 +37,5 @@ Documentation Structure
    install-openshift-using-anible-311
    installing-contrail-ansible-ziu
    install-contrail-rhosp-ziu
+   integrating-contrail501-with-vRO
 
