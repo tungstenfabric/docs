@@ -151,3 +151,6 @@ contrail plugin >> TF plugin
 contrail service >> TF service
 contrail status >> TF status
 contrail virtual node >> TF virtual node
+Contrail implementation >> TF implementation
+Contrail control >> TF control
+Contrail provides >> TF provides
