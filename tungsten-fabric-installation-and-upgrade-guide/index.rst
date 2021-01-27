@@ -33,3 +33,5 @@ Documentation Structure
    how-to-install-contrail-networking-openshift4
    install-contrail-rhosp-ziu
    install-contrail-vRO-plugin
+   install-contrail-rhosp-ziu
+
