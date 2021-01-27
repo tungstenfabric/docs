@@ -18,6 +18,7 @@ Documentation Structure
 
    backup-using-json-50
    canonical-octavia
+   ceilometer-configuring
    config-TLS-vncDocument1
    config-control-node-with-bgp
    creating-image-vnc
@@ -35,3 +36,4 @@ Documentation Structure
    install-nested-openshift-311-using-anible
    install-openshift-using-anible-311
    installing-contrail-ansible-ziu
+
