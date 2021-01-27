@@ -39,4 +39,5 @@ Documentation Structure
    install-contrail-rhosp-ziu
    integrating-contrail501-with-vRO
    intro-microservices-contrail
+   juju-charms-nested-kubernetes
 
