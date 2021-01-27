@@ -38,4 +38,5 @@ Documentation Structure
    installing-contrail-ansible-ziu
    install-contrail-rhosp-ziu
    integrating-contrail501-with-vRO
+   intro-microservices-contrail
 
