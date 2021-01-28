@@ -114,8 +114,8 @@ Instead of embeding URI inline each time use links. All hyperlink target should 
 
 **Output**
 
-  Here is a link to `Signed CLAs wiki page`_.
-  And here is another paragraph with a link to the same `Signed CLAs wiki page`_.
+Here is a link to `Signed CLAs wiki page`_.
+And here is another paragraph with a link to the same `Signed CLAs wiki page`_.
 
 .. _Signed CLAs wiki page: https://wiki.tungsten.io/display/TUN/Signed+CLAs
 

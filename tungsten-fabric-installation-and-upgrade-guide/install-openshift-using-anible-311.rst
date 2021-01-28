@@ -1,7 +1,7 @@
-.. _installing-a-standalone-red-hat-openshift-container-platform-311-cluster-with-contrail-using-contrail-openshift-deployer:
+.. _installing-a-standalone-red-hat-openshift-container-platform-311-cluster-with-tf-using-tf-openshift-deployer:
 
-Installing a Standalone Red Hat OpenShift Container Platform 3.11 Cluster with Contrail Using TF OpenShift Deployer
-===================================================================================================================
+Installing a Standalone Red Hat OpenShift Container Platform 3.11 Cluster with TF Using TF OpenShift Deployer
+=============================================================================================================
 
 You can install Tungsten Fabric together with a standalone Red Hat
 OpenShift Container Platform 3.11 cluster using TF OpenShift

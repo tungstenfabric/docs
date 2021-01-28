@@ -25,16 +25,19 @@ Documentation Structure
    creating-projects-vnc
    creating-security-groups
    creating-virtual-network-vnc
-   deploying-contrail-using-juju-charms-kubernetes
-   deploying-contrail-using-juju-charms
+   deploying-tf-using-juju-charms-kubernetes
+   deploying-tf-using-juju-charms
    graceful-restart-bgp-persist-vnc
    hardware-reqs-vnc
    heat-template-vnc
-   how-to-install-contrail-networking-openshift4
-   install-contrail-rhosp-ziu
-   install-contrail-vRO-plugin
+   how-to-install-tf-networking-openshift4
+   install-tf-rhosp-ziu
+   install-tf-vRO-plugin
    install-nested-openshift-311-using-anible
    install-openshift-using-anible-311
-   installing-contrail-ansible-ziu
-   install-contrail-rhosp-ziu
+   installing-tf-ansible-ziu
+   install-tf-rhosp-ziu
+   integrating-tf501-with-vRO
+   intro-microservices-tf
+   juju-charms-nested-kubernetes
 

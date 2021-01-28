@@ -1,13 +1,12 @@
-Installing Contrail with OpenStack by Using Juju Charms
-=======================================================
+Installing Tungsten Fabric with OpenStack by Using Juju Charms
+==============================================================
 
- 
 
-You can deploy Contrail by using Juju Charms. Juju helps you deploy,
+You can deploy TF by using Juju Charms. Juju helps you deploy,
 configure, and efficiently manage applications on private clouds and
 public clouds. Juju accesses the cloud with the help of a Juju
 controller. A Charm is a module containing a collection of scripts and
-metadata and is used with Juju to deploy Contrail.
+metadata and is used with Juju to deploy TF.
 
 Starting in Tungsten Fabric Release 2011, Tungsten Fabric
 supports OpenStack Ussuri with Ubuntu version 18.04 (Bionic Beaver) and
