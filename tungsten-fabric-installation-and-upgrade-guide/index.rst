@@ -41,4 +41,5 @@ Documentation Structure
    intro-microservices-tf
    juju-charms-nested-kubernetes
    lbaas-tf3-F5
+   lbaas-v2-vnc
 
