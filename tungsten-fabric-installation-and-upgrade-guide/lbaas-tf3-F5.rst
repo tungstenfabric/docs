@@ -1,26 +1,8 @@
-Using Load Balancers in Contrail
-================================
+Using Load Balancers in Tungsten Fabric
+=======================================
 
- 
-
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-As of Contrail Release 3.0, load balancer LBaaS features are available.
+As of Tungsten Fabric 3.0, load balancer LBaaS features are available.
 This topic includes:
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Invoking LBaaS Drivers
 ----------------------
@@ -43,29 +25,29 @@ Supported load balancer drivers include:
 Benefits of Creating Configuration Objects
 ------------------------------------------
 
-Starting with Contrail 3.0, the Neutron LBaaS plugin creates required
+Starting with Tungsten Fabric 3.0, the Neutron LBaaS plugin creates required
 configuration objects (such as pool, VIP, members, and monitor) in the
-Contrail API server, instead of within the Neutron plugin context, as in
+Tungsten Fabric API server, instead of within the Neutron plugin context, as in
 previous releases.
 
 This method of configuration has the following benefits:
 
 -  Configuration objects can be created in multiple ways: from Neutron,
-   from virtual controller APIs, or from the Contrail UI.
+   from virtual controller APIs, or from the TF WebUI.
 
 -  The load balancer driver can make inline calls, such as REST or SUDS,
    to configure the external load balancer device.
 
--  The load balancer driver can use Contrail service monitor
+-  The load balancer driver can use TF service monitor
    infrastructure, such as database, logging, and API server.
 
-**Note**
+.. note::
 
-The *Neutron* LBaaS plugin is not supported in OpenStack Train release.
+   The *Neutron* LBaaS plugin is not supported in OpenStack Train release.
 
-Figure 1 provides an overview of the Contrail LBaaS components.
+Figure 1 provides an overview of the TF LBaaS components.
 
-|Figure 1: Contrail LBaaS components with neutron-lbaas|
+|Figure 1: TF LBaaS components with neutron-lbaas|
 
 Using a Service Appliance Set as the LBaaS Provider
 ---------------------------------------------------
@@ -75,28 +57,12 @@ configured in ``neutron.conf``, which requires restart of the Neutron
 server when configuring a new provider. The following is an example of
 the service provider configuration in ``neutron.conf``.
 
-.. raw:: html
-
-   <div id="jd0e76" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    [service_providers]
    service_provider = LOADBALANCER:Opencontrail:neutron_plugin_contrail.plugins.opencontrail. loadbalancer.driver.OpencontrailLoadbalancerDriver:default
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-In Contrail Release 3.0 and greater, the Neutron LBaaS provider is
+In Tungsten Fabric 3.0 and greater, the Neutron LBaaS provider is
 configured by using the object ``service-appliance-set``. All of the
 configuration parameters of the LBaaS driver are populated to the
 ``service-appliance-set`` object and passed to the driver.
@@ -106,20 +72,10 @@ appliance set with a default LBaaS provider, which uses an HAProxy-based
 load balancer. The service appliance set consists of individual service
 appliances for load balancing the traffic. The service appliances can be
 physical devices or virtual machines.
-
-.. raw:: html
-
-   <div id="jd0e89" class="sample" dir="ltr">
-
 **Sample Configuration: Service Appliance Set**
 
 The following is a sample configuration of the service appliance set for
 the LBaaS provider:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    {
@@ -146,26 +102,9 @@ the LBaaS provider:
      }
    }
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e96" class="sample" dir="ltr">
-
 **Sample Configuration: Single Service Appliance**
 
 The following is a sample configuration of a single service appliance:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    {
@@ -184,14 +123,6 @@ The following is a sample configuration of a single service appliance:
        "name": "bigip"
      }
    }
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Understanding the Load Balancer Agent
 -------------------------------------
@@ -220,10 +151,10 @@ The load balancer agent module handles the following:
 
 -  Load balancer-related configuration.
 
-F5 Networks Load Balancer Integration in Contrail
--------------------------------------------------
+F5 Networks Load Balancer Integration in Tungsten Fabric
+--------------------------------------------------------
 
-Contrail Release 3.0 implements an LBaaS driver that supports a physical
+Tungsten Fabric 3.0 implements an LBaaS driver that supports a physical
 or virtual F5 Networks load balancer, using the abstract load balancer
 driver class, ``ContrailLoadBalancerAbstractDriver``.
 
@@ -377,7 +308,7 @@ Configuration on MX Device for Each Pool Member
 
 -  As new member virtual networks are connected to the public virtual
    network by policy, corresponding targets are imported by the public
-   VRF on MX. The Contrail Device Manager generates the configuration of
+   VRF on MX. The Tungsten Fabric Device Manager generates the configuration of
    import, export targets for public VRF on the MX device.
 
 -  The operator must ensure that security group rules for the member
@@ -386,7 +317,7 @@ Configuration on MX Device for Each Pool Member
 Example: Creating a Load Balancer
 ---------------------------------
 
-Use the following steps to create a load balancer in Contrail Release
+Use the following steps to create a load balancer in Tungsten Fabric
 3.0 and greater.
 
 1. To configure a service appliance set, use the script in
@@ -424,10 +355,10 @@ Use the following steps to create a load balancer in Contrail Release
 
    ``neutron lb-healthmonitor-associate <nnnnn-nnnnn-nnnn-> web_service``
 
-Using the Avi Networks Load Balancer for Contrail
--------------------------------------------------
+Using the Avi Networks Load Balancer for Tungsten Fabric
+--------------------------------------------------------
 
-If you are using the Avi LBaaS driver in an OpenStack Contrail
+If you are using the Avi LBaaS driver in an OpenStack TF
 environment, there are two possible modes that are mutually-exclusive.
 The Avi Vantage cloud configuration is exactly the same in both modes:
 
@@ -436,34 +367,26 @@ The Avi Vantage cloud configuration is exactly the same in both modes:
      in the Neutron server process. This mode enables coexistence of
      multiple Neutron LBaaS providers.
 
--  | Contrail-based Avi LBaaS driver
-   | In this mode, the Avi LBaaS driver derives from Contrail and
+-  | TF-based Avi LBaaS driver
+   | In this mode, the Avi LBaaS driver derives from TF and
      resides in the service-monitor process. This mode enables
-     coexistence of multiple Contrail LBaaS providers.
+     coexistence of multiple TF LBaaS providers.
 
-   **Note**
+   .. note::
 
-   In a Contrail environment, you cannot have a mix of Contrail LBaaS
-   and Neutron LBaaS. You must select a mode that is compatible with the
-   current environment.
+      In a TF environment, you cannot have a mix of TF LBaaS
+      and Neutron LBaaS. You must select a mode that is compatible with the
+      current environment.
 
 Installing the Avi LBaaS Neutron Driver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following procedure to install the Avi Networks LBaaS load
-balancer driver for the Neutron server for Contrail.
+balancer driver for the Neutron server for TF.
 
 The following steps are performed on the Neutron server host.
 
-1. Determine the installed version of the Contrail Neutron plugin.
-
-   .. raw:: html
-
-      <div id="jd0e374" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+1. Determine the installed version of the TF Neutron plugin.
 
    ::
 
@@ -472,23 +395,7 @@ The following steps are performed on the Neutron server host.
       ------------------------- ------------
       neutron-plugin-contrail 3.0.2.0-51
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 2. Adjust the ``neutron.conf``\ database connection URL.
-
-   .. raw:: html
-
-      <div id="jd0e383" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -496,23 +403,7 @@ The following steps are performed on the Neutron server host.
       # if using mysql
       connection = mysql+pymysql://neutron:c0ntrail123@127.0.0.1/neutron
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 3. Populate and upgrade the Neutron database schema.
-
-   .. raw:: html
-
-      <div id="jd0e389" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -521,23 +412,7 @@ The following steps are performed on the Neutron server host.
       # to upgrade to a specific version
       $ neutron-db-manage --config-file /etc/neutron/neutron.conf upgrade liberty
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 4. Drop foreign key constraints.
-
-   .. raw:: html
-
-      <div id="jd0e395" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -558,28 +433,12 @@ The following steps are performed on the Neutron server host.
       # CONSTRAINT `fk_lbaas_loadbalancers_ports_id` FOREIGN KEY (`vip_port_id`) REFERENCES `ports` (`id`)
       mysql> alter table lbaas_loadbalancers drop FOREIGN KEY fk_lbaas_loadbalancers_ports_id;
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 5. To install the Avi LBaaS plugin, continue with steps from the readme
    file that downloads with the Avi LBaaS software. You can perform
    either a local installation or a manual installation. The following
    are sample installation steps.
 
    -  For a local installation:
-
-      .. raw:: html
-
-         <div id="jd0e405" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -600,23 +459,7 @@ The following steps are performed on the Neutron server host.
                 
                   --v2
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    -  For a manual installation:
-
-      .. raw:: html
-
-         <div id="jd0e411" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -648,31 +491,15 @@ The following steps are performed on the Neutron server host.
          $ service neutron-server restart
          $ neutron service-provider-list
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
-Installing the Avi LBaaS Contrail Driver
+Installing the Avi LBaaS TF Driver
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following procedure to install the Avi Networks LBaaS load
-balancer driver for Contrail.
+balancer driver for TF.
 
-The following steps are performed on the Contrail ``api-server`` host.
+The following steps are performed on the TF ``api-server`` host.
 
-1. Determine the installed version of the Contrail Neutron plugin.
-
-   .. raw:: html
-
-      <div id="jd0e429" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+1. Determine the installed version of the TF Neutron plugin.
 
    ::
 
@@ -681,23 +508,7 @@ The following steps are performed on the Contrail ``api-server`` host.
       ------------------------- ------------
       neutron-plugin-contrail 3.0.2.0-51
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 2. Install the Avi driver.
-
-   .. raw:: html
-
-      <div id="jd0e435" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -710,14 +521,6 @@ The following steps are performed on the Contrail ``api-server`` host.
            --apass
           
             --v2 --no-restart --no-confmodify
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 3. Set up the service appliance set.
    .. note:: 
@@ -734,27 +537,17 @@ The following steps are performed on the Contrail ``api-server`` host.
 Configuring the Avi Controller
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. If OpenStack endpoints are private IPs and Contrail provides a public
+1. If OpenStack endpoints are private IPs and TF provides a public
    front-end IP to those endpoints, use iptables to DNAT. On the
    AviController only, perform iptable NAT to reach the private IPs.
 
    ``$ iptables -t nat -I OUTPUT --dest 17x.xx.xx.50 -j DNAT --to-dest 10.xx.xx.100``
 
 2. To configure the Avi controller during cloud configuration, select
-   the “Integration with Contrail” checkbox and provide the endpoint URL
-   of the Contrail VNC api-server. Use the Keystone credentials from the
+   the “Integration with TF” checkbox and provide the endpoint URL
+   of the Tungsten Fabric VNC API-server. Use the Keystone credentials from the
    OpenStack configuration to authenticate with the api-server service.
-
-   .. raw:: html
-
-      <div id="jd0e475" class="sample" dir="ltr">
-
    **Example Configuration Settings**
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       : > show cloud jcos
@@ -799,15 +592,7 @@ Configuring the Avi Controller
           | tenant_ref                | admin                                      |
           +---------------------------+--------------------------------------------+
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
  
 
-.. |Figure 1: Contrail LBaaS components with neutron-lbaas| image:: images/g300524.png
+.. |Figure 1: TF LBaaS components with neutron-lbaas| image:: images/g300524.png
 .. |Figure 2: Global Routed Traffic Flow| image:: images/g300525.png
