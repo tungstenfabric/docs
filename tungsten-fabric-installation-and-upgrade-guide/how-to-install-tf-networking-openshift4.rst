@@ -1,4 +1,4 @@
-.. _how-to-install-contrail-networking-and-red-hat-openshift-44:
+.. _how-to-install-tf-networking-and-red-hat-openshift-44:
 
 How to Install Tungsten Fabric and Red Hat OpenShift 4.4
 ============================================================
@@ -18,7 +18,7 @@ from Red Hat.
 
 This document includes the following sections:
 
-.. _how-to-install-contrail-networking-and-red-hat-openshift-44-using-a-vm-running-in-a-kvm-module:
+.. _how-to-install-tf-networking-and-red-hat-openshift-44-using-a-vm-running-in-a-kvm-module:
 
 How to Install Tungsten Fabric and Red Hat OpenShift 4.4 using a VM Running in a KVM Module
 -----------------------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ This document makes the following assumptions about your environment:
    this guideline but do not provide direct guidance around IOPS
    requirements.
 
-.. _install-contrail-networking-and-red-hat-openshift-44:
+.. _install-tf-networking-and-red-hat-openshift-44:
 
 Install Tungsten Fabric and Red Hat Openshift 4.4
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -755,7 +755,7 @@ To finish the installation:
 
 7. Add a user to the cluster. See :ref:`How to Add a User`.
 
-.. _how-to-install-contrail-networking-and-red-hat-openshift-44-on-amazon-web-services:
+.. _how-to-install-tf-networking-and-red-hat-openshift-44-on-amazon-web-services:
 
 How to Install Tungsten Fabric and Red Hat OpenShift 4.4 on Amazon Web Services
 -----------------------------------------------------------------------------------
