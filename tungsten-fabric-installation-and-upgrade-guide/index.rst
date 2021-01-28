@@ -40,4 +40,5 @@ Documentation Structure
    integrating-tf501-with-vRO
    intro-microservices-tf
    juju-charms-nested-kubernetes
+   lbaas-tf3-F5
 
