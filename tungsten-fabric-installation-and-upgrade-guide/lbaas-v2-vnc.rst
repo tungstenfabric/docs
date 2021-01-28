@@ -1,25 +1,9 @@
 Support for OpenStack LBaaS
 ===========================
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-Starting with Release 3.1, Contrail provides support for the OpenStack
+Starting with Release 3.1, TF provides support for the OpenStack
 Load Balancer as a Service (LBaaS) Version 2.0 APIs in the Liberty
 release of OpenStack.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 .. _openstack-neutron-lbaas-version-20:
 
@@ -29,13 +13,13 @@ OpenStack Neutron LBaaS Version 2.0
 Platform Support
 ~~~~~~~~~~~~~~~~
 
-Table 1 shows which Contrail with OpenStack release combinations support
+Table 1 shows which TF with OpenStack release combinations support
 which version of OpenStack LBaaS APIs.
 
-Table 1: Contrail OpenStack Platform Support for LBaaS Versions
+Table 1: TF OpenStack platform Support for LBaaS Versions
 
 +----------------------------------+----------------------------------+
-| Contrail OpenStack Platform      | LBaaS Support                    |
+| TF OpenStack platform            | LBaaS Support                    |
 +==================================+==================================+
 | Contrail-3.1-Liberty (and        | Only LBaaS v2 is supported.      |
 | subsequent OS releases)          |                                  |
@@ -59,7 +43,7 @@ LBaaS Version 2.0 extension is used to create and manage load balancers,
 listeners, pools, members of a pool, and health monitors, and to view
 the status of a resource.
 
-For LBaaS v2.0, the Contrail controller aggregates the configuration by
+For LBaaS v2.0, the TF controller aggregates the configuration by
 provider. For example, if ``haproxy`` is the provider, the controller
 generates the configuration for ``haproxy`` and eliminates the need to
 send all of the load-balancer resources to the ``vrouter-agent``; only
@@ -110,11 +94,6 @@ Neutron Load-Balancer Creation
    From OpenStack Train release, *neutron-lbaas* is replaced by *Octavia*.
 
 The following is an example of Neutron load-balancer creation:
-
-.. raw:: html
-
-   <div id="jd0e140" class="example" dir="ltr">
-
 ::
 
    - neutron net-create private-net
@@ -131,10 +110,6 @@ The following is an example of Neutron load-balancer creation:
 
    - neutron lbaas-member-create --subnet private-subnet --address 30.30.30.11 --protocol-port 80 mypool
 
-.. raw:: html
-
-   </div>
-
 OpenStack Octavia LBaaS
 -----------------------
 
@@ -142,10 +117,10 @@ OpenStack Octavia LBaaS
 Using Octavia Load-Balancer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Contrail Networking Release 2005 supports Octavia as LBaaS. The
+Tungsten Fabric Release 2005 supports Octavia as LBaaS. The
 deployment supports RHOSP and Juju platforms.
 
-With Octavia as LBaaS, Contrail Networking is only maintaining network
+With Octavia as LBaaS, Tungsten Fabric is only maintaining network
 connectivity and is not involved in any load balancing functions.
 
 For each OpenStack load balancer creation, Octavia launches a VM known
@@ -154,7 +129,7 @@ the load balancer in OpenStack. Whenever the load balancer gets updated
 in OpenStack, *amphora VM* updates the running HAPROXY configuration.
 The *amphora VM* is deleted on deleting the load balancer.
 
-Contrail Networking provides connectivity to *amphora VM* interfaces.
+Tungsten Fabric provides connectivity to *amphora VM* interfaces.
 *Amphora VM* has two interfaces; one for management and the other for
 data. The management interface is used by the Octavia services for the
 management communication. Since, Octavia services are running in the
@@ -173,11 +148,6 @@ Octavia Load-Balancer Creation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following is an example of Octavia load-balancer creation:
-
-.. raw:: html
-
-   <div id="jd0e188" class="example" dir="ltr">
-
 ::
 
    openstack loadbalancer listener create --protocol HTTP --protocol-port 80 --name listener1 lb1
@@ -186,18 +156,6 @@ The following is an example of Octavia load-balancer creation:
    openstack loadbalancer healthmonitor create --delay 5 --timeout 2 --max-retries 1 --type HTTP pool1
    openstack loadbalancer member create --subnet-id private --address 10.10.10.50 --protocol-port 80 pool1
    openstack loadbalancer member create --subnet-id private --address 10.10.10.51 --protocol-port 80 pool1
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
 
  .. list-table:: Release History Table
    :header-rows: 1
