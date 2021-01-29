@@ -43,4 +43,5 @@ Documentation Structure
    lbaas-tf3-F5
    lbaas-v2-vnc
    load-balance-as-service-vnc
+   md5-authentication-configuring
 
