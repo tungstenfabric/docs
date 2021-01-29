@@ -108,6 +108,7 @@ LBaaS currently has these limitations:
 
 -  The floating-ip association needs to select the VIP port and not the
    service ports. ​
+
 Configuring LBaaS Using CLI
 ---------------------------
 
@@ -206,4 +207,5 @@ pool.
 4. Create a VIP for port 443 (SSL)​.
 
    ``neutron lb-vip-create --name myvip --protocol-port 443 --protocol HTTP --subnet-id vipsubnet mypool​``
+
 .. |Figure 1: Load Balancing as a Service in TF| image:: images/g300523.png
