@@ -1,13 +1,13 @@
-Configuring Load Balancing as a Service in Contrail
-===================================================
+Configuring Load Balancing as a Service in TF
+=============================================
 
 Overview: Load Balancing as a Service
 -------------------------------------
 
 Load Balancing as a Service (LBaaS) is a feature available through
-OpenStack Neutron. Contrail Release 1.20 and greater allows the use of
+OpenStack Neutron. Tungsten Fabric 1.20 and greater allows the use of
 the Neutron API for LBaaS to apply open source load balancing
-technologies to provision a load balancer in the Contrail system.
+technologies to provision a load balancer in the TF system.
 
 The LBaaS load balancer enables the creation of a pool of virtual
 machines serving applications, all front-ended by a virtual-ip. The
@@ -40,7 +40,7 @@ The pool member is selected using one of following methods:
 
 -  source IP selects based on the ``source-ip`` of the packet
 
-|Figure 1: Load Balancing as a Service in Contrail|
+|Figure 1: Load Balancing as a Service in TF|
 
 Additionally, the load balancer monitors the health of each pool member
 using the following methods:
@@ -52,30 +52,25 @@ using the following methods:
 
 -  Monitors ping by checking if a member can be reached by pinging.
 
-Contrail LBaaS Implementation
+TF LBaaS Implementation
 -----------------------------
 
-Contrail supports the OpenStack LBaaS Neutron APIs and creates relevant
+TF supports the OpenStack LBaaS Neutron APIs and creates relevant
 objects for LBaaS, including ``virtual-ip``,
 ``loadbalancer-pool, loadbalancer-member,`` and
-``loadbalancer-healthmonitor``. Contrail creates a service instance when
+``loadbalancer-healthmonitor``. TF creates a service instance when
 a ``loadbalancer-pool`` is associated with a ``virtual-ip`` object. The
 service scheduler then launches a namespace on a randomly selected
 virtual router and spawns HAProxy into that namespace. The configuration
-for HAProxy is picked up from the load balancer objects. Contrail
+for HAProxy is picked up from the load balancer objects. TF
 supports high availability of namespaces and HAProxy by spawning active
 and standby on two different vrouters.
-
-.. raw:: html
-
-   <div id="jd0e106" class="example" dir="ltr">
-
 A Note on Installation
 ~~~~~~~~~~~~~~~~~~~~~~
 
 To use the LBaaS feature, HAProxy, version 1.5 or greater and
 ``iproute2``, version 3.10.0 or greater must both be installed on the
-Contrail compute nodes.
+TF compute nodes.
 
 If you are using fab commands for installation, the haproxy and iproute2
 packages will be installed automatically with LBaaS if you set the
@@ -85,14 +80,6 @@ following:
 
    env.enable_lbaas=True
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e119" class="example" dir="ltr">
-
 Use the following to check the version of the ``iproute2`` package on
 your system:
 
@@ -101,14 +88,6 @@ your system:
    root@nodeh5:/var/log# ip -V
    ip utility, iproute2-ss130716
    root@nodeh5:/var/log#
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e128" class="example" dir="ltr">
 
 Limitations
 ~~~~~~~~~~~
@@ -129,27 +108,17 @@ LBaaS currently has these limitations:
 
 -  The floating-ip association needs to select the VIP port and not the
    service ports. ​
-
-.. raw:: html
-
-   </div>
-
 Configuring LBaaS Using CLI
 ---------------------------
 
-The LBaaS feature is enabled on Contrail through Neutron API calls. The
+The LBaaS feature is enabled on TF through Neutron API calls. The
 following procedure shows how to create a pool network and a VIP network
 using CLI. The VIP network is created in the public network and members
 are added in the pool network.
-
-.. raw:: html
-
-   <div id="jd0e157" class="example" dir="ltr">
-
 Creating a Load Balancer
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the following steps to create a load balancer in Contrail.
+Use the following steps to create a load balancer in TF.
 
 1. Create a VIP network.
 
@@ -177,18 +146,10 @@ Use the following steps to create a load balancer in Contrail.
 
    ``neutron lb-vip-create --name myvip --protocol-port 80 --protocol HTTP--subnet-id vipsubnet mypool``
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e204" class="example" dir="ltr">
-
 Deleting a Load Balancer
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the following steps to delete a load balancer in Contrail.
+Use the following steps to delete a load balancer in TF.
 
 1. Delete the VIP.
 
@@ -201,14 +162,6 @@ Use the following steps to delete a load balancer in Contrail.
 3. Delete the pool.
 
    ``neutron lb-pool-delete <pool-uuid>``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e237" class="example" dir="ltr">
 
 Managing Healthmonitor for Load Balancer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -228,14 +181,6 @@ healthmonitor.
 3. Disassociate a healthmonitor from a pool.
 
    ``neutron lb-healthmonitor-disassociate <healthmonitor-uuid> mypool``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e269" class="example" dir="ltr">
 
 Configuring an SSL VIP with an HTTP Backend Pool
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,10 +206,4 @@ pool.
 4. Create a VIP for port 443 (SSL)​.
 
    ``neutron lb-vip-create --name myvip --protocol-port 443 --protocol HTTP --subnet-id vipsubnet mypool​``
-
-.. raw:: html
-
-   </div>
-
-
 .. |Figure 1: Load Balancing as a Service in TF| image:: images/g300523.png
