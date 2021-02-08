@@ -53,3 +53,4 @@ Documentation Structure
    rhosp-octavia
    role-resource-access-control-vmc
    setting-up-tf-rhosp-infrastructure
+   setting-up-tf-rhosp-introduction
