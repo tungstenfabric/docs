@@ -46,4 +46,5 @@ Documentation Structure
    md5-authentication-configuring
    multiqueue-virtio-vnc
    network-qos-configuring
+   network-qos-vnc-3.1
 

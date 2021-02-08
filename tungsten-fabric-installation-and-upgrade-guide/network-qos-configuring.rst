@@ -35,6 +35,7 @@ CLI for Nova flavor has the following format:
 ::
 
    nova flavor-key <flavor_name> set quota:vif_<direction> _<param_name> = value
+
 where:
 
 ``<flavor_name>`` is the name of an existing Nova flavor.
@@ -63,11 +64,13 @@ http://libvirt.org/formatnetwork.html.
 
 The following example shows an inbound average of 800 kilobytes/sec, a
 peak of 1000 kilobytes/sec, and a burst amount of 30 kilobytes.
+
 ::
 
    nova flavor-key m1.small set quota:vif_inbound_average=800
    nova flavor-key m1.small set quota:vif_inbound_peak=1000
    nova flavor-key m1.small set quota:vif_inbound_burst=30
+
 The following is an example of specified outbound parameters:
 
 ::
@@ -75,6 +78,7 @@ The following is an example of specified outbound parameters:
    nova flavor-key m1.small set quota:vif_outbound_average=800
    nova flavor-key m1.small set quota:vif_outbound_peak=1000
    nova flavor-key m1.small set quota:vif_outbound_burst=30
+
 After the Nova flavor is configured for QoS, a virtual machine instance
 can be created, using either Horizon or CLI. The instance will have
 network settings corresponding to the nova flavor-key, as in the

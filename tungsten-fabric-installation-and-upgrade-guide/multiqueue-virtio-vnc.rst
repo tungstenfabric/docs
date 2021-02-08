@@ -39,6 +39,7 @@ queues on a VM:
 
    source /etc/contrail/openstackrc
    nova image-meta <image_name> set hw_vif_multiqueue_enabled="true"
+
 After the VM is spawned, use the following command on the virtio
 interface in the guest to enable multiple queues inside the VM:
 
