@@ -32,54 +32,18 @@ The ``api-access-list`` object holds access rules of the following form:
 
 Where:
 
-.. raw:: html
+- ``object`` —An API resource such as network or subnet.
 
-   <div class="definitionList">
-
-.. raw:: html
-
-   <div>
-
-\ ``object``\ —An API resource such as network or subnet.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
-\ ``field``\ —Any property or reference within the resource. The
+- ``field`` —Any property or reference within the resource. The
 ``field`` option can be multilevel, for example,
 ``network.ipam.host-routes`` can be used to identify multiple levels.
 The ``field`` is optional, so in its absence, the create, read, update,
 and delete (CRUD) operation refers to the entire resource.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
-\ ``role``\ —The Keystone role name.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
+- ``role`` —The Keystone role name.
 
 Each rule also specifies the list of roles and their corresponding
 permissions as a subset of the CRUD operations.
-
-.. raw:: html
-
-   <div id="jd0e82" class="example" dir="ltr">
 
 Example: ACL RBAC Object
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,10 +61,6 @@ management (IPAM) inside a network.
     <virtual-network, network-ipam> => admin:CRUD
 
     <virtual-network, *>    => admin:CRUD, Development:CRUD
-
-.. raw:: html
-
-   </div>
 
 Rule Sets and ACL Objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,36 +97,12 @@ access control per resource.
 
 The ``perms2`` property has the following fields:
 
-.. raw:: html
-
-   <div class="definitionList">
-
-.. raw:: html
-
-   <div>
-
-\ ``owner`` —This field is populated at the time of creation with the
+- ``owner`` — This field is populated at the time of creation with the
 tenant UUID value extracted from the token.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div>
-
-\ ``share list``\ —The share list gets built when the object is selected
+- ``share list`` — The share list gets built when the object is selected
 for sharing with other users. It is a list of tuples with which the
 object is shared.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 The ``permission`` field has the following options:
 
@@ -186,16 +122,7 @@ Access is allowed as follows:
 
 Configuration
 -------------
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
 This section describes the parameters used in TF RBAC.
-
-.. raw:: html
-
-   </div>
 
 Parameter: aaa-mode
 ~~~~~~~~~~~~~~~~~~~
@@ -217,14 +144,6 @@ The ``aaa-mode`` can be set to the following values:
    If you are using TF Ansible Deployer to provision Tungsten Fabric,
    set the value for AAA_MODE to rbac to enable RBAC by default.
 
-   .. raw:: html
-
-      <div id="jd0e235" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       contrail_configuration:
@@ -233,18 +152,7 @@ The ``aaa-mode`` can be set to the following values:
         .
         AAA_MODE: rbac
 
-   .. raw:: html
 
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-   If you are installing Contrail Networking from Contrail Command,
-   specify the key and value as AAA_MODE and rbac, respectively, under
-   the section Contrail Configuration on the **Step 2 Provisioning
-   Options** page.
 
 After enabling RBAC, you must restart the neutron server by running the
 service neutron-server restart command for the changes to take effect.
@@ -317,7 +225,7 @@ A ``global_read_only_role`` allows read-only access to all TF
 resources. The ``global_read_only_role`` must be configured in Keystone.
 The default ``global_read_only_role`` is not set to any value.
 
-A ``global_read_only_role`` user can use the Contrail Web Ui to view the
+A ``global_read_only_role`` user can use the Tungsten Fabric WebUI to view the
 global configuration of TF default settings.
 
 Setting the Global Read-Only Role
@@ -326,7 +234,7 @@ Setting the Global Read-Only Role
 To set the global read-only role:
 
 1. The ``cloud_admin`` user sets the ``global_read_only_role`` in the
-   Contrail API:
+   Tungsten Fabric API:
 
    ``/etc/contrail/contrail-api.conf``
 
@@ -341,15 +249,10 @@ To set the global read-only role:
 Parameter Changes in /etc/neutron/api-paste.ini
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Contrail RBAC operation is based upon a user token received in the
+TF RBAC operation is based upon a user token received in the
 ``X-Auth-Token`` header in API requests. The following change must be
 made in ``/etc/neutron/api-paste.ini`` to force Neutron to pass the user
-token in requests to the Contrail API server:
-
-.. raw:: html
-
-   <div id="jd0e426" class="example" dir="ltr">
-
+token in requests to the Tungsten Fabric API server:
 ::
 
    keystone = user_token request_id catch_errors ....
@@ -357,11 +260,6 @@ token in requests to the Contrail API server:
    ...
    [filter:user_token]
    paste.filter_factory = neutron_plugin_contrail.plugins.opencontrail.neutron_middleware:token_factory
-
-.. raw:: html
-
-   </div>
-
 Upgrading from Previous Releases
 --------------------------------
 
@@ -372,10 +270,10 @@ for RBAC to take effect.
 If the ``multi_tenancy`` parameter is not removed, the ``aaa-mode``
 setting is ignored.
 
-Configuring RBAC Using the Contrail User Interface
+Configuring RBAC Using the Tungsten Fabric WebUI
 --------------------------------------------------
 
-To use the Contrail UI with RBAC:
+To use the TF WebUI with RBAC:
 
 1. Set the aaa_mode to no_auth.
 
@@ -389,32 +287,32 @@ To use the Contrail UI with RBAC:
 
 3. Restart services by restarting the container.
 
-You can use the Contrail UI to configure RBAC at both the API level and
+You can use the TF WebUI to configure RBAC at both the API level and
 the object level. API level access control can be configured at the
 global, domain, and project levels. Object level access is available
-from most of the create or edit screens in the Contrail UI.
+from most of the create or edit screens in the TF WebUI.
 
 Configuring RBAC at the Global Level
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To configure RBAC at the global level, navigate to **Configure >
-Infrastructure > Global Config > RBAC**.
+To configure RBAC at the global level, navigate to :menuselection:`Configure >
+Infrastructure > Global Config > RBAC`.
 
 |Figure 1: RBAC Global Level|
 
 Configuring RBAC at the Domain Level
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To configure RBAC at the domain level, navigate to **Configure > RBAC >
-Domain**.
+To configure RBAC at the domain level, navigate to :menuselection:`Configure > RBAC >
+Domain`.
 
 |Figure 2: RBAC Domain Level|
 
 Configuring RBAC at the Project Level
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To configure RBAC at the project level, navigate to **Configure > RBAC >
-Project**.
+To configure RBAC at the project level, navigate to :menuselection:`Configure > RBAC >
+Project`.
 
 |Figure 3: RBAC Project Level|
 
@@ -433,7 +331,7 @@ Creating or Editing API Level Access
 
 Clicking create, edit, or insert after activates the Edit API Access
 popup window, where you enter the details for the API Access Rules.
-Enter the user type in the Role field, and use the **+** icon in the
+Enter the user type in the Role field, and use the :guilabel:`+` icon in the
 Access filed to enter the types of access allowed for the role,
 including, Create, Read, Update, Delete, and so on.
 
@@ -443,10 +341,10 @@ Creating or Editing Object Level Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can configure fine-grained access control by resource. A
-**Permissions** tab is available on all create or edit popups for
-resources. Use the **Permissions** popup to configure owner permissions
+:guilabel:`Permissions` tab is available on all create or edit popups for
+resources. Use the :guilabel:`Permissions` popup to configure owner permissions
 and global share permissions. You can also share the resource to other
-tenants by configuring it in the **Share List**.
+tenants by configuring it in the :guilabel:`Share List`.
 
 |Figure 6: Edit Object Level Access|
 
