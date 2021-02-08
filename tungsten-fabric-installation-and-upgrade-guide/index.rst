@@ -54,3 +54,4 @@ Documentation Structure
    role-resource-access-control-vmc
    setting-up-tf-rhosp-infrastructure
    setting-up-tf-rhosp-introduction
+   setting-up-tf-rhosp-overcloud
