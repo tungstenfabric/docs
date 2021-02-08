@@ -44,4 +44,5 @@ Documentation Structure
    lbaas-v2-vnc
    load-balance-as-service-vnc
    md5-authentication-configuring
+   multiqueue-virtio-vnc
 
