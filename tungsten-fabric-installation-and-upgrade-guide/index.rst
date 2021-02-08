@@ -49,3 +49,4 @@ Documentation Structure
    network-qos-vnc-3.1
    neutron-perform-improve-vnc
    provisioning-k8s-cluster
+   rbac-analytics-api
