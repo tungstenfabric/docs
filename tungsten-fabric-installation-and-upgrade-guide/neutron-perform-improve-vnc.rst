@@ -87,27 +87,27 @@ Commands for Neutron Network Sharing
 The following table summarizes the most common Neutron commands used
 with TF.
 
-+----------------------------------+----------------------------------+
-| Action                           | Command                          |
-+==================================+==================================+
-| List all shared networks.        | ``neutron net-list --shared``    |
-+----------------------------------+----------------------------------+
-| Create a network that has the    | ``neutron                        |
-| shared attribute.                |  net-create <net-name> –shared`` |
-+----------------------------------+----------------------------------+
-| Set the shared attribute on an   | ``neutron                        |
-| existing network.                |  net-update <net-name> -shared`` |
-+----------------------------------+----------------------------------+
-| List all ``router:external``     | ``neut                           |
-| networks.                        | ron net-list --router:external`` |
-+----------------------------------+----------------------------------+
-| Create a network that has the    | ``neutron net-crea               |
-| ``router:external``\ attribute.  | te <net-name> -router:external`` |
-+----------------------------------+----------------------------------+
-| Set the ``router:external``      | ``neutron net-upda               |
-| attribute on an existing         | te <net-name> -router:external`` |
-| network.                         |                                  |
-+----------------------------------+----------------------------------+
++----------------------------------+----------------------------------------------------+
+| Action                           | Command                                            |
++==================================+====================================================+
+| List all shared networks.        | ``neutron net-list --shared``                      |
++----------------------------------+----------------------------------------------------+
+| Create a network that has the    | ``neutron net-create <net-name> –shared``          |
+| shared attribute.                |                                                    |
++----------------------------------+----------------------------------------------------+
+| Set the shared attribute on an   | ``neutron net-update <net-name> -shared``          |
+| existing network.                |                                                    |
++----------------------------------+----------------------------------------------------+
+| List all ``router:external``     | ``neutron net-list --router:external``             |
+| networks.                        |                                                    |
++----------------------------------+----------------------------------------------------+
+| Create a network that has the    | ``neutron net-create <net-name> -router:external`` |
+| ``router:external``\ attribute.  |                                                    |
++----------------------------------+----------------------------------------------------+
+| Set the ``router:external``      | ``neutron net-update <net-name> -router:external`` |
+| attribute on an existing         |                                                    |
+| network.                         |                                                    |
++----------------------------------+----------------------------------------------------+
 
 Support for Neutron APIs
 ------------------------
@@ -185,6 +185,7 @@ Example
 ::
 
    neutron port-create net1 --extra-dhcp-opt opt_name=<dhcp_option_name>,opt_value=<value>
+
 The opt_name and opt_value pairs that can be used are maintained in
 GitHub:
 https://github.com/Juniper/contrail-controller/wiki/Extra-DHCP-Options .
