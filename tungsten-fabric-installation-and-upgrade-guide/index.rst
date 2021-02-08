@@ -50,3 +50,4 @@ Documentation Structure
    neutron-perform-improve-vnc
    provisioning-k8s-cluster
    rbac-analytics-api
+   rhosp-octavia
