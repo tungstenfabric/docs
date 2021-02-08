@@ -47,4 +47,5 @@ Documentation Structure
    multiqueue-virtio-vnc
    network-qos-configuring
    network-qos-vnc-3.1
+   neutron-perform-improve-vnc
 
