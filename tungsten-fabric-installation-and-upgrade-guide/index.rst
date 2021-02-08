@@ -52,3 +52,4 @@ Documentation Structure
    rbac-analytics-api
    rhosp-octavia
    role-resource-access-control-vmc
+   setting-up-tf-rhosp-infrastructure
