@@ -4,7 +4,7 @@ Understanding Red Hat OpenStack Platform Director
 Red Hat OpenStack Platform Director
 -----------------------------------
 
-This chapter explains how to integrate a Contrail 5.1.\ ``x``
+This chapter explains how to integrate a Tungsten Fabric 5.1.\ ``x``
 installation (or higher) with Red Hat OpenStack Platform Director 13.
 
 Red Hat OpenStack Platform provides an installer called the Red Hat
@@ -16,7 +16,7 @@ fully functional, tenant-facing OpenStack environment.
 TripleO can be used to deploy an RDO-based OpenStack environment
 integrated with Tungsten Fabric. Red Hat OpenStack Platform director can
 be used to deploy an RHOSP-based OpenStack environment integrated with
-Contrail.
+TF.
 
 OSPd uses the concepts of undercloud and overcloud. OSPd sets up an
 undercloud, a single server running an operator-facing deployment that
@@ -45,28 +45,28 @@ bare metal hardware.
 For more information about OSPd architecture, see `OSPd
 documentation <https://docs.openstack.org/developer/tripleo-docs/introduction/architecture.html>`__.
 
-Contrail Roles
---------------
+Tungsten Fabric roles
+---------------------
 
 OSPd supports composable roles, which are groups of services that you
 define through Heat templates. Composable roles allow you to integrate
-Contrail into the overcloud environment.
+TF into the overcloud environment.
 
-The following are the Contrail roles used for integrating into the
+The following are the TF roles used for integrating into the
 overcloud:
 
--  Contrail Controller
+-  Tungsten Fabric Controller
 
--  Contrail Analytics
+-  Tungsten Fabric Analytics
 
--  Contrail Analytics Database
+-  Tungsten Fabric Analytics Database
 
--  Contrail-TSN
+-  Tungsten Fabric TSN
 
--  Contrail-DPDK
+-  Tungsten Fabric DPDK
 
 Figure 1 shows the relationship and components of an undercloud and overcloud
-architecture for Contrail.
+architecture for TF.
 
 |Figure 1: Undercloud and Overcloud with Roles|
 
@@ -89,13 +89,13 @@ machines (VMs), but the compute nodes must be deployed to bare metal
 systems. Every overcloud node must support IPMI for booting up from the
 undercloud using PXE.
 
-Ensure the following requirements are met for the Contrail nodes per
+Ensure the following requirements are met for the TF nodes per
 role.
 
 -  Non-high availability: A minimum of 4 overcloud nodes are needed for
    control plane roles for a non-high availability deployment:
 
-   -  1x contrail-config (includes Contrail control)
+   -  1x contrail-config (includes TF control)
 
    -  1x contrail-analytics
 
@@ -106,7 +106,7 @@ role.
 -  High availability: A minimum of 12 overcloud nodes are needed for
    control plane roles for a high availability deployment:
 
-   -  3x contrail-config (includes Contrail control)
+   -  3x contrail-config (includes TF control)
 
    -  3x contrail-analytics
 
@@ -158,7 +158,7 @@ Ensure the following requirements are met for the provisioning network:
    information will include such things as the IP address of the IPMI
    NIC and the IPMI username and password.
 
--  All of the networks must be available to all of the Contrail roles
+-  All of the networks must be available to all of the TF roles
    and computes.
 
 While the provisioning and external networks are sufficient for basic
@@ -205,15 +205,16 @@ Compatibility Matrix
 --------------------
 
 The following combinations of Operating
-System/OpenStack/Deployer/Contrail are supported:
+System/OpenStack/Deployer/TF are supported:
 
 Table 1: Compatibility Matrix
 
 +----------------+----------------+----------------+----------------+
-| Operating      | OpenStack      | Deployer       | Contrail       |
-| System         |                |                |                |
+| Operating      | OpenStack      | Deployer       | Tungsten       |
+| System         |                |                | Fabric         |
 +================+================+================+================+
-| RHEL 7.5       | OSP13          | OSPd13         | Contrail       |
+| RHEL 7.5       | OSP13          | OSPd13         | Tungsten       |
+|                |                |                | Fabric         |
 |                |                |                | 5.1.\ ``x`` or |
 |                |                |                | higher         |
 +----------------+----------------+----------------+----------------+
@@ -234,7 +235,7 @@ The general installation procedure is as follows:
 -  Set up the undercloud, which is the OSPd application.
 
 -  Set up the overcloud, which is the set of services in the
-   tenant-facing network. Contrail is part of the overcloud.
+   tenant-facing network. TF is part of the overcloud.
 
 For more information on installing and using the RHOSPd, see `Red Hat
 documentation <https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html-single/director_installation_and_usage/>`__.
