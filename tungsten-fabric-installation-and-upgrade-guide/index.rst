@@ -45,4 +45,5 @@ Documentation Structure
    load-balance-as-service-vnc
    md5-authentication-configuring
    multiqueue-virtio-vnc
+   network-qos-configuring
 
