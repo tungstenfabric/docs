@@ -51,3 +51,4 @@ Documentation Structure
    provisioning-k8s-cluster
    rbac-analytics-api
    rhosp-octavia
+   role-resource-access-control-vmc
