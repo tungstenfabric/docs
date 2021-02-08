@@ -17,7 +17,7 @@ There are different ways to create the infrastructure providing the
 control plane elements. To illustrate the installation procedure, we
 will use four host machines for the infrastructure, each running KVM.
 KVM1 contains a VM running the undercloud while KVM2 through KVM4 each
-contains a VM running an OpenStack controller and a Contrail controller.
+contains a VM running an OpenStack controller and a TF controller.
 
 Table 1: Control Plane Infrastructure
 
@@ -25,9 +25,9 @@ Table 1: Control Plane Infrastructure
 KVM Host Virtual Machines
 ======== ============================================
 KVM1     undercloud
-KVM2     OpenStack Controller 1, Contrail Contoller 1
-KVM3     OpenStack Controller 2, Contrail Contoller 2
-KVM4     OpenStack Controller 3, Contrail Contoller 3
+KVM2     OpenStack Controller 1, Tungsten Fabric Controller 1
+KVM3     OpenStack Controller 2, Tungsten Fabric Controller 2
+KVM4     OpenStack Controller 3, Tungsten Fabric Controller 3
 ======== ============================================
 
 Figure 1 shows the physical connectivity where each KVM host and each compute
@@ -75,11 +75,6 @@ KVM and Open vSwitch on each undercloud and overcloud KVM host.
 1. Log in to a KVM host.
 
 2. Install the required packages.
-
-   .. raw:: html
-
-      <div id="jd0e184" class="example" dir="ltr">
-
    ::
 
       yum install -y libguestfs \
@@ -91,24 +86,11 @@ KVM and Open vSwitch on each undercloud and overcloud KVM host.
          python-virtualbmc \
          python-virtinst
 
-   .. raw:: html
-
-      </div>
-
 3. Start KVM and Open vSwitch.
-
-   .. raw:: html
-
-      <div id="jd0e190" class="example" dir="ltr">
-
    ::
 
       systemctl start libvirtd 
       systemctl start openvswitch
-
-   .. raw:: html
-
-      </div>
 
 4. Additionally, on the overcloud nodes only, create and start the
    virtual switches br0 and br1.
@@ -121,10 +103,6 @@ KVM and Open vSwitch on each undercloud and overcloud KVM host.
    br0    710, 720, 730 740, 750 700
    br1    -                      -
    ====== ====================== ===========
-
-   .. raw:: html
-
-      <div id="jd0e235" class="example" dir="ltr">
 
    ::
 
@@ -178,10 +156,6 @@ KVM and Open vSwitch on each undercloud and overcloud KVM host.
       virsh net-start br1
       virsh net-autostart br1
 
-   .. raw:: html
-
-      </div>
-
 5. Repeat step 1 through step 4 for each KVM host.
 
 Create the Overcloud VM Definitions on the Overcloud KVM Hosts
@@ -198,31 +172,17 @@ do the following:
 -  create an ``ironic_list`` file to be used by the undercloud
 
 This example procedure creates a VM definition consisting of 2 compute
-nodes, 1 Contrail controller node, and 1 OpenStack controller node on
+nodes, 1 TF controller node, and 1 OpenStack controller node on
 each overcloud KVM host.
 
 1. Log in to an overcloud KVM host.
 
 2. Specify the roles you want to create.
-
-   .. raw:: html
-
-      <div id="jd0e345" class="example" dir="ltr">
-
    ::
 
       ROLES=compute:2,contrail-controller:1,control:1
 
-   .. raw:: html
-
-      </div>
-
 3. Create the VM definitions.
-
-   .. raw:: html
-
-      <div id="jd0e351" class="example" dir="ltr">
-
    ::
 
       # Initialize and specify the IPMI user and password you want to use.
@@ -272,10 +232,6 @@ each overcloud KVM host.
          done 
       done
 
-   .. raw:: html
-
-      </div>
-
 4. Repeat step 1 through step 3 on each overcloud KVM host.
 
 .. caution::
@@ -310,59 +266,27 @@ Use this example procedure on the undercloud KVM host (KVM1) to create
 the undercloud VM definition and to start the undercloud VM.
 
 1. Create the images directory.
-
-   .. raw:: html
-
-      <div id="jd0e490" class="example" dir="ltr">
-
    ::
 
       mkdir ~/images 
       cd images
 
-   .. raw:: html
-
-      </div>
-
 2. Retrieve the image.
 
    -  CentOS
-
-      .. raw:: html
-
-         <div id="jd0e502" class="example" dir="ltr">
-
       ::
 
          curl https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1802.qcow2.xz -o CentOS-7-x86_64-GenericCloud-1802.qcow2.xz
          unxz -d images/CentOS-7-x86_64-GenericCloud-1802.qcow2.xz 
          cloud_image=~/images/CentOS-7-x86_64-GenericCloud-1802.qcow2
 
-      .. raw:: html
-
-         </div>
-
    -  RHEL
-
-      .. raw:: html
-
-         <div id="jd0e510" class="example" dir="ltr">
-
       ::
 
          Download rhel-server-7.5-update-1-x86_64-kvm.qcow2 from the Red Hat portal to ~/images. 
          cloud_image=~/images/rhel-server-7.5-update-1-x86_64-kvm.qcow2
 
-      .. raw:: html
-
-         </div>
-
 3. Customize the undercloud image.
-
-   .. raw:: html
-
-      <div id="jd0e516" class="example" dir="ltr">
-
    ::
 
       undercloud_name=queensa 
@@ -385,21 +309,12 @@ the undercloud VM definition and to start the undercloud VM.
       --run-command 'yum remove -y cloud-init' \   
       --selinux-relabel
 
-   .. raw:: html
+   .. note::
 
-      </div>
-
-   **Note**
-
-   As part of the undercloud definition, a user called **stack** is
-   created. This user will be used later to install the undercloud.
+      As part of the undercloud definition, a user called **stack** is
+      created. This user will be used later to install the undercloud.
 
 4. Define the undercloud virsh template.
-
-   .. raw:: html
-
-      <div id="jd0e564" class="example" dir="ltr">
-
    ::
 
       vcpus=8 
@@ -418,39 +333,16 @@ the undercloud VM definition and to start the undercloud VM.
       --noautoconsole \   
       --console pty,target_type=virtio
 
-   .. raw:: html
-
-      </div>
-
 5. Start the undercloud VM.
-
-   .. raw:: html
-
-      <div id="jd0e598" class="example" dir="ltr">
-
    ::
 
       virsh start ${undercloud_name}
 
-   .. raw:: html
-
-      </div>
-
 6. Retrieve the undercloud IP address. It might take several seconds
    before the IP address is available.
-
-   .. raw:: html
-
-      <div id="jd0e604" class="example" dir="ltr">
-
    ::
 
       undercloud_ip=`virsh domifaddr ${undercloud_name} |grep ipv4 |awk '{print $4}' |awk -F"/" '{print $1}'` ssh-copy-id ${undercloud_ip}
-
-   .. raw:: html
-
-      </div>
-
  
 
 .. |Figure 1: Physical View| image:: images/g200475.png

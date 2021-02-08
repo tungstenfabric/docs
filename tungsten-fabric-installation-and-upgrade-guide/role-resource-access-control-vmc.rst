@@ -34,11 +34,10 @@ Where:
 
 - ``object`` —An API resource such as network or subnet.
 
-- ``field`` —Any property or reference within the resource. The
-``field`` option can be multilevel, for example,
-``network.ipam.host-routes`` can be used to identify multiple levels.
-The ``field`` is optional, so in its absence, the create, read, update,
-and delete (CRUD) operation refers to the entire resource.
+- ``field`` —Any property or reference within the resource. The ``field`` option can be multilevel, for example,
+  ``network.ipam.host-routes`` can be used to identify multiple levels.
+  The ``field`` is optional, so in its absence, the create, read, update,
+  and delete (CRUD) operation refers to the entire resource.
 
 - ``role`` —The Keystone role name.
 
@@ -98,11 +97,11 @@ access control per resource.
 The ``perms2`` property has the following fields:
 
 - ``owner`` — This field is populated at the time of creation with the
-tenant UUID value extracted from the token.
+   tenant UUID value extracted from the token.
 
 - ``share list`` — The share list gets built when the object is selected
-for sharing with other users. It is a list of tuples with which the
-object is shared.
+  for sharing with other users. It is a list of tuples with which the
+  object is shared.
 
 The ``permission`` field has the following options:
 
@@ -260,6 +259,7 @@ token in requests to the Tungsten Fabric API server:
    ...
    [filter:user_token]
    paste.filter_factory = neutron_plugin_contrail.plugins.opencontrail.neutron_middleware:token_factory
+
 Upgrading from Previous Releases
 --------------------------------
 
