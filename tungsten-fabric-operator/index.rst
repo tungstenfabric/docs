@@ -12,5 +12,6 @@ Documentation Structure
    :maxdepth: 3
    :titlesonly:
 
+   working-with-kubernetes-operators-101
    deploying-tf-operator
    development-of-tf-operator
