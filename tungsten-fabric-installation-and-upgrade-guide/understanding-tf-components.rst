@@ -1,20 +1,19 @@
-Understanding Contrail Networking Components
-============================================
+Understanding Tungsten Fabric Components
+========================================
 
-Contrail Networking is comprised of the following key components:
+Tungsten Fabric is comprised of the following key components:
 
--  *Contrail Networking management Web GUI and plug-ins* integrate with
+-  *Tungsten Fabric management Web GUI and plug-ins* integrate with
    orchestration platforms such as Kubernetes, OpenShift, Mesos,
    OpenStack, VMware vSphere, and with service provider operations
    support systems/business support systems (OSS/BSS). Many of these
    integrations are built, certified, and tested with technology
-   alliances like Red Hat, Mirantis, Canonical, NEC, and more. Contrail
+   alliances like Red Hat, Mirantis, Canonical, NEC, and more. TF
    Networking sits under such orchestration systems and integrates
    northbound via published REST APIs. It can be automatically driven
-   through the APIs and integrations, or managed directly using the Web
-   GUI, called Contrail Command GUI.
+   through the APIs and integrations.
 
--  *Contrail Networking control and management systems*, commonly called
+-  *Tungsten Fabric control and management systems*, commonly called
    the controller, have several functions. Few of the major functions
    are:
 
@@ -27,7 +26,7 @@ Contrail Networking is comprised of the following key components:
    -  *Control Nodes*—This function maintains a scalable, highly
       available network model and state by federating with other peer
       instances of itself. It directs network provisioning for the
-      Contrail Networking vRouters using Extensible Messaging and
+      Tungsten Fabric vRouters using Extensible Messaging and
       Presence Protocol (XMPP). It can also exchange network
       connectivity and state with peer physical routers using open
       industry-standard MP-BGP which is useful for routing the overlay
@@ -41,7 +40,7 @@ Contrail Networking is comprised of the following key components:
       or Apache Kafka. Through the Web GUI, the data can be analyzed
       with SQL style queries.
 
--  *Contrail Networking vRouter* runs on the compute nodes of the cloud
+-  *Tungsten Fabric vRouter* runs on the compute nodes of the cloud
    or NFV infrastructure. It gets network tenancy, VPN, and reachability
    information from the control function nodes and ensures native Layer
    3 services for the Linux host on which it runs or for the containers
@@ -51,8 +50,8 @@ Contrail Networking is comprised of the following key components:
    module or as an Intel Data Plane Development Kit (DPDK)-based
    process.
 
-|Figure 1: Contrail Networking Overview|
+|Figure 1: Tungsten Fabric Overview|
 
  
 
-.. |Figure 1: Contrail Networking Overview| image:: images/g300459.png
+.. |Figure 1: Tungsten Fabric Overview| image:: images/g300459.png
