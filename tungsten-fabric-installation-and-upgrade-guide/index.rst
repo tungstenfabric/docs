@@ -68,3 +68,4 @@ Documentation Structure
    upgrade-tf-ansible-deployer
    upgrade-in-place
    vcenter-as-orchestrator-deployment-scenarios-501
+   vcenter-tf
