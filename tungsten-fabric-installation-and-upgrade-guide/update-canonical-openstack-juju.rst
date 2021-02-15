@@ -1,58 +1,42 @@
-Updating Contrail Networking using the Zero Impact Upgrade Procedure in a Canonical Openstack Deployment with Juju Charms
-=========================================================================================================================
+Updating Tungsten Fabric using the Zero Impact Upgrade Procedure in a Canonical Openstack Deployment with Juju Charms
+=====================================================================================================================
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-This document provides the steps needed to update a Contrail Networking
+This document provides the steps needed to update a Tungsten Fabric
 deployment that is using Canonical Openstack as it’s orchestration
 platform. The procedure utilizes Juju charms and provides a zero impact
 upgrade (ZIU) with minimal disruption to network operations.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Prerequisites
 -------------
 
 This document makes the following assumptions about your environment:
 
--  A Contrail Networking deployment using Canonical Openstack as the
+-  A Tungsten Fabric deployment using Canonical Openstack as the
    orchestration platform is already operational.
 
--  Juju charms for Contrail services are active in your environment, and
-   the Contrail Networking controller has access to the Juju jumphost
+-  Juju charms for TF services are active in your environment, and
+   the Tungsten Fabric controller has access to the Juju jumphost
    and the Juju cluster.
 
 When to Use This Procedure
 --------------------------
 
-This procedure is used to upgrade Contrail Networking when it is running
+This procedure is used to upgrade Tungsten Fabric when it is running
 in environments using Canonical Openstack.
 
 You can use this procedure to incrementally upgrade to the next main
-Contrail Networking release only. This procedure is not validated for
+Tungsten Fabric release only. This procedure is not validated for
 upgrades between releases that are two or more releases apart.
 
 The procedure in this document has been validated for the following
-Contrail Networking upgrade scenarios:
+Tungsten Fabric upgrade scenarios:
 
-Table 1: Contrail Networking with Canonical Openstack Validated Upgrade
+Table 1: Tungsten Fabric with Canonical Openstack Validated Upgrade
 Scenarios
 
 +----------------------------------+----------------------------------+
-| Starting Contrail Networking     | Target Upgraded Contrail         |
-| Release                          | Networking Release               |
+| Starting Tungsten Fabric         | Target Upgraded Tungsten         |
+| Release                          | Fabric Release                   |
 +==================================+==================================+
 | 1912.L0                          | 1912.L1                          |
 +----------------------------------+----------------------------------+
@@ -75,13 +59,12 @@ this procedure:
 
 -  Enable huge pages for the kernel-mode vRouter.
 
-   Starting in Contrail Networking Release 2005, you can enable huge
+   Starting in Tungsten Fabric Release 2005, you can enable huge
    pages in the kernel-mode vRouter to avoid future compute node reboots
-   during upgrades. Huge pages in Contrail Networking are used primarily
+   during upgrades. Huge pages in Tungsten Fabric are used primarily
    to allocate flow and bridge table memory within the vRouter. Huge
    pages for kernel-mode vRouters provide enough flow and bridge table
-   memory to avoid compute node reboots to complete future Contrail
-   Networking software upgrades.
+   memory to avoid compute node reboots to complete future Tungsten Fabric software upgrades.
 
    We recommend allotting 2GB of memory—either using the default
    1024x2MB huge page size setting or the 2x1GB size setting—for huge
@@ -91,7 +74,7 @@ this procedure:
    A compute node reboot is required to initially enable huge pages.
    Future compute node upgrades can happen without reboots after huge
    pages are enabled. The 1024x2MB huge page setting is configured by
-   default starting in Contrail Networking Release 2005, but is not
+   default starting in Tungsten Fabric Release 2005, but is not
    active in any compute node until the compute node is rebooted to
    enable the setting.
 
@@ -122,10 +105,10 @@ this procedure:
          use 1GB huge page settings on your compute node before enabling
          the setting.
 
-Updating Contrail Networking in a Canonical Openstack Deployment Using Juju Charms
-----------------------------------------------------------------------------------
+Updating Tungsten Fabric in a Canonical Openstack Deployment Using Juju Charms
+------------------------------------------------------------------------------
 
-To update Contrail Networking in an environment that is using Canonical
+To update Tungsten Fabric in an environment that is using Canonical
 Openstack as the orchestration platform:
 
 1. Upgrade all charms. See the `Upgrading
@@ -133,29 +116,13 @@ Openstack as the orchestration platform:
    document from Juju.
 
 2. From the Juju jumphost, enter the run-action command to place all
-   control plane services—Contrail Controller, Contrail Analytics, &
-   Contrail AnalyticsDB—into maintenance mode in preparation for the
+   control plane services—Tungsten Fabric Controller, Tungsten Fabric Analytics, &
+   Tungsten Fabric AnalyticsDB—into maintenance mode in preparation for the
    upgrade.
-
-   .. raw:: html
-
-      <div id="jd0e156" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       juju run-action --wait contrail-controller/leader upgrade-ziu
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    **Note**
 
@@ -166,16 +133,8 @@ Openstack as the orchestration platform:
    Wait for all charms to move to the ``maintenance`` status. You can
    check the status of all charms by entering the juju status command.
 
-3. Update the image tags in Juju for the Contrail Analytics, Contrail
-   AnalyticsDB, Contrail Agent, and Contrail Openstack services.
-
-   .. raw:: html
-
-      <div id="jd0e176" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+3. Update the image tags in Juju for the Tungsten Fabric Analytics, TF
+   AnalyticsDB, TF Agent, and TF OpenStack services.
 
    ::
 
@@ -184,58 +143,18 @@ Openstack as the orchestration platform:
        juju config contrail-agent image-tag=master-latest
        juju config contrail-openstack image-tag=master-latest
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-   If a Contrail Service node (CSN) is part of the cluster, also update
-   the image tags in Juju for the Contrail Service node.
-
-   .. raw:: html
-
-      <div id="jd0e181" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+   If a Tungsten Fabric Service node (CSN) is part of the cluster, also update
+   the image tags in Juju for the Tungsten Fabric Service node.
 
    ::
 
       juju config contrail-agent-csn image-tag=master-latest
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-4. Update the image tag in Juju for the Contrail Controller service:
-
-   .. raw:: html
-
-      <div id="jd0e187" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+4. Update the image tag in Juju for the Tungsten Fabric Controller service:
 
    ::
 
       juju config contrail-controller image-tag=master-latest
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 5. After updating the image tags, wait for all services to complete
    stage 5 of the ZIU upgrade process workflow. The wait time for this
@@ -256,14 +175,6 @@ Openstack as the orchestration platform:
 
       Some juju status output fields removed for readability.
 
-   .. raw:: html
-
-      <div id="jd0e227" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju status
@@ -282,14 +193,6 @@ Openstack as the orchestration platform:
         ntp/4                   active      idle      chrony: Ready
       contrail-keystone-auth/0* active      idle      Unit is ready
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    A sample output of an update that has completed the image tag update
    process on all services. The **Workload field** is maintenance for
    all services and the **Message** field explains that stage 5 of the
@@ -298,14 +201,6 @@ Openstack as the orchestration platform:
    .. note::
 
       Some juju status output fields removed for readability.
-
-   .. raw:: html
-
-      <div id="jd0e276" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -340,23 +235,7 @@ Openstack as the orchestration platform:
       nova-cloud-controller/0*  active       idle  Unit is ready
       nova-compute/0*           active       idle  Unit is ready
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 6. Upgrade every Contrail agent on each individual compute node:
-
-   .. raw:: html
-
-      <div id="jd0e338" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -365,37 +244,13 @@ Openstack as the orchestration platform:
       juju run-action contrail-agent/2 upgrade
       ...
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-   If Contrail Service nodes (CSNs) are part of the cluster, also
-   upgrade every Contrail CSN agent:
-
-   .. raw:: html
-
-      <div id="jd0e343" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+   If Tungsten Fabric Service nodes (CSNs) are part of the cluster, also
+   upgrade every TF CSN agent:
 
    ::
 
       juju run-action contrail-agent-csn/0 upgrade
       ...
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    Wait for each compute node and CSN node upgrade to finish. The wait
    time for this step varies by environment, but typically takes around
@@ -414,8 +269,8 @@ Openstack as the orchestration platform:
       after this initial reboot.
 
    1024x2MB huge page support is configured by default starting in
-   Contrail Networking Release 2005, which is also the first Contrail
-   Networking release that supports huge pages. If you are upgrading to
+   Tungsten Fabric Release 2005, which is also the first Tungsten Fabric 
+   release that supports huge pages. If you are upgrading to
    Release 2005 for the first time, a compute node reboot is always
    required because huge pages could not have been previously enabled.
 
@@ -423,24 +278,8 @@ Openstack as the orchestration platform:
    unless you change the huge page configuration in Release 2005 or
    later.
 
-   .. raw:: html
-
-      <div id="jd0e359" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       sudo reboot
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    This step can be skipped if huge pages are enabled.
