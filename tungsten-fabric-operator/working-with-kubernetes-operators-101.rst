@@ -4,11 +4,11 @@ Working with Kubernetes Operators 101
 What is an operator?
 --------------------
 
-Operator is an automated software extension which allows to easily manage applications and their components.
+And operator is an automated software extension that allows to easily manage applications and their components.
 It's used to package, deploy and manage applications based on Kubernetes custom resources.
 
-Operator acts as a controller which extend Kubernetes API to manage lifecycle of dependent application resources.
-Controller implements logic which periodically compares desired state of a cluster to it's actual state and applies corrections to meet declared state.
+The operator acts as a controller that extends Kubernetes API to manage the lifecycle of dependent application resources.
+The controller implements logic that periodically compares desired state of a cluster to it's actual state and applies corrections to meet declared state.
 
 Compared to other methods of managing application deployment on Kubernetes clusters, operator allows to cover the complete lifetime of an application.
 Below graph compares operator to Helm and Ansible.
@@ -130,7 +130,7 @@ Openshift deployment use case example
 For example, to deploy described above infrastructure on Openshift, it's necessary to apply some additional resources.
 Openshift is based on RedHat CoreOS nodes which have generally read-only filesystem and limited system tools for configuration during runtime.
 CoreOS is designed to be configured buring boot process with so called ignition configs and then work with persistent configuration.
-Because of that `here <TODO WHEN REPOSITORY WILL BE PUBLISHED>`_ are some ignition configs applied as custom resources managed by operator
+Because of that `here <https://github.com/tungstenfabric/tf-openshift/tree/master/deploy/openshift>`_ are some ignition configs applied as custom resources managed by operator
 delivered by Openshift. For example nftables rules required by Tungsten Fabric are applied with ignition files or an overlay mount
 of `/lib/modules` directory is created in order to allow mount of vRouter kernel module.
 
@@ -138,7 +138,7 @@ Openshift deployment process from version 4 is fully based on operators.
 It means that every feature of this platform is deployed as set of custom resources managed by operator.
 Because of that, tf-operator works great with deploying CNI plugin on cluster during Openshift installation.
 Openshift installation process is all defined with manifests similar to manifests created for
-Tungsten Fabric created by Openshift just before cluster install which means that Tungsten Fabric `manifests <TODO SET WHEN REPOSITORY CREATED>`_may just be
+Tungsten Fabric created by Openshift just before cluster install which means that Tungsten Fabric `manifests <https://github.com/tungstenfabric/tf-openshift/tree/master/deploy/manifests>`_may just be
 added to other install manifests and will be applied on cluster during install process.
 
-More on Openshift install process with Tungsten Fabric as CNI `here <TODO INSERT LINK WHEN REPOSITORY CREATED>`_.
+More on Openshift install process with Tungsten Fabric as CNI `here <https://github.com/tungstenfabric/tf-openshift>`_.
