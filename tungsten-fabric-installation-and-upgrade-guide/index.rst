@@ -57,3 +57,4 @@ Documentation Structure
    setting-up-tf-rhosp-overcloud
    setting-up-tf-rhosp-undercloud
    setting-up-tf-rhosp16-infrastructure.rst
+   setting-up-tf-rhosp16-introduction.rst
