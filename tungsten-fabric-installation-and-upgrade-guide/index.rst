@@ -64,3 +64,4 @@ Documentation Structure
    summary-of-container-design
    understanding-tf-components
    understanding-tf
+   update-canonical-openstack-juju
