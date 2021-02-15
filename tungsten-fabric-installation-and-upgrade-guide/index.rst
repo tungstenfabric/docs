@@ -66,3 +66,4 @@ Documentation Structure
    understanding-tf
    update-canonical-openstack-juju
    upgrade-tf-ansible-deployer
+   upgrade-in-place
