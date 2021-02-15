@@ -70,8 +70,9 @@ port group, number of ports in the port group, and the uplink in the
 
    The uplink can be a link aggregation group (LAG). If you use LAG, then
    DVS and LAG should be preconfigured.
-The following is an example distributed switch configuration in
-``vcenter_vars.yml``.
+
+The following is an example distributed switch configuration in ``vcenter_vars.yml``.
+
 ::
 
     vcenter_servers:
@@ -217,6 +218,7 @@ The cluster configuration:
          dv_port_group_sriov:
            dv_portgroup_name: <sriov_pg_name>
            number_of_ports: 
+
 The server configuration:
 ::
 
@@ -266,7 +268,9 @@ The cluster configuration:
          dv_port_group_sriov:
            dv_portgroup_name: <sriov_pg_name>
            number_of_ports: 
+
 The server configuration:
+
 ::
 
    esxihosts:
