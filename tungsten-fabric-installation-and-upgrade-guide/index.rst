@@ -63,3 +63,4 @@ Documentation Structure
    smartnic-vrouter-support
    summary-of-container-design
    understanding-tf-components
+   understanding-tf
