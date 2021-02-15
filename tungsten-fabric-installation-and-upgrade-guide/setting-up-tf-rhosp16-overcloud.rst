@@ -1,19 +1,11 @@
 Setting Up the Overcloud
 ========================
 
-.. raw:: html
-
-   <div class="section tp-summary">
-
 Summary
 -------
 
-Follow this topic to setting up the overcloud for Contrail Networking
+Follow this topic to setting up the overcloud for Tungsten Fabric
 deployment with RHOSP 16.1.
-
-.. raw:: html
-
-   </div>
 
 Configuring the Overcloud
 -------------------------
@@ -22,69 +14,37 @@ Use this example procedure on the undercloud to set up the configuration
 for the overcloud.
 
 1. Specify the name server to be used:
-
-   .. raw:: html
-
-      <div id="jd0e26" class="example" dir="ltr">
-
+   
    ::
 
       undercloud_nameserver=8.8.8.8 
       openstack subnet set `openstack subnet show ctlplane-subnet -c id -f value` --dns-nameserver ${undercloud_nameserver}
 
-   .. raw:: html
-
-      </div>
-
 2. Retrieve and upload the overcloud images.
 
    1. Create the image directory:
-
-      .. raw:: html
-
-         <div id="jd0e38" class="example" dir="ltr">
 
       ::
 
          mkdir images 
          cd images
 
-      .. raw:: html
-
-         </div>
-
    2. Retrieve the overcloud images from either the RDO project or from
       Red Hat.
 
       OSP16
-
-      .. raw:: html
-
-         <div id="jd0e48" class="example" dir="ltr">
 
       ::
 
          sudo yum install -y rhosp-director-images rhosp-director-images-ipa 
          for i in /usr/share/rhosp-director-images/overcloud-full-latest-16.0.tar /usr/share/rhosp-director-images/ironic-python-agent-latest-16.0.tar ; do tar -xvf $i; done
 
-      .. raw:: html
-
-         </div>
-
    3. Upload the overcloud images:
-
-      .. raw:: html
-
-         <div id="jd0e54" class="example" dir="ltr">
 
       ::
 
          cd 
          openstack overcloud image upload --image-path /home/stack/images/
-
-      .. raw:: html
-
-         </div>
 
 3. Prepare OpenStack’s bare metal provisioning (Ironic).
 
@@ -99,14 +59,6 @@ for the overcloud.
       overcloud KVM hosts.
 
    1. Add the overcloud VMs to Ironic:
-
-      .. raw:: html
-
-         <div id="jd0e74" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -144,23 +96,7 @@ for the overcloud.
            openstack baremetal node show $i -c properties -f value
          done
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    2. Introspect the overcloud node:
-
-      .. raw:: html
-
-         <div id="jd0e80" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -169,23 +105,7 @@ for the overcloud.
          done
          openstack overcloud node introspect --all-manageable --provide
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
 4. Create Flavor:
-
-   .. raw:: html
-
-      <div id="jd0e86" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -203,69 +123,21 @@ for the overcloud.
                              --property resources:VCPU='0' ${i}
       done
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 5. Copy the TripleO heat templates.
-
-   .. raw:: html
-
-      <div id="jd0e92" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       cp -r /usr/share/openstack-tripleo-heat-templates/ tripleo-heat-templates
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-6. Download and copy the Contrail heat templates from
+6. Download and copy the TF heat templates from
    https://support.juniper.net/support/downloads.
-
-   .. raw:: html
-
-      <div id="jd0e101" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       tar -xzvf contrail-tripleo-heat-templates-<version>.tgz
       cp -r contrail-tripleo-heat-templates/* tripleo-heat-templates/
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 7. Create ``rhsm.yaml`` file with your RedHat credentials
-
-   .. raw:: html
-
-      <div id="jd0e110" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -284,14 +156,6 @@ for the overcloud.
           rhsm_org_id: "YOUR_REDHAT_ID"
           rhsm_pool_ids: "YOUR_REDHAT_POOL_ID"
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 8. Create and upload the OpenStack containers.
 
    1. Create the OpenStack container file.
@@ -302,14 +166,6 @@ for the overcloud.
 
       OSP16
 
-      .. raw:: html
-
-         <div id="jd0e125" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          sudo openstack tripleo container image prepare \
@@ -318,208 +174,72 @@ for the overcloud.
 
          sudo openstack overcloud container image upload --config-file ~/overcloud_containers.yaml
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    2. Upload the OpenStack containers:
-
-      .. raw:: html
-
-         <div id="jd0e131" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          openstack overcloud container image upload --config-file ~/local_registry_images.yaml
 
-      .. raw:: html
+9. Create and upload the TF containers.
 
-         </div>
-
-      .. raw:: html
-
-         </div>
-
-9. Create and upload the Contrail containers.
-
-   1. Create the Contrail container file.
+   1. Create the TF container file.
 
       .. note::
 
-         This step is optional. The Contrail containers can be downloaded
+         This step is optional. The TF containers can be downloaded
          from external registries later.
-
-      .. raw:: html
-
-         <div id="jd0e144" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
          cd ~/tf-heat-templates/tools/contrail
          ./import_contrail_container.sh -f container_outputfile -r registry -t tag [-i insecure] [-u username] [-p password] [-c certificate path]
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
-      Here are few examples of importing Contrail containers from
+      Here are few examples of importing TF containers from
       different sources:
 
       -  Import from password protected public registry:
-
-         .. raw:: html
-
-            <div id="jd0e153" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
 
          ::
 
             ./import_contrail_container.sh -f /tmp/contrail_container -r hub.juniper.net/contrail -u USERNAME -p PASSWORD -t 1234
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
       -  Import from Dockerhub:
-
-         .. raw:: html
-
-            <div id="jd0e159" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
 
          ::
 
             ./import_contrail_container.sh -f /tmp/contrail_container -r docker.io/opencontrailnightly -t 1234
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
       -  Import from private secure registry:
-
-         .. raw:: html
-
-            <div id="jd0e165" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
 
          ::
 
             ./import_contrail_container.sh -f /tmp/contrail_container -r device.example.net:5443 -c http://device.example.net/pub/device.example.net.crt -t 1234
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
       -  Import from private insecure registry:
-
-         .. raw:: html
-
-            <div id="jd0e171" class="sample" dir="ltr">
-
-         .. raw:: html
-
-            <div class="output" dir="ltr">
 
          ::
 
             ./import_contrail_container.sh -f /tmp/contrail_container -r 10.0.0.1:5443 -i 1 -t 1234
 
-         .. raw:: html
-
-            </div>
-
-         .. raw:: html
-
-            </div>
-
-   2. Upload Contrail containers to the undercloud registry:
-
-      .. raw:: html
-
-         <div id="jd0e177" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
+   2. Upload TF containers to the undercloud registry:
 
       ::
 
          openstack overcloud container image upload --config-file /tmp/contrail_container
 
-      .. raw:: html
+.. _customizing-the-contrail-service-with-templates:
 
-         </div>
+Customizing the Tungsten Fabric Service with Templates (contrail-services.yaml)
+-------------------------------------------------------------------------------
 
-      .. raw:: html
-
-         </div>
-
-.. _customizing-the-contrail-service-with-templates-contrail-servicesyaml:
-
-Customizing the Contrail Service with Templates (contrail-services.yaml)
-------------------------------------------------------------------------
-
-This section contains information to customize Contrail services for
+This section contains information to customize TF services for
 your network by modifying the ``contrail-services.yaml`` file.
 
--  Contrail Services customization
-
-   .. raw:: html
-
-      <div id="jd0e194" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+-  Tungsten Fabric Services customization
 
    ::
 
       vi ~/tripleo-heat-templates/environments/contrail-services.yaml
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -535,47 +255,15 @@ your network by modifying the ``contrail-services.yaml`` file.
         ContrailControllerParameters:
           AAAMode: rbac
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
--  Contrail registry settings
-
-   .. raw:: html
-
-      <div id="jd0e202" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+-  TF registry settings
 
    ::
 
       vi ~/tripleo-heat-templates/environments/contrail-services.yaml
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    Here are few examples of default values for various registries:
 
    -  Public Juniper registry
-
-      .. raw:: html
-
-         <div id="jd0e211" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -584,23 +272,7 @@ your network by modifying the ``contrail-services.yaml`` file.
            ContrailRegistryUser: <USER>
            ContrailRegistryPassword: <PASSWORD>
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    -  Insecure registry
-
-      .. raw:: html
-
-         <div id="jd0e217" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -609,23 +281,7 @@ your network by modifying the ``contrail-services.yaml`` file.
            DockerInsecureRegistryAddress: 10.87.64.32:5000,192.168.24.1:8787
            ContrailRegistry: 10.87.64.32:5000
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    -  Private secure registry
-
-      .. raw:: html
-
-         <div id="jd0e223" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
 
       ::
 
@@ -633,43 +289,15 @@ your network by modifying the ``contrail-services.yaml`` file.
            ContrailRegistryCertUrl: http://device.example.net/pub/device.example.net.crt
            ContrailRegistry: device.example.net:5443
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
--  Contrail Container image settings
-
-   .. raw:: html
-
-      <div id="jd0e229" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
+-  TF Container image settings
 
    ::
 
       parameter_defaults:
         ContrailImageTag: queens-5.0-104-rhel-queens
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-.. raw:: html
-
-   <div id="id-customizing-the-contrail-network-with-templates">
-
-Customizing the Contrail Network with Templates
------------------------------------------------
+Customizing the Tungsten Fabric Network with Templates
+------------------------------------------------------
 
 Overview
 ~~~~~~~~
@@ -690,46 +318,22 @@ internal_api 710  All
 external_api 720  OpenStack CTRL
 storage      740  OpenStack CTRL, Computes
 storage_mgmt 750  OpenStack CTRL
-tenant       -    Contrail CTRL, Computes
+tenant       -    TF CTRL, Computes
 ============ ==== ========================
 
-.. _roles-configuration-roles_data_contrail_aioyaml:
+.. _roles-configuration-roles_data:
 
 Roles Configuration (roles_data_contrail_aio.yaml)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The networks must be activated per role in the roles_data file:
 
-.. raw:: html
-
-   <div id="jd0e332" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    vi ~/tripleo-heat-templates/roles_data_contrail_aio.yaml
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 OpenStack Controller
 ^^^^^^^^^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e340" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -750,24 +354,8 @@ OpenStack Controller
        - Storage
        - StorageMgmt
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Compute Node
 ^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e346" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -783,24 +371,8 @@ Compute Node
        - Tenant
        - Storage
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-Contrail Controller
-^^^^^^^^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e352" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
+Tungsten Fabric Controller
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
@@ -809,7 +381,7 @@ Contrail Controller
    ###############################################################################
    - name: ContrailController
      description: |
-       ContrailController role that has all the Contrail controler services loaded
+       ContrailController role that has all the TF controler services loaded
        and handles config, control and webui functions
      CountDefault: 1
      tags:
@@ -819,24 +391,8 @@ Contrail Controller
        - InternalApi
        - Tenant
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Compute DPDK
 ^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e358" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -845,7 +401,7 @@ Compute DPDK
    ###############################################################################
    - name: ContrailDpdk
      description: |
-       Contrail Dpdk Node role
+       Tungsten Fabric DPDK Node role
      CountDefault: 0
      tags:
        - contraildpdk
@@ -854,24 +410,8 @@ Compute DPDK
        - Tenant
        - Storage
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Compute SRIOV
 ^^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e364" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -880,7 +420,7 @@ Compute SRIOV
    ###############################################################################
    - name: ContrailSriov
      description: |
-       Contrail Sriov Node role
+       Tungsten Fabric SR-IOV node role
      CountDefault: 0
      tags:
        - contrailsriov
@@ -889,24 +429,8 @@ Compute SRIOV
        - Tenant
        - Storage
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Compute CSN
 ^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e370" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -915,7 +439,7 @@ Compute CSN
    ###############################################################################
    - name: ContrailTsn
      description: |
-       Contrail Tsn Node role
+       Tungsten Fabric Tsn Node role
      CountDefault: 0
      tags:
        - contrailtsn
@@ -924,38 +448,14 @@ Compute CSN
        - Tenant
        - Storage
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _network-parameter-configuration-contrail-netyaml:
+.. _network-parameter-configuration:
 
 Network Parameter Configuration (contrail-net.yaml)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. raw:: html
-
-   <div id="jd0e378" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    cat ~/tripleo-heat-templates/environments/contrail/contrail-net.yaml
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -967,14 +467,6 @@ Network Parameter Configuration (contrail-net.yaml)
      OS::TripleO::ContrailDpdk::Net::SoftwareConfig: ../../network/config/contrail/contrail-dpdk-nic-config.yaml
      OS::TripleO::ContrailSriov::Net::SoftwareConfig: ../../network/config/contrail/contrail-sriov-nic-config.yaml
      OS::TripleO::ContrailTsn::Net::SoftwareConfig: ../../network/config/contrail/contrail-tsn-nic-config.yaml
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1008,53 +500,19 @@ Network Parameter Configuration (contrail-net.yaml)
      DnsServers: ["172.x.x.x"]
      NtpServer: 10.0.0.1
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _network-interface-configuration--nic-yaml:
+.. _network-interface-configuration:
 
 Network Interface Configuration (*-NIC-*.yaml)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 NIC configuration files exist per role in the following directory:
 
-.. raw:: html
-
-   <div id="jd0e394" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    cd ~/tripleo-heat-templates/network/config/contrail
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _openstack-controller-1:
-
 OpenStack Controller
 ^^^^^^^^^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e402" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1063,15 +521,7 @@ OpenStack Controller
    description: >
      Software Config to drive os-net-config to configure multiple interfaces
      for the compute role. This is an example for a Nova compute node using
-     Contrail vrouter and the vhost0 interface.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
+     Tungsten Fabric vRouter and the vhost0 interface.
 
 ::
 
@@ -1154,14 +604,6 @@ OpenStack Controller
      EC2MetadataIp: # Override this via parameter_defaults
        description: The IP address of the EC2 metadata server.
        type: string
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1224,14 +666,6 @@ OpenStack Controller
                    - ip_netmask:
                        get_param: StorageMgmtIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    outputs:
@@ -1240,53 +674,19 @@ OpenStack Controller
        value:
          get_resource: OsNetConfigImpl
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _contrail-controller-1:
-
-Contrail Controller
-^^^^^^^^^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e417" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
+Tungsten Fabric Controller
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
    heat_template_version: rocky
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
    description: >
      Software Config to drive os-net-config to configure multiple interfaces
      for the compute role. This is an example for a Nova compute node using
-     Contrail vrouter and the vhost0 interface.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
+     Tungsten Fabric vRouter and the vhost0 interface.
 
 ::
 
@@ -1369,14 +769,6 @@ Contrail Controller
      EC2MetadataIp: # Override this via parameter_defaults
        description: The IP address of the EC2 metadata server.
        type: string
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1424,14 +816,6 @@ Contrail Controller
                    - ip_netmask:
                        get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    outputs:
@@ -1440,53 +824,20 @@ Contrail Controller
        value:
          get_resource: OsNetConfigImpl
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _compute-node-1:
 
 Compute Node
 ^^^^^^^^^^^^
 
-.. raw:: html
-
-   <div id="jd0e435" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    heat_template_version: rocky
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
    description: >
      Software Config to drive os-net-config to configure multiple interfaces
      for the compute role. This is an example for a Nova compute node using
-     Contrail vrouter and the vhost0 interface.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
+     Tungsten Fabric vRouter and the vhost0 interface.
 
 ::
 
@@ -1569,14 +920,6 @@ Compute Node
      EC2MetadataIp: # Override this via parameter_defaults
        description: The IP address of the EC2 metadata server.
        type: string
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1636,14 +979,6 @@ Compute Node
                    - ip_netmask:
                        get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    outputs:
@@ -1651,14 +986,6 @@ Compute Node
        description: The OsNetConfigImpl resource.
        value:
          get_resource: OsNetConfigImpl
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Advanced vRouter Kernel Mode Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1670,14 +997,6 @@ for each mode.
 
 VLAN
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e462" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1701,24 +1020,8 @@ VLAN
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Bond
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e468" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1745,26 +1048,9 @@ Bond
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond--vlan:
 
 Bond + VLAN
 ^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e474" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1799,14 +1085,6 @@ Bond + VLAN
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Advanced vRouter DPDK Mode Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1815,35 +1093,11 @@ supports Standard, VLAN, Bond, and Bond + VLAN modes.
 
 Network Environment Configuration:
 
-.. raw:: html
-
-   <div id="jd0e486" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    vi ~/tripleo-heat-templates/environments/contrail/contrail-services.yaml
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Enable the number of hugepages:
-
-.. raw:: html
-
-   <div id="jd0e491" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1857,28 +1111,12 @@ Enable the number of hugepages:
          vm.max_map_count:
            value: 128960
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 See the following NIC template configurations for vRouter DPDK mode. The
 configuration snippets below only show the relevant section of the NIC
 configuration for each mode.
 
 Standard
 ^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e501" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1896,26 +1134,9 @@ Standard
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _vlan-1:
 
 VLAN
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e507" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1935,26 +1156,9 @@ VLAN
                 - ip_netmask:
                     get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond-1:
 
 Bond
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e513" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -1978,26 +1182,9 @@ Bond
                 - ip_netmask:
                     get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond--vlan-1:
 
 Bond + VLAN
 ^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e519" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2022,16 +1209,6 @@ Bond + VLAN
                 addresses:
                 - ip_netmask:
                     get_param: TenantIpSubnet
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _advanced-vrouter-sriov--kernel-mode-configuration:
 
 Advanced vRouter SRIOV + Kernel Mode Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2048,35 +1225,11 @@ vRouter SRIOV + Kernel mode can be used in the following combinations:
 
 Network environment configuration:
 
-.. raw:: html
-
-   <div id="jd0e544" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    vi ~/tripleo-heat-templates/environments/contrail/contrail-services.yaml
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Enable the number of hugepages:
-
-.. raw:: html
-
-   <div id="jd0e549" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2087,23 +1240,7 @@ Enable the number of hugepages:
          vm.nr_hugepages:
            value: 4
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 SRIOV PF/VF settings:
-
-.. raw:: html
-
-   <div id="jd0e554" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2112,31 +1249,14 @@ SRIOV PF/VF settings:
      physical_network: "sriov1"
    ContrailSriovNumVFs: ["ens2f1:7"]
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 The SRIOV NICs are not configured in the NIC templates. However, vRouter
 NICs must still be configured. See the following NIC template
 configurations for vRouter kernel mode. The configuration snippets below
 only show the relevant section of the NIC configuration for each mode.
 
-.. _vlan-2:
 
 VLAN
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e564" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2160,26 +1280,8 @@ VLAN
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond-2:
-
 Bond
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e570" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2206,26 +1308,8 @@ Bond
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond--vlan-2:
-
 Bond + VLAN
 ^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e576" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2260,16 +1344,6 @@ Bond + VLAN
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _advanced-vrouter-sriov--dpdk-mode-configuration:
-
 Advanced vRouter SRIOV + DPDK Mode Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2285,35 +1359,11 @@ vRouter SRIOV + DPDK can be used in the following combinations:
 
 Network environment configuration:
 
-.. raw:: html
-
-   <div id="jd0e601" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    vi ~/tripleo-heat-templates/environments/contrail/contrail-services.yaml
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Enable the number of hugepages
-
-.. raw:: html
-
-   <div id="jd0e606" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2324,23 +1374,7 @@ Enable the number of hugepages
          vm.nr_hugepages:
            value: 4
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 SRIOV PF/VF settings
-
-.. raw:: html
-
-   <div id="jd0e611" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2349,31 +1383,13 @@ SRIOV PF/VF settings
      physical_network: "sriov1"
    ContrailSriovNumVFs: ["ens2f1:7"]
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 The SRIOV NICs are not configured in the NIC templates. However, vRouter
 NICs must still be configured. See the following NIC template
 configurations for vRouter DPDK mode. The configuration snippets below
 only show the relevant section of the NIC configuration for each mode.
 
-.. _standard-1:
-
 Standard
 ^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e621" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2391,26 +1407,9 @@ Standard
      - ip_netmask:
          get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _vlan-3:
 
 VLAN
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e627" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2430,26 +1429,9 @@ VLAN
                 - ip_netmask:
                     get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond-3:
 
 Bond
 ^^^^
-
-.. raw:: html
-
-   <div id="jd0e633" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2473,26 +1455,9 @@ Bond
                 - ip_netmask:
                     get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. _bond--vlan-3:
 
 Bond + VLAN
 ^^^^^^^^^^^
-
-.. raw:: html
-
-   <div id="jd0e639" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2518,14 +1483,6 @@ Bond + VLAN
                 - ip_netmask:
                     get_param: TenantIpSubnet
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Advanced Scenarios
 ~~~~~~~~~~~~~~~~~~
 
@@ -2533,7 +1490,7 @@ Remote Compute
 
 Remote Compute extends the data plane to remote locations (POP) whilest
 keeping the control plane central. Each POP will have its own set of
-Contrail control services, which are running in the central location.
+TF control services, which are running in the central location.
 The difficulty is to ensure that the compute nodes of a given POP
 connect to the Control nodes assigned to that POC. The Control nodes
 must have predictable IP addresses and the compute nodes have to know
@@ -2561,138 +1518,65 @@ Mapping Table
 
 Table 2: Mapping Table
 
-.. raw:: html
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Nova Name</p></th>
-   <th style="text-align: left;"><p>Ironic Name</p></th>
-   <th style="text-align: left;"><p>UUID</p></th>
-   <th style="text-align: left;"><p>KVM</p></th>
-   <th style="text-align: left;"><p>IP Address</p></th>
-   <th style="text-align: left;"><p>POP</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -0</p></td>
-   <td style="text-align: left;"><p>control-only-1-<br />
-   5b3s30</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 7d758dce-2784-<br />
-   45fd-be09-5a41eb53e764</p>
-   <br />
+.. list-table:: 
+      :header-rows: 1
 
-.. raw:: html
+      * - Nova Name
+        - Ironic Name
+        - UUID
+        - KVM
+        - IP Address
+        - POP
+      * - overcloud-contrailcontrolonly-0
+        - control-only-1-5b3s30
+        - Ironic UUID: 7d758dce-2784-45fd-be09-5a41eb53e764
+          
+          DMI UUID: 73F8D030-E896-4A95-A9F5-E1A4FEBE322D
+        - 5b3s30
+        - 10.0.0.11
+        - POP1
+      * - overcloud-contrailcontrolonly-1
+        - control-only-2-5b3s30
+        - Ironic UUID: d26abdeb-d514-4a37-a7fb-2cd2511c351f
+         
+          DMI UUID: 14639A66-D62C-4408-82EE-FDDC4E509687
+        - 5b3s30
+        - 10.0.0.14
+        - POP2
+      * - overcloud-contrailcontrolonly-2
+        - control-only-1-5b3s31
+        - Ironic UUID: 91dd9fa9-e8eb-4b51-8b5e-bbaffb6640e4
+         
+          DMI UUID: 28AB0B57-D612-431E-B177-1C578AE0FEA4
+        - 5b3s31
+        - 10.0.0.12
+        - POP1
+      * - overcloud-contrailcontrolonly-3
+        - control-only-2-5b3s31
+        - Ironic UUID: 09fa57b8-580f-42ec-bf10-a19573521ed4
+         
+          DMI UUID: 09BEC8CB-77E9-42A6-AFF4-6D4880FD87D0
+        - 5b3s31
+        - 10.0.0.15
+        - POP2
+      * - overcloud-contrailcontrolonly-4
+        - control-only-1-5b3s32
+        - Ironic UUID: 4766799-24c8-4e3b-af54-353f2b796ca4
+         
+          DMI UUID: 3993957A-ECBF-4520-9F49-0AF6EE1667A7
+        - 5b3s32
+        - 10.0.0.13
+        - POP1
+      * - overcloud-contrailcontrolonly-5
+        - control-only-2-5b3s32
+        - Ironic UUID: 58a803ae-a785-470e-9789-139abbfa74fb
 
-   <p>DMI UUID: 73F8D030-E896-<br />
-   4A95-A9F5-E1A4FEBE322D</p></td>
-   <td style="text-align: left;"><p>5b3s30</p></td>
-   <td style="text-align: left;"><p>10.0.0.11</p></td>
-   <td style="text-align: left;"><p>POP1</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -1</p></td>
-   <td style="text-align: left;"><p>control-only-2-<br />
-   5b3s30</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: d26abdeb-d514-<br />
-   4a37-a7fb-2cd2511c351f</p>
-   <br />
+          DMI UUID: AF92F485-C30C-4D0A-BDC4-C6AE97D06A66
+        - 5b3s32
+        - 10.0.0.16
+        - POP2
 
-.. raw:: html
-
-   <p>DMI UUID: 14639A66-D62C-<br />
-   4408-82EE-FDDC4E509687</p></td>
-   <td style="text-align: left;"><p>5b3s30</p></td>
-   <td style="text-align: left;"><p>10.0.0.14</p></td>
-   <td style="text-align: left;"><p>POP2</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -2</p></td>
-   <td style="text-align: left;"><p>control-only-1-<br />
-   5b3s31</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 91dd9fa9-e8eb-<br />
-   4b51-8b5e-bbaffb6640e4</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 28AB0B57-D612-<br />
-   431E-B177-1C578AE0FEA4</p></td>
-   <td style="text-align: left;"><p>5b3s31</p></td>
-   <td style="text-align: left;"><p>10.0.0.12</p></td>
-   <td style="text-align: left;"><p>POP1</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -3</p></td>
-   <td style="text-align: left;"><p>control-only-2-<br />
-   5b3s31</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 09fa57b8-580f-<br />
-   42ec-bf10-a19573521ed4</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 09BEC8CB-77E9-<br />
-   42A6-AFF4-6D4880FD87D0</p></td>
-   <td style="text-align: left;"><p>5b3s31</p></td>
-   <td style="text-align: left;"><p>10.0.0.15</p></td>
-   <td style="text-align: left;"><p>POP2</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -4</p></td>
-   <td style="text-align: left;"><p>control-only-1-<br />
-   5b3s32</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 4766799-24c8-<br />
-   4e3b-af54-353f2b796ca4</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 3993957A-ECBF-<br />
-   4520-9F49-0AF6EE1667A7</p></td>
-   <td style="text-align: left;"><p>5b3s32</p></td>
-   <td style="text-align: left;"><p>10.0.0.13</p></td>
-   <td style="text-align: left;"><p>POP1</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -5</p></td>
-   <td style="text-align: left;"><p>control-only-2-<br />
-   5b3s32</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 58a803ae-a785-<br />
-   470e-9789-139abbfa74fb</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: AF92F485-C30C-<br />
-   4D0A-BDC4-C6AE97D06A66</p></td>
-   <td style="text-align: left;"><p>5b3s32</p></td>
-   <td style="text-align: left;"><p>10.0.0.16</p></td>
-   <td style="text-align: left;"><p>POP2</p></td>
-   </tr>
-   </tbody>
-   </table>
 
 ControlOnly preparation
 
@@ -2704,14 +1588,6 @@ Add ControlOnly overcloud VMs to overcloud KVM host
 
 Two ControlOnly overcloud VM definitions will be created on each of the
 overcloud KVM hosts.
-
-.. raw:: html
-
-   <div id="jd0e905" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2757,28 +1633,12 @@ overcloud KVM hosts.
      done
    done
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 .. note::
 
    The generated *ironic_list* will be needed on the undercloud to import
    the nodes to Ironic.
 
 Get the ironic_lists from the overcloud KVM hosts and combine them.
-
-.. raw:: html
-
-   <div id="jd0e920" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2790,23 +1650,7 @@ Get the ironic_lists from the overcloud KVM hosts and combine them.
    52:54:00:c1:f0:9a control-only-1-5b3s32 10.87.64.33 control-only 16234
    52:54:00:f3:ce:13 control-only-2-5b3s32 10.87.64.33 control-only 16235
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Import:
-
-.. raw:: html
-
-   <div id="jd0e925" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2841,45 +1685,13 @@ Import:
      num=$(expr $num + 1)
    done < <(cat ironic_list_control_only)
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 ControlOnly node introspection
-
-.. raw:: html
-
-   <div id="jd0e930" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
    openstack overcloud node introspect --all-manageable --provide
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Get the ironic UUID of the ControlOnly nodes
-
-.. raw:: html
-
-   <div id="jd0e935" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2891,26 +1703,10 @@ Get the ironic UUID of the ControlOnly nodes
    | f4766799-24c8-4e3b-af54-353f2b796ca4 | control-only-1-5b3s32  | None | power off | available | False |
    | 58a803ae-a785-470e-9789-139abbfa74fb | control-only-2-5b3s32  | None | power off | available | False |
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 The first ControlOnly node on each of the overcloud KVM hosts will be
 used for POP1, the second for POP2, and so and so forth.
 
 Get the ironic UUID of the POP compute nodes:
-
-.. raw:: html
-
-   <div id="jd0e942" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2920,26 +1716,9 @@ Get the ironic UUID of the POP compute nodes:
    | b795b3b9-c4e3-4a76-90af-258d9336d9fb | compute-3-5b3s31 | None | power off | available | False |
    | 2d4be83e-6fcc-4761-86f2-c2615dd15074 | compute-4-5b3s31 | None | power off | available | False |
 
-.. raw:: html
-
-   </div>
-
 The first two compute nodes belong to POP1 the second two compute nodes
 belong to POP2.
-
-.. raw:: html
-
-   </div>
-
 Create an input YAML using the ironic UUIDs:
-
-.. raw:: html
-
-   <div id="jd0e949" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -2974,14 +1753,6 @@ Create an input YAML using the ironic UUIDs:
        - uuid: 2d4be83e-6fcc-4761-86f2-c2615dd15074
          vrouter_gateway: 10.0.0.1
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 .. note::
 
    Only control_nodes, compute_nodes, dpdk_nodes and sriov_nodes are
@@ -2989,36 +1760,12 @@ Create an input YAML using the ironic UUIDs:
 
 Generate subcluster environment:
 
-.. raw:: html
-
-   <div id="jd0e957" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    ~/tripleo-heat-templates/tools/contrail/create_subcluster_environment.py -i ~/subcluster_input.yaml \
                   -o ~/tripleo-heat-templates/environments/contrail/contrail-subcluster.yaml
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Check subcluster environment file:
-
-.. raw:: html
-
-   <div id="jd0e962" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -3070,26 +1817,10 @@ Check subcluster environment file:
            SUBCLUSTER: subcluster1
            VROUTER_GATEWAY: 10.0.0.1
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Deployment
 
 Add contrail-subcluster.yaml, contrail-ips-from-pool-all.yaml and
 contrail-scheduler-hints.yaml to the OpenStack deploy command:
-
-.. raw:: html
-
-   <div id="jd0e969" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -3104,30 +1835,10 @@ contrail-scheduler-hints.yaml to the OpenStack deploy command:
     -e ~/tripleo-heat-templates/environments/contrail/contrail-scheduler-hints.yaml \
     --roles-file ~/tripleo-heat-templates/roles_data_contrail_aio.yaml
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Installing Overcloud
 --------------------
 
 1. Deployment:
-
-   .. raw:: html
-
-      <div id="jd0e983" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -3142,23 +1853,7 @@ Installing Overcloud
         -e containers-prepare-parameter.yaml \
         -e rhsm.yaml
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 2. Validation Test:
-
-   .. raw:: html
-
-      <div id="jd0e989" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -3170,14 +1865,6 @@ Installing Overcloud
       openstack subnet create --subnet-range 1.0.0.0/24 --network net1 sn1
       nova boot --image cirros --flavor cirros --nic net-id=`openstack network show net1 -c id -f value` --availability-zone nova:overcloud-novacompute-0.localdomain c1
       nova list
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
  
 
