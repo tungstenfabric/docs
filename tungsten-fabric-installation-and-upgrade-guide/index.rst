@@ -67,3 +67,4 @@ Documentation Structure
    update-canonical-openstack-juju
    upgrade-tf-ansible-deployer
    upgrade-in-place
+   vcenter-as-orchestrator-deployment-scenarios-501
