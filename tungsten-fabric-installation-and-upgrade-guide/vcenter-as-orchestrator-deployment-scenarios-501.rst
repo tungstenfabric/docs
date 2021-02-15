@@ -1,32 +1,15 @@
 Configuring Underlay Network for ContrailVM
 ===========================================
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
 The ContrailVM can be configured in several different ways for the
 underlay (``ip-fabric``) connectivity:
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Standard Switch Setup
 ---------------------
 
 In the standard switch setup, the ContrailVM is provided an interface
 through the standard switch port group that is used for management and
-control data, see
-`Figure 1 <vcenter-as-orchestrator-deployment-scenarios-501.html#stdswitch>`__.
+control data, see Figure 1.
 
 |Figure 1: Standard Switch Setup|
 
@@ -43,17 +26,7 @@ flag as ``true`` and the ``control_data`` interface can have DHCP set as
 ``control_data`` interface must be configured by the user and ensure
 connectivity. Additional configuration such as static routes and bond
 interface must be configured by the user.
-
-.. raw:: html
-
-   <div id="jd0e56" class="sample" dir="ltr">
-
 The following is an example of configuration with standard switch.
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    -   name: <esxi_host>
@@ -73,14 +46,6 @@ The following is an example of configuration with standard switch.
               switch_name: vSwitch0
               pg: mgmt-pg
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Distributed Switch Setup
 ------------------------
 
@@ -89,8 +54,7 @@ associated hosts.
 
 In the distributed switch setup, the ContrailVM is provided an interface
 through the distributed switch port group that is used for management
-and control data, see
-`Figure 2 <vcenter-as-orchestrator-deployment-scenarios-501.html#distswitch>`__.
+and control data, see Figure 2.
 
 The ContrailVM can be configured to use the management and control_data
 NICs from DVS. When the DVS configuration is specified, the standard
@@ -106,18 +70,8 @@ port group, number of ports in the port group, and the uplink in the
 
    The uplink can be a link aggregation group (LAG). If you use LAG, then
    DVS and LAG should be preconfigured.
-
-.. raw:: html
-
-   <div id="jd0e89" class="sample" dir="ltr">
-
 The following is an example distributed switch configuration in
 ``vcenter_vars.yml``.
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
     vcenter_servers:
@@ -143,14 +97,6 @@ The following is an example distributed switch configuration in
            uplink:
             - 'vmnic3'
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 PCI Pass-Through Setup
 ----------------------
 
@@ -171,18 +117,8 @@ When setting up the ContrailVM with pass-through interfaces, upon
 provisioning ESXi hosts in the installation process, the PCI
 pass-through interfaces are exposed as Ethernet interfaces in the
 ContrailVM, and are identified in the ``control_data`` device field.
-
-.. raw:: html
-
-   <div id="jd0e120" class="sample" dir="ltr">
-
 The following is an example PCI pass-through configuration with a single
 ``control_data`` interface:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    esxihosts:
@@ -199,14 +135,6 @@ The following is an example PCI pass-through configuration with a single
          pci_devices:
           - '0000:04:00.0'
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Figure 4 shows a PCI pass-through setup with a bond_control data interface, which
 has multiple pass-through NICs.
 
@@ -214,14 +142,6 @@ has multiple pass-through NICs.
 
 Update the ContrailVM section in ``vcenter_vars.yml`` with
 ``pci_devices`` as shown in the following example:
-
-.. raw:: html
-
-   <div id="jd0e143" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -240,14 +160,6 @@ Update the ContrailVM section in ``vcenter_vars.yml`` with
          pci_devices:
           - '0000:04:00.0'
           - '0000:04:00.1'
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 SR-IOV Setup
 ------------
@@ -279,20 +191,10 @@ interfaces are exposed as Ethernet interfaces in the ContrailVM.
 Figure 6 shows a SR-IOV setup with a single ``control_data`` interface.
 
 |Figure 6: SR-IOV With Single Control Data Interface|
-
-.. raw:: html
-
-   <div id="jd0e195" class="sample" dir="ltr">
-
 The following is an example SR-IOV configuration for the cluster and
 server configuration.
 
 The cluster configuration:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    vcenter_servers:
@@ -315,17 +217,7 @@ The cluster configuration:
          dv_port_group_sriov:
            dv_portgroup_name: <sriov_pg_name>
            number_of_ports: 
-
-.. raw:: html
-
-   </div>
-
 The server configuration:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    esxihosts:
@@ -343,14 +235,6 @@ The server configuration:
          sr_iov_nics:
           - 'vmnic0'
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Figure 7 shows an SR-IOV configuration with a bond ``control_data`` interface,
 which has multiple SR-IOV NICs.
 
@@ -359,17 +243,7 @@ which has multiple SR-IOV NICs.
 For Bond interface-configuration specify multiple NICs in sr_iov_nics,
 and add required configuration for multi-interface and bond
 configuration in ``vcenter_vars.yml``.
-
-.. raw:: html
-
-   <div id="jd0e224" class="sample" dir="ltr">
-
 The cluster configuration:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    vcenter_servers:
@@ -392,17 +266,7 @@ The cluster configuration:
          dv_port_group_sriov:
            dv_portgroup_name: <sriov_pg_name>
            number_of_ports: 
-
-.. raw:: html
-
-   </div>
-
 The server configuration:
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    esxihosts:
@@ -420,14 +284,6 @@ The server configuration:
          sr_iov_nics:
           - 'vmnic0'
           - 'vmnic1'
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
  
 
