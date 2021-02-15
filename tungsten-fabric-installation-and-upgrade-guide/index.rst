@@ -65,3 +65,4 @@ Documentation Structure
    understanding-tf-components
    understanding-tf
    update-canonical-openstack-juju
+   upgrade-tf-ansible-deployer
