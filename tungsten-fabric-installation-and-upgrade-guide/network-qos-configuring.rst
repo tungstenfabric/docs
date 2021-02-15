@@ -27,6 +27,7 @@ QoS Configuration Examples
 Although the QoS setting can be specified in quota by using either
 Horizon or CLI, quota creation using CLI is more robust and stable,
 therefore, creating by CLI is the recommended method.
+
 Example
 ~~~~~~~
 

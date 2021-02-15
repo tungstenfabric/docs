@@ -55,3 +55,4 @@ Documentation Structure
    setting-up-tf-rhosp-infrastructure
    setting-up-tf-rhosp-introduction
    setting-up-tf-rhosp-overcloud
+   setting-up-contrail-rhosp-undercloud
