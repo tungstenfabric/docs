@@ -1,4 +1,4 @@
-Using Netronome SmartNIC vRouter with Contrail Networking
+Using Netronome SmartNIC vRouter with Tungsten Fabric
 =========================================================
 
 .. note::
@@ -7,7 +7,7 @@ Using Netronome SmartNIC vRouter with Contrail Networking
    available for evaluation purposes only. It is not intended for
    deployment in production networks.
 
-Contrail supports Netronome Agilio CX SmartNICs for Contrail Networking
+TF supports Netronome Agilio CX SmartNICs for Tungsten Fabric
 deployment with Red Hat OpenStack Platform Director (RHOSPd) 13
 environment.
 
@@ -18,10 +18,10 @@ functions (VNFs) per server.
 
 Benefits:
 
--  Increased PPS capacity of Contrail vRouter datapath allowing
+-  Increased PPS capacity of Tungsten Fabric vRouter datapath allowing
    applications to reach their full processing capacity.
 
--  Reclaimed CPU cores from Contrail vRouter off-loading allowing more
+-  Reclaimed CPU cores from Tungsten Fabric vRouter off-loading allowing more
    VMs and VNFs to be deployed per server.
 
 The goal of this topic is to provide a procedure for deploying
@@ -78,17 +78,9 @@ Procedure:
       .. note:: 
 
          Reserve at least 1375*2 MB hugepages for ``virtio-forwarder``.
-
-      .. raw:: html
-
-         <div id="jd0e143" class="sample" dir="ltr">
-
+      
       Sample ``agilio-env.yaml`` file:
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
+      
       ::
 
          resource_registry:
@@ -116,14 +108,6 @@ Procedure:
          # Fix DB Diskspace too low issue
            ContrailAnalyticsDBMinDiskGB: 40
 
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
-
    4. Add Docker Hub credentials to
       ``tripleo-heat-templates/agilio-plugin/agililo_upgrade.sh`` file
       to retrieve containers from
@@ -135,7 +119,7 @@ Procedure:
 
       ``[root@overcloud-novacompute-2 heat-admin]# docker ps -a | grep agilioc7c611b5168b        docker.io/netronomesystems/agilio-vrouter:2.38-rhel-queens             "./entrypoint.sh"        46 seconds ago      Up 38 seconds agilio_vrouter``
 
-2. Prepare the Contrail Networking cluster for deployment.
+2. Prepare the Tungsten Fabric cluster for deployment.
 
    Refer to the following topics for deployment:
 
