@@ -5,8 +5,8 @@ Upgrading Tungsten Fabric using TF-ansible Deployer
 
    This procedure can be used for Tungsten Fabric upgrades to Tungsten Fabric Release 2003 or earlier.
 
-If you are upgrading to Tungsten Fabric Release 2005 or later using
-the Ansible deployer, see `How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer`_.
+If you are upgrading to Tungsten Fabric Release 2005 or later using the Ansible deployer, 
+see `How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer <How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer>`_.
 
 Use the following procedure to upgrade Tungsten Fabric using
 TF-ansible deployer.
@@ -15,7 +15,7 @@ The procedure supports incremental model and you can use it to upgrade
 from Tungsten Fabric Release ``N-1`` to ``N``.
 
 Take snapshots of your current configurations before you proceed with
-the upgrade process. For details, refer to `How to Backup and Restore TF databases in JSON Format`_.
+the upgrade process. For details, refer to `How to Backup and Restore TF databases in JSON Format <How to Backup and Restore TF databases in JSON Format>`_.
 
 1. Navigate to the directory where the
    ``contrail-ansible-deployer-<xxxx>.<NN>.tgz`` was untarred.

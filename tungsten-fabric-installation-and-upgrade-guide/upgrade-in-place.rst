@@ -1,29 +1,27 @@
-Upgrading Contrail Networking using In-Place Upgrade Procedure
-==============================================================
+Upgrading Tungsten Fabric using In-Place Upgrade Procedure
+==========================================================
 
 .. note::
 
-   This procedure can be used for Contrail Networking upgrades to Contrail
-   Networking Release 2003 or earlier only.
+   This procedure can be used for Tungsten Fabric upgrades to Tungsten Fabric 
+   Release 2003 or earlier only.
 
-If you are upgrading to Contrail Networking Release 2005 or later using
-an in-place upgrade procedure, see `How to Perform a Zero Impact
-Contrail Networking Upgrade using
-Ansible <../installation/installing-contrail-ansible-ziu.html>`__.
+If you are upgrading to Tungsten Fabric Release 2005 or later using
+an in-place upgrade procedure, see `How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer <How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer>`_.
 
-This document provides steps to upgrade Contrail Networking using
+This document provides steps to upgrade Tungsten Fabric using
 in-place upgrade procedure.
 
 The procedure supports incremental model and you can use it to upgrade
-from Contrail Networking Release ``N-1`` to ``N``.
+from Tungsten Fabric Release ``N-1`` to ``N``.
 
 .. tip::
 
    You must take snapshots of your current system before proceeding with
    the upgrade process.
 
-For a list of supported platforms for all Contrail Networking releases,
-see `Contrail Networking Supported Platforms
+For a list of supported platforms for all Tungsten Fabric releases,
+see `Tungsten Fabric Supported Platforms
 List <https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf>`__  .
 
 1. Update kernel version on all the compute nodes.
@@ -39,13 +37,13 @@ List <https://www.juniper.net/documentation/en_US/release-independent/contrail/t
    desired version tag in this ``instances.yml`` file.
 
    Access ``CONTRAIL_CONTAINER_TAG`` located at `README Access to
-   Contrail Networking Registry
+   Tungsten Fabric Registry
    20xx <https://www.juniper.net/documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
 
 3. Run the following commands from ``contrail-ansible-deployer``
    directory.
 
-   For Contrail with OpenStack deployment:
+   For TF with OpenStack deployment:
 
    | ``cd contrail-ansible-deployer``
    | ``ansible-playbook -i inventory/ -e orchestrator=openstack playbooks/configure_instances.yml``
