@@ -60,3 +60,4 @@ Documentation Structure
    setting-up-tf-rhosp16-introduction
    setting-up-tf-rhosp16-overcloud
    setting-up-tf-rhosp16-undercloud
+   smartnic-vrouter-support
