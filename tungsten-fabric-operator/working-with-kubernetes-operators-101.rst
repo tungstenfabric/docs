@@ -16,7 +16,8 @@ Helm provides only installation process with some mechanisms of upgrade.
 Ansible additionaly allows to cover some aspects of managing application resources lifecycle.
 However, only operator allows to have full insights into created cluster resources and perform custom operations on them during lifecycle.
 
-.. figure:: figures/operator-compared.png
+.. image:: figures/operator-compared.png
+    :alt: Operator Framework compared to other technologies.
 
 Custom operator may be written in multiple languages as in fact it's just a piece of code  that acts when triggered by events from the Kubernetes API.
 Currently, the most popular language to write operators is the language that was used to write the Kubernetes project itself - Go.
@@ -48,7 +49,8 @@ Status of all components is available to check at any time of deployment as well
 Tungsten Fabric may be configured in various ways for various infrastructures.
 Example infrastructure with 3 master nodes and 3 worker nodes is presented below.
 
-.. figure:: figures/operator-tf-scheme.png
+.. image:: figures/operator-tf-scheme.png
+    :alt: Sample Tungsten Fabric Infrastructure on Kubernetes Cluster
 
 Master node contains Tungsten Fabric controller components.
 Rabbitmq, Zookeeper and Cassandra create databases with configuration.
@@ -111,6 +113,7 @@ zookeeper1-zookeeper-statefulset-0            1/1     Running            0      
 zookeeper1-zookeeper-statefulset-1            1/1     Running            0          8m
 zookeeper1-zookeeper-statefulset-2            1/1     Running            0          8m
 ```
+
 That's just one resource type which creates all the custom Tungsten Fabric resources the in cluster during deployment.
 
 Miscellaneous elements of deployment
@@ -121,16 +124,16 @@ However, for different platforms, deployment may vary.
 Because of that, additional components are defined in this repository. They allow to deploy operatorized Tungsten Fabric
 with platforms like Openstack or Openshift.
 Depending on specific bussiness problem and environment it's necessary to pick components that will fulfill the needs.
-To find out more about Tungsten Fabric architecture watch `this <https://wiki.lfnetworking.org/display/LN/2021-02-02+-+TF+Architecture+Overview>`_
-presentation or read `this <https://codilime.com/tungsten-fabric-architecture-an-overview/>`_ blogpost.
+To find out more about Tungsten Fabric architecture watch `this <https://wiki.lfnetworking.org/display/LN/2021-02-02+-+TF+Architecture+Overview>`__
+presentation or read `this <https://codilime.com/tungsten-fabric-architecture-an-overview/>`__ blogpost.
 
 Openshift deployment use case example
 -------------------------------------
 
-For example, to deploy described above infrastructure on Openshift, it's necessary to apply some additional resources.
+For example, to deploy described above infrastructure on Openshift, it is necessary to apply some additional resources.
 Openshift is based on RedHat CoreOS nodes which have generally read-only filesystem and limited system tools for configuration during runtime.
 CoreOS is designed to be configured buring boot process with so called ignition configs and then work with persistent configuration.
-Because of that `here <https://github.com/tungstenfabric/tf-openshift/tree/master/deploy/openshift>`_ are some ignition configs applied as custom resources managed by operator
+Because of that `here <https://github.com/tungstenfabric/tf-openshift/tree/master/deploy/openshift>`__ are some ignition configs applied as custom resources managed by operator
 delivered by Openshift. For example nftables rules required by Tungsten Fabric are applied with ignition files or an overlay mount
 of `/lib/modules` directory is created in order to allow mount of vRouter kernel module.
 
