@@ -21,8 +21,8 @@ However, only operator allows to have full insights into created cluster resourc
 
 Custom operator may be written in multiple languages as in fact it's just a piece of code  that acts when triggered by events from the Kubernetes API.
 Currently, the most popular language to write operators is the language that was used to write the Kubernetes project itself - Go.
-Helpful tool for creating operators is `Operator Framework <https://github.com/operator-framework>`_ which distributes
-`Operator-SDK <https://github.com/operator-framework/operator-sdk>`_ commonly used to create operators - for example this operator.
+Helpful tool for creating operators is `Operator Framework <https://github.com/operator-framework>`__ which distributes
+`Operator-SDK <https://github.com/operator-framework/operator-sdk>`__ commonly used to create operators - for example this operator.
 
 Every custom resource built with operator contains 2 elements.
 First element is API which defines how resource is defined and what's it's structure.
@@ -37,7 +37,7 @@ How does it work here?
 ----------------------
 
 This operator implements custom resources for Tungsten Fabric deployment.
-Before tf-operator the `tf-ansible-deployer <https://github.com/tungstenfabric/tf-ansible-deployer>`_ was used, which contained
+Before tf-operator the `tf-ansible-deployer <https://github.com/tungstenfabric/tf-ansible-deployer>`__ was used, which contained
 set of ansible playbooks that setup instances based on a file with configuration.
 This method took a lot time and could often fail, because of connection lost between bootstraping instance and cluster or unexpected failure.
 
@@ -67,7 +67,7 @@ In its definition user defines which components should be created and with what 
 
 However, Kubernetes cluster by default does not know what is Manager resource how to implement it's deployment.
 Because of that it's necessary to beforewards apply all CRDs (Custom Resource Definitions) to cluster which in this repository are located under
-`deploy/crds <https://github.com/tungstenfabric/tf-operator/tree/master/deploy/crds>`_ directory.
+`deploy/crds <https://github.com/tungstenfabric/tf-operator/tree/master/deploy/crds>`__ directory.
 While Kubernetes cluster will now properly read manifests for Tungsten Fabric custom resources, it does not have logic that
 should be used in order to properly control resources.
 
@@ -80,41 +80,42 @@ Because operator allows to create custom logic in code, some components wait for
 Pods which protects deployment against race conditions and potential failures.
 
 After example infrastructure is deployed following Pods run in contrail namespace:
-```
-$ kubectl get pods -n contrail
-NAME                                          READY   STATUS             RESTARTS   AGE
-cassandra1-cassandra-statefulset-0            1/1     Running            0          39m
-cassandra1-cassandra-statefulset-1            1/1     Running            0          39m
-cassandra1-cassandra-statefulset-2            1/1     Running            0          39m
-config1-config-statefulset-0                  10/10   Running            0          38m
-config1-config-statefulset-1                  10/10   Running            0          38m
-config1-config-statefulset-2                  10/10   Running            0          39m
-tf-operator-dd5bb5c-klqwb                     1/1     Running            0          42m
-control1-control-statefulset-0                4/4     Running            0          30m
-control1-control-statefulset-1                4/4     Running            0          30m
-control1-control-statefulset-2                4/4     Running            0          30m
-kubemanager1-kubemanager-statefulset-0        2/2     Running            0          30m
-kubemanager1-kubemanager-statefulset-1        2/2     Running            0          30m
-kubemanager1-kubemanager-statefulset-2        2/2     Running            0          30m
-provmanager1-provisionmanager-statefulset-0   1/1     Running            0          30m
-rabbitmq1-rabbitmq-statefulset-0              1/1     Running            0          39m
-rabbitmq1-rabbitmq-statefulset-1              1/1     Running            0          39m
-rabbitmq1-rabbitmq-statefulset-2              1/1     Running            0          39m
-vroutermasternodes-vrouter-daemonset-rgl4t    1/1     Running            0          28m
-vroutermasternodes-vrouter-daemonset-ttc7c    1/1     Running            0          28m
-vroutermasternodes-vrouter-daemonset-wn6qg    1/1     Running            0          28m
-vrouterworkernodes-vrouter-daemonset-gs4bw    1/1     Running            0          5m
-vrouterworkernodes-vrouter-daemonset-p7zkw    1/1     Running            0          5m
-vrouterworkernodes-vrouter-daemonset-pqfw9    1/1     Running            0          5m
-webui1-webui-statefulset-0                    3/3     Running            0          30m
-webui1-webui-statefulset-1                    3/3     Running            0          30m
-webui1-webui-statefulset-2                    3/3     Running            0          30m
-zookeeper1-zookeeper-statefulset-0            1/1     Running            0          8m
-zookeeper1-zookeeper-statefulset-1            1/1     Running            0          8m
-zookeeper1-zookeeper-statefulset-2            1/1     Running            0          8m
-```
 
-That's just one resource type which creates all the custom Tungsten Fabric resources the in cluster during deployment.
+.. code-block:: console
+
+    $ kubectl get pods -n contrail
+    NAME                                          READY   STATUS             RESTARTS   AGE
+    cassandra1-cassandra-statefulset-0            1/1     Running            0          39m
+    cassandra1-cassandra-statefulset-1            1/1     Running            0          39m
+    cassandra1-cassandra-statefulset-2            1/1     Running            0          39m
+    config1-config-statefulset-0                  10/10   Running            0          38m
+    config1-config-statefulset-1                  10/10   Running            0          38m
+    config1-config-statefulset-2                  10/10   Running            0          39m
+    tf-operator-dd5bb5c-klqwb                     1/1     Running            0          42m
+    control1-control-statefulset-0                4/4     Running            0          30m
+    control1-control-statefulset-1                4/4     Running            0          30m
+    control1-control-statefulset-2                4/4     Running            0          30m
+    kubemanager1-kubemanager-statefulset-0        2/2     Running            0          30m
+    kubemanager1-kubemanager-statefulset-1        2/2     Running            0          30m
+    kubemanager1-kubemanager-statefulset-2        2/2     Running            0          30m
+    provmanager1-provisionmanager-statefulset-0   1/1     Running            0          30m
+    rabbitmq1-rabbitmq-statefulset-0              1/1     Running            0          39m
+    rabbitmq1-rabbitmq-statefulset-1              1/1     Running            0          39m
+    rabbitmq1-rabbitmq-statefulset-2              1/1     Running            0          39m
+    vroutermasternodes-vrouter-daemonset-rgl4t    1/1     Running            0          28m
+    vroutermasternodes-vrouter-daemonset-ttc7c    1/1     Running            0          28m
+    vroutermasternodes-vrouter-daemonset-wn6qg    1/1     Running            0          28m
+    vrouterworkernodes-vrouter-daemonset-gs4bw    1/1     Running            0          5m
+    vrouterworkernodes-vrouter-daemonset-p7zkw    1/1     Running            0          5m
+    vrouterworkernodes-vrouter-daemonset-pqfw9    1/1     Running            0          5m
+    webui1-webui-statefulset-0                    3/3     Running            0          30m
+    webui1-webui-statefulset-1                    3/3     Running            0          30m
+    webui1-webui-statefulset-2                    3/3     Running            0          30m
+    zookeeper1-zookeeper-statefulset-0            1/1     Running            0          8m
+    zookeeper1-zookeeper-statefulset-1            1/1     Running            0          8m
+    zookeeper1-zookeeper-statefulset-2            1/1     Running            0          8m
+
+That is just one resource type which creates all the custom Tungsten Fabric resources the in cluster during deployment.
 
 Miscellaneous elements of deployment
 ------------------------------------
@@ -141,7 +142,7 @@ Openshift deployment process from version 4 is fully based on operators.
 It means that every feature of this platform is deployed as set of custom resources managed by operator.
 Because of that, tf-operator works great with deploying CNI plugin on cluster during Openshift installation.
 Openshift installation process is all defined with manifests similar to manifests created for
-Tungsten Fabric created by Openshift just before cluster install which means that Tungsten Fabric `manifests <https://github.com/tungstenfabric/tf-openshift/tree/master/deploy/manifests>`_may just be
+Tungsten Fabric created by Openshift just before cluster install which means that Tungsten Fabric `manifests <https://github.com/tungstenfabric/tf-openshift/tree/master/deploy/manifests>`__ may just be
 added to other install manifests and will be applied on cluster during install process.
 
-More on Openshift install process with Tungsten Fabric as CNI `here <https://github.com/tungstenfabric/tf-openshift>`_.
+More on Openshift install process with Tungsten Fabric as CNI `here <https://github.com/tungstenfabric/tf-openshift>`__.
