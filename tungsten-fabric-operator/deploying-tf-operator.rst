@@ -1,6 +1,8 @@
 Deploying TF Operator
 =====================
 
+:Date: 2020-02-16
+
 Prerequisities
 --------------
 

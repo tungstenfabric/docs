@@ -1,6 +1,8 @@
 Working with Kubernetes Operators 101
 =====================================
 
+:Date: 2020-02-16
+
 What is an operator?
 --------------------
 
