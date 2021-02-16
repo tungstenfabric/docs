@@ -1,6 +1,8 @@
 Understanding Tungsten Fabric
 =================================
 
+:date: 2020-05-08
+
 Tungsten Fabric provides dynamic end-to-end networking policy and
 control for any cloud, any workload, and any deployment, from a single
 user interface. It translates abstract workflows into specific policies,

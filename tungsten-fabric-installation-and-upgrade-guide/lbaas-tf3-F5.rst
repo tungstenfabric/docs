@@ -1,6 +1,8 @@
 Using Load Balancers in Tungsten Fabric
 =======================================
 
+:date: 2020-05-26
+
 As of Tungsten Fabric 3.0, load balancer LBaaS features are available.
 This topic includes:
 

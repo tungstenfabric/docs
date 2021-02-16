@@ -1,6 +1,8 @@
 Configuring Underlay Network for ContrailVM
 ===========================================
 
+:date: 2019-07-30
+
 The ContrailVM can be configured in several different ways for the
 underlay (``ip-fabric``) connectivity:
 

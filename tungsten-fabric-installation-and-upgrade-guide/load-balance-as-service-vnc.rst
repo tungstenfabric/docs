@@ -1,6 +1,8 @@
 Configuring Load Balancing as a Service in TF
 =============================================
 
+:date: 2020-05-26
+
 Overview: Load Balancing as a Service
 -------------------------------------
 
@@ -53,7 +55,7 @@ using the following methods:
 -  Monitors ping by checking if a member can be reached by pinging.
 
 TF LBaaS Implementation
------------------------------
+-----------------------
 
 TF supports the OpenStack LBaaS Neutron APIs and creates relevant
 objects for LBaaS, including ``virtual-ip``,
@@ -65,6 +67,7 @@ virtual router and spawns HAProxy into that namespace. The configuration
 for HAProxy is picked up from the load balancer objects. TF
 supports high availability of namespaces and HAProxy by spawning active
 and standby on two different vrouters.
+
 A Note on Installation
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -116,6 +119,7 @@ The LBaaS feature is enabled on TF through Neutron API calls. The
 following procedure shows how to create a pool network and a VIP network
 using CLI. The VIP network is created in the public network and members
 are added in the pool network.
+
 Creating a Load Balancer
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

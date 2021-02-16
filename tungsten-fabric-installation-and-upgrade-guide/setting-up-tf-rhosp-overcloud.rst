@@ -1,5 +1,9 @@
+.. _Setting Up the Overcloud RHOSP 13:
+
 Setting Up the Overcloud
 ========================
+
+:date: 2020-10-14
 
 Configuring the Overcloud
 -------------------------
@@ -1577,140 +1581,64 @@ Overview
 
 Mapping Table
 
-Table 2: Mapping Table
 
-.. raw:: html
+.. list-table:: **Quota descriptions**
+      :header-rows: 1
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   <col style="width: 16%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Nova Name</p></th>
-   <th style="text-align: left;"><p>Ironic Name</p></th>
-   <th style="text-align: left;"><p>UUID</p></th>
-   <th style="text-align: left;"><p>KVM</p></th>
-   <th style="text-align: left;"><p>IP Address</p></th>
-   <th style="text-align: left;"><p>POP</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -0</p></td>
-   <td style="text-align: left;"><p>control-only-1-<br />
-   5b3s30</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 7d758dce-2784-<br />
-   45fd-be09-5a41eb53e764</p>
-   <br />
+      * - Nova Name
+        - Ironic Name
+        - UUID
+        - KVM
+        - IP Address
+        - POP
+      * - overcloud-contrailcontrolonly-0
+        - control-only-1-5b3s30
+        - Ironic UUID: 7d758dce-2784-45fd-be09-5a41eb53e764
+          
+          DMI UUID: 73F8D030-E896-4A95-A9F5-E1A4FEBE322D
+        - 5b3s30
+        - 10.0.0.11
+        - POP1
+      * - overcloud-contrailcontrolonly-1
+        - control-only-2-5b3s30
+        - Ironic UUID: d26abdeb-d514-4a37-a7fb-2cd2511c351f
+          
+          DMI UUID: 14639A66-D62C-4408-82EE-FDDC4E509687
+        - 5b3s30
+        - 10.0.0.14
+        - POP2
+      * - overcloud-contrailcontrolonly-2
+        - control-only-1-5b3s31
+        - Ironic UUID: 91dd9fa9-e8eb-4b51-8b5e-bbaffb6640e4
+          
+          DMI UUID: 28AB0B57-D612-431E-B177-1C578AE0FEA4
+        - 5b3s31
+        - 10.0.0.12
+        - POP1
+      * - overcloud-contrailcontrolonly-3
+        - control-only-2-5b3s31
+        - Ironic UUID: 09fa57b8-580f-42ec-bf10-a19573521ed4
+          
+          DMI UUID: 09BEC8CB-77E9-42A6-AFF4-6D4880FD87D0
+        - 5b3s31
+        - 10.0.0.15
+        - POP2
+      * - overcloud-contrailcontrolonly-4
+        - control-only-1-5b3s32
+        - Ironic UUID: 4766799-24c8-4e3b-af54-353f2b796ca4
+          
+          DMI UUID: 3993957A-ECBF-4520-9F49-0AF6EE1667A7
+        - 5b3s32
+        - 10.0.0.13
+        - POP1
+      * - overcloud-contrailcontrolonly-5
+        - control-only-2-5b3s32
+        - Ironic UUID: 58a803ae-a785-470e-9789-139abbfa74fb
 
-.. raw:: html
-
-   <p>DMI UUID: 73F8D030-E896-<br />
-   4A95-A9F5-E1A4FEBE322D</p></td>
-   <td style="text-align: left;"><p>5b3s30</p></td>
-   <td style="text-align: left;"><p>10.0.0.11</p></td>
-   <td style="text-align: left;"><p>POP1</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -1</p></td>
-   <td style="text-align: left;"><p>control-only-2-<br />
-   5b3s30</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: d26abdeb-d514-<br />
-   4a37-a7fb-2cd2511c351f</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 14639A66-D62C-<br />
-   4408-82EE-FDDC4E509687</p></td>
-   <td style="text-align: left;"><p>5b3s30</p></td>
-   <td style="text-align: left;"><p>10.0.0.14</p></td>
-   <td style="text-align: left;"><p>POP2</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -2</p></td>
-   <td style="text-align: left;"><p>control-only-1-<br />
-   5b3s31</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 91dd9fa9-e8eb-<br />
-   4b51-8b5e-bbaffb6640e4</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 28AB0B57-D612-<br />
-   431E-B177-1C578AE0FEA4</p></td>
-   <td style="text-align: left;"><p>5b3s31</p></td>
-   <td style="text-align: left;"><p>10.0.0.12</p></td>
-   <td style="text-align: left;"><p>POP1</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -3</p></td>
-   <td style="text-align: left;"><p>control-only-2-<br />
-   5b3s31</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 09fa57b8-580f-<br />
-   42ec-bf10-a19573521ed4</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 09BEC8CB-77E9-<br />
-   42A6-AFF4-6D4880FD87D0</p></td>
-   <td style="text-align: left;"><p>5b3s31</p></td>
-   <td style="text-align: left;"><p>10.0.0.15</p></td>
-   <td style="text-align: left;"><p>POP2</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -4</p></td>
-   <td style="text-align: left;"><p>control-only-1-<br />
-   5b3s32</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 4766799-24c8-<br />
-   4e3b-af54-353f2b796ca4</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: 3993957A-ECBF-<br />
-   4520-9F49-0AF6EE1667A7</p></td>
-   <td style="text-align: left;"><p>5b3s32</p></td>
-   <td style="text-align: left;"><p>10.0.0.13</p></td>
-   <td style="text-align: left;"><p>POP1</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>overcloud<br />
-   -contrailcontrolonly<br />
-   -5</p></td>
-   <td style="text-align: left;"><p>control-only-2-<br />
-   5b3s32</p></td>
-   <td style="text-align: left;"><p>Ironic UUID: 58a803ae-a785-<br />
-   470e-9789-139abbfa74fb</p>
-   <br />
-
-.. raw:: html
-
-   <p>DMI UUID: AF92F485-C30C-<br />
-   4D0A-BDC4-C6AE97D06A66</p></td>
-   <td style="text-align: left;"><p>5b3s32</p></td>
-   <td style="text-align: left;"><p>10.0.0.16</p></td>
-   <td style="text-align: left;"><p>POP2</p></td>
-   </tr>
-   </tbody>
-   </table>
+          DMI UUID: AF92F485-C30C-4D0A-BDC4-C6AE97D06A66
+        - 5b3s32
+        - 10.0.0.16
+        - POP2
 
 ControlOnly preparation
 

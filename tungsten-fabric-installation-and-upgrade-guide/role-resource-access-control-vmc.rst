@@ -1,6 +1,8 @@
 Configuring Role and Resource-Based Access Control
 ==================================================
 
+:date: 2020-07-30
+
 Tungsten Fabric Role and Resource-Based Access (RBAC) Overview
 --------------------------------------------------------------
 

@@ -3,6 +3,8 @@
 Installing a Standalone Red Hat OpenShift Container Platform 3.11 Cluster with TF Using TF OpenShift Deployer
 =============================================================================================================
 
+:date: 2020-10-21
+
 You can install Tungsten Fabric together with a standalone Red Hat
 OpenShift Container Platform 3.11 cluster using TF OpenShift
 deployer. Consider the topology illustrated here.

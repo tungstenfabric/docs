@@ -1,7 +1,7 @@
 Ceilometer Support in Tungsten Fabric
 =====================================
 
- 
+:date: 2019-02-07 
 
 Ceilometer is an OpenStack feature that provides an infrastructure for
 collecting SDN metrics from OpenStack projects. The metrics can be used
@@ -24,10 +24,10 @@ The prerequisites for installing Ceilometer are:
 -  Provisioned using ``enable_ceilometer = True`` in the
    ``provisioning`` file.
 
-**Note**
+.. note::
 
-Ceilometer services are only installed on the first OpenStack controller
-node and do not support high availability in Tungsten Fabric Release 2.20.
+   Ceilometer services are only installed on the first OpenStack controller
+   node and do not support high availability in Tungsten Fabric Release 2.20.
 
 Ceilometer Details
 ------------------
@@ -144,13 +144,13 @@ reported via the REST API. The following is an example of the output:
    | subnet.create                | delta      | subnet  | 4bf00aac-407c-4266-a048-6ff52721ad82 | 15c0240142084d16b3127d6f844adbd9 | ded208991de34fe4bb7dd725097f1c7e |
    +------------------------------+------------+---------+--------------------------------------+----------------------------------+----------------------------------+
 
-**Note**
+.. note::
 
-The ceilometer meter-list command lists the meters only if images have
-been created, or instances have been launched, or if subnet, port,
-floating IP addresses have been created, otherwise the meter list is
-empty. You also need to source the ``/etc/contrail/openstackrc`` file
-when executing the command.
+   The ceilometer meter-list command lists the meters only if images have
+   been created, or instances have been launched, or if subnet, port,
+   floating IP addresses have been created, otherwise the meter list is
+   empty. You also need to source the ``/etc/contrail/openstackrc`` file
+   when executing the command.
 
 Tungsten Fabric Ceilometer plugin
 ---------------------------------

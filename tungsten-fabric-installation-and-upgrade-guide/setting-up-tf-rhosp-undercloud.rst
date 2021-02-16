@@ -1,6 +1,8 @@
 Setting Up the Undercloud
 =========================
 
+:date: 2020-07-07
+
 Install the Undercloud
 ----------------------
 

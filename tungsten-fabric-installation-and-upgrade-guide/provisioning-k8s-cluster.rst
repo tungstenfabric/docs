@@ -1,6 +1,8 @@
 Provisioning of Kubernetes Clusters
 ===================================
 
+:date: 2020-10-21
+
 Tungsten Fabric supports the following ways of provisioning
 Kubernetes clusters:
 
@@ -34,9 +36,7 @@ TF cluster and integrate them together.
    ``cd contrail-ansible-deployer``
 
 5. Edit the ``config/instances.yaml`` and enter the necessary values.
-   See `Understanding contrail-ansible-deployer used in Contrail
-   Command <../../concept/install-contrail-overview-ansible-50.html>`__
-   for a sample ``config/instances.yaml`` file.
+
 
 6. Turn off the swap functionality on all nodes.
 
@@ -118,7 +118,7 @@ Kubernetes cluster.
 .. _configure-network-connectivity-to-contrail-configuration-and-data-plane-functions:
 
 Configure network connectivity to TF configuration and data plane functions.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A nested Kubernetes cluster is managed by the same TF control
 processes that manage the underlying OpenStack cluster.
@@ -240,8 +240,7 @@ This file can be generated as follows:
 
       ./resolve-manifest.sh contrail-kubernetes-nested.yaml  > nested-contrail.yml
 
-5. Copy the output (or file) generated from
-   `4 <provisioning-k8s-cluster.html#yaml-step3>`__ to the primary node
+5. Copy the output (or file) generated from 4 to the primary node
    in your Kubernetes cluster.
 
 Instantiate the Contrail-k8s cluster
@@ -265,7 +264,7 @@ contrail-kubernetes-cni-agent-xxxxx—This installs and configures
 TF CNI on Kubernetes nodes
 
 Provisioning of Non-Nested TF Kubernetes Clusters
--------------------------------------------------------
+-------------------------------------------------
 
 In non-nested mode, a Kubernetes cluster is provisioned side by side
 with an OpenStack cluster with networking provided by the same Contrail
@@ -345,8 +344,7 @@ Follow these steps to provision TF Kubernetes cluster.
 
       ./resolve-manifest.sh contrail-kubernetes-nested.yaml  > non-nested-contrail.yml
 
-5. Copy the file generated from
-   `4 <provisioning-k8s-cluster.html#non-nested-step3>`__ to the primary
+5. Copy the file generated from 4 to the primary
    node in your Kubernetes cluster.
 
 6. Create TF components as pods on the Kubernetes cluster as

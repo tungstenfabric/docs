@@ -1,6 +1,7 @@
 Installing Tungsten Fabric with OpenStack by Using Juju Charms
 ==============================================================
 
+:date: 2020-12-28
 
 You can deploy TF by using Juju Charms. Juju helps you deploy,
 configure, and efficiently manage applications on private clouds and
@@ -29,7 +30,7 @@ TF supports the following charms:
 These topics describe how to deploy TF by using Juju Charms.
 
 Preparing to Deploy TF by Using Juju Charms
--------------------------------------------------
+-------------------------------------------
 
 Follow these steps to prepare for deployment:
 
@@ -145,10 +146,11 @@ Follow these steps to prepare for deployment:
       cloud environment.
 
 Deploying TF Charms
--------------------------
+-------------------
 You can deploy TF Charms in a bundle or manually.
+
 Deploy TF Charms in a Bundle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Follow these steps to deploy TF Charms in a bundle.
 

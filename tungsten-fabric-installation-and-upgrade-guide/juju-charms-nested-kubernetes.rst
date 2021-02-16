@@ -1,6 +1,8 @@
 Installing Tungsten Fabric with Kubernetes in Nested Mode by Using Juju Charms
 ==============================================================================
 
+:date: 2020-10-15
+
 Tungsten Fabric Release 1909 and later support provisioning of a
 Kubernetes cluster inside an OpenStack cluster. Tungsten Fabric
 offers a nested control and data plane where a single TF control

@@ -1,7 +1,7 @@
 Configuring Transport Layer Security-Based XMPP in Tungsten Fabric
 ==================================================================
 
- 
+:date: 2019-04-03
 
 Overview: TLS-Based XMPP
 ------------------------

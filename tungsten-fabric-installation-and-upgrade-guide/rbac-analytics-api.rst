@@ -1,6 +1,8 @@
 Configuring Role-Based Access Control for Analytics
 ===================================================
 
+:date: 2020-09-15
+
 The analytics API uses role-based access control (RBAC) to provide the
 ability to access UVE and query information based on the permissions of
 the user for the UVE or queried object.

@@ -1,6 +1,8 @@
 Multiqueue Virtio Interfaces in Virtual Machines
 ================================================
 
+:date: 2017-02-24
+
 Tungsten Fabric 3.2 adds support for multiqueue for the DPDK-based vrouter.
 
 Tungsten Fabric 3.1 supports multiqueue virtio interfaces for Ubuntu

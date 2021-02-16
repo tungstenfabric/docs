@@ -1,10 +1,14 @@
 Setting Up the Infrastructure
 =============================
+
+:date: 2020-07-23
+
 Summary
 -------
 
 Follow this topic to set up the infrastructure for Tungsten Fabric
 deployment with RHOSP 16.1.
+
 Target Configuration (Example)
 ------------------------------
 

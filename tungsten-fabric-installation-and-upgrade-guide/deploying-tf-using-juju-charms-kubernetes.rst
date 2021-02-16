@@ -3,7 +3,7 @@
 Installing TF with Kubernetes by Using Juju Charms
 ========================================================
 
- 
+:date: 2020-10-29
 
 You can deploy Tungsten Fabric using Juju Charms. Juju helps you
 deploy, configure, and efficiently manage applications on private clouds
@@ -12,8 +12,7 @@ controller. A Charm is a module containing a collection of scripts and
 metadata and is used with Juju to deploy TF.
 
 A Juju Charm helps you deploy Docker containers to the cloud. For more
-information on containerized TF, see `Understanding Contrail
-Containers <../concept/summary-of-container-design.html>`__. Juju Charms
+information on containerized TF, see :ref:`Understanding TF Containers`. Juju Charms
 simplifies TF deployment by providing a simple way to deploy,
 configure, scale, and manage TF operations.
 
@@ -140,13 +139,15 @@ Follow these steps to prepare for deployment:
 4. Download the Contrail bundle from `JAAS - TF Kubernetes <https://jaas.ai/u/juniper-os-software/contrail-k8s>`__.
 
 Deploying TF Charms with Kubernetes
------------------------------------------
+-----------------------------------
+
 Juju Charms simplifies TF deployment by providing a simple way to
 deploy, configure, scale, and manage TF operations.
 
 You can deploy TF Charms in a bundle or manually.
+
 Deploying TF Charms in a Bundle
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Follow these steps to deploy TF Charms in a bundle.
 

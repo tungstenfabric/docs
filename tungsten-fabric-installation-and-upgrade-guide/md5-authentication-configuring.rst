@@ -1,6 +1,8 @@
 Configuring MD5 Authentication for BGP Sessions
 ===============================================
 
+:date: 2019-04-23
+
 TF supports MD5 authentication for BGP peering based on RFC 2385.
 
 This option allows BGP to protect itself against the introduction of

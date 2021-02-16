@@ -1,6 +1,8 @@
 Creating an Image for a Project in OpenStack
 ============================================
 
+:date: 2018-04-26
+
 To specify an image to upload to the Image Service for a project in your
 system by using the OpenStack dashboard:
 

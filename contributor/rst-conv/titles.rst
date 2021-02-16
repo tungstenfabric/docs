@@ -12,6 +12,9 @@ levels within one file using the following non-alphanumeric characters:
 
     * **Heading 3** - underline with tildes.
 
+When it's a first Heading in a file it should be folowed by a `:Date:` directive with a date of last major update (or creation). 
+The date should be also updated when an old document is positively verified for being up-to-date.
+
 **Input**
 
 .. code::
@@ -19,9 +22,13 @@ levels within one file using the following non-alphanumeric characters:
    Heading 1
    =========
 
+   :Date: 2020-01-01
+
    Body of the first level section that includes general overview
    of the subject to be covered by the whole section.
    Can include several focused Heading-2-sections.
+   When it's a first Heading in a file it should be folowed by a :Date: directive with a date of last major update (or creation). 
+   The date should be also updated when an old document is positively verified for being up-to-date.
 
    Heading 2
    ---------
