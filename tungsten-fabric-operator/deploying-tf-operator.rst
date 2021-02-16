@@ -1,7 +1,7 @@
 Deploying TF Operator
 =====================
 
-:Date: 2020-02-16
+:Date: 2021-02-16
 
 Prerequisities
 --------------

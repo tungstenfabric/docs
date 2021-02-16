@@ -15,3 +15,4 @@ Documentation Structure
    working-with-kubernetes-operators-101
    deploying-tf-operator
    development-of-tf-operator
+   tf-operator-with-openshift-4
