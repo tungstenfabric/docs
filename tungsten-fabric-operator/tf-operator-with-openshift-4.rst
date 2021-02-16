@@ -153,6 +153,7 @@ Access Cluster
 In order to access export **KUBECONFIG** environment variable.
 **KUBECONFIG** file may be found under **<Openshift install directory>/auth/kubeconfig**
 E.x.
+
 .. code::
 
     export KUBECONFIG=<Openshift install directory>/auth/kubeconfig
