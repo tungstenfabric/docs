@@ -138,7 +138,7 @@ Open Security Groups
 Depending on deployment environment ensure that ports necessary for Tungsten Fabric proper work are open.
 Especially for cloud environments open additional ports in security groups or firewall rules depending on cloud provider.
 
-To open ports automatically `this <TODO PROVIDE URL WHEN READY>`__ simple Go CLI tool may be used.
+To open ports automatically `this <https://github.com/Juniper/contrail-operator/tree/master/deploy/openshift/tools/contrail-sc-open>`__ simple Go CLI tool may be used.
 
 Patch the externalTrafficPolicy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
