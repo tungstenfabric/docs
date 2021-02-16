@@ -1,6 +1,8 @@
 Development of TF Operator
 ==========================
 
+:Date: 2020-02-16
+
 Prerequisities
 --------------
 
@@ -43,6 +45,7 @@ Here are some best practices in writing Kubernetes operators:
 * API should minimize human error by hardening API with OpenAPI spec.
 
 More best practises on developing Kubernetes operators may be found here:
+
 * `Operator Framework Best Practises <https://github.com/operator-framework/community-operators/blob/master/docs/best-practices.md>`_
 * `7 Best Practises for Writing Kubernetes Operators: An SRE Perspective <https://www.openshift.com/blog/7-best-practices-for-writing-kubernetes-operators-an-sre-perspective>`_
 * `Kubernetes Operators Best Practises <https://www.openshift.com/blog/kubernetes-operators-best-practices>`_
