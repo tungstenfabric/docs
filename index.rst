@@ -22,78 +22,15 @@ Documentation Structure
 -----------------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :titlesonly:
 
    user/index.rst
-   contributor/index.rst
+   about-tungsten-fabric/index.rst
    infrastructure/index.rst
    administration/index.rst
    governance/index.rst
    tungsten-fabric-installation-and-upgrade-guide/index.rst
-
-We welcome new contributors!
-----------------------------
-
-Some useful Tungsten Fabric links:
-
--  Main website:  https://tungsten.io
--  Community Wiki: https://wiki.tungsten.io
--  Documentation: https://docs.tungsten.io
--  Issue Tracker: https://jira.tungsten.io
--  Mailing lists: https://lists.tungsten.io
--  Code review: https://gerrit.tungsten.io
--  Code repository: https://github.com/tungstenfabric 
-
-For now, you can also access some of the old sites from our former
-OpenContrail days, but these are no longer in active use:
-
--  Legacy issue tracker: https://launchpad.net/opencontrail
--  Legacy issue tracker: https://launchpad.net/juniperopenstack
--  Legacy code review: https://review.opencontrail.org
-
-Public Meetings
----------------
-
-Tungsten Fabric holds several regular public meetings via Zoom
-conference call. All participants are welcome!
-
-You can always find the full call schedule on the `community calendar`_.
-
-Technical Steering Committee
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The Technical Steerig Committee (TSC) is responsible for setting high
-level architecture goals and coordinating overall project architecture
-and technical direction of Tungsten Fabric. It’s the main governing and
-community body of the project.
-
-This meeting is open to the public and all participants are welcome.
-
-https://wiki.tungsten.io/display/TUN/Technical+Steering+Committee
-
-Infrastructure Working Group
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This group addresses technical work on the Continuous Integration (CI)
-system and developer environment.
-
-https://wiki.tungsten.io/display/TUN/Infrastructure+Working+Group
-
-Documentation Working Group
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This group works on the user and developer facing documentation.
-
-https://wiki.tungsten.io/display/TUN/Documentation+Project
-
-Marketing Working Group
-~~~~~~~~~~~~~~~~~~~~~~~
-
-This group works to get the word out about Tungsten Fabric and promote
-TF usage and adoption.
-
-https://wiki.tungsten.io/display/TUN/Marketing+Working+Group
 
 Licensing
 ---------
@@ -106,4 +43,3 @@ International License.
 Please see the ``LICENSE`` file for complete information.
 
 .. _Tungsten Fabric Jira: https://jira.tungsten.io
-.. _community calendar: https://tungsten.io/community/

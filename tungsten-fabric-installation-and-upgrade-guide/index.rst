@@ -184,12 +184,3 @@ Post Installation Tasks
    upgrade-in-place
    vcenter-as-orchestrator-deployment-scenarios-501
    vcenter-tf
- 
-.. toctree::
- :maxdepth: 2
- :hidden:
- :caption: Step-by-step Guides
-
- /tungsten-fabric-installation-and-upgrade-guide/guides/tools
- /tungsten-fabric-installation-and-upgrade-guide/guides/platform
- /tungsten-fabric-installation-and-upgrade-guide/guides/commercial

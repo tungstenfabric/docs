@@ -1,12 +1,11 @@
-Contribute to Tungsten Fabric
+About Tungsten Fabric
 =============================
-
-There are a number of ways you can contribute to the project.
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
 
+   contribute.rst
    getting-started/index
    getting-started/Processes_and_Guidelines_for_BluePrint_Code_and_Test_Submissions
    getting-started/Tungsten_Fabric_JIRA_Workflow
