@@ -1,7 +1,7 @@
 Updating Tungsten Fabric using the Zero Impact Upgrade Process in an Environment using Red Hat Openstack
 ============================================================================================================
 
- 
+:date: 2020-09-16 
 
 This document provides the steps needed to update a Tungsten Fabric
 deployment that is using Red Hat Openstack as it’s orchestration
@@ -78,8 +78,7 @@ Before You Begin
 We recommend performing these procedures before starting the update:
 
 -  Backup your TF configuration database before starting this
-   procedure. See `How to Backup and Restore TF databases in JSON
-   Format <../../concept/backup-using-json-50.html>`__.
+   procedure. See :ref:`How to Backup and Restore TF databases in JSON Format`.
 
 -  Each compute node agent will go down during this procedure, causing
    some compute node downtime. The estimated downtime for a compute node

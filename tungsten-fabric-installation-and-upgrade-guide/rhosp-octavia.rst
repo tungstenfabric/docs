@@ -1,6 +1,8 @@
 Installing OpenStack Octavia LBaaS with RHOSP in Tungsten Fabric
 ====================================================================
 
+:date: 2020-06-08
+
 Tungsten Fabric Release 2005 supports Octavia as LBaaS. The
 deployment supports RHOSP and Juju platforms.
 
@@ -114,8 +116,7 @@ Prerequisites:
 
     ``openstack loadbalancer listener create --protocol HTTP --protocol-port 80 --name listener1 lb1openstack loadbalancer show lb1  # Wait for the provisioning_status to be ACTIVE.openstack loadbalancer pool create --lb-algorithm ROUND_ROBIN --listener listener1 --protocol HTTP --name pool1openstack loadbalancer healthmonitor create --delay 5 --timeout 2 --max-retries 1 --type HTTP pool1openstack loadbalancer member create --subnet-id private --address 10.10.10.50 --protocol-port 80 pool1openstack loadbalancer member create --subnet-id private --address 10.10.10.51 --protocol-port 80 pool1``
     IP addresses 10.10.10.50 and 10.10.10.51 belong to VMs created with
-    test http server in step
-    `7 <rhosp-octavia.html#CreateSimpleHTTPServerOnEveryCirros>`__.
+    test http server in step 7.
 10. Check the status of load balancer.
 
     ``openstack loadbalancer show lb1  # Wait for the provisioning_status to be ACTIVE. openstack loadbalancer pool listopenstack loadbalancer pool show pool1openstack loadbalancer member list pool1openstack loadbalancer listener list``

@@ -1,6 +1,8 @@
 Understanding Tungsten Fabric microservices architecture
 ========================================================
 
+:date: 2020-04-07
+
 What is Tungsten Fabric microservices architecture?
 ---------------------------------------------------
 

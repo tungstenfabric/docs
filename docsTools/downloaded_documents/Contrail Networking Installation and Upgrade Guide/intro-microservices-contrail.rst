@@ -25,7 +25,7 @@ The containers and their processes are grouped as services and
 microservices, and are similar to pods in the Kubernetes open-source
 software used to manage containers on a server cluster.
 
-`Figure 1 <intro-microservices-contrail.html#ansov1>`__ shows how the
+Figure 1 shows how the
 Contrail containers and microservices are grouped into a pod structure
 upon installation.
 

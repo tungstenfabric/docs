@@ -1,6 +1,8 @@
 Understanding Tungsten Fabric Components
 ========================================
 
+:date: 2019-05-29
+
 Tungsten Fabric is comprised of the following key components:
 
 -  *Tungsten Fabric management Web GUI and plug-ins* integrate with

@@ -1,6 +1,8 @@
 Updating Tungsten Fabric using the Zero Impact Upgrade Procedure in a Canonical Openstack Deployment with Juju Charms
 =====================================================================================================================
 
+:date: 2020-12-09
+
 This document provides the steps needed to update a Tungsten Fabric
 deployment that is using Canonical Openstack as it’s orchestration
 platform. The procedure utilizes Juju charms and provides a zero impact

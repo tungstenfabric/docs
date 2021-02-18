@@ -3,6 +3,8 @@
 Integrating Tungsten Fabric Release 5.0.X with VMware vRealize Orchestrator
 ===========================================================================
 
+:date: 2019-07-29
+
 A dedicated TF plugin is used to connect to VMware vRealize
 Orchestrator (vRO). Tungsten Fabric 5.0 supported a Beta version of the
 plugin. Starting with Tungsten Fabric 5.0.1, a fully supported version

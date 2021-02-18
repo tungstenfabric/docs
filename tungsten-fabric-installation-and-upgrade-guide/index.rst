@@ -1,21 +1,136 @@
+:orphan:
+
 Tungsten Fabric installation and upgrade guide
 ==============================================
 
 Use this guide to install and upgrade Tungsten Fabric solution. This guide covers various installation scenarios including:
 
-Tungsten Fabric with VMware vCenter.
-Tungsten Fabric with Red Hat.
-Tungsten Fabric with Kolla/Ocata OpenStack.
-Tungsten Fabric with Juju Charms.
+* Tungsten Fabric with VMware vCenter.
+* Tungsten Fabric with Red Hat.
+* Tungsten Fabric with Kolla/Ocata OpenStack.
+* Tungsten Fabric with Juju Charms.
 
 
 Documentation Structure
 -----------------------
 
-.. toctree::
-   :maxdepth: 3
-   :titlesonly:
+Understanding Tungsten Fabric
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* :doc:`understanding-tf` 
+* :doc:`understanding-tf-components` 
+* :doc:`summary-of-container-design`
+* :doc:`intro-microservices-tf`  
+  
+Supported platforms and server requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* :doc:`hardware-reqs-vnc`
+  
+Upgrading Tungsten Fabric
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* :doc:`installing-tf-ansible-ziu`
+* :doc:`install-tf-rhosp-ziu`
+* :doc:`update-canonical-openstack-juju`
+* :doc:`upgrade-tf-ansible-deployer`
+* :doc:`upgrade-in-place`
+
+Backup and restore Tungsten Fabric
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* :doc:`backup-using-json-50`
+
+Using Tungsten Fabric with VMware vCenter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* :doc:`vcenter-tf`
+* :doc:`install-tf-vRO-plugin`
+* :doc:`integrating-tf501-with-vRO`  
+* :doc:`vcenter-as-orchestrator-deployment-scenarios-501`
+
+Using Tungsten Fabric with OpenStack
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Setting Up Contrail with Red Hat OpenStack 16.1
+***********************************************
+
+* :doc:`setting-up-tf-rhosp16-introduction`
+* :doc:`setting-up-tf-rhosp16-infrastructure`
+* :doc:`setting-up-tf-rhosp16-undercloud`
+* :doc:`setting-up-tf-rhosp16-overcloud`
+
+Setting Up Contrail with Red Hat OpenStack 13
+*********************************************
+
+* :doc:`setting-up-tf-rhosp-introduction`
+* :doc:`setting-up-tf-rhosp-infrastructure`
+* :doc:`setting-up-tf-rhosp-undercloud`
+* :doc:`setting-up-tf-rhosp-overcloud`
+* :doc:`smartnic-vrouter-support`
+* :doc:`rhosp-octavia`
+
+Configuring Virtual Networks
+****************************
+
+* :doc:`creating-projects-vnc`
+* :doc:`creating-virtual-network-vnc`
+* :doc:`creating-image-vnc`
+* :doc:`creating-security-groups`
+
+Using Contrail Resources in Heat Templates
+******************************************
+
+* :doc:`heat-template-vnc`
+   
+QoS Support in Contrail Networking
+**********************************
+
+* :doc:`network-qos-vnc-3.1`
+* :doc:`network-qos-configuring`
+
+Load Balancers
+**************
+
+* :doc:`lbaas-tf3-F5`
+* :doc:`lbaas-v2-vnc`
+* :doc:`load-balance-as-service-vnc`
+
+Optimizing Tungsten Fabric
+**************************
+
+* :doc:`multiqueue-virtio-vnc`
+
+Tungsten Fabric OpenStack Analytics
+***********************************
+
+* :doc:`ceilometer-configuring`
+
+TF OpenStack APIs
+*****************
+
+* :doc:`neutron-perform-improve-vnc`
+
+Using Tungsten Fabric with Juju Charms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* :doc:`deploying-tf-using-juju-charms`
+* :doc:`deploying-tf-using-juju-charms-kubernetes`
+* :doc:`juju-charms-nested-kubernetes`
+* :doc:`canonical-octavia`
+
+Post Installation Tasks
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* :doc:`role-resource-access-control-vmc`
+* :doc:`rbac-analytics-api`
+* :doc:`config-control-node-with-bgp`
+* :doc:`md5-authentication-configuring`
+* :doc:`config-TLS-vncDocument1`
+* :doc:`graceful-restart-bgp-persist-vnc`
+  
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :titlesonly:
+   
    backup-using-json-50
    canonical-octavia
    ceilometer-configuring

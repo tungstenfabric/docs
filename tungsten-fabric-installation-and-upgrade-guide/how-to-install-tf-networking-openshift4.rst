@@ -1,7 +1,9 @@
 .. _how-to-install-tf-networking-and-red-hat-openshift-44:
 
 How to Install Tungsten Fabric and Red Hat OpenShift 4.4
-============================================================
+========================================================
+
+:date: 2020-11-12
 
 You can install Tungsten Fabric with Red Hat Openshift 4.4 in
 multiple environments.
@@ -28,6 +30,7 @@ Openshift are running on virtual machines (VMs) in a Kernel-based
 Virtual Machine (KVM) module. This procedure can also be performed to
 configure an environment where Tungsten Fabric and Red Hat OpenShift
 4.4 are running on a bare metal server.
+
 When to Use This Procedure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -761,6 +764,7 @@ How to Install Tungsten Fabric and Red Hat OpenShift 4.4 on Amazon Web Services
 -----------------------------------------------------------------------------------
 Follow these procedures to install Tungsten Fabric and Red Hat
 Openshift 4.4 on Amazon Web Services (AWS):
+
 .. _when-to-use-this-procedure-1:
 
 When to Use This Procedure
@@ -1165,7 +1169,7 @@ HTTPasswd identity provider.
    document from Red Hat OpenShift.
 
 How to Install Earlier Releases of Tungsten Fabric and Red Hat OpenShift
-----------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 If you have a need to install Tungsten Fabric with earlier versions
 of Red Hat Openshift, Tungsten Fabric is also supported with Red Hat
@@ -1174,12 +1178,8 @@ Openshift 3.11.
 For information on installing Tungsten Fabric with Red Hat Openshift
 3.11, see the following documentation:
 
--  `Installing a Standalone Red Hat OpenShift Container Platform 3.11
-   Cluster with Contrail Using TF OpenShift
-   Deployer <../configuration/install-openshift-using-anible-311.html>`__
+-  :ref:`installing-a-standalone-red-hat-openshift-container-platform-311-cluster-with-tf-using-tf-openshift-deployer`
 
--  `Installing a Nested Red Hat OpenShift Container Platform 3.11
-   Cluster Using Contrail Ansible
-   Deployer <../configuration/install-nested-openshift-311-using-anible.html>`__
+-  :ref:`installing-a-nested-red-hat-openshift-container-platform-311-cluster-using-tf-ansible-deployer`
 
  

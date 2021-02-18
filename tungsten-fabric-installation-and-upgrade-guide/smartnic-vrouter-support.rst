@@ -1,6 +1,8 @@
 Using Netronome SmartNIC vRouter with Tungsten Fabric
 =========================================================
 
+:date: 2021-01-19
+
 .. note::
 
    The Netronome SmartNIC vRouter technology covered in this document is
@@ -121,19 +123,14 @@ Procedure:
 
 2. Prepare the Tungsten Fabric cluster for deployment.
 
-   Refer to the following topics for deployment:
+   .. note::
 
-      .. note::
-
-         Do not perform steps for `Installing
-         Overcloud <../../topic-map/setting-up-contrail-rhosp-overcloud.html#id-installing-overcloud>`__.
+      Do not perform steps for :ref:`Setting Up the Overcloud RHOSP 13`.
 
 3. Deploy the cluster by one of the following ways:
 
    -  Add ``agilio-env.yaml`` to installing overcloud step as mentioned
-      in `Installing
-      Overcloud <../../topic-map/setting-up-contrail-rhosp-overcloud.html#id-installing-overcloud>`__
-      topic.
+      in :ref:`Setting Up the Overcloud RHOSP 13` topic.
 
       ``openstack overcloud deploy --templates ~/tripleo-heat-templates-e ~/overcloud_images.yaml-e ~/tripleo-heat-templates/environments/network-isolation.yaml-e ~/tripleo-heat-templates/environments/contrail/contrail-plugins.yaml-e ~/tripleo-heat-templates/environments/contrail/contrail-services.yaml-e ~/tripleo-heat-templates/environments/contrail/contrail-net.yaml-e ~/tripleo-heat-templates/agilio-plugin/agilio-env.yaml--roles-file ~/tripleo-heat-templates/roles_data_contrail_aio.yaml``
 

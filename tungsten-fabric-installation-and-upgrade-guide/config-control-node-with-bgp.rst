@@ -1,6 +1,8 @@
 Configuring the Control Node with BGP
 =====================================
 
+:date: 2020-03-18
+
 An important task after a successful installation is to configure the
 control node with BGP. This procedure shows how to configure basic BGP
 peering between one or more virtual network controller control nodes and

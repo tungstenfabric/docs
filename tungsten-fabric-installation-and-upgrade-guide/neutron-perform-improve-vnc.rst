@@ -1,6 +1,8 @@
 Working with Neutron
 ====================
 
+:date: 2020-09-16
+
 OpenStack’s networking solution, Neutron, has representative elements
 for Tungsten Fabric elements for Network (VirtualNetwork), Port
 (VirtualMachineInterface), Subnet (IpamSubnets), and Security-Group. The
@@ -139,7 +141,7 @@ and the OpenStack Neutron Wiki at:
 http://wiki.openstack.org/wiki/Neutron.
 
 TF Neutron plugin
------------------------
+-----------------
 
 The TF Neutron plugin provides an implementation for the following
 core resources:
@@ -179,6 +181,7 @@ DHCP Options
 
 In Neutron commands, DHCP options can be configured using
 extra-dhcp-options in port-create.
+
 Example
 ~~~~~~~
 

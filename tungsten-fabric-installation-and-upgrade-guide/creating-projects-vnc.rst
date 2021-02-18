@@ -1,6 +1,8 @@
 Creating Projects in OpenStack for Configuring Tenants in Tungsten Fabric
 =========================================================================
 
+:date: 2016-12-15
+
 In Tungsten Fabric, a tenant configuration is called a project. A project is
 created for each set of virtual machines (VMs) and virtual networks
 (VNs) that are configured as a discrete entity for the tenant.

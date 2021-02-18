@@ -1,6 +1,8 @@
 Server Requirements and Supported Platforms
 ===========================================
 
+:date: 2020-08-17
+
 This topic discusses server requirements in a Tungsten Fabric
 cluster.
 

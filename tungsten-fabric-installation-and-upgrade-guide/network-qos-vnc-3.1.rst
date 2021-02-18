@@ -1,6 +1,8 @@
 Quality of Service in Tungsten Fabric
 =====================================
 
+:date: 2020-04-03
+
 Overview: Quality of Service
 ----------------------------
 
@@ -11,7 +13,7 @@ that intermediate network switches and routers can use to provide
 service guarantees.
 
 TF QoS Model
-------------------
+------------
 
 The QoS model in Tungsten Fabric has the following features:
 
@@ -161,8 +163,7 @@ packets.
 A virtual machine interface, virtual network, and network policy can
 refer to the QoS configuration object. The QoS configuration object can
 be specified on the vhost so that underlay traffic can also be subjected
-to marking and queuing. See
-`Figure 2 <network-qos-vnc-3.1.html#qos2>`__.
+to marking and queuing. 
 
 |Figure 2: Referring to the QoS Object|
 
@@ -173,7 +174,7 @@ This example shows how traffic forwarding classes are defined and how
 the QoS configuration object is defined to map the QoS bits to
 forwarding classes.
 
-`Table 1 <network-qos-vnc-3.1.html#forward1>`__ shows two forwarding
+Table 1 shows two forwarding
 class objects defined. FC1 marks the traffic with high priority values
 and queues it to Queue 0. FC2 marks the traffic as best effort and
 queues the traffic to Queue 1.
@@ -187,7 +188,7 @@ FC1  1  10   7      7        0
 FC2  2  38   0      0        1
 ==== == ==== ====== ======== =====
 
-In `Table 2 <network-qos-vnc-3.1.html#forward2>`__, the QoS
+In Table 2, the QoS
 configuration object DSCP values of 10, 18, and 26 are mapped to a
 forwarding class with ID 1, which is forwarding class FC1. All other IP
 packets are mapped to the forwarding class with ID 2, which is FC2. All

@@ -1,6 +1,8 @@
 Integrating vCenter for Tungsten Fabric
 =======================================
 
+:date: 2020-03-10
+
 These topics provide instructions for integrating Tungsten Fabric 5.1.x
 and microservices with VMware vCenter.
 
@@ -306,14 +308,12 @@ Follow these steps to monitor and manage TF VM from EAM:
       EAM deploys a ContrailVM (from the base OVF) on the ESXi host.
 
    3. Add ESXi host details to ``vcenter_vars.yml`` and repeat step
-      `4 <vcenter-contrail.html#run-vcenter-playbook>`__ to add
+      4 to add
       appropriate interfaces to the ContrailVM and to configure
       necessary settings in the vCenter server.
 
    4. Add ContrailVM details to ``instances.yaml`` and provision
-      TF on the newly added ContrailVm (router). For more
-      information on provisioning TF, see `Install
-      Contrail <vcenter-contrail.html#id-install-contrail>`__.
+      TF on the newly added ContrailVm (router). 
 
 3. Clean up the ContrailVM-Agency.
 

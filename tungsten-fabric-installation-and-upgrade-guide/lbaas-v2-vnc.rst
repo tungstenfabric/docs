@@ -1,6 +1,8 @@
 Support for OpenStack LBaaS
 ===========================
 
+:date: 2021-01-26
+
 Starting with Release 3.1, TF provides support for the OpenStack
 Load Balancer as a Service (LBaaS) Version 2.0 APIs in the Liberty
 release of OpenStack.
@@ -112,7 +114,6 @@ The following is an example of Neutron load-balancer creation:
 
 OpenStack Octavia LBaaS
 -----------------------
-
 
 Using Octavia Load-Balancer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,6 +1,8 @@
 Installing and Provisioning TF VMware vRealize Orchestrator Plugin
 ==================================================================
 
+:date: 2019-08-09
+
 A dedicated TF plugin is used to connect to VMware vRealize
 Orchestrator (vRO). TF Release 5.0 supported a Beta version of the
 plugin. Starting with TF Release 5.1, a fully supported version of

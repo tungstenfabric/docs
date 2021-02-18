@@ -1,6 +1,8 @@
 How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer
 ===============================================================================
 
+:date: 2021-01-19
+
 Starting in Tungsten Fabric Release 2005, you can perform a Zero
 Impact Upgrade (ZIU) of Tungsten Fabric using the TF Ansible
 Deployer container. The Tungsten Fabric Ansible Deployer container image can be
@@ -37,9 +39,7 @@ Before you begin:
    environments.
 
 -  Take snapshots of your current configurations before you proceed with
-   the upgrade process. For details, refer to `How to Backup and Restore
-   TF databases in JSON
-   Format <../../concept/backup-using-json-50.html>`__.
+   the upgrade process. For details, refer to :ref:`How to Backup and Restore TF databases in JSON Format`.
 
 This procedure illustrates how to perform a ZIU using the Ansible
 deployer container. It includes a representative example of the steps

@@ -1,6 +1,8 @@
 Understanding Red Hat OpenStack Platform Director
 =================================================
 
+:date: 2020-09-15
+
 Red Hat OpenStack Platform Director
 -----------------------------------
 
