@@ -16,3 +16,4 @@ Documentation Structure
    deploying-tf-operator
    development-of-tf-operator
    tf-operator-with-openshift-4
+   testing-and-debugging-tf-operator
