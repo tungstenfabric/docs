@@ -335,3 +335,172 @@ and after a while one of the nodes will be removed from the list of nodes.
     ip-10-0-154-104.eu-central-1.compute.internal   Ready    master   84m     v1.17.1
     ip-10-0-171-126.eu-central-1.compute.internal   Ready    worker   66m     v1.17.1
 
+Edit Machine Configs of Worker Nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Machine Configs are Openshift specific resources that contain ignition configs for CoreOS nodes.
+CoreOS is a read-only system that is configured via ignition configs on the boot process and then should run unchanged (more on CoreOS with Openshift `here <https://codilime.com/deploying-a-kubernetes-operator-in-openshift-4-x-platform/>`__).
+
+Openshift cluster deployed with TF Operator as CNI plugin creates some machine configs as well as custom resources:
+
+.. code-block:: console
+
+    $ kubectl get machineconfigs
+    NAME                                                        GENERATEDBYCONTROLLER                      IGNITIONVERSION   AGE
+    00-master                                                   8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    00-worker                                                   8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    01-master-container-runtime                                 8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    01-master-kubelet                                           8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    01-worker-container-runtime                                 8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    01-worker-kubelet                                           8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    02-master-modules                                                                                      2.2.0             75m
+    02-master-pv-mounts                                                                                    2.2.0             75m
+    02-worker-modules                                                                                      2.2.0             75m
+    10-master-iptables                                                                                     2.2.0             75m
+    10-master-network-functions                                                                            2.2.0             75m
+    10-master-nm-stop-service                                                                              2.2.0             75m
+    10-worker-iptables                                                                                     2.2.0             75m
+    10-worker-nm-stop-service                                                                              2.2.0             75m
+    99-master-223d0ea0-68be-4415-88b8-af6b4599b5b1-registries   8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    99-master-ssh                                                                                          2.2.0             75m
+    99-worker-0c2fb462-245e-4a74-89a8-15c0f2dabff8-registries   8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    99-worker-ssh                                                                                          2.2.0             75m
+    Rendered-master-9c0e294fe007ba6205bffdab724e7ebb            8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+    rendered-worker-ecf96cd4102469fcdc2bfcd6e2b1e582            8af4f709c4ba9c0afff3408ecc99c8fce61dd314   2.2.0             74m
+
+.. warning::
+
+    All of the machine configs play part in proper configuration of Tungsten Fabric networking and should not be changed on production environment.
+    All below tests should be done only on development/test setups.
+
+Edit nm-stop service in 10-worker-nm-stop-service machineconfig by adding at the end of spec.storage.files.contents.source ``%20%23%20TEST``
+(this will add comment  to the end of existing service script)
+
+.. code-block:: console
+
+    $ kubectl edit machineconfig 10-worker-nm-stop-service
+
+    machineconfig.machineconfiguration.openshift.io/10-worker-nm-stop-service edited
+
+Deploy sample pod which mounts nm-stop service script
+
+.. code-block:: YAML
+
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    labels:
+        run: test-pod
+    name: test-pod
+    spec:
+    containers:
+    - image: busybox
+        name: test-pod
+        volumeMounts:
+            - name: nm-stop-script
+            mountPath: "/nm-stop.sh"
+        command: ["tail", "-f", "/dev/null"]
+    volumes:
+    - name: nm-stop-script
+        hostPath:
+        path: "/etc/contrail/nm_stop.sh"
+    dnsPolicy: ClusterFirst
+    restartPolicy: Always
+    nodeSelector:
+        node-role.kubernetes.io/worker: ""
+
+Wait for Openshift to apply changes on nodes (it may take from few minutes up to an hour)
+Afterward, check if content of nm-stop service has been changed.
+
+.. code-block:: console
+
+    $ kubectl exec -it test-pod -- cat /nm-stop.sh
+    #!/bin/bash
+
+    while true;
+    do
+    if [[ -L "/sys/class/net/vhost0" && $(ip address show vhost0 | grep inet[^6]) ]];
+    then
+            echo "[INFO] Detected vhost0 interface. Stopping NetworkManager..."
+            systemctl stop NetworkManager
+            echo "[INFO] Networkmanager stopped."
+    fi
+    sleep 10
+    Done # TEST
+
+Add New Machine Config
+~~~~~~~~~~~~~~~~~~~~~~
+
+Machine Configs do not have to be defined at the cluster installation. They may be created as well during cluster lifetime.
+To create new test machine config apply this manifest:
+
+.. code-block:: console
+
+    apiVersion: machineconfiguration.openshift.io/v1
+    kind: MachineConfig
+    metadata:
+    labels:
+        machineconfiguration.openshift.io/role: worker
+    name: 10-test-file
+    spec:
+    config:
+        ignition:
+        version: 2.2.0
+        storage:
+        files:
+        - filesystem: root
+            path: /etc/contrail/test.txt
+            mode: 0744
+            user:
+            name: root
+            contents:
+            source: data:,THIS%20IS%20TEST%20FILE
+
+This machine config will create file `/etc/contrail/rest.txt` with text ``THIS IS TEST FILE``.
+
+Afterward, create sample pod that mounts /etc/contrail.
+
+.. code-block:: YAML
+
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    labels:
+        run: test-pod2
+    name: test-pod2
+    spec:
+    containers:
+    - image: busybox
+        name: test-pod2
+        volumeMounts:
+            - name: nm-stop-script
+            mountPath: "/contrail"
+        command: ["tail", "-f", "/dev/null"]
+    volumes:
+    - name: nm-stop-script
+        hostPath:
+        path: "/etc/contrail/"
+        type: Directory
+    dnsPolicy: ClusterFirst
+    restartPolicy: Always
+    nodeSelector:
+        node-role.kubernetes.io/worker: ""
+
+
+Wait for machine config to be applied on node and verify that file was created (again, it may take up to an hour).
+When cluster nodes have been updated test if file exists:
+
+.. code-block:: console
+
+    $ kubectl exec -it test-pod2 -- cat /contrail/test.txt
+    THIS IS TEST FILE
+
+Upgrade Openshift Cluster
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Openshift cluster may be automatically upgraded with ``oc`` CLI tool to the latest or specific minor version (for example from 4.5.2 to 4.5.11, but not from 4.5 to 4.6).
+
+To gracefully upgrade cluster run :command:`oc adm upgrade --to-latest --allow-upgrade-with-warnings`.
+
+Optionally Openshift upgrade may be forced with :command:`oc adm upgrade --to-latest --force` which will omit all the warnings.
+
