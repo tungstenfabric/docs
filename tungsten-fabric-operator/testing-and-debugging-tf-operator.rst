@@ -218,5 +218,120 @@ Openshift Features Tests
 ------------------------
 
 If Tungsten Fabric is run on Openshift cluster then there are some additional tests that may be run in order to check Openshift specific features.
+Openshift provides alternative CLI tool sto kubectl called ``oc``.
+Use it in order to access Openshift specific commands.
 
+Deploy App using CLI
+~~~~~~~~~~~~~~~~~~~~
+
+Deploy an app using openshift CLI and expose it outside the cluster
+Instructions are based on an example from `here <https://docs.openshift.com/container-platform/4.3/applications/application_life_cycle_management/creating-applications-using-cli.html#remote>`__
+
+Execute these commands using the openshift ``oc`` CLI:
+
+.. code-block:: console
+
+    oc new-app https://github.com/sclorg/cakephp-ex
+    oc expose svc/cakephp-ex
+    oc logs -f bc/cakephp-ex
+    oc status
+
+``oc`` status command should return an output similar to this:
+
+.. code-block:: console
+
+    oc status
+    In project default on server https://api.usercluster.myuser.mydomain.com:6443
+
+    http://cakephp-ex-default.apps.usercluster.myuser.mydomain.com to pod port 8080-tcp (svc/cakephp-ex)
+    dc/cakephp-ex deploys istag/cakephp-ex:latest <-
+        bc/cakephp-ex source builds https://github.com/sclorg/cakephp-ex on openshift/php:7.2
+        deployment #1 deployed about a minute ago - 1 pod
+
+    svc/openshift - kubernetes.default.svc.cluster.local
+    svc/kubernetes - 172.30.0.1:443 -> 6443
+
+From a web browser, access the exposed cakephp app url, e.g. ``http://cakephp-ex-default.apps.usercluster.myuser.mydomain.com``
+Verify that the page successfully loaded.
+
+Deploy App using Web Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Open web browser and enter URL returned from install process. (e.g. ``https://console-openshift-console.apps.usercluster.myuser.mydomain.com/``)
+Login into kubeadmin account with PIN returned from install process. (PIN may be found also under `<install dir>/auth/kubeadmin-password`)
+
+As developer go to application catalog (+Add > From Catalog) and Initialize Template of Apache HTTP Server application.
+
+.. image:: figures/openshift-test-apache-server.png
+    :alt: Openshift Web Console Catalog with Apache HTTP Server
+
+Go with defaults in template and create application.
+Wait for indicator that application is running:
+
+.. image:: figures/openshift-deployed-apache-server.png
+    :alt: Successfully Deployed Apache HTTP Server
+
+Access the application by clicking the top right icon.
+Verify that the page successfully loaded.
+
+Scale Cluster Nodes
+~~~~~~~~~~~~~~~~~~~
+
+Openshift allows to easily scale up or down cluster nodes using `machinesets`.
+Usually, when deployed on AWS or any other cloud, `machinesets` are grouped into availability zone where nodes are spawned.
+
+.. code-block:: console
+
+    $ kubectl get machinesets -A
+    NAMESPACE               NAME                                DESIRED   CURRENT   READY   AVAILABLE   AGE
+    openshift-machine-api   userXY-hknrs-worker-eu-central-1a   1         1         1       1           71m
+    openshift-machine-api   userXY-hknrs-worker-eu-central-1b   1         1         1       1           71m
+    openshift-machine-api   userXY-hknrs-worker-eu-central-1c   1         1         1       1           71m
+
+Number of replicas may be easily scaled using `kubectl` or `oc` CLI tool.
+
+To scale up nodes in availability zone ``eu-central-1a`` use :command:`kubectl scale --replicas=3 machinesets -n openshift-machine-api   userXY-hknrs-worker-eu-central-1a` command.
+
+After few minutes new nodes should appear in the list of nodes:
+
+.. code-block:: console
+
+$ kubectl get node
+    NAME                                            STATUS   ROLES    AGE     VERSION
+    ip-10-0-130-116.eu-central-1.compute.internal   Ready    master   84m     v1.17.1
+    ip-10-0-137-37.eu-central-1.compute.internal    Ready    worker   66m     v1.17.1
+    ip-10-0-138-121.eu-central-1.compute.internal   Ready    worker   2m52s   v1.17.1
+    ip-10-0-141-218.eu-central-1.compute.internal   Ready    worker   3m7s    v1.17.1
+    ip-10-0-152-65.eu-central-1.compute.internal    Ready    worker   66m     v1.17.1
+    ip-10-0-154-104.eu-central-1.compute.internal   Ready    master   84m     v1.17.1
+    ip-10-0-171-126.eu-central-1.compute.internal   Ready    worker   66m     v1.17.1
+
+Scaling down may be done in the same way.
+
+.. code-block:: console
+
+    $ kubectl get machinesets -A
+    NAMESPACE               NAME                                DESIRED   CURRENT   READY   AVAILABLE   AGE
+    openshift-machine-api   userXY-hknrs-worker-eu-central-1a   3         3         3       3           71m
+    openshift-machine-api   userXY-hknrs-worker-eu-central-1b   1         1         1       1           71m
+    openshift-machine-api   userXY-hknrs-worker-eu-central-1c   1         1         1       1           71m
+
+.. code-block:: console
+
+    $ kubectl scale --replicas=2 machinesets -n openshift-machine-api   userXY-hknrs-worker-eu-central-1a
+
+    machineset.machine.openshift.io/userXY-hknrs-worker-eu-central-1a scaled
+
+and after a while one of the nodes will be removed from the list of nodes.
+
+.. code-block:: console
+
+    $ kubectl get node
+    NAME                                            STATUS   ROLES    AGE     VERSION
+    ip-10-0-130-116.eu-central-1.compute.internal   Ready    master   84m     v1.17.1
+    ip-10-0-137-37.eu-central-1.compute.internal    Ready    worker   66m     v1.17.1
+    ip-10-0-141-218.eu-central-1.compute.internal   Ready    worker   3m7s    v1.17.1
+    ip-10-0-152-65.eu-central-1.compute.internal    Ready    worker   66m     v1.17.1
+    ip-10-0-154-104.eu-central-1.compute.internal   Ready    master   84m     v1.17.1
+    ip-10-0-171-126.eu-central-1.compute.internal   Ready    worker   66m     v1.17.1
 
