@@ -120,6 +120,13 @@ Every compute node has applied vRouter module which provides Tungsten Fabric net
 
 A series of simple checks may be helpful to ensure that specific compute node is working properly or to perform basic debugging of Tungsten Fabric.
 
+Kernel module
+~~~~~~~~~~~~~
+
+Usually vRouter is applied as kernel module (except for DPDK deployment).
+If your infrastructure runs with kernel module dpeloyment then basic test is to run :command:`modprobe vrouter` and check whether kernel module is loaded.
+Also, if kernel module is loaded then :command:`vif` CLI tool should be present.
+
 vhost0 Interface
 ~~~~~~~~~~~~~~~~
 
@@ -174,5 +181,42 @@ File `/etc/contrail/contrail-vrouter-agent.conf` under section `[VIRTUAL-HOST-IN
     # Physical interface name to which virtual host interface maps to
     physical_interface=p1p1
 
+Another test may be to check whether node has additional interfaces created for Pods running on the node.
+Every Pod should have interface named `tap<number of the interface>` created on the node.
+
 Node Routing
 ~~~~~~~~~~~~
+
+By default all traffic on a node should go through vhost0 interface which decides what to do with the traffic.
+So by running command :command:`ip route` routing table should has default set to vhost0 device.
+
+.. code-block:: console
+
+    vm1$ ip route
+    default via 10.0.0.1 dev vhost0
+
+Synchronised resolv.conf
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DNS configuration is provided by vRouter Agent running on the node.
+vRouter Agent  is a containerized application that communicates between TF Control and compute node and more specific vRouter Forwarder (more information about architecture `here <https://codilime.com/tungsten-fabric-architecture-an-overview/>`__ or `here <https://wiki.lfnetworking.org/display/LN/2021-02-02+-+TF+Architecture+Overview>`__).
+Some system confgiuration files are shared across the node system and vRouter Agent container.
+One of these files is `/etc/resolv.conf` which specifies DNS resolution.
+
+First test would be to check content of `resolv.conf` file whether it is not empty or overwritten by other network application (e.g. NetworkManager).
+If `resolv.conf` is not empty then check whether both files (system and container) have the same inode number.
+To do that run `ls -i /etc/resolv.conf` on both node console and then container console and compare the number.
+If the inode number is the same then `resolv.conf` file is shared across the system.
+
+DHClient configured for vhost0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On vRouter installation if there's dhclient running for physical interface then it is killed and new process of dhclient is started for vhost0 interface.
+To check whether it has been properly configured run :command:`ps aux | grep dhclient` and check whether running process is configured for vhost0 interface and not for physical interface.
+
+Openshift Features Tests
+------------------------
+
+If Tungsten Fabric is run on Openshift cluster then there are some additional tests that may be run in order to check Openshift specific features.
+
+
