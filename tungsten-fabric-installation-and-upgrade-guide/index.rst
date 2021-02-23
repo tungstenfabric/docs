@@ -1,5 +1,3 @@
-:orphan:
-
 Tungsten Fabric installation and upgrade guide
 ==============================================
 
@@ -16,35 +14,58 @@ Documentation Structure
 
 Understanding Tungsten Fabric
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* :doc:`understanding-tf` 
-* :doc:`understanding-tf-components` 
-* :doc:`summary-of-container-design`
-* :doc:`intro-microservices-tf`  
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   
+   understanding-tf
+   understanding-tf-components 
+   summary-of-container-design
+   intro-microservices-tf  
   
 Supported platforms and server requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* :doc:`hardware-reqs-vnc`
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   hardware-reqs-vnc
   
 Upgrading Tungsten Fabric
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* :doc:`installing-tf-ansible-ziu`
-* :doc:`install-tf-rhosp-ziu`
-* :doc:`update-canonical-openstack-juju`
-* :doc:`upgrade-tf-ansible-deployer`
-* :doc:`upgrade-in-place`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   installing-tf-ansible-ziu
+   install-tf-rhosp-ziu
+   update-canonical-openstack-juju
+   upgrade-tf-ansible-deployer
+   upgrade-in-place
 
 Backup and restore Tungsten Fabric
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* :doc:`backup-using-json-50`
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   backup-using-json-50
 
 Using Tungsten Fabric with VMware vCenter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* :doc:`vcenter-tf`
-* :doc:`install-tf-vRO-plugin`
-* :doc:`integrating-tf501-with-vRO`  
-* :doc:`vcenter-as-orchestrator-deployment-scenarios-501`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   vcenter-tf
+   install-tf-vRO-plugin
+   integrating-tf501-with-vRO
+   vcenter-as-orchestrator-deployment-scenarios-501
 
 Using Tungsten Fabric with OpenStack
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,79 +73,123 @@ Using Tungsten Fabric with OpenStack
 Setting Up Contrail with Red Hat OpenStack 16.1
 ***********************************************
 
-* :doc:`setting-up-tf-rhosp16-introduction`
-* :doc:`setting-up-tf-rhosp16-infrastructure`
-* :doc:`setting-up-tf-rhosp16-undercloud`
-* :doc:`setting-up-tf-rhosp16-overcloud`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   setting-up-tf-rhosp16-introduction
+   setting-up-tf-rhosp16-infrastructure
+   setting-up-tf-rhosp16-undercloud
+   setting-up-tf-rhosp16-overcloud
 
 Setting Up Contrail with Red Hat OpenStack 13
 *********************************************
 
-* :doc:`setting-up-tf-rhosp-introduction`
-* :doc:`setting-up-tf-rhosp-infrastructure`
-* :doc:`setting-up-tf-rhosp-undercloud`
-* :doc:`setting-up-tf-rhosp-overcloud`
-* :doc:`smartnic-vrouter-support`
-* :doc:`rhosp-octavia`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   setting-up-tf-rhosp-introduction
+   setting-up-tf-rhosp-infrastructure
+   setting-up-tf-rhosp-undercloud
+   setting-up-tf-rhosp-overcloud
+   smartnic-vrouter-support
+   rhosp-octavia
 
 Configuring Virtual Networks
 ****************************
 
-* :doc:`creating-projects-vnc`
-* :doc:`creating-virtual-network-vnc`
-* :doc:`creating-image-vnc`
-* :doc:`creating-security-groups`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   creating-projects-vnc
+   creating-virtual-network-vnc
+   creating-image-vnc
+   creating-security-groups
 
 Using Contrail Resources in Heat Templates
 ******************************************
 
-* :doc:`heat-template-vnc`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   heat-template-vnc
    
 QoS Support in Contrail Networking
 **********************************
 
-* :doc:`network-qos-vnc-3.1`
-* :doc:`network-qos-configuring`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   network-qos-vnc-3.1
+   network-qos-configuring
 
 Load Balancers
 **************
 
-* :doc:`lbaas-tf3-F5`
-* :doc:`lbaas-v2-vnc`
-* :doc:`load-balance-as-service-vnc`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   lbaas-tf3-F5
+   lbaas-v2-vnc
+   load-balance-as-service-vnc
 
 Optimizing Tungsten Fabric
 **************************
 
-* :doc:`multiqueue-virtio-vnc`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   multiqueue-virtio-vnc
 
 Tungsten Fabric OpenStack Analytics
 ***********************************
 
-* :doc:`ceilometer-configuring`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   ceilometer-configuring
 
 TF OpenStack APIs
 *****************
 
-* :doc:`neutron-perform-improve-vnc`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   neutron-perform-improve-vnc
 
 Using Tungsten Fabric with Juju Charms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* :doc:`deploying-tf-using-juju-charms`
-* :doc:`deploying-tf-using-juju-charms-kubernetes`
-* :doc:`juju-charms-nested-kubernetes`
-* :doc:`canonical-octavia`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   deploying-tf-using-juju-charms
+   deploying-tf-using-juju-charms-kubernetes
+   juju-charms-nested-kubernetes
+   canonical-octavia
 
 Post Installation Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-* :doc:`role-resource-access-control-vmc`
-* :doc:`rbac-analytics-api`
-* :doc:`config-control-node-with-bgp`
-* :doc:`md5-authentication-configuring`
-* :doc:`config-TLS-vncDocument1`
-* :doc:`graceful-restart-bgp-persist-vnc`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   role-resource-access-control-vmc
+   rbac-analytics-api
+   config-control-node-with-bgp
+   md5-authentication-configuring
+   config-TLS-vncDocument1
+   graceful-restart-bgp-persist-vnc
   
 .. toctree::
    :maxdepth: 1
