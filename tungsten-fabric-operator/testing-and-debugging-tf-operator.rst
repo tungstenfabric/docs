@@ -296,7 +296,7 @@ After few minutes new nodes should appear in the list of nodes:
 
 .. code-block:: console
 
-$ kubectl get node
+    $ kubectl get node
     NAME                                            STATUS   ROLES    AGE     VERSION
     ip-10-0-130-116.eu-central-1.compute.internal   Ready    master   84m     v1.17.1
     ip-10-0-137-37.eu-central-1.compute.internal    Ready    worker   66m     v1.17.1
