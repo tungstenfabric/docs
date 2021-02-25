@@ -34,6 +34,7 @@ Documentation Structure
    tungsten-fabric-networking-and-security-user-guide/index.rst
    tungsten-fabric-service-provider-focused-features-guide/index.rst
    tungsten-fabric-monitoring-and-troubleshooting-guide/index.rst
+   tungsten-fabric-operator/index.rst
 
 Licensing
 ---------
