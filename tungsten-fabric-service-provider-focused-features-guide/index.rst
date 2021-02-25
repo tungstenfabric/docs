@@ -9,6 +9,15 @@ This guide also provides information about advanced service chain configuration 
 Documentation Structure
 -----------------------
 
+Data Plane Optimization
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   
+   vrouter-isolcpu
+   
 Advanced Service Chain Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
