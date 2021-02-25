@@ -3,7 +3,7 @@ Optimizing DPDK vRouter Performance Through Full CPU Partitioning and Isolation
 
 :date: 2020-03-19
 
-Contrail Networking Release 2011 supports full CPU partitioning. CPU
+Tungsten Fabric Release 2011 supports full CPU partitioning. CPU
 isolation is an RHEL method to partition and isolate the CPU cores on a
 compute node from the symmetric multiprocessing (SMP) balancing and
 scheduler algorithms. The full CPU isolation feature optimizes the
@@ -39,17 +39,7 @@ ContrailDpdkParameters in
 for RHOSP and SERVICE_CORE_MASK and DPDK_CTRL_THREAD_MASK parameters in
 ``/vrouter/agent-dpdk/entrypoint.sh`` file for Contrail Ansible
 Deployer.
-
-.. raw:: html
-
-   <div id="jd0e61" class="sample" dir="ltr">
-
 **In contrail-services.yaml**
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    # Tuned-d profile configuration
@@ -68,24 +58,7 @@ Deployer.
    #    TunedProfileName: "cpu-partitioning"
    #    IsolCpusList: "3-20"
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e66" class="sample" dir="ltr">
-
 **In entrypoint.sh**
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    # Cpu coremask for DPDK
@@ -96,36 +69,12 @@ Deployer.
    # - dpdk ctrl threads pinning
    #DPDK_CTRL_THREAD_MASK=''
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 To configure isolcpus, modify the following parameters in GRUB:
-
-.. raw:: html
-
-   <div id="jd0e76" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
    ContrailDpdkParameters:
        KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=32 iommu=pt intel_iommu=on isolcpus=3-20"
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 The isolcpu tuning needs to be done for VNFs (VM) as well. This is to
 ensure that the VM can protect and isolate the Poll Mode Driver (PMD)
