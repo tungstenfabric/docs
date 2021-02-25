@@ -1,14 +1,12 @@
 Routing Policy
 ==============
 
- 
+:date: 2020-11-11
 
-Starting with Contrail Networking Release 1910, virtual network routing
-policies are automatically applied to secondary routes. See `Applying
-Routing Policies to Secondary
-Routes <contrail-routing-policy-sp-features.html#secondary-routing-policies-cn-spguide>`__.
+Starting with Tungsten Fabric Release 1910, virtual network routing
+policies are automatically applied to secondary routes.
 
-Contrail Networking uses routing policy infrastructure to manipulate the
+Tungsten Fabric uses routing policy infrastructure to manipulate the
 route and path attribute dynamically and supports attaching the import
 routing policy on the service instances.
 
@@ -21,21 +19,12 @@ If the term is not a terminal rule, subsequent terms are evaluated for
 the given route.
 
 The list terms are structured as in the following example.
-
-.. raw:: html
-
-   <div id="jd0e23" class="example" dir="ltr">
-
 ::
 
    Policy {
         Term-1
         Term-2
    }
-
-.. raw:: html
-
-   </div>
 
 The matches and actions of the policy term lists operate similarly to
 the Junos language match and actions operations. A visual representation
@@ -44,11 +33,6 @@ is the following.
 |image1|
 
 Each term is represented as in the following:
-
-.. raw:: html
-
-   <div id="jd0e32" class="example" dir="ltr">
-
 ::
 
    from {
@@ -64,10 +48,6 @@ Each term is represented as in the following:
        ..
        ..
    }
-
-.. raw:: html
-
-   </div>
 
 The term should not contain an ``any`` match condition, for example, an
 empty ``from`` should not be present.
@@ -134,57 +114,41 @@ that the term doesn’t have any match condition. This indicates that all
 routes match this term and action is applied according to the action
 specified in the term.
 
-The following table describes the match conditions supported by Contrail
-Networking.
+The following table describes the match conditions supported by Tungsten Fabric.
 
-.. raw:: html
+.. list-table:: 
+      :header-rows: 1
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Match Condition</p></th>
-   <th style="text-align: left;"><p>User Input</p></th>
-   <th style="text-align: left;"><p>Description</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p>Prefix</p></td>
-   <td style="text-align: left;"><p>List of prefixes to match</p></td>
-   <td style="text-align: left;"><p>Each prefix in the list is represented as prefix and match type, where the prefix match type can be:</p>
-   <ul>
-   <li><p><code class="inline" data-v-pre="">exact</code></p></li>
-   <li><p><code class="inline" data-v-pre="">orlonger</code></p></li>
-   <li><p><code class="inline" data-v-pre="">longer</code></p></li>
-   </ul>
-   <p>Example: 1.1.0.0/16 <code class="inline" data-v-pre="">orlonger</code></p>
-   <p>A route matches this condition if its prefix matches any of the prefixes in the list.</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>Community</p></td>
-   <td style="text-align: left;"><p>Community string to match</p></td>
-   <td style="text-align: left;"><p>Represented as either a well-known community string with <code class="inline" data-v-pre="">no export</code> or <code class="inline" data-v-pre="">no reoriginate</code>, or a string representation of a community (64512:11).</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p>Protocol</p></td>
-   <td style="text-align: left;"><p>Array of path source or path protocol to match</p></td>
-   <td style="text-align: left;"><p>BGP | XMPP | StaticRoute | ServiceChain | Aggregate. A path is considered as matching this condition if the path protocol is one of protocols in the list.</p></td>
-   </tr>
-   </tbody>
-   </table>
+      * - Match Condition
+        - User Input
+        - Description
+      * - Prefix
+        - List of prefixes to match
+        - Each prefix in the list is represented as prefix and match type, where the prefix match type can be 
+          
+          * ``exact``
+          * ``orlonger``
+          * ``longer``
+  
+          Example: 1.1.0.0/16 ``orlonger``
+
+          A route matches this condition if its prefix matches any of the prefixes in the list.
+
+      * - Community
+        - Community string to match
+        - Represented as either a well-known community string with ``no export`` or ``no reoriginate``, 
+          or a string representation of a community (64512:11).
+      * - Protocol
+        - Array of path source or path protocol to match
+        - BGP | XMPP | StaticRoute | ServiceChain | Aggregate. 
+          A path is considered as matching this condition if the path protocol is one of protocols in the list.
 
 Routing Policy Action and Update Action
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The policy action contains two parts, action and update action.
 
-The following table describes ``action`` as supported by Contrail
-Networking.
+The following table describes ``action`` as supported by Tungsten Fabric.
 
 +-----------+-----------+--------------------------------------------+
 | Action    | Terminal? | Description                                |
@@ -211,47 +175,28 @@ Networking.
 The update action section specifies the route modification to be
 performed on the matching route.
 
-The following table describes ``update action`` as supported by Contrail
-Networking.
+The following table describes ``update action`` as supported by Tungsten Fabric.
 
-.. raw:: html
+.. list-table:: 
+      :header-rows: 1
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   <col style="width: 33%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>Update Action</p></th>
-   <th style="text-align: left;"><p>User Input</p></th>
-   <th style="text-align: left;"><p>Description</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p>Community</p></td>
-   <td style="text-align: left;"><p>List of community</p></td>
-   <td style="text-align: left;"><p>As part of the policy update, the following actions can be taken for community:</p>
-   <ul>
-   <li><p>Add a list of community to the existing community.</p></li>
-   <li><p>Set a list of community.</p></li>
-   <li><p>Remove a list of community (if present) from the existing community.</p></li>
-   </ul></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p>MED</p></td>
-   <td style="text-align: left;"><p>Update the MED of the BgpPath</p></td>
-   <td style="text-align: left;"><p>Unsigned integer representing the MED</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p>local-pref</p></td>
-   <td style="text-align: left;"><p>Update the local-pref of the BgpPath</p></td>
-   <td style="text-align: left;"><p>Unsigned integer representing local-pref</p></td>
-   </tr>
-   </tbody>
-   </table>
+      * - Update Action
+        - User Input
+        - Description
+      * - Community
+        - List of community
+        - As part of the policy update, the following actions can be taken for community:
+
+          * Add a list of community to the existing community.
+          * Set a list of community.
+          * Remove a list of community (if present) from the existing community.
+      * - MED
+        - Update the MED of the BgpPath
+        - Unsigned integer representing the MED
+      * - local-pref
+        - Update the local-pref of the BgpPath
+        - Unsigned integer representing local-pref
+
 
 Applying Routing Policies to Secondary Routes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,11 +206,11 @@ routes. The ability to apply routing policies to secondary routes is
 especially useful as a mechanism to modify routes imported from MP-BGP,
 including routes that are imported from the MPLS network.
 
-**Note**
+.. note::
 
-Routing policies that are attached to service instances are applied to
-primary routes only. These routing policies are not applied to secondary
-routes.
+   Routing policies that are attached to service instances are applied to
+   primary routes only. These routing policies are not applied to secondary
+   routes.
 
 Routing Policy Configuration
 ----------------------------
@@ -301,31 +246,21 @@ copies the routing policy link data to ensure the same policy order.
 
 Configuring and Troubleshooting Routing Policy
 ----------------------------------------------
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
 This section shows how to create a routing policy for service chains and
 how to validate the policy.
-
-.. raw:: html
-
-   </div>
-
 Create Routing Policy
 ~~~~~~~~~~~~~~~~~~~~~
 
-First, create the routing policy, **Configure > Networking > Routing >
-Create >Routing Policy**. See the following example.
+First, create the routing policy, :menuselection:`Configure > Networking > Routing >
+Create > Routing Policy`. See the following example.
 
 |image3|
 
-**Note**
+.. note::
 
-The Contrail Web UI and REST APIs enable you to configure a BGP routing
-policy and then assign it to a virtual network, but the routing policy
-will not be applied if the virtual network is attached to an L3VPN.
+   The Tungsten Fabric WebUI and REST APIs enable you to configure a BGP routing
+   policy and then assign it to a virtual network, but the routing policy
+   will not be applied if the virtual network is attached to an L3VPN.
 
 Configure Service Instance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -349,11 +284,6 @@ Using a VNC Script to Create Routing Policy
 
 The following example shows use of a VNC API script to create a routing
 policy.
-
-.. raw:: html
-
-   <div id="jd0e373" class="example" dir="ltr">
-
 ::
 
    from vnc_api.vnc_api import *
@@ -381,10 +311,6 @@ policy.
    policy_statement.add_term(policy_term)
    routing_policy.set_routing_policy_entries(policy_statement)
    vnc_lib.routing_policy_create(routing_policy)
-
-.. raw:: html
-
-   </div>
 
 Verify Routing Policy in API Server
 -----------------------------------
@@ -486,84 +412,15 @@ the static route. See the following example.
 
 |image13|
 
-.. raw:: html
+.. list-table:: Release History Table
+      :header-rows: 1
 
-   <div class="table">
+      * - Release
+        - Description
+      * - 2011 
+        - Starting with Tungsten Fabric Release 2011, virtual network routing
+          policies are automatically applied to secondary routes.
 
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`1910 <#jd0e11>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting with Contrail Networking Release 1910, virtual network routing
-policies are automatically applied to secondary routes. See `Applying
-Routing Policies to Secondary
-Routes <contrail-routing-policy-sp-features.html#secondary-routing-policies-cn-spguide>`__.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
- 
 
 .. |image1| image:: images/g300536.png
 .. |image2| image:: images/g300443.png
