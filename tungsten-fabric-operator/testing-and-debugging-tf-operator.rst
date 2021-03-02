@@ -19,25 +19,25 @@ Apply below manifest onto cluster:
     apiVersion: v1
     kind: Pod
     metadata:
-    name: busy1
+      name: busy1
     spec:
-    containers:
-    - name: busy1
-        image: busybox
-        command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
-    nodeSelector:
+      containers:
+        - name: busy1
+            image: busybox
+            command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
+      nodeSelector:
         node-role.kubernetes.io/master: ""
-    tolerations:
-    - effect: NoSchedule
-        operator: Exists
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
     ---
     apiVersion: v1
     kind: Pod
     metadata:
-    name: busy2
+      name: busy2
     spec:
-    containers:
-    - name: busy2
+      containers:
+      - name: busy2
         image: busybox
         command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
 
@@ -72,10 +72,10 @@ In order to create new namespace that will be isolated (it is not necessary to c
     apiVersion: v1
     kind: Namespace
     metadata:
-    name: "test-ns"
-    annotations: {
-    "opencontrail.org/isolation" : "true"
-    }
+      name: "test-ns"
+      annotations: {
+        "opencontrail.org/isolation" : "true"
+      }
 
 Afterward, similar to Pod-to-Pod ping test two Pods should be created:
 
@@ -84,24 +84,24 @@ Afterward, similar to Pod-to-Pod ping test two Pods should be created:
     apiVersion: v1
     kind: Pod
     metadata:
-    name: busy1
-    namespace: test-ns
+      name: busy1
+      namespace: test-ns
     spec:
-    containers:
-    - name: busy1
+      containers:
+      - name: busy1
         image: busybox
         command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
-    tolerations:
-    - effect: NoSchedule
+      tolerations:
+      - effect: NoSchedule
         operator: Exists
     ---
     apiVersion: v1
     kind: Pod
     metadata:
-    name: busy2
+      name: busy2
     spec:
-    containers:
-    - name: busy2
+      containers:
+      - name: busy2
         image: busybox
         command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
 
@@ -389,25 +389,25 @@ Deploy sample pod which mounts nm-stop service script
     apiVersion: v1
     kind: Pod
     metadata:
-    labels:
+      labels:
         run: test-pod
-    name: test-pod
+      name: test-pod
     spec:
-    containers:
-    - image: busybox
+      containers:
+      - image: busybox
         name: test-pod
         volumeMounts:
             - name: nm-stop-script
             mountPath: "/nm-stop.sh"
         command: ["tail", "-f", "/dev/null"]
-    volumes:
-    - name: nm-stop-script
+      volumes:
+      - name: nm-stop-script
         hostPath:
         path: "/etc/contrail/nm_stop.sh"
-    dnsPolicy: ClusterFirst
-    restartPolicy: Always
-    nodeSelector:
-        node-role.kubernetes.io/worker: ""
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      nodeSelector:
+          node-role.kubernetes.io/worker: ""
 
 Wait for Openshift to apply changes on nodes (it may take from few minutes up to an hour)
 Afterward, check if content of nm-stop service has been changed.
@@ -444,9 +444,9 @@ To create new test machine config apply this manifest:
     name: 10-test-file
     spec:
     config:
-        ignition:
+      ignition:
         version: 2.2.0
-        storage:
+      storage:
         files:
         - filesystem: root
             path: /etc/contrail/test.txt
@@ -466,25 +466,25 @@ Afterward, create sample pod that mounts /etc/contrail.
     kind: Pod
     metadata:
     labels:
-        run: test-pod2
-    name: test-pod2
+      run: test-pod2
+      name: test-pod2
     spec:
-    containers:
-    - image: busybox
+      containers:
+      - image: busybox
         name: test-pod2
         volumeMounts:
             - name: nm-stop-script
             mountPath: "/contrail"
         command: ["tail", "-f", "/dev/null"]
-    volumes:
-    - name: nm-stop-script
+      volumes:
+      - name: nm-stop-script
         hostPath:
         path: "/etc/contrail/"
         type: Directory
-    dnsPolicy: ClusterFirst
-    restartPolicy: Always
-    nodeSelector:
-        node-role.kubernetes.io/worker: ""
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      nodeSelector:
+          node-role.kubernetes.io/worker: ""
 
 
 Wait for machine config to be applied on node and verify that file was created (again, it may take up to an hour).
