@@ -14,7 +14,7 @@ Documentation Structure
 Monitoring and Troubleshooting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Understanding Contrail Analytics
+Understanding TF Analytics
 ********************************
 
 .. toctree::
@@ -22,3 +22,12 @@ Understanding Contrail Analytics
    :titlesonly:
 
    encrypting-connection-analytics-server-and-client-server
+
+Configuring TF Analytics
+********************************
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   vrouter-cli-utilities-vnc
