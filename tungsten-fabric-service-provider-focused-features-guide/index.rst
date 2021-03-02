@@ -17,7 +17,16 @@ Data Plane Optimization
    :titlesonly:
    
    vrouter-isolcpu
-   
+
+Advanced Network Topologies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   remote-compute-50
+
 Advanced Service Chain Configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
