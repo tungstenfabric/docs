@@ -23,8 +23,8 @@ Apply below manifest onto cluster:
     spec:
       containers:
         - name: busy1
-            image: busybox
-            command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
+          image: busybox
+          command: ["/bin/sh","-c", "while true; do echo hello; sleep 10;done"]
       nodeSelector:
         node-role.kubernetes.io/master: ""
       tolerations:
