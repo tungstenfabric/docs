@@ -131,70 +131,55 @@ vRouter.
 
 Table 1: vif Fields
 
-.. raw:: html
+.. list-table:: 
+      :header-rows: 1
 
-   <table data-cellspacing="0" style="border-top:thin solid black;" width="99%">
-   <colgroup>
-   <col style="width: 50%" />
-   <col style="width: 50%" />
-   </colgroup>
-   <thead>
-   <tr class="header">
-   <th style="text-align: left;"><p>vif Output Field</p></th>
-   <th style="text-align: left;"><p>Description</p></th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">vif0/X</code></p></td>
-   <td style="text-align: left;"><p>The vRouter assigned name, where 0 is the router ID and X is the index allocated to the interface within the vRouter.</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">OS: pkt0</code></p></td>
-   <td style="text-align: left;"><p>The <code class="inline" data-v-pre="">pkt0</code> (in this case) is the name of the actual OS (Linux) visible interface name. For physical interfaces, the speed and the duplex settings are also displayed.</p></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">Type:xxxxx</code></p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0 </code></p>
-   <p>The type of interface and its IP address, as defined by vRouter. The values can be different from what is seen in the OS. Types defined by vRouter include:</p>
-   <ul>
-   <li><p>Virtual – Interface of a virtual machine (VM).</p></li>
-   <li><p>Physical – Physical interface (NIC) in the system.</p></li>
-   <li><p>Host – An interface toward the host.</p></li>
-   <li><p>Agent – An interface used to trap packets to the vRouter agent when decisions need to be made for the forwarding path.</p></li>
-   </ul></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">Vrf:xxxxx</code></p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre=""> Vrf:65535 Flags:L3 MTU:1514 Ref:2 </code></p>
-   <p>The identifier of the <code class="inline" data-v-pre="">vrf</code> to which the interface is assigned, the flags set on the interface, the MTU as understood by vRouter, and a reference count of how many individual entities actually hold reference to the interface (mainly of debugging value).</p>
-   <p>Flag options identify that the following are enabled for the interface:</p>
-   <ul>
-   <li><p>P - ​Policy. All traffic that comes to vRouter from this interface are subjected to policy.</p></li>
-   <li><p>L3 - ​Layer 3 forwarding</p></li>
-   <li><p>L2 - ​Layer 2 bridging</p></li>
-   <li><p>X - Cross connect mode, only set on physical and host interfaces, indicating that packets are moved between physical and host directly, with minimal intervention by vRouter. Typically set when the agent is not alive or not in good shape.</p></li>
-   <li><p>​Mt - Mirroring transmit direction. All packets that egresses this interface are mirrored.</p></li>
-   <li><p>​ Mr - Mirroring receive direction​. All packets that ingresses this interface will be mirrored.</p></li>
-   <li><p>Tc - ​Checksum offload on the transmit side. Valid only on the physical interface.</p></li>
-   </ul></td>
-   </tr>
-   <tr class="odd">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">Rx</code></p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">RX packets:60  bytes:4873 errors:0 </code></p>
-   <p>Packets received by vRouter from this interface.</p></td>
-   </tr>
-   <tr class="even">
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">Tx</code></p></td>
-   <td style="text-align: left;"><p><code class="inline" data-v-pre="">TX packets:21  bytes:2158 errors:0</code></p>
-   <p>Packets transmitted out by vRouter on this interface.</p></td>
-   </tr>
-   </tbody>
-   </table>
+      * - Release
+        - Description
+      * - vif Output Field
+        - Description
+      * - vif0/X
+        - The vRouter assigned name, where 0 is the router ID and X is the index allocated to the interface within the vRouter.
+      * - OS: pkt0
+        - The pkt0 (in this case) is the name of the actual OS (Linux) visible interface name. For physical interfaces, the speed and the duplex settings are also displayed.
+      * - ``Type:xxxxx``
+        - ``Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0``
 
-.. raw:: html
+          The type of interface and its IP address, as defined by vRouter. The values can be different from what is seen in the OS. Types defined by vRouter include:
 
-   <div id="jd0e289" class="example" dir="ltr">
+          * Virtual – Interface of a virtual machine (VM).
+          * Physical – Physical interface (NIC) in the system.
+          * Host – An interface toward the host.
+          * Agent – An interface used to trap packets to the vRouter agent when decisions need to be made for the forwarding path.
+      
+      * - ``Vrf:xxxxx``
+        - ```Vrf:65535 Flags:L3 MTU:1514 Ref:2```
+          
+          The identifier of the vrf to which the interface is assigned, the flags set on the interface, 
+          the MTU as understood by vRouter, and a reference count of how many individual entities actually 
+          hold reference to the interface (mainly of debugging value).
+
+          Flag options identify that the following are enabled for the interface:
+          
+          * P - ​Policy. All traffic that comes to vRouter from this interface are subjected to policy.
+          * L3 - ​Layer 3 forwarding.
+          * L2 - ​Layer 2 bridging.
+          * X - Cross connect mode, only set on physical and host interfaces, indicating that packets are moved between physical and host directly, with minimal intervention by vRouter. Typically set when the agent is not alive or not in good shape.
+          * M - Mirroring transmit direction. All packets that egresses this interface are mirrored.
+          * Mr - Mirroring receive direction​. All packets that ingresses this interface will be mirrored.
+          * Tc - ​Checksum offload on the transmit side. Valid only on the physical interface.
+
+      * - Rx
+        - RX packets:60 bytes:4873 errors:0
+
+          Packets received by vRouter from this interface.
+
+      * - Tx
+        - TX packets:21 bytes:2158 errors:0
+
+          Packets transmitted out by vRouter on this interface.
+
+
 
 vif Options
 ~~~~~~~~~~~
@@ -265,19 +250,15 @@ command. Following is a brief description of each option.
 |              | command.                                             |
 +--------------+------------------------------------------------------+
 | ``--clear``  | Clears statistics for all interfaces on all cores.   |
-|              | For more information, see `clear                     |
-|              | Command <                                            |
-|              | vrouter-cli-utilities-vnc.html#id-clear-command>`__. |
+|              | For more information, see clear                      |
+|              | Command                                              |
 +--------------+------------------------------------------------------+
 
 clear Command
 -------------
 
 Contrail Networking Release 2008 supports clearing of vif statistics
-counters for all interfaces by using the ``--clear`` command. For more
-information on ``--clear`` command options, see
-`Table 2 <vrouter-cli-utilities-vnc.html#clear-command>`__.
-
+counters for all interfaces by using the ``--clear`` command. 
 Table 2: clear Command Options
 
 +----------------------------------+----------------------------------+
@@ -648,10 +629,10 @@ Example: dropstats
 
    </div>
 
-**Note**
+.. note::
 
-Cloned Original drops are still included in the Drops section in the
-output of the vif --list command.
+   Cloned Original drops are still included in the Drops section in the
+   output of the vif --list command.
 
 .. raw:: html
 
