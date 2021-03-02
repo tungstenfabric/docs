@@ -3,36 +3,20 @@ Remote Compute
 
 :date: 2020-12-01
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-Contrail Networking supports remote compute, a method of managing a
-Contrail deployment across many small distributed data centers
+Tungsten Fabric supports remote compute, a method of managing a
+TF deployment across many small distributed data centers
 efficiently and cost effectively.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
 
 Remote Compute Overview
 -----------------------
 
-Remote compute enables the deployment of Contrail Networking in many
+Remote compute enables the deployment of Tungsten Fabric in many
 small distributed data centers, up to hundreds or even thousands, for
 telecommunications point-of-presence (PoPs) or central offices (COs).
 Each small data center has only a small number of computes, typically
 5-20 in a rack, running a few applications such as video caching,
 traffic optimization, and virtual Broadband Network Gateway (vBNG). It
-is not cost effective to deploy a full Contrail controller cluster of
+is not cost effective to deploy a full TF controller cluster of
 nodes of control, configuration, analytics, database, and the like, in
 each distributed PoP on dedicated servers. Additionally, manually
 managing hundreds or thousands of clusters is not feasible
@@ -50,7 +34,7 @@ The key concepts of Contrail remote compute include:
 -  Remote compute employs a subcluster to manage remote compute nodes
    away from the primary data center.
 
--  The Contrail control cluster is deployed in large centralized data
+-  The TF control cluster is deployed in large centralized data
    centers, where it can remotely manage compute nodes in small
    distributed small data centers.
 
@@ -92,7 +76,7 @@ hosted on the primary cluster.
 Subcluster Properties
 ~~~~~~~~~~~~~~~~~~~~~
 
-The Contrail Web UI shows a list of subcluster objects, each with a list
+The Tungsten Fabric WebUI shows a list of subcluster objects, each with a list
 of associated vrouters and BGP routers that are local in that remote
 site and the ASN property.
 
@@ -116,7 +100,7 @@ General properties of subclusters include:
 Inter Subcluster Route Filtering
 --------------------------------
 
-Contrail Networking Release 2005 supports inter subcluster route
+Tungsten Fabric Release 2011 supports inter subcluster route
 filtering (Beta). With this release, a new extended community called
 ``origin-sub-cluster`` (similar to ``origin-vn``) is added to all routes
 originating from a subcluster.
@@ -145,46 +129,14 @@ Figure 1 shows a data center network topology. All routing policies are configu
 networks in the main data center, POP0. Consider the following example
 routing policy:
 
-.. raw:: html
-
-   <div id="jd0e124" class="sample" dir="ltr">
-
-.. raw:: html
-
-   <div id="jd0e125" dir="ltr">
-
 ``From 0/0 & subcluster:<asn>:1 then LP=150``
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e127" dir="ltr">
 
 ``From 0/0 & subcluster:<asn>:2  then LP=140``
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e129" dir="ltr">
-
 ``From 0/0 then reject``
-
-.. raw:: html
-
-   </div>
 
 Where, ``1`` and ``2`` are the subcluster IDs of subclusters POP1 and
 POP2 respectively.
-
-.. raw:: html
-
-   </div>
 
 In this example, for routes directed to POP0 from subclusters POP1 and
 POP2, the LP will be changed. Routes that do not match the extended
@@ -194,7 +146,7 @@ also rejected.
 Provisioning a Remote Compute Cluster
 -------------------------------------
 
-Contrail Networking enables you to provision remote compute using an
+Tungsten Fabric enables you to provision remote compute using an
 ``instances.yaml`` file. The YAML file described in this
 section builds upon that minimum configuration and uses
 Figure 1 as an example data center network topology.
@@ -221,14 +173,6 @@ To configure remote compute in the YAML file:
    respectively), and define unique ASN numbers for each. Subcluster
    names must also be unique.
 
-   .. raw:: html
-
-      <div id="jd0e192" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       remote_locations:
@@ -239,25 +183,9 @@ To configure remote compute in the YAML file:
           BGP_ASN: 12346
           SUBCLUSTER: pop2
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 2. Create the control nodes for pop1 and pop2 and assign an IP address
    and role. These IP addresses are the local IP address. In this
    example, there are two control nodes for each subcluster.
-
-   .. raw:: html
-
-      <div id="jd0e198" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -286,26 +214,10 @@ To configure remote compute in the YAML file:
             control:
               location: pop2
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 3. Now, create the remote compute nodes for ``pop1`` and ``pop2`` and
    assign an IP address and role. In this example, there are two remote
    compute nodes for each data center. The 10.60.0.x addresses are the
    management IP addresses for the control service.
-
-   .. raw:: html
-
-      <div id="jd0e210" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -346,26 +258,8 @@ To configure remote compute in the YAML file:
               VROUTER_GATEWAY: 10.80.0.1
               location: pop2
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 The entire YAML file is contained below.
-
-.. raw:: html
-
-   <div id="jd0e215" class="sample" dir="ltr">
-
 **Example instance.yaml with subcluster configuration**
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
-
 ::
 
    provider_config:
@@ -504,96 +398,29 @@ The entire YAML file is contained below.
        BGP_ASN: 12346
        SUBCLUSTER: pop2
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 .. note::
 
    Replace ``<contrail_version>`` with the correct contrail_container_tag
-   value for your Contrail Networking release. The respective
+   value for your Tungsten Fabric release. The respective
    contrail_container_tag values are listed in `README Access to Contrail
    Registry <https://www.juniper.net/documentation/en_US/contrail19/information-products/topic-collections/release-notes/readme-contrail-19.pdf>`__  .
 
-.. raw:: html
+.. list-table:: Release History Table
+      :header-rows: 1
 
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
+      * - Release
+        - Description
+      * - 2011
+        - Tungsten Fabric Release 2005 supports inter subcluster route filtering (Beta).
 
 Release
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
 Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
 
 `2005 <#jd0e85>`__
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Contrail Networking Release 2005 supports inter subcluster route
+Tungsten Fabric Release 2005 supports inter subcluster route
 filtering (Beta).
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
  
 
 .. |Figure 1: Example Multi-Cluster Topology| image:: images/g200469.png
