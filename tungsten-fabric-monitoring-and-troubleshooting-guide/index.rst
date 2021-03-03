@@ -31,6 +31,7 @@ Configuring TF Analytics
    :titlesonly:
 
    vrouter-cli-utilities-vnc
+   contrail-tools
    sandump-tool
 
 Configuring traffic mirroring to monitor
