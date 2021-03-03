@@ -15,7 +15,7 @@ Monitoring and Troubleshooting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Understanding TF Analytics
-********************************
+**************************
 
 .. toctree::
    :maxdepth: 1
@@ -24,10 +24,19 @@ Understanding TF Analytics
    encrypting-connection-analytics-server-and-client-server
 
 Configuring TF Analytics
-********************************
+************************
 
 .. toctree::
    :maxdepth: 1
    :titlesonly:
 
    vrouter-cli-utilities-vnc
+
+Configuring traffic mirroring to monitor
+****************************************
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   adding-agent-header-using-wireshark-plugin
