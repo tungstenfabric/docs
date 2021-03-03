@@ -1,12 +1,12 @@
 Using the Wireshark Plugin to Analyze Packets Between vRouter and vRouter Agent on pkt0 Interface
 =================================================================================================
 
- 
+:data: 2020-12-04 
 
 Wireshark is a an application that analyzes packets from a network and
 displays the packet information in detail.
 
-Contrail Networking Release 2008 and later supports the Wireshark
+Tungsten Fabric Release 2008 and later supports the Wireshark
 ``agent_header.lua`` plugin, which enables you to capture and analyze
 the packets exchanged between a vRouter data plane and vRouter agent.
 You can capture the packets by executing the vifdump -i 2 and the
@@ -36,10 +36,9 @@ header information in a packet:
    ``/Applications/Wireshark.app/Contents/PlugIns/wireshark/``.
 
 3. Verify that the ``agent_hdr.lua`` plugin is loaded successfully in
-   Wireshark. Relaunch Wireshark and navigate to **Wireshark** > **About
-   Wireshark** > **Plugins** to verify that the plugin is loaded in the
-   **Plugins** section. See
-   `Figure 1 <adding-agent-header-using-wireshark-plugin.html#agent-hdr-plugin-loaded>`__.
+   Wireshark. Relaunch Wireshark and navigate to :menuselection:`Wireshark > About
+   Wireshark > Plugins` to verify that the plugin is loaded in the
+   **Plugins** section.
 
    |Figure 1: The Plugin is Loaded in Wireshark|
 
@@ -48,22 +47,18 @@ header information in a packet:
 
    ``editcap -T user0 <pcap-file-to-be-read> <output.pcap>``
 
-5. In Wireshark, navigate to **Wireshark** > **Preferences** >
-   **Protocols** > **DLT_USER** > **Edit Encapsulation Table**. See
-   `Figure 2 <adding-agent-header-using-wireshark-plugin.html#encapsulation-table>`__.
+5. In Wireshark, navigate to :menuselection:`Wireshark > Preferences >
+   Protocols > DLT_USER > Edit Encapsulation Table`. 
 
    |Figure 2: Edit Encapsulation Table|
 
 6. In the **Edit Encapsulation Table**, add the ``agent_hdr`` as a
-   payload protocol for the packet. See
-   `Figure 3 <adding-agent-header-using-wireshark-plugin.html#add-agent-hdr>`__.
+   payload protocol for the packet. 
 
    |Figure 3: Add Agent Header to a Packet|
 
-7. Using Wireshark, open the modified pcap file you generated in step
-   `4 <adding-agent-header-using-wireshark-plugin.html#step-four>`__.
-   Wireshark displays the parsed packets. See
-   `Figure 4 <adding-agent-header-using-wireshark-plugin.html#modified-parsed-packets>`__.
+7. Using Wireshark, open the modified pcap file you generated in step 4.
+   Wireshark displays the parsed packets. 
 
    |Figure 4: Packets Expanded Using the Wireshark Plugin|
 
@@ -82,8 +77,8 @@ computer and dissect agent header information in a packet:
    ``C:\Program Files\Wireshark\plugins\``.
 
 3. Verify that the ``agent_hdr.lua`` plugin is loaded successfully in
-   Wireshark. Relaunch Wireshark and navigate to **Help** > **About
-   Wireshark** > **Plugins** to verify that the plugin is loaded in the
+   Wireshark. Relaunch Wireshark and navigate to :menuselection:`Help > About
+   Wireshark > Plugins` to verify that the plugin is loaded in the
    **Plugins** section.
 
 4. Open command prompt in Run as administrator mode and navigate to
@@ -92,14 +87,13 @@ computer and dissect agent header information in a packet:
 
    ``editcap -T user0 <pcap-file-to-be-read> <output.pcap>``
 
-5. In Wireshark, navigate to **Edit** > **Preferences** > **Protocols**
-   > **DLT_USER** > **Edit Encapsulation Table**.
+5. In Wireshark, navigate to :menuselection:`Edit > Preferences > Protocols
+   > DLT_USER > Edit Encapsulation Table`.
 
 6. In the **Edit Encapsulation Table**, add the ``agent_hdr`` as a
    payload protocol for the packet. See .
 
-7. Using Wireshark, open the modified pcap file you generated in step
-   `4 <adding-agent-header-using-wireshark-plugin.html#step-four-ms>`__.
+7. Using Wireshark, open the modified pcap file you generated in step 4.
    Wireshark displays the parsed packets.
 
 The ``agent_header.lua`` plugin is also available in contrail-tools
@@ -120,112 +114,20 @@ the contrail-tools container:
    tshark3_2 -nr <pcap file> -o "uat:user_dlts:\"User0
    (DLT=147)\",\"ag_hdr\",\"0\",\"\",\"0\",\"\"" -T pdml
 
-.. raw:: html
 
-   <div class="table">
+.. list-table:: Release History Table
+      :header-rows: 1
 
-.. raw:: html
+      * - Release
+        - Description
+      * - 2011
+        - Starting from release 2011, the Wireshark ``agent_header.lua`` plugin is 
+          supported on Macintosh OS as well as Windows OS computers.
+      * - 2011
+        - Tungsten Fabric Release 2008 and later supports the Wireshark 
+          ``agent_header.lua`` plugin, which enables you to capture and analyze
+          the packets exchanged between a vRouter data plane and vRouter agent.
 
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e24>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting from release 2011, the Wireshark ``agent_header.lua`` plugin is
-supported on Macintosh OS as well as Windows OS computers.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2008 <#jd0e12>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Contrail Networking Release 2008 and later supports the Wireshark
-``agent_header.lua`` plugin, which enables you to capture and analyze
-the packets exchanged between a vRouter data plane and vRouter agent.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
- 
 
 .. |Figure 1: The Plugin is Loaded in Wireshark| image:: images/s060265.png
 .. |Figure 2: Edit Encapsulation Table| image:: images/s060266.png
