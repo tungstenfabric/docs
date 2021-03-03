@@ -8,9 +8,9 @@ Processes before submitting a blueprint
       rejected or marked as “For future release”
 
 2. Provided the blueprint matches the release, or is submitted for TSC’s
-      future consideration the BP submitter will have to consult the
-      guidelines below and submit the required documentation in the
-      launchpad (\ https://review.opencontrail.org/#/q/status:open\ )
+   future consideration the BP submitter will have to consult the
+   guidelines below and submit the required documentation in the 
+   launchpad.
 
 3. There will be two buckets:
 
@@ -43,7 +43,7 @@ Blueprint submission is a two step process.
 
 1. Submit a blueprint providing high level overview of the feature (or
       enhancement) proposed. The blueprint is submitted
-      at\ https://blueprints.launchpad.net/opencontrail/\ . This
+      at\ https://github.com/tungstenfabric/tf-specs/ . This
       blueprint must have a link to the full specifications of the
       feature (or enhancement).
 
@@ -54,21 +54,20 @@ At a minimum, the blueprint must have the following fields filled:
 -  Milestone Targeted
 
 2. Submit full specification of the feature (or enhancement) in details.
-      This specification must be submitted
-      at\ https://github.com/Juniper/contrail-specs\ . This
-      specification must be submitted in Markdown format (file with .md
+      This specification must be submitted at https://github.com/tungstenfabric/tf-specs/ . 
+      This specification must be submitted in Markdown format (file with .md
       extension).
 
 EULA is necessary for submitting a spec file.
 
    An MD file is a text file which is created using dialects of Markdown
    language. All specification files reside
-   at\ https://github.com/OpenContrail\ . Full details of the feature
+   at\ https://github.com/tungstenfabric/tf-specs/ . Full details of the feature
    must be provided in order for the feature to be considered by ARB.
    Take a look at any of the specs present at the above mentioned github
    repo and ensure that you fill in all of the fields of the spec to be
    considered. Here is an example of specification using MD file
-   -\ https://review.opencontrail.org/#/c/26584/2/specs/ironic_contrail.md
+   -\ https://github.com/tungstenfabric/tf-specs/blob/master/ironic_contrail.md
 
 Launchpad
 ---------
@@ -116,11 +115,11 @@ Spec
 ----
 
    Specs must be submitted
-   into\ https://github.com/Juniper/contrail-specs\ . Make sure first
+   into\ https://github.com/tungstenfabric/tf-specs/ . Make sure first
    you have a Gerrit account. Once the account is in place here is the
    command line needed to do push your spec file for review:
 
-   git clone https://review.opencontrail.org/Juniper/contrail-specs
+   git clone https://github.com/tungstenfabric/tf-specs/
 
    cd contrail-specs/5.0
 
@@ -132,19 +131,21 @@ Spec
    https://daringfireball.net/projects/markdown/syntax\ or similar.
    After finishing your editing, run:
 
-   git checkout -b <your spec short name> (optional, but this will show
-   up in Gerrit as "Topic" and is not a bad idea to do)
+   ::
 
-   git add <insert your spec filename here>
+     git checkout -b <your spec short name> (optional, but this will show up
+     in Gerrit as "Topic" and is not a bad idea to do)
 
-   git commit (write a good commit message and make sure to include a
-   line "Partial-bug: #<your Launchpad bug ID>"
+     git add <insert your spec filename here>
 
-   git remote add gerrit ssh://<your gerrit
-   username>@review.opencontrail.org:29418/Juniper/contrail-specs.git
-   (this is needed once)
+     git commit (write a good commit message and make sure to include a
+     line "Partial-bug: #<your Launchpad bug ID>"
 
-   git review
+     git remote add gerrit ssh://<your gerrit
+     username>@review.opencontrail.org:29418/Juniper/contrail-specs.git
+     (this is needed once)
+
+     git review
 
    If all goes well, the git review command should output a URL to
    https://review.opencontrail.org\ for your newly created spec.
