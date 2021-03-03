@@ -1,5 +1,5 @@
-Fast Routing Convergence with Contrail Networking
-=================================================
+Fast Routing Convergence with Tungsten Fabric
+=============================================
 
 :date: 2020-08-25
 
@@ -45,10 +45,10 @@ depends on the following actions:
 The availability of services depends on the time taken for failure
 detection and correction.
 
-Fast Network Convergence in a Network Managed by Contrail Networking
---------------------------------------------------------------------
+Fast Network Convergence in a Network Managed by Tungsten Fabric
+----------------------------------------------------------------
 
-Contrail Networking provides software defined networking solution that
+Tungsten Fabric provides software defined networking solution that
 offers network virtualization at the compute node-level through overlay
 networking. In a software-defined network, failures might occur in the
 overlay or in the underlay. A failure in the overlay can be the failure
@@ -59,8 +59,8 @@ underlay, the most critical ones are the SDN gateway failure and compute
 node failure.
 
 Fast convergence feature improves the convergence time in case of
-failures in a cluster managed by Contrail networking. In a typical
-Contrail Networking-managed network, the customer end points connect to
+failures in a cluster managed by Tungsten Fabric. In a typical
+Tungsten Fabric-managed network, the customer end points connect to
 the vRouter through MPLSoUDP, GRE, or VXLAN overlay tunnels from the
 gateway device. The vRouters connect to the MPLS gateway through the
 fabric endpoints.
@@ -105,26 +105,18 @@ achieved.
 
 Figure 2: Tunnel Endpoint Failure: vRouter
 
-.. raw:: html
-
-   <div class="graphic">
-
 |image1|
 
-.. raw:: html
-
-   </div>
-
-Starting with Release 2008, Contrail Networking supports fast
+Starting with Release 2008, Tungsten Fabric supports fast
 convergence. The fast convergence feature reduces the convergence time
-in case of an overlay end point failure. The Contrail control plane
+in case of an overlay end point failure. The TF control plane
 responds to the changes in the underlay network and then takes action to
 achieve convergence quickly, reducing convergence time that would have
 taken in a typical scenario where control plane depends on BGP hold time
 expiration. Typically, the spines come to know of any tunnel end point
 failures through the BFD or the link down protocols. With the fast
 convergence feature, the spine propagates this information to the
-Contrail Controller and removes the tunnel end point from the control
+Tungsten Fabric Controller and removes the tunnel end point from the control
 node through a routing table update. The control node recognizes this as
 a tunnel end point failure and initiates routing convergence. To respond
 to northbound failures (gateway failure), the control node performs a
@@ -138,129 +130,28 @@ recommended timeout value is nine (9) seconds. A lower value is
 recommended only for smaller clusters.
 
 Figure 3 shows how
-Contrail Networking achieves fast convergence by using the destination
+Tungsten Fabric achieves fast convergence by using the destination
 reachability information that the spine gathers through BFD or link down
 protocols, and by using the XMPP timeout information sent to the control
 node to detect a failure in the vRouter.
 
 Figure 3: Fast Convergence in a Contrail-managed Network
 
-.. raw:: html
-
-   <div class="graphic">
-
 |image2|
 
-.. raw:: html
+.. list-table:: **Release History Table**
+      :header-rows: 1
 
-   </div>
-
-.. raw:: html
-
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2008 <#jd0e60>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting with Release 2008, Contrail Networking supports fast
-convergence.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2008 <#jd0e63>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-To achieve fast convergence in case of a southbound failure (vRouter
-failure), you can set the XMPP hold time to a value as low as one (1)
-second. Whenever the XMPP hold time expires, the control node recognizes
-it as a failure in the vRouter and initiates convergence.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
+      * - Release
+        - Description
+      * - 2011
+        - Starting with Release 2011, Tungsten Fabric supports fast
+          convergence.
+      * - 2011
+        - To achieve fast convergence in case of a southbound failure (vRouter
+          failure), you can set the XMPP hold time to a value as low as one (1)
+          second. Whenever the XMPP hold time expires, the control node recognizes
+          it as a failure in the vRouter and initiates convergence. 
 
 .. |Figure 1: Tunnel Endpoint failure: SDN Gateway| image:: images/g301196.png
 .. |image1| image:: images/g301197.png
