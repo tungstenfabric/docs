@@ -21,9 +21,9 @@ provided by the vRouter can be used to display these data structures and
 better understand the behavior that one sees in a compute node.
 
 This section describes the shell prompt utilities available for
-examining the state of the vRouter kernel module in Contrail.
+examining the state of the vRouter kernel module in TF.
 
-The most useful commands for inspecting the Contrail vRouter module are
+The most useful commands for inspecting the Tungsten Fabric vRouter module are
 summarized in the following table.
 
 +---------------+-----------------------------------------------------+
@@ -77,15 +77,7 @@ vRouter.
    The ``vif`` command can be used to see the interfaces that the vRouter
    is aware of by including the ``--list`` option.
 
-.. raw:: html
-
-   <div id="jd0e162" class="sample" dir="ltr">
-
 **Example: vif --list**
-
-.. raw:: html
-
-   <div class="output" dir="ltr">
 
 ::
 
@@ -121,14 +113,6 @@ vRouter.
                RX packets:134  bytes:15697 errors:0
                TX packets:8568  bytes:945944 errors:0
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Table 1: vif Fields
 
 .. list-table:: 
@@ -138,10 +122,10 @@ Table 1: vif Fields
         - Description
       * - vif Output Field
         - Description
-      * - vif0/X
+      * - ``vif0/X``
         - The vRouter assigned name, where 0 is the router ID and X is the index allocated to the interface within the vRouter.
-      * - OS: pkt0
-        - The pkt0 (in this case) is the name of the actual OS (Linux) visible interface name. For physical interfaces, the speed and the duplex settings are also displayed.
+      * - ``OS: pkt0``
+        - The ``pkt0`` (in this case) is the name of the actual OS (Linux) visible interface name. For physical interfaces, the speed and the duplex settings are also displayed.
       * - ``Type:xxxxx``
         - ``Type:Virtual HWaddr:00:00:5e:00:01:00 IPaddr:0``
 
@@ -153,7 +137,7 @@ Table 1: vif Fields
           * Agent – An interface used to trap packets to the vRouter agent when decisions need to be made for the forwarding path.
       
       * - ``Vrf:xxxxx``
-        - ```Vrf:65535 Flags:L3 MTU:1514 Ref:2```
+        - ``Vrf:65535 Flags:L3 MTU:1514 Ref:2``
           
           The identifier of the vrf to which the interface is assigned, the flags set on the interface, 
           the MTU as understood by vRouter, and a reference count of how many individual entities actually 
@@ -169,17 +153,15 @@ Table 1: vif Fields
           * Mr - Mirroring receive direction​. All packets that ingresses this interface will be mirrored.
           * Tc - ​Checksum offload on the transmit side. Valid only on the physical interface.
 
-      * - Rx
-        - RX packets:60 bytes:4873 errors:0
+      * - ``Rx``
+        - ``RX packets:60 bytes:4873 errors:0``
 
           Packets received by vRouter from this interface.
 
-      * - Tx
-        - TX packets:21 bytes:2158 errors:0
+      * - ``Tx``
+        - ``TX packets:21 bytes:2158 errors:0``
 
           Packets transmitted out by vRouter on this interface.
-
-
 
 vif Options
 ~~~~~~~~~~~
@@ -209,10 +191,6 @@ command. Following is a brief description of each option.
               [--sock-dir <sock dir>]
               [--clear][--id <intf_id>][--core <core_number>]
               [--help}
-
-.. raw:: html
-
-   </div>
 
 +--------------+------------------------------------------------------+
 | Option       | Description                                          |
@@ -257,7 +235,7 @@ command. Following is a brief description of each option.
 clear Command
 -------------
 
-Contrail Networking Release 2008 supports clearing of vif statistics
+Tungsten Fabric Release 2008 supports clearing of vif statistics
 counters for all interfaces by using the ``--clear`` command. 
 Table 2: clear Command Options
 
@@ -282,10 +260,6 @@ flow Command
 
 Use the ``flow`` command to display all active flows in a system.
 
-.. raw:: html
-
-   <div id="jd0e495" class="example" dir="ltr">
-
 Example: flow -l
 ~~~~~~~~~~~~~~~~
 
@@ -302,10 +276,6 @@ relevant debugging option.
                        (Action:F, S(nh):91,  Statistics:22/1848)
         379480          1.1.1.253:1203            1.1.1.252:0        1 (3) 
                        (Action:F, S(nh):75,  Statistics:22/1848)     
-
-.. raw:: html
-
-   </div>
 
 ​Each record in the flow table listing displays the index of the record,
 the source IP: source port, the destination ip: destination port, the
@@ -337,10 +307,6 @@ flows, as is the case with NAT, you will see a double arrow in each of
 the records with either side of the arrow displaying the flow index for
 that direction.
 
-.. raw:: html
-
-   <div id="jd0e523" class="example" dir="ltr">
-
 Example: flow -r
 ~~~~~~~~~~~~~~~~
 
@@ -354,14 +320,6 @@ Use ``-r`` to view all of the flow setup rates.
    New =   -2, Flow setup rate =   -3 flows/sec, Flow rate =   -3 flows/sec, for last  541 ms  
    New =    2, Flow setup rate =    3 flows/sec, Flow rate =    3 flows/sec, for last  544 ms  
    New =   -2, Flow setup rate =   -3 flows/sec, Flow rate =   -3 flows/sec, for last  542 ms  
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e534" class="example" dir="ltr">
 
 Example: flow --help
 ~~~~~~~~~~~~~~~~~~~~
@@ -382,20 +340,12 @@ Use ``--help`` to display all options available for the flow command.
      -r                            Start dumping flow setup rate
      --help                    Print this help     
 
-.. raw:: html
-
-   </div>
-
 vrfstats Command
 ----------------
 
 Use ``vrfstats`` to display statistics per next hop for a ``vrf``. It is
 typically used to determine if packets are hitting the expected next
 hop.
-
-.. raw:: html
-
-   <div id="jd0e559" class="example" dir="ltr">
 
 Example: vrfstats --dump
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -418,14 +368,6 @@ counters will increment. ​
      Udp Tunnels 0, Udp Mpls Tunnels 0, Gre Mpls Tunnels 0
      L2 Encaps 0, Encaps 130955
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e581" class="example" dir="ltr">
-
 Example: vrfstats --get 0​
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -439,14 +381,6 @@ Use ``--get 0`` to retrieve statistics for a particular ``vrf``.
      Ecmp Composites 0, L3 Mcast Composites 0, L2 Mcast Composites 0, Fabric Composites 0, Multi Proto Composites 0
      Udp Tunnels 0, Udp Mpls Tunnels 0, Gre Mpls Tunnels 0
      L2 Encaps 0, Encaps 132179 
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e595" class="example" dir="ltr">
 
 ​Example: ​vrfstats --help
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -463,18 +397,10 @@ Use ``--get 0`` to retrieve statistics for a particular ``vrf``.
 
    --help              Displays this help message
 
-.. raw:: html
-
-   </div>
-
 rt Command
 ----------
 
 Use the rt command to display all routes in a VRF.
-
-.. raw:: html
-
-   <div id="jd0e608" class="example" dir="ltr">
 
 Example: rt --dump
 ~~~~~~~~~~~~~~~~~~
@@ -501,10 +427,6 @@ The following example displays ``inet`` family routes for ``vrf 0``.
 
    5.0.0.0/8                0                        -              5
 
-.. raw:: html
-
-   </div>
-
 In this example output, the first line displays the routing table that
 is being dumped. In ``0/0/unicast``, the first 0 is for the router ID,
 the next 0 is for the VRF ID, and unicast identifies the unicast table.
@@ -526,10 +448,6 @@ this IP.
 The ``Nexthop`` field indicates the next hop ID to which the route
 points.
 
-.. raw:: html
-
-   <div id="jd0e651" class="example" dir="ltr">
-
 Example: rt --dump --table mcst
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -546,19 +464,11 @@ the argument.
 
    0.0.0.0,255.255.255.255  
 
-.. raw:: html
-
-   </div>
-
 dropstats Command
 -----------------
 
 Use the dropstats command to see packet drop counters in vRouter. Use
 the dropstats --debug command to view the Cloned Original counters.
-
-.. raw:: html
-
-   <div id="jd0e682" class="example" dir="ltr">
 
 Example: dropstats
 ~~~~~~~~~~~~~~~~~~
@@ -625,18 +535,10 @@ Example: dropstats
    (vrouter-agent-dpdk)[root@nodec56 /]$ dropstats --debug
    Cloned Original               0
 
-.. raw:: html
-
-   </div>
-
 .. note::
 
    Cloned Original drops are still included in the Drops section in the
    output of the vif --list command.
-
-.. raw:: html
-
-   <div id="jd0e698" class="example" dir="ltr">
 
 dropstats ARP Block
 ~~~~~~~~~~~~~~~~~~~
@@ -651,14 +553,6 @@ by\ ``ARP notme``\ counters.
 
 The ``Invalid ARPs`` counter is incremented when the Ethernet protocol
 is ARP, but the ARP operation was neither a request nor a response.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e714" class="example" dir="ltr">
 
 dropstats Interface Block
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -678,14 +572,6 @@ unloaded.
 ``IF Drop``\ counters indicate packets that are dropped in the interface
 layer. The increase can typically happen when interface settings are
 wrong.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e737" class="example" dir="ltr">
 
 dropstats Flow Block
 ~~~~~~~~~~~~~~~~~~~~
@@ -722,14 +608,6 @@ course of time, and can be ignored.
 
 The ``Flow Queue Limit Exceeded`` usually does not increment in the
 normal course of time, and can be ignored.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e778" class="example" dir="ltr">
 
 dropstats Miscellaneous Operational Block
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -777,19 +655,11 @@ from an invalid or unexpected source and thus were dropped.
 
 The remaining counters are of value only to developers.
 
-.. raw:: html
-
-   </div>
-
 mpls Command
 ------------
 
 The ``mpls`` utility command displays the input label map that has been
 programmed in the vRouter.
-
-.. raw:: html
-
-   <div id="jd0e850" class="example" dir="ltr">
 
 Example: mpls --dump
 ~~~~~~~~~~~~~~~~~~~~
@@ -805,9 +675,6 @@ corresponding to the label to forward the packet.
    # mpls –dump
 
    MPLS Input Label Map
-
-
-
       Label    NextHop
 
      ----------------------
@@ -815,14 +682,6 @@ corresponding to the label to forward the packet.
        16          9
 
        17          11
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e861" class="example" dir="ltr">
 
 You can inspect the operation on ``nh 9``\ as follows:
 
@@ -834,13 +693,6 @@ You can inspect the operation on ``nh 9``\ as follows:
 
            EncapFmly:0806 Oif:3 Len:14 Data:02 d0 60 aa 50 57 00 25 90 c3 08 69 08 00
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e870" class="example" dir="ltr">
 
 The nh output shows that the next hop directs the packet to go out on
 the interface with index 3 (``Oif:3``) with the given rewrite data.
@@ -861,14 +713,6 @@ To check the index of 3, use the following:
 
            TX packets:1041  bytes:102372 errors:0
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e881" class="example" dir="ltr">
-
 The\ ``-get 3`` output shows that the index of 3 corresponds to a tap
 interface that goes to a VM.
 
@@ -880,22 +724,11 @@ option, as follows:
    # mpls –get 16
 
    MPLS Input Label Map
-
-
-
       Label    NextHop
 
    -----------------------
 
         16         9
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e895" class="example" dir="ltr">
 
 Example: mpls -help
 ~~~~~~~~~~~~~~~~~~~
@@ -918,18 +751,10 @@ Example: mpls -help
 
    --help     Prints this help message
 
-.. raw:: html
-
-   </div>
-
 mirror Command
 --------------
 
 Use the ``mirror`` command to dump the mirror table entries.
-
-.. raw:: html
-
-   <div id="jd0e911" class="example" dir="ltr">
 
 Example: Inspect Mirroring
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -952,24 +777,13 @@ both IPs are valid VM IPs, then the flow table is listed:
    135024               2.2.2.253:1208            1.1.1.253:0        1 (1)
 
                     (Action:F, S(nh):17,  Statistics:208/17472 Mirror Index : 0)
-
-
-
    387324               1.1.1.253:1208            2.2.2.253:0        1 (1)
 
                      (Action:F, S(nh):8,  Statistics:208/17472 Mirror Index : 0)
 
-.. raw:: html
-
-   </div>
-
 In the example output, ``Mirror Index:0`` is listed, it is the index to
 the mirror table. The mirror table can be dumped with the\ ``—dump``
 option, as follows:
-
-.. raw:: html
-
-   <div id="jd0e933" class="example" dir="ltr">
 
 ::
 
@@ -983,19 +797,11 @@ option, as follows:
 
       0            18                     3
 
-.. raw:: html
-
-   </div>
-
 The mirror table entries point to next hops. In the example, the index 0
 points to next hop 18. The ``References`` indicate the number of flow
 entries that point to this entry.
 
 A next hop get operation on ID 18 is performed as follows:
-
-.. raw:: html
-
-   <div id="jd0e943" class="example" dir="ltr">
 
 ::
 
@@ -1009,10 +815,6 @@ A next hop get operation on ID 18 is performed as follows:
 
            Sport:58818 Dport:8099
 
-.. raw:: html
-
-   </div>
-
 The ``nh --get`` output shows that mirrored packets go to a system with
 IP 250.250.2.253. The packets are tunneled as a UDP datagram and sent to
 the destination. ``Vrf:-1`` indicates that a lookup has to be done in
@@ -1020,10 +822,6 @@ the source ``Vrf`` for the destination.
 
 You can also get an individual mirror table entry using the ``—get``
 option, as follows:
-
-.. raw:: html
-
-   <div id="jd0e962" class="example" dir="ltr">
 
 ::
 
@@ -1036,14 +834,6 @@ option, as follows:
    -----------------------------------------------
 
     10         1                           1
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e965" class="example" dir="ltr">
 
 Example: mirror --help
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -1064,10 +854,6 @@ Example: mirror --help
 
    --help     Prints this help message
 
-.. raw:: html
-
-   </div>
-
 vxlan Command
 -------------
 
@@ -1077,10 +863,6 @@ maps a network ID to a next hop, similar to an MPLS table.
 If a packet comes with a VXLAN header and if the VNID is one of those in
 the table, the vRouter will use the next hop identified to forward the
 packet.
-
-.. raw:: html
-
-   <div id="jd0e980" class="example" dir="ltr">
 
 Example: vxlan --dump​
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -1099,14 +881,6 @@ Example: vxlan --dump​
 
      5         16
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e985" class="example" dir="ltr">
-
 Example: vxlan --get
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -1123,14 +897,6 @@ You can use the ``—get`` option to dump a specific entry, as follows:
    ----------------------
 
      4         16
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e996" class="example" dir="ltr">
 
 Example: vxlan --help
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1150,10 +916,6 @@ Example: vxlan --help
    --get   Dumps the entry corresponding to <vnid>
 
    --help  Prints this help message
-
-.. raw:: html
-
-   </div>
 
 nh Command
 ----------
@@ -1224,10 +986,6 @@ described in the following table.
 |                       | destination server IPs.                     |
 +-----------------------+---------------------------------------------+
 
-.. raw:: html
-
-   <div id="jd0e1081" class="example" dir="ltr">
-
 Example: nh --list
 ~~~~~~~~~~~~~~~~~~
 
@@ -1281,14 +1039,6 @@ Example: nh --list
 
            Sub NH(label): 14(0) 15(0)
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1086" class="example" dir="ltr">
-
 Example: nh --get
 ~~~~~~~~~~~~~~~~~
 
@@ -1301,14 +1051,6 @@ Use the\ ``--get``\ option to display information for a single next hop.
    Id:009  Type:Encap     Fmly:AF_BRIDGE  Flags:Valid, L2,   Rid:0  Ref_cnt:4
 
            EncapFmly:0000 Oif:3 Len:0 Data:
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1097" class="example" dir="ltr">
 
 Example: nh --help
 ~~~~~~~~~~~~~~~~~~
@@ -1329,20 +1071,12 @@ Example: nh --help
 
    --help  Displays this help message
 
-.. raw:: html
-
-   </div>
-
 dpdkinfo Command
 ----------------
 
-In Contrail Networking Release 2008, the ``dpdkinfo`` command enables
+In Tungsten Fabric Release 2008, the ``dpdkinfo`` command enables
 you to see the details of the internal data structures of a DPDK enabled
 vRouter.
-
-.. raw:: html
-
-   <div id="jd0e1114" class="example" dir="ltr">
 
 dpdkinfo Options
 ~~~~~~~~~~~~~~~~
@@ -1350,10 +1084,6 @@ dpdkinfo Options
 Use\ ``dpdkinfo –-help`` to display all options available for the
 dpdkinfo command. The dpdkinfo command options are described in the
 following table:
-
-.. raw:: html
-
-   </div>
 
 +------------------------------+--------------------------------------+
 | Option                       | Description                          |
@@ -1399,10 +1129,6 @@ following table:
 | dpdkinfo --ddp list          | Displays the list of DDP profiles    |
 |                              | added in the vRouter.                |
 +------------------------------+--------------------------------------+
-
-.. raw:: html
-
-   <div id="jd0e1223" class="example" dir="ltr">
 
 Example: dpdkinfo --bond
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1485,14 +1211,6 @@ actor/partner port number, and so on.
            port number: 10
            port state: 63 (ACT TIMEOUT AGG SYNC COL DIST )
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1235" class="example" dir="ltr">
-
 Example: dpdkinfo --lacp all
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1535,14 +1253,6 @@ all the backup devices.
                  Tx     Rx
    0000:04:00.0  6      28
    0000:04:00.1  7      30
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1249" class="example" dir="ltr">
 
 Example: dpdkinfo --mempool all and dpdk --mempool <mempool-name>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1590,14 +1300,6 @@ memory pool you have specified in the command.
    total_cache_count=637
    common_pool_count=15137
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1268" class="example" dir="ltr">
-
 Example: dpdkinfo --stats eth
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1638,14 +1340,6 @@ the NIC card and displays the information.
          Rx Bytes: [0]148651 
          Tx Bytes: [0]234429 
          Errors:
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1279" class="example" dir="ltr">
 
 Example: dpdkinfo --xstats
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1720,14 +1414,6 @@ displays the packet statistics in detail.
    Others: 
            out_pkts_untagged: 2316
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1290" class="example" dir="ltr">
-
 Example: dpdkinfo --lcore
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1747,14 +1433,6 @@ lcore, and queue-ID of the interfaces.
    Lcore 1: 
            Interface: bond0.102           Queue ID: 1 
            Interface: tapd1b53efb-9e      Queue ID: 0
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1302" class="example" dir="ltr">
 
 dpdkinfo --app
 ~~~~~~~~~~~~~~
@@ -1814,18 +1492,10 @@ The dpdkinfo --app command displays the following information:
            fd: 39 vif name: bond0 
            fd: 48 vif name: vhost0
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1326" class="example" dir="ltr">
-
 Example: dpdkinfo --ddp list
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In Contrail Networking Release 2011, you can use the dpdkinfo --ddp list
+In Tungsten Fabric Release 2011, you can use the dpdkinfo --ddp list
 command to display the list of DDP profiles added in the vRouter.
 
 The dpdkinfo --ddp list displays a summary of the DDP profile added in
@@ -1842,20 +1512,12 @@ of the profile, version number, and profile name.
    Version:      1.0.0.0
    Profile name: L2/L3 over MPLSoGRE/MPLSoUDP
 
-.. raw:: html
-
-   </div>
-
 dpdkconf Command
 ----------------
 
-In Contrail Networking Release 2011, the ``dpdkconf`` command enables
+In Tungsten Fabric Release 2011, the ``dpdkconf`` command enables
 you to configure a DPDK enabled vRouter. In release 2011, you can use
 the ``dpdkconf`` command to enable or delete a DDP profile in vRouter.
-
-.. raw:: html
-
-   <div id="jd0e1357" class="example" dir="ltr">
 
 Example: dpdkconf --ddp add
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1868,14 +1530,6 @@ profile in a DPDK enabled vRouter.
    (contrail-tools)[root@cs-scale-02 /]$ dpdkconf --ddp add
    Programming DDP image mplsogreudp - success
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div id="jd0e1368" class="example" dir="ltr">
-
 Example: dpdkconf --ddp delete
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1887,190 +1541,16 @@ already loaded in the vRouter.
    (contrail-tools)[root@cs-scale-02 /]$ dpdkconf --ddp delete
    vr_dpdk_ddp_del: Removed DDP image mplsogreudp - success
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-
 .. list-table:: Release History Table
       :header-rows: 1
 
       * - Release
         - Description
       * - 2011
-        - In Contrail Networking Release 2011, you can use the dpdkinfo --ddp list command to display the list of DDP profiles added in the vRouter.
+        - In Tungsten Fabric Release 2011, you can use the dpdkinfo --ddp list command to display the list of DDP profiles added in the vRouter.
       * - 2011	
-        - In Contrail Networking Release 2011, the dpdkconf command enables you to configure a DPDK enabled vRouter. In release 2011, you can use the dpdkconf command to enable or delete a DDP profile in vRouter.
+        - In Tungsten Fabric Release 2011, the dpdkconf command enables you to configure a DPDK enabled vRouter. In release 2011, you can use the dpdkconf command to enable or delete a DDP profile in vRouter.
       * - 2011
-        - Contrail Networking Release 2008 supports clearing of vif statistics counters for all interfaces by using the --clear command.
+        - Tungsten Fabric Release 2008 supports clearing of vif statistics counters for all interfaces by using the --clear command.
       * - 2011	
-        - In Contrail Networking Release 2008, the dpdkinfo command enables you to see the details of the internal data structures of a DPDK enabled vRouter.
-
-
-
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e1331>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-In Contrail Networking Release 2011, you can use the dpdkinfo --ddp list
-command to display the list of DDP profiles added in the vRouter.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e1349>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-In Contrail Networking Release 2011, the ``dpdkconf`` command enables
-you to configure a DPDK enabled vRouter. In release 2011, you can use
-the ``dpdkconf`` command to enable or delete a DDP profile in vRouter.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2008 <#jd0e427>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Contrail Networking Release 2008 supports clearing of vif statistics
-counters for all interfaces by using the ``--clear`` command.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2008 <#jd0e1109>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-In Contrail Networking Release 2008, the ``dpdkinfo`` command enables
-you to see the details of the internal data structures of a DPDK enabled
-vRouter.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
- 
+        - In Tungsten Fabric Release 2008, the dpdkinfo command enables you to see the details of the internal data structures of a DPDK enabled vRouter.
