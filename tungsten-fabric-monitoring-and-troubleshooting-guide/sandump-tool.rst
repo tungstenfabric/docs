@@ -3,7 +3,7 @@ Using Sandump Tool​
 
 :date: 2020-11-10
 
-Starting with Contrail Networking Release 2008, *Sandump* tool is
+Starting with Tungsten Fabric Release 2008, *Sandump* tool is
 available in contrail-tools container. You can use the *Sandump* tool on
 macOS machines.
 
@@ -11,12 +11,11 @@ Sandump tool captures the Sandesh messages from netlink connection
 between Agent and vRouter (only DPDK mode) and provides interpretation
 of all the captured bytes.​
 
-Starting with Contrail Networking Release 2011, you can use *Sandump*
+Starting with Tungsten Fabric Release 2011, you can use *Sandump*
 tool on Windows machines.
 
 Sandesh is a southbound interface protocol based on Apache Thrift, to
-send analytics data such as system logs, object logs, UVEs, flow logs,
-and the like, to the collector service in the Contrail Insights node.
+send analytics data such as system logs, object logs, UVEs, and flow logs.
 
 You can analyze the captured bytes in Wireshark. The Wireshark plugin
 parses the hex dumps of all Sandesh objects. You must use Wireshark
@@ -33,23 +32,7 @@ Follow the procedure to use Sandump tool:
 1. Run the ``sandump`` command. It gives summary of each message which
    is being transferred between the agent and the vRouter.​
 
-   .. raw:: html
-
-      <div id="jd0e50" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div id="jd0e51" dir="ltr">
-
    ``(vrouter-agent-dpdk)[root]$ ./sandump -h``
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -58,34 +41,9 @@ Follow the procedure to use Sandump tool:
              ./sandump -w <filename> [filename to write the sandesh packets]
              ./sandump -c <filename> [force cleanup]
       (vrouter-agent-dpdk)[root]$                                 
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 2. Copy the output into a file.
 
-   .. raw:: html
-
-      <div id="jd0e58" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div id="jd0e59" dir="ltr">
-
    ``(vrouter-agent-dpdk)[root]$ ./sandump -w <filename>.pcap``
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -96,37 +54,13 @@ Follow the procedure to use Sandump tool:
       ./sandump: closing...
       (vrouter-agent-dpdk)[root]$
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    The command generates a file which contains sniffed bytes converted
    in to the pcap format.
 
 3. Analyze the captured packets transferred between the agent and the
    vRouter.
 
-   .. raw:: html
-
-      <div id="jd0e68" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div id="jd0e69" dir="ltr">
-
    ``(vrouter-agent-dpdk)[root]$ ./sandump``
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -147,14 +81,6 @@ Follow the procedure to use Sandump tool:
       ^C12 packets captured
       ./sandump: closing...
       (vrouter-agent-dpdk)[root]$ 
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 4. Analyze the pcap file in WireShark.
 
@@ -236,111 +162,18 @@ Follow the procedure to use Sandump tool:
 
          |Figure 5: File debugging in Wireshark|
 
-.. raw:: html
+.. list-table:: Release History Table
+      :header-rows: 1
 
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e21>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting with Contrail Networking Release 2011, you can use *Sandump*
-tool on Windows machines.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2008 <#jd0e10>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting with Contrail Networking Release 2008, *Sandump* tool is
-available in contrail-tools container. You can use the *Sandump* tool on
-macOS machines.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
+      * - Release
+        - Description
+      * - 2011
+        - Starting with Tungsten Fabric Release 2011, you can use *Sandump*
+          tool on Windows machines.
+      * - 2008
+        - Starting with Tungsten Fabric Release 2008, *Sandump* tool is
+          available in contrail-tools container. You can use the *Sandump* tool on
+          macOS machines.
  
 
 .. |Figure 1: host file| image:: images/s009683.png
