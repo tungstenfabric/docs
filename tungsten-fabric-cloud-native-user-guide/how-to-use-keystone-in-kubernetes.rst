@@ -3,37 +3,20 @@ How to Enable Keystone Authentication in a Juju Cluster within a Kubernetes Envi
 
 :date: 2020-12-08
 
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
-
-Starting in Contrail Networking Release 2011, Kubernetes can use the
+Starting in Tungsten Fabric Release 2011, Kubernetes can use the
 Keystone authentication service in Openstack for authentication in
 environments that contain cloud networks using Openstack and Kubernetes
 orchestrators when the Kubernetes environment is using Juju. This
-capability is available when the cloud networks are both using Contrail
-Networking and when the Kubernetes cluster was created in an environment
-using Juju.
+capability is available when the cloud networks are both using Tungsten Fabric 
+and when the Kubernetes cluster was created in an environment using Juju.
 
 This document discusses how to enable keystone authentication in
 Kubernetes environments and contains the following sections:
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
 Overview: Keystone Authentication in Kubernetes Environments with a Juju Cluster
 --------------------------------------------------------------------------------
 
-A cloud environment that includes Contrail clusters in
+A cloud environment that includes TF clusters in
 Kubernetes-orchestrated environments and OpenStack-orchestrated
 environments can simplify authentication processes by having a single
 authentication service in place of each orchestrator authenticating
@@ -51,7 +34,7 @@ kubemanager.
 
 Both orchestrators use their native authentication processes by default.
 The ability for Kubernetes to use Keystone authentication in an
-environment using Juju was introduced in Contrail Networking Release
+environment using Juju was introduced in Tungsten Fabric Release
 2011 and must be user-enabled.
 
 How to Enable Keystone Authentication in a Kubernetes Environment
@@ -63,26 +46,10 @@ To enable Keystone authentication for Kubernetes:
    kubernetes-master and Keystone and configure the Kubernetes master to
    use Keystone authorization:
 
-   .. raw:: html
-
-      <div id="jd0e38" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju add-relation kubernetes-master keystone
       juju config kubernetes-master authorization-mode="Node,RBAC" enable-keystone-authorization=true
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 2. Ensure that IP Fabric Forwarding for the pod network in the default
    kube-system project is disabled and that SNAT is enabled. SNAT
@@ -97,27 +64,11 @@ To enable Keystone authentication for Kubernetes:
       Navigate to kubectl edit ns default and add the following
       configuration:
 
-      .. raw:: html
-
-         <div id="jd0e57" class="sample" dir="ltr">
-
-      .. raw:: html
-
-         <div class="output" dir="ltr">
-
       ::
 
          metadata:
            annotations:
              opencontrail.org/ip_fabric_snat: "true"
-
-      .. raw:: html
-
-         </div>
-
-      .. raw:: html
-
-         </div>
 
    -  *Tungsten Fabric Graphical User Interface*
 
@@ -126,39 +77,15 @@ To enable Keystone authentication for Kubernetes:
 
 3. In Juju, apply the policy.json configuration:
 
-   .. raw:: html
-
-      <div id="jd0e72" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju config kubernetes-master keystone-policy="$(cat policy.json)"
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
    The JSON configuration varies by environment and the JSON
    configuration option descriptions are beyond the scope of this
    document.
 
    A sample JSON configuration file is provided for reference:
-
-   .. raw:: html
-
-      <div id="jd0e79" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -210,47 +137,15 @@ To enable Keystone authentication for Kubernetes:
             }
           ]
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 4. Install client tools on the jumphost or an another node outside of
    the cluster.
-
-   .. raw:: html
-
-      <div id="jd0e85" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
       sudo snap install kubectl --classic
       sudo snap install client-keystone-auth --edge
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 5. In Kubernetes, configure the Keystone context and set credentials:
-
-   .. raw:: html
-
-      <div id="jd0e91" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -259,23 +154,7 @@ To enable Keystone authentication for Kubernetes:
       kubectl config set-credentials keystone-user --exec-command=/snap/bin/client-keystone-auth
       kubectl config set-credentials keystone-user --exec-api-version=client.authentication.k8s.io/v1beta1
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
 6. Apply the required settings to the environment:
-
-   .. raw:: html
-
-      <div id="jd0e97" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -288,26 +167,10 @@ To enable Keystone authentication for Kubernetes:
       export OS_PASSWORD=password
       export OS_AUTH_URL=http://192.168.30.78:5000/v3
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    If preferred, you can also perform this step from stackrc.
 
 7. From kubectl, use the configuration to create a namespace from
    keystone authentication.
-
-   .. raw:: html
-
-      <div id="jd0e105" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -317,13 +180,5 @@ To enable Keystone authentication for Kubernetes:
       kube-system   coredns-6b59b8bd9f-2nb4x            1/1     Running   3          33h
       kube-system   k8s-keystone-auth-db47ff559-sh59p   1/1     Running   0          33h
       kube-system   k8s-keystone-auth-db47ff559-vrfwd   1/1     Running   0          33h
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
  
