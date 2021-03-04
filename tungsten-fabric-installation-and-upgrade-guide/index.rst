@@ -177,6 +177,7 @@ Using Tungsten Fabric with Juju Charms
    deploying-tf-using-juju-charms-kubernetes
    juju-charms-nested-kubernetes
    canonical-octavia
+   smartnic-vrouter-juju-charms
 
 Post Installation Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~
