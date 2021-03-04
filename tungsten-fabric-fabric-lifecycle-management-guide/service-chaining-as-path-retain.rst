@@ -14,7 +14,7 @@ according to the network policy. One such BGP attribute, is the AS path
 attribute. AS path is a sequence of autonomous systems that network
 packets traverse. By default, the AS path is nullified while leaking
 routes from the source to the destination network in a service chain.
-Starting with Contrail Networking Release 2011, you can configure the AS
+Starting with Tungsten Fabric Release 2011, you can configure the AS
 path to be retained in the routes re-originated from the destination VN
 to the source VN in a service chain. You also have the ability to enable
 or disable the path retention for selected service chains.
@@ -58,81 +58,14 @@ chain:
    The **Network Policies** page is displayed. You can now attach the
    network policies to the required VNs.
 
-.. raw:: html
+.. list-table:: **Release History Table**
+      :header-rows: 1
 
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e15>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting with Contrail Networking Release 2011, you can configure the AS
-path to be retained in the routes re-originated from the destination VN
-to the source VN in a service chain. You also have the ability to enable
-or disable the path retention for selected service chains.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
+      * - Release
+        - Desription
+      * - 2011
+        - Starting with Tungsten Fabric Release 2011, you can configure the AS
+          path to be retained in the routes re-originated from the destination VN
+          to the source VN in a service chain. You also have the ability to enable
+          or disable the path retention for selected service chains.
  
