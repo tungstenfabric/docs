@@ -18,6 +18,7 @@ Data Plane Optimization
    
    vrouter-isolcpu
    support-for-ddp-in-intel-x710-ethernet
+   vrouter-mac-ip-learning-and-bfd-for-pods
 
 Advanced Network Topologies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
