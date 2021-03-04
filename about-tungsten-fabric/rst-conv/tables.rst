@@ -75,7 +75,10 @@ number of rows and columns with the long lines within the cells.
         - Volume gigabytes allowed for each project
         - Block Storage
       * - Instances
-        - Instances allowed for each project.
+        - Instances allowed for each project:
+          
+          * bullet 1
+          * bullet 2
         - Compute
       * - Injected File Content Bytes
         - Content bytes allowed for each injected file.
@@ -94,7 +97,10 @@ number of rows and columns with the long lines within the cells.
         - Volume gigabytes allowed for each project
         - Block Storage
       * - Instances
-        - Instances allowed for each project.
+        - Instances allowed for each project:
+          
+          * bullet 1
+          * bullet 2
         - Compute
       * - Injected File Content Bytes
         - Content bytes allowed for each injected file.

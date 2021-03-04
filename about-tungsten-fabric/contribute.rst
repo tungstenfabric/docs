@@ -60,7 +60,7 @@ Documentation Working Group
 
 This group works on the user and developer facing documentation.
 
-https://wiki.tungsten.io/display/TUN/Documentation+Project
+https://wiki.tungsten.io/display/TUN/Documentation+Working+Group
 
 Marketing Working Group
 ~~~~~~~~~~~~~~~~~~~~~~~

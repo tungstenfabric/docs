@@ -13,6 +13,15 @@ such as tags, labels, application policy set, address groups, and service groups
 Documentation Structure
 -----------------------
 
+Configuring Virtual Networks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   next-hop-limit-increase
+
 Configuring Service Chaining
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
