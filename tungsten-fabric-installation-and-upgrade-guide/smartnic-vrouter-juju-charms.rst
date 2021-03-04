@@ -1,15 +1,7 @@
-Using Netronome SmartNIC vRouter with Contrail Networking and Juju Charms
+Using Netronome SmartNIC vRouter with Tungsten Fabric and Juju Charms
 =========================================================================
 
- 
-
-.. raw:: html
-
-   <div id="intro">
-
-.. raw:: html
-
-   <div class="mini-toc-intro">
+:date: 2020-05-22
 
 .. note::
 
@@ -17,14 +9,14 @@ Using Netronome SmartNIC vRouter with Contrail Networking and Juju Charms
    available for evaluation purposes only. It is not intended for
    deployment in production networks.
 
-You can deploy Contrail Networking by using Juju charms. Juju helps you
+You can deploy Tungsten Fabric by using Juju charms. Juju helps you
 deploy, configure, and efficiently manage applications on private clouds
 and public clouds. Juju accesses the cloud with the help of a Juju
 controller. A charm is a module containing a collection of scripts and
-metadata and is used with Juju to deploy Contrail.
+metadata and is used with Juju to deploy TF.
 
-Starting in Contrail Networking Release 2011, Contrail Networking
-supports Netronome Agilio CX SmartNICs for Contrail Networking
+Starting in Tungsten Fabric Release 2011, Tungsten Fabric
+supports Netronome Agilio CX SmartNICs for Tungsten Fabric
 deployment with Juju charms. This feature enables service providers to
 improve the forwarding performance which includes packets per second
 (PPS) of vRouter. This optimizes server CPU usage and you can deploy
@@ -61,7 +53,7 @@ Before you begin:
 
    Linux kernel: bionic (ga-18.04)
 
-Contrail supports the following charms:
+TF supports the following charms:
 
 -  contrail-agent
 
@@ -76,30 +68,14 @@ Contrail supports the following charms:
 -  contrail-openstack
 
 The following topics describe how to use Netronome SmartNIC vRouter with
-Contrail Networking and Juju charms.
+Tungsten Fabric and Juju charms.
 
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-Prepare to Install Contrail Networking by Using Juju Charms
+Prepare to Install Tungsten Fabric by Using Juju Charms
 -----------------------------------------------------------
 
 Follow these steps to prepare for deployment:
 
 1. Install Juju.
-
-   .. raw:: html
-
-      <div id="jd0e107" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -107,14 +83,6 @@ Follow these steps to prepare for deployment:
       sudo apt-get upgrade
       apt install snapd -y
       snap install juju --classic
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
 
 2. Configure Juju.
 
@@ -125,23 +93,7 @@ Follow these steps to prepare for deployment:
 
    *Example: Adding an MAAS cloud to Juju*
 
-   .. raw:: html
-
-      <div id="jd0e120" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div id="jd0e121" dir="ltr">
-
    ``juju add-cloud``
-
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
 
    ::
 
@@ -161,69 +113,35 @@ Follow these steps to prepare for deployment:
       Cloud "maas-cloud" successfully added
       You may bootstrap with 'juju bootstrap maas-cloud'
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
    **Note**
 
    Juju 2.x is compatible with MAAS series 1.x and 2.x.
 
 3. Create a Juju controller.
 
-   .. raw:: html
-
-      <div id="jd0e137" class="sample" dir="ltr">
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       juju bootstrap --bootstrap-series=xenial <cloud name> <controller name>
 
-   .. raw:: html
+   .. note::
 
-      </div>
+      A Juju controller manages and keeps track of applications in the Juju
+      cloud environment.
 
-   .. raw:: html
-
-      </div>
-
-   **Note**
-
-   A Juju controller manages and keeps track of applications in the Juju
-   cloud environment.
-
-Deploy Contrail Charms in a Bundle
+Deploy TF Charms in a Bundle
 ----------------------------------
 
-Follow these steps to deploy Contrail charms in a bundle.
+Follow these steps to deploy TF charms in a bundle.
 
-1. Deploy Contrail charms.
+1. Deploy TF charms.
 
-   To deploy Contrail charms in a bundle, use the
+   To deploy TF charms in a bundle, use the
    ``juju deploy <bundle_yaml_file>`` command.
 
    The following example shows you how to use ``bundle_yaml_file`` to
-   deploy Contrail Networking with Netronome SmartNIC vRouter on MAAS
+   deploy Tungsten Fabric with Netronome SmartNIC vRouter on MAAS
    based deployment.
-
-   .. raw:: html
-
-      <div id="bundle-yaml" class="sample" dir="ltr">
-
    **Bundle yaml file**
-
-   .. raw:: html
-
-      <div class="output" dir="ltr">
-
    ::
 
       series: bionic
@@ -506,23 +424,15 @@ Follow these steps to deploy Contrail charms in a bundle.
         - [ "heat:identity-service" , "keystone:identity-service" ]
         - [ "contrail-openstack:heat-plugin" , "heat:heat-plugin-subordinate" ]
 
-   .. raw:: html
-
-      </div>
-
-   .. raw:: html
-
-      </div>
-
-   You can create or modify the Contrail charm deployment bundle YAML
+   You can create or modify the TF charm deployment bundle YAML
    file to:
 
-   -  Point to machines or instances where the Contrail charms must be
+   -  Point to machines or instances where the TF charms must be
       deployed.
 
    -  Include the options you need.
 
-      Each Contrail charm has a specific set of options. The options you
+      Each TF charm has a specific set of options. The options you
       choose depend on the charms you select. For more information on
       the options that are available, see `Options for Juju
       Charms <../task/configuration/juju-charms-options.html>`__.
@@ -567,80 +477,14 @@ Follow these steps to deploy Contrail charms in a bundle.
       For more information see,
       https://jaas.ai/u/juniper-os-software/contrail-openstack.
 
-.. raw:: html
 
-   <div class="table">
+.. list-table:: **Release History Table**
+      :header-rows: 1
 
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e16>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Starting in Contrail Networking Release 2011, Contrail Networking
-supports Netronome Agilio CX SmartNICs for Contrail Networking
-deployment with Juju charms.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
+      * - Release
+        - Description
+      * - 2011
+        - Starting in Tungsten Fabric Release 2011, Tungsten Fabric
+          supports Netronome Agilio CX SmartNICs for Tungsten Fabric
+          deployment with Juju charms.
  
