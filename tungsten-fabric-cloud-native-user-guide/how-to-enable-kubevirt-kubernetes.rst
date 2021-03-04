@@ -13,7 +13,7 @@ For additional information on KubeVirt and it’s benefits, see the
 
 Starting in Tungsten Fabric Release 2011, you can use KubeVirt to
 allow VMs to run in any Kubernetes-orchestrated environments that use
-Contrail as the Container Networking Interface (CNI).
+TF as the Container Networking Interface (CNI).
 
 This document provides the instructions for installing KubeVirt in any
 Kubernetes environment that is using Tungsten Fabric. This document
@@ -22,10 +22,11 @@ OpenShift Virtualization in environments using Red Hat Openshift.
 
 This document includes the following sections:
 
-.. _how-to-enable-virtualization-with-kubevirt-in-environments-using-kubernetes-with-a-contrail-cluster-1:
+.. _how-to-enable-virtualization-with-kubevirt-in-environments-using-kubernetes-with-a-tf-cluster-1:
 
 How to Enable Virtualization with KubeVirt in Environments Using Kubernetes with a TF cluster
----------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------
+
 This section provides the instructions for enabling VM support in
 Kubernetes-orchestrated environments that are using Tungsten Fabric
 as the CNI.
@@ -541,8 +542,7 @@ Prerequisites
 
 This procedure makes the following assumptions about your environment:
 
--  A Red Hat OpenShift 4.5 or later environment using Contrail
-   Networking is operational.
+-  A Red Hat OpenShift 4.5 or later environment using Tungsten Fabric is operational.
 
 -  Your installing a version of OpenShift Virtualization that is
    supported with your version of Red Hat OpenShift. For information on
@@ -897,10 +897,10 @@ To test VM to pod connectivity:
       2 packets transmitted, 2 received, 0% packet loss, time 1003ms
       rtt min/avg/max/mdev = 2.263/3.047/3.831/0.784 ms
 
-.. _how-to-create-a-contrail-security-policy-to-isolate-a-virtual-machine-within-a-namespace-1:
+.. _how-to-create-a-tf-security-policy-to-isolate-a-virtual-machine-within-a-namespace-1:
 
 How to Create a Tungsten Fabric to Isolate a Virtual Machine Within a NameSpace
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After installing OpenShift Virtualization, you may need to isolate a
 virtual machine within it’s namespace.

@@ -776,7 +776,7 @@ Red Hat OpenShift 4.4 environments is introduced in Tungsten Fabric
 Release 2008. See `Tungsten Fabric Supported
 Platforms <https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf>`__  .
 
-.. _prerequisites-1:
+.. _prerequisites-2:
 
 Prerequisites
 ~~~~~~~~~~~~~
