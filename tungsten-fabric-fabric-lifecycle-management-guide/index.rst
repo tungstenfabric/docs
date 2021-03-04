@@ -9,6 +9,15 @@ TF to bare metal servers.
 Documentation Structure
 -----------------------
 
+Fabric configuration
+~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   service-chaining-as-path-retain
+
 High Availability in Contrail Networking
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
