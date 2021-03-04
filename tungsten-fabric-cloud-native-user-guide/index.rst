@@ -25,4 +25,12 @@ Using KubeVirt
    :titlesonly:
    
    how-to-enable-kubevirt-kubernetes
- 
+
+Using Tungsten Fabric with Kubernetes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   
+   how-to-use-keystone-in-kubernetes
