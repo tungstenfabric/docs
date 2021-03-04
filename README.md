@@ -28,6 +28,28 @@ In addition to building, we can and should run a linter against the content.
 $ tox -e docs-linkcheck
 ```
 
+## Building and running the linter
+
+To build documentation and execute link checking in one run.
+```
+$ tox -e docs-all
+```
+
+## Building documentation locally
+
+Local building will establish re-usable pip cache under tox workdir (```.tox/```).
+
+```
+$ tox -e docs-dev
+```
+
+Additionally you can pass additional flags to ```sphinx-build``` i.e speed up building process
+with ```-j <n>``` flag.
+
+```
+$ tox -e docs-dev -- -j 4
+```
+
 ## Troubleshooting
 
 In case tox will report errors like ```module not found``` when that module was previously used
