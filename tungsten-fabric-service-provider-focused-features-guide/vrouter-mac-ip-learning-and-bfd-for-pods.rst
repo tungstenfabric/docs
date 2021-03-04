@@ -1,15 +1,15 @@
-Contrail vRouter MAC Address - IP Address Learning and Bidirectional Forwarding and Detection Health Checking for Pods on Virtual Machines
-==========================================================================================================================================
+Tungsten Fabric vRouter MAC Address - IP Address Learning and Bidirectional Forwarding and Detection Health Checking for Pods on Virtual Machines
+=================================================================================================================================================
 
 :date: 2020-12-11
 
-In Contrail Networking Release 2011, the Contrail vRouter agent
+In Tungsten Fabric Release 2011, the Tungsten Fabric vRouter agent
 dynamically learns the MAC address-IP address binding of a pod deployed
 on a virtual machine (VM). This enables the vRouter agent to perform an
-efficient pod to pod communication in Contrail Networking.
+efficient pod to pod communication in Tungsten Fabric.
 
 In previous releases, the MAC address - IP address of a pod is assigned
-by OpenStack. Contrail Networking is unable to perform pod to pod
+by OpenStack. Tungsten Fabric is unable to perform pod to pod
 communication as it does not have the reachability information of the
 pods hosted by the VMs.
 
@@ -18,12 +18,10 @@ Learning** checkbox must be enabled while creating a virtual network.
 This enables the vRouter agent to learn the MAC address-IP address of
 the pods connected to the virtual network.
 
-In release 2011, Contrail Networking also supports Bidirectional
+In release 2011, Tungsten Fabric also supports Bidirectional
 Forwarding and Detection (BFD) based health check to verify the
-liveliness of a pod. In the Contrail Command user interface (UI), you
-must create a BFD health check service, where the **Health Check Type**
-is assigned as **VN IP List**. The BFD session is enabled for a list of
-target IP addresses. In release 2011, Contrail Networking supports IPv4
+liveliness of a pod. The BFD session is enabled for a list of
+target IP addresses. In release 2011, Tungsten Fabric supports IPv4
 target IP addresses. The vRouter agent learns these IP addresses through
 the MAC address - IP address learning feature. The BFD health check
 session is initiated, when the vRouter agent learns the target IP
@@ -112,7 +110,7 @@ Table 1: Create Health Check Fields
 |                                          | run BFD health check on the      |
 |                                          | selected IP addresses.           |
 +------------------------------------------+----------------------------------+
-| **Desired Min Tx Interval (millisecs) ** | Enter the desired minimum        |
+| **Desired Min Tx Interval (millisecs)**  | Enter the desired minimum        |
 |                                          | transmission (Tx) interval       |
 |                                          | before transmitting BFD packets. |
 +------------------------------------------+----------------------------------+
@@ -126,111 +124,18 @@ Table 1: Create Health Check Fields
 |                                          | the BFD session as DOWN.         |
 +------------------------------------------+----------------------------------+
 
-.. raw:: html
+.. list-table:: **Release History Table**
+      :header-rows: 1
 
-   <div class="table">
-
-.. raw:: html
-
-   <div class="caption">
-
-Release History Table
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row table-head">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Release
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-Description
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e10>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-In Contrail Networking Release 2011, the Contrail vRouter agent
-dynamically learns the MAC address-IP address binding of a pod deployed
-on a virtual machine (VM). This enables the vRouter agent to perform an
-efficient pod to pod communication in Contrail Networking.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-row">
-
-.. raw:: html
-
-   <div class="table-cell">
-
-`2011 <#jd0e21>`__
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   <div class="table-cell">
-
-In release 2011, Contrail Networking also supports Bidirectional
-Forwarding and Detection (BFD) based health check to verify the
-liveliness of a pod.
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
-.. raw:: html
-
-   </div>
-
+      * - Release
+        - Description
+      * - 2011
+        - In Tungsten Fabric Release 2011, the Tungsten Fabric vRouter agent
+          dynamically learns the MAC address-IP address binding of a pod deployed
+          on a virtual machine (VM). This enables the vRouter agent to perform an
+          efficient pod to pod communication in Tungsten Fabric.
+      * - 2011
+        - In release 2011, Tungsten Fabric also supports Bidirectional
+          Forwarding and Detection (BFD) based health check to verify the
+          liveliness of a pod.
  
