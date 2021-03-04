@@ -17,6 +17,7 @@ Data Plane Optimization
    :titlesonly:
    
    vrouter-isolcpu
+   support-for-ddp-in-intel-x710-ethernet
 
 Advanced Network Topologies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
