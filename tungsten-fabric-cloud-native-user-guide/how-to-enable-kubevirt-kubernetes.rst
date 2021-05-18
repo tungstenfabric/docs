@@ -1,7 +1,7 @@
 How to Enable Virtualization with KubeVirt in Environments Using Kubernetes with a TF cluster
-===================================================================================================
+=============================================================================================
 
-:date: 2020-12-16 
+:date: 2020-12-16
 
 KubeVirt is a virtualization add-on to Kubernetes that allows virtual
 machines (VMs) to run alongside the application containers present in a
@@ -22,14 +22,16 @@ OpenShift Virtualization in environments using Red Hat Openshift.
 
 This document includes the following sections:
 
-.. _how-to-enable-virtualization-with-kubevirt-in-environments-using-kubernetes-with-a-tf-cluster-1:
 
 How to Enable Virtualization with KubeVirt in Environments Using Kubernetes with a TF cluster
----------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 
 This section provides the instructions for enabling VM support in
 Kubernetes-orchestrated environments that are using Tungsten Fabric
 as the CNI.
+
+It includes these sections:
+
 
 When to Use This Procedure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,7 +102,7 @@ To enable VMs in a Kubernetes environments with KubeVirt:
       contrail-kube-manager-qc27b                   1/1     Running   0          63d
       ...
 
-   The Contrail containers running in the pods confirm that Contrail is
+   The TF containers running in the pods confirm that TF is
    running in this Kubernetes environment.
 
 2. Export the latest KubeVirt version.
@@ -507,6 +509,8 @@ To isolate a VM within it’s namespace:
 
 How to Enable OpenShift Virtualization with KubeVirt in Environments Using OpenShift with a TF cluster
 ------------------------------------------------------------------------------------------------------------
+
+
 KubeVirt is a virtualization add-on to Kubernetes that allows virtual
 machines (VMs) to run alongside the application containers present in a
 Kubernetes environment. KubeVirt provides a unified development platform
@@ -520,7 +524,11 @@ Starting in Tungsten Fabric Release 2011, Red Hat OpenShift
 environments—which foundationally use Kubernetes orchestration—that
 include TF clusters can support OpenShift Virtualization by
 installing the KubeVirt add-on.
-.. _when-to-use-this-procedure-1:
+
+This document provides the instructions for installing KubeVirt in a Red
+Hat OpenShift environment that is using Tungsten Fabric. It includes
+the following sections:
+
 
 When to Use This Procedure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -535,14 +543,14 @@ Virtualization environment using KubeVirt.
 The procedure in this document was validated for Tungsten Fabric
 2011.
 
-.. _prerequisites-1:
 
 Prerequisites
 ~~~~~~~~~~~~~
 
 This procedure makes the following assumptions about your environment:
 
--  A Red Hat OpenShift 4.5 or later environment using Tungsten Fabric is operational.
+-  A Red Hat OpenShift 4.5 or later environment using Contrail
+   Networking is operational.
 
 -  Your installing a version of OpenShift Virtualization that is
    supported with your version of Red Hat OpenShift. For information on
@@ -558,14 +566,14 @@ To enable OpenShift Virtualization using KubeVirt in a Red Hat OpenShift
 environment that is using Tungsten Fabric:
 
 1. Install the OpenShift Virtualization operator:
- 
-   .. note:: 
 
-      This procedure is based on the official OpenShift Virtualization
-      documentation. If you need to reference the official procedure, see
-      `Installing OpenShift Virtualization using the
-      CLI <https://docs.openshift.com/container-platform/4.5/virt/install/installing-virt-cli.html>`__
-      from OpenShift.
+  .. note:: 
+
+    This procedure is based on the official OpenShift Virtualization
+    documentation. If you need to reference the official procedure, see
+    `Installing OpenShift Virtualization using the
+    CLI <https://docs.openshift.com/container-platform/4.5/virt/install/installing-virt-cli.html>`__
+    from OpenShift.
 
    1. Login as a user with ``cluster-admin`` privileges.
 
@@ -791,8 +799,8 @@ To create a virtual machine after installing OpenShift Virtualization:
       NAME          AGE    PHASE     IP                 NODENAME
       vmi-centos7   4h1m   Running   10.254.255.90/16   worker0.ocp4.example.com
 
-.. _how-to-test-vm-to-pod-connectivity-1:
 
+      
 How to Test VM to Pod Connectivity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -897,10 +905,9 @@ To test VM to pod connectivity:
       2 packets transmitted, 2 received, 0% packet loss, time 1003ms
       rtt min/avg/max/mdev = 2.263/3.047/3.831/0.784 ms
 
-.. _how-to-create-a-tf-security-policy-to-isolate-a-virtual-machine-within-a-namespace-1:
 
 How to Create a Tungsten Fabric to Isolate a Virtual Machine Within a NameSpace
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After installing OpenShift Virtualization, you may need to isolate a
 virtual machine within it’s namespace.

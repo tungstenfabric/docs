@@ -17,6 +17,16 @@ This guide covers the following scenarios:
 Documentation Structure
 -----------------------
 
+Tungsten Fabric with Red Hat Openshift
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   how-to-install-tungsten-fabric-openshift46
+
+   
 Using KubeVirt
 ~~~~~~~~~~~~~~
 

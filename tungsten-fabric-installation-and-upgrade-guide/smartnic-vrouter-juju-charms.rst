@@ -1,13 +1,13 @@
 Using Netronome SmartNIC vRouter with Tungsten Fabric and Juju Charms
 =========================================================================
 
-:date: 2020-05-22
+:date: 2020-12-16 
 
 .. note::
 
-   The Netronome SmartNIC vRouter technology covered in this document is
-   available for evaluation purposes only. It is not intended for
-   deployment in production networks.
+  The Netronome SmartNIC vRouter technology covered in this document is
+  available for evaluation purposes only. It is not intended for
+  deployment in production networks.
 
 You can deploy Tungsten Fabric by using Juju charms. Juju helps you
 deploy, configure, and efficiently manage applications on private clouds
@@ -113,9 +113,9 @@ Follow these steps to prepare for deployment:
       Cloud "maas-cloud" successfully added
       You may bootstrap with 'juju bootstrap maas-cloud'
 
-   **Note**
+   .. note::
 
-   Juju 2.x is compatible with MAAS series 1.x and 2.x.
+    Juju 2.x is compatible with MAAS series 1.x and 2.x.
 
 3. Create a Juju controller.
 
@@ -125,8 +125,8 @@ Follow these steps to prepare for deployment:
 
    .. note::
 
-      A Juju controller manages and keeps track of applications in the Juju
-      cloud environment.
+    A Juju controller manages and keeps track of applications in the Juju
+    cloud environment.
 
 Deploy TF Charms in a Bundle
 ----------------------------------
@@ -479,12 +479,12 @@ Follow these steps to deploy TF charms in a bundle.
 
 
 .. list-table:: **Release History Table**
-      :header-rows: 1
+    :header-rows: 1
 
-      * - Release
-        - Description
-      * - 2011
-        - Starting in Tungsten Fabric Release 2011, Tungsten Fabric
-          supports Netronome Agilio CX SmartNICs for Tungsten Fabric
-          deployment with Juju charms.
+    * - Release
+      - Description
+    * - 2011
+      - Starting in Tungsten Fabric Release 2011, Tungsten Fabric
+        supports Netronome Agilio CX SmartNICs for Tungsten Fabric
+        deployment with Juju charms.
  
