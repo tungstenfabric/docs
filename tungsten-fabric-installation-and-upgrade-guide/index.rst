@@ -45,6 +45,7 @@ Upgrading Tungsten Fabric
    update-canonical-openstack-juju
    upgrade-tf-ansible-deployer
    upgrade-in-place
+   ffu-ziu-rhosp16.1-cn
 
 Backup and restore Tungsten Fabric
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -176,6 +177,7 @@ Using Tungsten Fabric with Juju Charms
    deploying-tf-using-juju-charms-kubernetes
    juju-charms-nested-kubernetes
    canonical-octavia
+   smartnic-vrouter-juju-charms
 
 Post Installation Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~

@@ -120,7 +120,8 @@ Contrail Web user interface process (webui) >> Tungsten Fabric Web User Interfac
 Contrail Web User Interface (UI) >> Tungsten Fabric Web User Interface (WebUI)
 Contrail Web User Interface >> Tungsten Fabric WebUI
 Contrail Web user interface >> Tungsten Fabric WebUI
-Contrail WebUI >> Tungsten Fabric WebUI 
+Contrail WebUI >> Tungsten Fabric WebUI
+Contrail charms >> TF charms 
 Contrail analytics >> TF analytics
 Contrail deployment >> TF deployment
 Contrail operator >> TF operator
