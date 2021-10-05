@@ -126,5 +126,3 @@ To configure BGP peering in the control node:
 .. |Figure 4: Control Nodes| image:: images/s042499.png
 .. |Figure 5: Control Node Details| image:: images/s042500.png
 .. |Figure 6: Control Node Peers Tab| image:: images/s042501.png
-.. |Figure 7: Infrastructure > Cluster > Advanced > BGP Routers| image:: images/s009220.png
-.. |Figure 8: Create BGP Router| image:: images/s009221.png
