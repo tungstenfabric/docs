@@ -23,3 +23,4 @@ Releases
    releases/r5.1/index.rst
    releases/r5.0.1/index.rst
    releases/r5.0/index.rst
+   releases/R21.05/index.rst
