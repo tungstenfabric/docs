@@ -27,6 +27,7 @@ Advanced Network Topologies
    :maxdepth: 1
    :titlesonly:
 
+   layer-3-multihoming
    remote-compute-50
 
 Advanced Service Chain Configuration
