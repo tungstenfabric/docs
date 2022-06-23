@@ -22,7 +22,7 @@ Governance Documents
 Current Committee Membership
 ----------------------------
 
-`Tungsten Fabric Community Wiki <https://wiki.tungsten.io/>`_
+`Tungsten Fabric Community Wiki <https://wiki.tungsten.io/x/xYVdAQ>`_
 
 Elections
 ---------
