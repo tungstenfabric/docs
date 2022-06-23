@@ -1,8 +1,8 @@
-About Tungsten Fabric
-=============================
+Contributing to Tungsten Fabric
+===============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :titlesonly:
 
    contribute.rst
