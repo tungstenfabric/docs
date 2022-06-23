@@ -10,8 +10,8 @@ Prerequisites
 -------------
 
 Before you start the integration, ensure that the TF controller
-meets the prerequisites given in `Server Requirements and Supported
-Platforms <../installation/hardware-reqs-vnc.html>`__.
+meets the prerequisites given in 
+:ref:`Server Requirements and Supported Platforms <ServerReqAndPlatform>`.
 
 Follow these steps to prepare TF controller(s):
 

@@ -8,8 +8,7 @@ Upgrading Tungsten Fabric using In-Place Upgrade Procedure
    This procedure can be used for Tungsten Fabric upgrades to Tungsten Fabric 
    Release 2003 or earlier only.
 
-If you are upgrading to Tungsten Fabric Release 2005 or later using
-an in-place upgrade procedure, see `How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer <How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer>`_.
+If you are upgrading to Tungsten Fabric Release 2005 or later using an in-place upgrade procedure, see :ref:`How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer <AnsibleZIU>`.
 
 This document provides steps to upgrade Tungsten Fabric using
 in-place upgrade procedure.

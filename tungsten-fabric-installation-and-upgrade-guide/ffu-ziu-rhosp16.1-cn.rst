@@ -22,9 +22,7 @@ documentation for details on RHOSP 13 to RHOSP 16.1 Fast Forward Upgrade
 (FFU) procedure of OpenStack Platform environment from one long life
 version to the next long life version.
 
-Access ``ContrailImageTag`` located at `README Access to Contrail
-Registry
-20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
+Access ``ContrailImageTag`` located at :ref:`Getting Started with Tungsten Fabric Guide <GettingStarted>`
 
 1. Follow *chapter 2—Planning and preparation for an in-place upgrade*
    through *chapter 8.3— Copying the Leapp data to the overcloud nodes*

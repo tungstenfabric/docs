@@ -1,4 +1,4 @@
-Tungsten Fabric cloud-native user guide
+Tungsten Fabric Cloud-Native User Guide
 =======================================
 
 :date: 2020-12-16
@@ -44,3 +44,12 @@ Using Tungsten Fabric with Kubernetes
    :titlesonly:
    
    how-to-use-keystone-in-kubernetes
+
+Dynamic MAC/IP Address Learning with vRouter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   vrouter-dynamic-mac-ip-learning-and-bfd

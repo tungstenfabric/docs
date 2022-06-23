@@ -502,9 +502,7 @@ To create Ignition configurations:
 
        This procedure is initially supported in Tungsten Fabric
        Release 2008. You can obtain the Tungsten Fabric container
-       tags for all Tungsten Fabric 20 releases in `README Access to
-       Tungsten Fabric Registry
-       20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
+       tags for all Tungsten Fabric 20 releases in :ref:`Getting Started with Tungsten Fabric Guide <GettingStarted>`
 
     -  ``CONTRAIL_REGISTRY`` is the path to the container registry. The
        default Juniper Contrail Container Registry contains the files
@@ -991,9 +989,7 @@ To deploy the cluster:
 
        This procedure is initially supported in Tungsten Fabric
        Release 2008. You can obtain the Tungsten Fabric container
-       tags for all Tungsten Fabric 20 releases in `README Access to
-       Tungsten Fabric Registry
-       20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
+       tags for all Tungsten Fabric 20 releases in :ref:`Getting Started with Tungsten Fabric Guide <GettingStarted>`
 
     -  ``CONTRAIL_REGISTRY`` is the path to the container registry. The
        default Juniper Contrail Container Registry contains the files
@@ -1168,18 +1164,3 @@ HTTPasswd identity provider.
    user <https://docs.openshift.com/container-platform/4.5/authentication/remove-kubeadmin.html>`__
    document from Red Hat OpenShift.
 
-How to Install Earlier Releases of Tungsten Fabric and Red Hat OpenShift
-------------------------------------------------------------------------
-
-If you have a need to install Tungsten Fabric with earlier versions
-of Red Hat Openshift, Tungsten Fabric is also supported with Red Hat
-Openshift 3.11.
-
-For information on installing Tungsten Fabric with Red Hat Openshift
-3.11, see the following documentation:
-
--  :ref:`installing-a-standalone-red-hat-openshift-container-platform-311-cluster-with-tf-using-tf-openshift-deployer`
-
--  :ref:`installing-a-nested-red-hat-openshift-container-platform-311-cluster-using-tf-ansible-deployer`
-
- 
