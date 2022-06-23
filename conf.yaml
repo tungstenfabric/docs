@@ -32,3 +32,4 @@ html_theme_options:
   bootswatch_theme: united
   navbar_sidebarrel: true
   source_link_position: footer
+  globaltoc_depth: 3
