@@ -22,21 +22,20 @@ Documentation Structure
 -----------------------
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 1
    :titlesonly:
 
-   user/index.rst
-   about-tungsten-fabric/index.rst
-   infrastructure/index.rst
-   administration/index.rst
-   governance/index.rst
+   release/index.rst
    tungsten-fabric-installation-and-upgrade-guide/index.rst
-   tungsten-fabric-networking-and-security-user-guide/index.rst
-   tungsten-fabric-service-provider-focused-features-guide/index.rst
-   tungsten-fabric-monitoring-and-troubleshooting-guide/index.rst
-   tungsten-fabric-fabric-lifecycle-management-guide/index.rst
+   tungsten-fabric-feature-architecture-guide/index.rst
    tungsten-fabric-cloud-native-user-guide/index.rst
+   tungsten-fabric-service-provider-focused-features-guide/index.rst
+   tungsten-fabric-networking-and-security-user-guide/index.rst
+   tungsten-fabric-monitoring-and-troubleshooting-guide/index.rst
    tungsten-fabric-operator/index.rst
+   contributing-to-tungsen-fabric/index.rst
+   governance/index.rst
+   infrastructure/index.rst
 
 Licensing
 ---------
