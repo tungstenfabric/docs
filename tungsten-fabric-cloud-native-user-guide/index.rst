@@ -1,21 +1,25 @@
 Tungsten Fabric Cloud-Native User Guide
 =======================================
 
-:date: 2020-12-16
+:date: 2022-06-22
 
 Use this guide to install and perform foundational tasks for Cloud-Native Contrail Networking environments. Cloud-native Contrail Networking environments are cloud environments that use Kubernetes for orchestration and Contrail Networking for networking.
 
 This guide covers the following scenarios:
 
-* Tungsten Fabric with Kubernetes Overview
-* Tungsten Fabric with Red Hat Openshift
-* Tungsten Fabric with the Elastic Kubernetes Service (EKS) in Amazon Web Services (AWS)
-* Tungsten Fabric with Google Anthos
-* Using KubeVirt
-* Using Tungsten Fabric with Kubernetes
 
 Documentation Structure
 -----------------------
+
+Using Tungsten Fabric with Kubernetes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+   
+   how-to-use-keystone-in-kubernetes
+   flow-stickiness-for-lb
 
 Tungsten Fabric with Red Hat Openshift
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -25,6 +29,7 @@ Tungsten Fabric with Red Hat Openshift
    :titlesonly:
 
    how-to-install-tungsten-fabric-openshift46
+   tf-operator-upgrade-ocp4
 
    
 Using KubeVirt
@@ -36,14 +41,7 @@ Using KubeVirt
    
    how-to-enable-kubevirt-kubernetes
 
-Using Tungsten Fabric with Kubernetes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. toctree::
-   :maxdepth: 1
-   :titlesonly:
-   
-   how-to-use-keystone-in-kubernetes
 
 Dynamic MAC/IP Address Learning with vRouter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

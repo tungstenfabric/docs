@@ -4,6 +4,10 @@ Release Notes: Tungsten Fabric R21.05
 =====================================
 
 
+Release Tag: R21.05
+
+Available at hub.docker.com. 
+
 Support for Red Hat OpenShift 4.6
 ----------------------------------
 

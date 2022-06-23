@@ -56,4 +56,4 @@ Tungsten Fabric is comprised of the following key components:
 
  
 
-.. |Figure 1: Tungsten Fabric Overview| image:: /tungsten-fabric-feature-architecture-guide/images/g300459.png
+.. |Figure 1: Tungsten Fabric Overview| image:: images/g300459.png

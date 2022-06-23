@@ -75,7 +75,7 @@ Support for Flow Stickiness in a Load-Balanced System
 
 Improved flow stickiness is a feature that helps to minimize flow remapping across equal cost multipath (ECMP) groups in a load-balanced system. Flow stickiness reduces such flow being remapped and retains the flow with the original path when the ECMP group's member change. When a flow is affected by a member change, vRouter reprograms flow table and rebalances the flow.
 
-For more information see: LINK MISSING
+For more information see: `Stickiness for Load-Balanced Flows`_
 
 Support for User-Defined Tags in Security Policy
 ----------------------------------------------------
@@ -88,7 +88,7 @@ Upgrade Tungsten Fabric Through Kubernetes and/or Red Hat OpenShift
 
 Starting in Tungsten Fabric Release R21.12, you can update Tungsten Fabric through Kubernetes and/or Red Hat OpenShift. You can use this procedure to update Tungsten Fabric deployed by the Tungsten Fabric (TF) Operator.
 
-For more information see: LINK MISSING
+For more information see: `OpenShift Operator Upgrade`_
 
 
 Configure MTU For Virtual Networks
@@ -98,3 +98,5 @@ Starting in Tungsten Fabric Release R21.12, you can configure Maximum Transmissi
 
 
 .. _Layer 3 Multihoming: ../../../tungsten-fabric-service-provider-focused-features-guide/layer-3-multihoming.html
+.. _Stickiness for Load-Balanced Flows: ../../../tungsten-fabric-cloud-native-user-guide/flow-stickiness-for-lb.html
+.. _OpenShift Operator Upgrade: ../../../tungsten-fabric-cloud-native-user-guide/tf-operator-upgrade-ocp4.html
