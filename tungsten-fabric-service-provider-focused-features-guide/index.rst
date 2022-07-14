@@ -27,6 +27,7 @@ Advanced Network Topologies
    :maxdepth: 1
    :titlesonly:
 
+   layer-3-multihoming
    remote-compute-50
 
 Advanced Service Chain Configuration
@@ -37,3 +38,21 @@ Advanced Service Chain Configuration
    :titlesonly:
    
    tf-routing-policy-sp-features
+
+Service Chaining - AS PATH RETAIN
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   service-chaining-as-path-retain
+
+High Availability in Contrail Networking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   fast-routing-convergence

@@ -15,8 +15,8 @@ contrail-ansible-deployer.
 Perform the following steps to install one Kubernetes cluster and one
 TF cluster and integrate them together.
 
-1. See `Supported Platforms Contrail
-   Release </documentation/en_US/contrail19/information-products/topic-collections/release-notes/topic-143725.html#jd0e140>`__
+1. See :ref:`Supported Platforms for Tungsten Fabric
+   Release <ServerReqAndPlatform>`
    for a list of supported platforms.
 
 2. Install the necessary tools.

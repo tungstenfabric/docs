@@ -1,3 +1,5 @@
+.. _AnsibleZIU:
+
 Upgrading Tungsten Fabric using TF-ansible Deployer
 ===================================================
 
@@ -8,7 +10,7 @@ Upgrading Tungsten Fabric using TF-ansible Deployer
    This procedure can be used for Tungsten Fabric upgrades to Tungsten Fabric Release 2003 or earlier.
 
 If you are upgrading to Tungsten Fabric Release 2005 or later using the Ansible deployer, 
-see `How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer <How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer>`_.
+see :ref:`How to Perform a Zero Impact Tungsten Fabric Upgrade using the Ansible Deployer <AnsibleZIU>`.
 
 Use the following procedure to upgrade Tungsten Fabric using
 TF-ansible deployer.

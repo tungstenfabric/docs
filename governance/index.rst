@@ -3,25 +3,14 @@ Tungsten Fabric Governance
 
 Docs Structure
 --------------
-.. toctree::
-   :maxdepth: 3
-   :titlesonly:
-
-   architecture-review-board/index.rst
-   community-committee/index.rst
-   infrastructure-committee/index.rst
-   technical-committee/index.rst
 
 .. toctree::
    :maxdepth: 2
    :titlesonly:
    :hidden:
 
-   acc-members.rst
-   tsc-atc-members.rst
    tungsten-fabric-community-governance.rst
    tungsten-fabric-project-technical-charter.rst
-   core-committers.rst
 
 Governance Documents
 --------------------
@@ -33,11 +22,7 @@ Governance Documents
 Current Committee Membership
 ----------------------------
 
--  `Architecture Review Board`_
--  `Community Committee`_
--  `Technical Committee`_
--  `Active Community Contributors`_
--  `TSC Approved Active Technical Contributors`_
+`Tungsten Fabric Community Wiki <https://wiki.tungsten.io/x/xYVdAQ>`_
 
 Elections
 ---------
@@ -155,10 +140,6 @@ reference.
 
 .. _Technical Charter: tungsten-fabric-project-technical-charter.html
 .. _Community Governance Document: tungsten-fabric-community-governance.html
-.. _Architecture Review Board: architecture-review-board/arb-members.html
-.. _Community Committee: community-committee/cc-members.html
-.. _Technical Committee: technical-committee/tc-members.html
-.. _Active Community Contributors: acc-members.html
 .. _TSC Approved Active Technical Contributors: tsc-atc-members.html
 .. _Election Mechanics: https://wiki.tungsten.io/display/TUN/Election+Mechanics
 .. _this diagram: tsc-voters-and-candidates/tsc-voters-and-candidates-diagram.png

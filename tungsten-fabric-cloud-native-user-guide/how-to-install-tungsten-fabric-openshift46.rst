@@ -796,7 +796,7 @@ To finish the installation:
 
 7. Add a user to the cluster. See `How to Add a User After Completing
    the
-   Installation <how-to-install-contrail-networking-openshift46.html#id-add-a-user>`__.
+   Installation <how-to-install-contrail-networking-openshift46.html>`.
 
 .. _how-to-install-contrail-networking-and-red-hat-openshift-46-on-amazon-web-services:
 
@@ -1161,7 +1161,7 @@ To deploy the cluster:
 
 11. Add a user to the cluster. See `How to Add a User After Completing
     the
-    Installation <how-to-install-contrail-networking-openshift46.html#id-add-a-user>`__.
+    Installation <how-to-install-contrail-networking-openshift46.html>`.
 
 How to Add a User After Completing the Installation
 ---------------------------------------------------

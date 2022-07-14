@@ -50,8 +50,8 @@ dynamically learn the MAC address - IP address of a pod:
    virtual network from the displayed list and click the **Edit
    (pencil)** icon.
 
-2. Follow the steps given `Create Virtual
-   Network <create-virtual-network.html>`__ to create a virtual network.
+2. Follow the steps given :ref:`Create Virtual
+   Network <CreateVN>` to create a virtual network.
 
 3. In the **Create Virtual Network** page, select **Dynamic Address
    Learning** to enable vRouter to learn the MAC address - IP address of

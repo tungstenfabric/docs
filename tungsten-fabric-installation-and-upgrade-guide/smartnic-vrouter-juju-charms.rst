@@ -41,10 +41,8 @@ Before you begin:
 
 -  Note the ``Container Tags`` for your Contrail image to customize the
    ``image-tag`` variable in the `Bundle yaml
-   file <smartnic-vrouter-juju-charms.html#bundle-yaml>`__. See `README
-   Access to Contrail Registry
-   20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
-
+   file <smartnic-vrouter-juju-charms.html#bundle-yaml>`__. See :ref:`Getting Started with Tungsten Fabric Guide <GettingStarted>`
+   
 -  Note the following version tags:
 
    agilio-image-tag: 2.48-ubuntu-queens
@@ -433,9 +431,7 @@ Follow these steps to deploy TF charms in a bundle.
    -  Include the options you need.
 
       Each TF charm has a specific set of options. The options you
-      choose depend on the charms you select. For more information on
-      the options that are available, see `Options for Juju
-      Charms <../task/configuration/juju-charms-options.html>`__.
+      choose depend on the charms you select. 
 
 2. (Optional) Check the status of deployment.
 

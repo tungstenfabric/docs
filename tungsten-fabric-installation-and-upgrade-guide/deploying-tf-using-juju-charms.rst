@@ -448,9 +448,7 @@ Follow these steps to deploy TF Charms in a bundle.
    -  Include the options you need.
 
       Each TF Charm has a specific set of options. The options you
-      choose depend on the charms you select. For more information on
-      the options that are available, see `Options for Juju
-      Charms <deploying-contrail-using-juju-charms.html#options-for-juju-charms>`__.
+      choose depend on the charms you select. 
 
 2. (Optional) Check the status of deployment.
 

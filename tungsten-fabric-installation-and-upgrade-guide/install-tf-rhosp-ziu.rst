@@ -35,7 +35,8 @@ Table 1: Tungsten Fabric with RHOSP13 Validated Upgrade Scenarios
 A different procedure is followed for upgrading to earlier target
 Tungsten Fabric releases in environments using RHOSP13
 orchestration. See `Upgrading Tungsten Fabric with Red Hat Openstack
-13 using ISSU <../configuration/contrail-issu.html>`__.
+13 using ISSU <rhosp13-issu>`_.
+
 
 If you want to use this procedure to upgrade your Tungsten Fabric
 release to other releases, you must engage Juniper Networks professional
@@ -144,9 +145,8 @@ Openstack as the orchestration platform:
     environment. In the most commonly-used environments, this variable
     is set in the ``contrail-services.yaml`` file.
 
-    You can obtain the ``ContrailImageTag`` parameter from the `README
-    Access to Contrail Registry
-    20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
+    You can obtain the ``ContrailImageTag`` parameter from the 
+    :ref:`Getting Started with Tungsten Fabric <GettingStarted>`.
 
 6.  (Recommended) If you are upgrading to Tungsten Fabric Release
     2005 or later, check and, if needed, enable kernel vRouter huge page
@@ -260,8 +260,7 @@ Openstack as the orchestration platform:
           version of TF. The default value is latest.
 
           If needed, you can obtain this parameter for a specific image
-          from the `README Access to Contrail Registry
-          20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
+          from the :ref:`Getting Started with Tungsten Fabric Guide <GettingStarted>`
 
           .. note::
 

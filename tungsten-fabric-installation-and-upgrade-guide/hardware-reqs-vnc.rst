@@ -1,3 +1,5 @@
+.. _ServerReqAndPlatform:
+
 Server Requirements and Supported Platforms
 ===========================================
 
@@ -42,9 +44,8 @@ For a list of supported platforms for all Tungsten Fabric releases,
 see `Tungsten Fabric Supported Platforms
 List <https://www.juniper.net/documentation/en_US/release-independent/contrail/topics/reference/contrail-supported-platforms.pdf>`__  .
 
-Access ``Container Tags`` are located at `README Access to Contrail
-Registry
-20XX </documentation/en_US/contrail20/information-products/topic-collections/release-notes/readme-contrail-20.pdf>`__  .
+Access ``Container Tags`` are located at 
+:ref:`Getting Started with Tungsten Fabric Guide <GettingStarted>`
 
 
  
