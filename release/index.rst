@@ -20,6 +20,7 @@ Releases
    :maxdepth: 2
    :titlesonly:
 
+   releases/R22.06/index.rst
    releases/R21.12/index.rst
    releases/R21.05/index.rst
    releases/r5.1/index.rst
