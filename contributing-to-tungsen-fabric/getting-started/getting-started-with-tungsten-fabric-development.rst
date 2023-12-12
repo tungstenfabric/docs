@@ -10,14 +10,14 @@ utilities.
 
 
 1. OS installation and configuration
------------------------------------------
+------------------------------------
 
 Install Centos 7 for a stable installation of Tungsten Fabric.
 
 You can also use Ubuntu 20.04 (In case of problems, check https://github.com/tungstenfabric/tf-devstack)
 
-1.1 Relevant packages for the Tungsten Fabric installation.
------------------------------------------------------------
+1.1 Relevant packages for the Tungsten Fabric installation
+----------------------------------------------------------
 
 ::
 
@@ -67,7 +67,7 @@ If you have any questions, you can see more detailed instructions in this README
 https://github.com/tungstenfabric/tf-devstack/tree/master/ansible
 
 2.1 Create a nonroot user and add it to the wheel group
-------------------------------------------------------
+-------------------------------------------------------
 
 ::
          sudo useradd <username>
@@ -109,7 +109,7 @@ Execute script and wait for installation:
         ./tf-devstack/ansible/run.sh  // 
 
 2.3 Accessing Openstack and Tungsten Fabric GUIs
--------------------------------------------------
+------------------------------------------------
 Openstack and contrail GUIs can be accessed as follows:-
 
 1. Tungsten Fabric GUI: :code:`http://localhost:8143/`
