@@ -81,13 +81,18 @@ Modify user rigths configuration. Open the sudoers file
          sudo visudo
 
 In the opened file, locate the line
+
 ::
          %wheel  ALL=(ALL)       ALL
+
 Change it to 
+
 ::
          %wheel ALL=(ALL)        NOPASSWD: ALL
 
 Switch to the new user and navigate to the home directory
+
+::
          su <username>
          cd
 
