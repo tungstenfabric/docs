@@ -58,6 +58,7 @@ Copy the entire output line(your public ssh id)
 5. Add SSH key
 
 6. Make sure that in GitHub settings in Public profile you have public email(that you will add to global git config)
+   This is required for the correct operation of the Gerrit     
 
 2. Tungsten Fabric + Devstack setup(Ansible Deployer)
 -----------------------------------------------------
