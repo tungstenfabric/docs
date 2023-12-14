@@ -57,6 +57,9 @@ Copy the entire output line(your public ssh id)
 
 5. Add SSH key
 
+6. Make sure that in GitHub settings in Public profile you have public email(that you will add to global git config)
+   This is required for the correct operation of the Gerrit     
+
 2. Tungsten Fabric + Devstack setup(Ansible Deployer)
 -----------------------------------------------------
 
@@ -130,7 +133,7 @@ https://gerrit-review.googlesource.com/Documentation/user-notify.html
 3.1 Setup SSH access
 --------------------
 
-1. Log into your account at https://tf-gerrit.gz1.progmaticlab.com (also via GitHub)
+1. Log into your account at https://tf-gerrit.gz1.progmaticlab.com (via GitHub)
 
 2. Go to top-right corner -> settings
 
@@ -195,8 +198,6 @@ https://gerrit-review.googlesource.com/Documentation/user-notify.html
 
    ::
 
-      git push ssh://username@tf-gerrit.gz1.progmaticlab.com:29418/REPOSITORY_NAME \
-      HEAD:refs/for/<branch>%topic=<few-words-describing-the-change>, \
-      r=reviewername@someone.com, cc=otherreviewer@someone.com
+      git review
 
 NOTE. If any of the steps above have raised questions, you can read the documentation at the link above
