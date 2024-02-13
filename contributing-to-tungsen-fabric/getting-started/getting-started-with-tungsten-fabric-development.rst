@@ -139,7 +139,7 @@ https://gerrit-review.googlesource.com/Documentation/user-notify.html
 3.1 Setup SSH access
 --------------------
 
-1. Log into your account at https://tf-gerrit.gz1.progmaticlab.com (via GitHub)
+1. Log into your account at https://gerrit.opensdn.io (via GitHub)
 
 2. Go to top-right corner -> settings
 
@@ -151,7 +151,7 @@ https://gerrit-review.googlesource.com/Documentation/user-notify.html
 
    ::
 
-      $ ssh -p 29418 sshusername@tf-gerrit.gz1.progmaticlab.com
+      $ ssh -p 29418 sshusername@gerrit.opensdn.io
 
       **** Welcome to Gerrit Code Review ****
 
@@ -162,7 +162,7 @@ https://gerrit-review.googlesource.com/Documentation/user-notify.html
 
    ::
 
-      git clone ssh://sshusername@tf-gerrit.gz1.progmaticlab.com:29418/REPOSITORY_NAME.git   
+      git clone ssh://sshusername@gerrit.opensdn.io:29418/REPOSITORY_NAME.git   
 
       Connection to hostname closed.
 
@@ -182,14 +182,14 @@ https://gerrit-review.googlesource.com/Documentation/user-notify.html
 
       git config –global user.email username@someone.com gitdir=$(git
       rev-parse –git-dir); scp -p -P 29418
-      username@tf-gerrit.gz1.progmaticlab.com:hooks/commit-msg ${gitdir}/hooks/
+      username@gerrit.opensdn.io:hooks/commit-msg ${gitdir}/hooks/
 
 3. Clone the repo where changes need to be committed
 
    ::
 
       git clone
-      ssh://sshusername@tf-gerrit.gz1.progmaticlab.com:29418/REPOSITORY_NAME.git
+      ssh://sshusername@gerrit.opensdn.io:29418/REPOSITORY_NAME.git
 
 4. Commit the changes
 
