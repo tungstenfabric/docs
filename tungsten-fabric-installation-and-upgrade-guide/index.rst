@@ -24,6 +24,12 @@ Supported platforms and server requirements
 Installing Tungsten Fabric with OpenStack
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   tf-ansible-deployer-install
+
 Setting Up Contrail with Red Hat OpenStack 16.1
 ***********************************************
 
@@ -145,7 +151,7 @@ Upgrading Tungsten Fabric
    upgrade-in-place
    ffu-ziu-rhosp16.1-cn
 
-Backup and restore Tungsten Fabric
+Backup and Restore Tungsten Fabric
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::

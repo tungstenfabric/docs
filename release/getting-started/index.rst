@@ -257,18 +257,6 @@ Run Tungsten Fabric
    Happy Hacking!
 
 
-External References
--------------------
-
-Below are reference links related to further details of features and use cases.
-
-* OpenStack: https://www.openstack.org/
-* DPDK: https://www.dpdk.org/
-* Kubernetes: https://kubernetes.io/
-* Red Hat: https://www.redhat.com/
-* Ubuntu: https://www.ubuntu.com/
-* Contrail Feature Guide: https://www.juniper.net/documentation/en_US/contrail5.0/information-products/pathway-pages/contrail-feature-guide-pwp.html
-
 ==============================================
 Getting Started with `tf-devstack`
 ==============================================
